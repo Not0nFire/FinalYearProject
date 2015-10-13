@@ -39,11 +39,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -62,8 +62,8 @@
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetPath)" /Y
-xcopy "$(THOR)\bin\thor-d.dll" "$(TargetPath)" /Y</Command>
+      <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetDir)" /Y
+xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y</Command>
       <Message>Copy dll files to output directory</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -93,7 +93,17 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Actor.h" />
+    <ClInclude Include="include\Collidable.h" />
+    <ClInclude Include="include\Damage.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Hero.h" />
+    <ClInclude Include="include\Minion.h" />
+    <ClInclude Include="include\Pawn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
