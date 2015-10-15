@@ -12,11 +12,9 @@ private:
 	thread mUpdateThread;
 	thread mDrawThread;
 	void updateLoop();
-	void drawLoop();
 
 	atomic<bool> mUpdating, mDrawing;	//bools for loops
 
-	void stopUpdating();
 	void stopDrawing();
 
 	//sf::RenderWindow window;
