@@ -95,6 +95,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y</Command>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
@@ -104,6 +105,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y</Command>
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Pawn.h" />
+    <ClInclude Include="include\Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
