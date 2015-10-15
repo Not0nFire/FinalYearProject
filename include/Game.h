@@ -3,7 +3,7 @@
 
 #include <boost/thread.hpp>
 #include <boost/atomic.hpp>
-#include <SFML/System.hpp>
+#include <boost/accumulators/accumulators.hpp>
 
 using namespace boost;
 

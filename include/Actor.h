@@ -4,9 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <include/Collidable.h>
 
+//We can use this class for anything that animates and has collision: hero. minions, buttons, effects, abilities, etc...
 class Actor : public sf::Sprite, public Collidable {
 protected:
 	bool mVisible;
+	boost::mutex mMutex;	//Not to be confused with the private mutex in Collidable
 public:
 	Actor();
 	Actor(sf::Texture &texture);
@@ -17,7 +19,5 @@ public:
 	void setVisible(bool isVisible = true);
 	bool toggleVisible();
 	bool getVisible() const;
-
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states);
 };
 #endif
