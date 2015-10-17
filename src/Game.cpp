@@ -1,6 +1,7 @@
 #include <include/Game.h>
 
-Game::Game() {
+Game::Game()
+: mRenderer(sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]", sf::Style::Default, sf::ContextSettings()) {
 	
 }
 
@@ -8,22 +9,9 @@ Game::~Game() {
 	
 }
 
-void Game::stopDrawing() {
-	mDrawing = false;
-}
-
-void Game::stopUpdating() {
-	mUpdating = false;
-}
-
-void Game::drawLoop() {
-	
-}
-
-void Game::updateLoop() {
-	boost::accumulators::
-}
-
 int Game::run() {
+
+	mRenderer.startRenderLoop(60U);
 	
+	return EXIT_SUCCESS;
 }

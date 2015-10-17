@@ -2,6 +2,15 @@
 
 Renderer::Renderer(sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
 	: mWindow(mode, title, style, settings) {
+
+
+
+	testT.loadFromFile("../res/img/placeholderActor");
+	testA = new Actor(testT);
+
+	addActor(testA);
+
+
 }
 
 Renderer::~Renderer() {
@@ -36,7 +45,7 @@ void Renderer::startRenderLoop(const unsigned int framesPerSecond) {
 	//Calculate delay (in milliseconds) from frames per second
 	frameDelay = 1000 / framesPerSecond;
 
-	mThread = thread(&render);
+	mThread = thread( bind(Renderer::render, this) );
 }
 
 void Renderer::stopRenderLoop() {
@@ -52,11 +61,13 @@ void Renderer::render() {
 
 		mMutex.lock();	//Block until ownership can be obtained (we don't want another thread modifying our vectors while we iterate through them)
 
+		mWindow.clear();
+
 		cullNullDrawables();
 
 		//iterate through vector and draw each item to the window
-		auto end = mActorsToDraw.end();
-		for (auto itr = mActorsToDraw.begin();
+		actorItr end = mActorsToDraw.end();
+		for (actorItr itr = mActorsToDraw.begin();
 			 itr != end;
 			 ++itr) {
 			
@@ -66,9 +77,12 @@ void Renderer::render() {
 
 		mMutex.unlock();	//Release the mutex; We're finished with the vectors for the moment.
 
+		mWindow.display();
+
 		//We don't want the thread to sleep any longer than it has to,
 		//so we subtract the elapsed time from the desired frame delay to get a more accurate sleep time.
 		elapsedMilliseconds = clock.getElapsedTime().asMilliseconds();
+		std::cout << "Milliseconds since last frame: " << elapsedMilliseconds << std::endl;
 		clock.restart();
 
 		//sleep until we need to render again
@@ -83,20 +97,39 @@ thread& Renderer::getThread() {
 }
 
 bool Renderer::addActor(Actor* a) {
+	bool result = false;
 
 	lock_guard<boost::mutex> lock(mMutex);	//mMutex is unlocked when the lock_guard object goes out of scope (unlocked in destructor)
-	mActorsToDraw.push_back(a);
+
+	actorItr itr = std::find(	//search the vector for the actor pointer "a"
+		mActorsToDraw.begin(),
+		mActorsToDraw.end(),
+		a);
+
+	if (itr == mActorsToDraw.end()) {	
+		mActorsToDraw.push_back(a);
+		result = true;
+	}
+
+	return result;
 }
 
 bool Renderer::removeDrawable(Actor* a) {
+	bool result = false;
 
 	lock_guard<boost::mutex> lock(mMutex);
-	mActorsToDraw.erase(
-		std::find(
-			mActorsToDraw.begin(),
-			mActorsToDraw.end(),
-			a)
-		);
+
+	actorItr itr = std::find(	//search the vector for the actor pointer "a"
+		mActorsToDraw.begin(),
+		mActorsToDraw.end(),
+		a);
+
+	if (itr != mActorsToDraw.end()) {	//if the pointer was found, erase it and report success
+		mActorsToDraw.erase(itr);
+		result = true;
+	}
+
+	return result;
 }
 
 //bool Renderer::addGuiElement(sf::Drawable* e) {

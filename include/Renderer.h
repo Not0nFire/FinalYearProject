@@ -9,6 +9,8 @@ using namespace boost;
 
 class Renderer {
 private:
+	typedef std::vector<Actor*>::iterator actorItr;
+
 	sf::RenderWindow mWindow;
 	//TODO: camera (sf::View?)
 
@@ -26,6 +28,17 @@ private:
 	boost::mutex mMutex;
 
 	void render();
+
+
+
+
+
+	sf::Texture testT;
+	Actor* testA;
+
+
+
+
 
 public:
 	Renderer(sf::VideoMode mode,	//RenderWindow ctor arguments

@@ -2,22 +2,14 @@
 #define _GAME_H
 
 #include <boost/thread.hpp>
-#include <boost/atomic.hpp>
-#include <boost/accumulators/accumulators.hpp>
+#include <include/Renderer.h>
 
 using namespace boost;
 
 class Game {
 private:
-	thread mUpdateThread;
-	thread mDrawThread;
-	void updateLoop();
+	Renderer mRenderer;
 
-	atomic<bool> mUpdating, mDrawing;	//bools for loops
-
-	void stopDrawing();
-
-	//sf::RenderWindow window;
 public:
 	Game();
 	~Game();
