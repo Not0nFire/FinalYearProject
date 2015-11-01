@@ -1,9 +1,10 @@
 #ifndef _PAWN_H
 #define _PAWN_H
 
-#include <include/Actor.h>
 #include <boost/signals2.hpp>
-#include <include/Damage.h>
+#include <include/Actor.hpp>
+#include <include/Damage.hpp>
+#include <Thor/Vectors.hpp>
 
 using namespace boost::signals2;
 
@@ -22,6 +23,7 @@ protected:
 	State mState;
 
 	int mHealth;
+	const int M_MAX_HEALTH;
 	Damage::Reduction mArmour;
 	Damage::Reduction mMagicResist;
 	Damage::Type mDamageType;
@@ -36,27 +38,26 @@ protected:
 
 	sf::Vector2f mDestination;
 
-	sf::Time mDecayTime;
-	bool mDecayed;
+	//sf::Time mDecayTime;
+	//bool mDecayed;
 #pragma endregion
 
 #pragma region Methods
 
-	bool decay(sf::Time const &elapsedTime);
+	//bool decay(sf::Time const &elapsedTime);
 	void turnToFaceDestination();
 
 #pragma endregion
 
 #pragma region Signals
-	signal<void(Pawn&)> onDecayed;
+	//signal<void(Pawn&)> onDecayed;
 	signal<void(Pawn&)> onStateChanged;
 #pragma endregion
 
 public:
 
-	Pawn();
 	Pawn(sf::Texture &texture);
-	Pawn(const char* xml);	//todo: #include tinyXML
+	//Pawn(const char* xml);	//todo: #include tinyXML
 	virtual ~Pawn();
 
 	sf::Vector2f getDestination() const;
@@ -75,8 +76,9 @@ public:
 	State getState() const;
 	void setState(State newState);
 
-	bool hasDecayed() const;
+	//bool hasDecayed() const;
 
+	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv);
 
 };
 #endif

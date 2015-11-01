@@ -1,16 +1,29 @@
-#include <include\Collidable.h>
+#include <include/Collision/Collidable.hpp>
 
-Collidable::Collidable(sf::ConvexShape const &mask)
-: mMask(mask) {
-}
+namespace collision {
 
-Collidable::~Collidable() {
-}
+	Collidable::Collidable(sf::Shape* mask, sf::Vector2f offset)
+		: mMask(mask), mOffset(offset) {
+		(*mMask).setFillColor(sf::Color::Magenta);
+	}
 
-const sf::ConvexShape& Collidable::getMask() const {
-	return mMask;
-}
+	Collidable::~Collidable() {
+	}
 
-void Collidable::setMask(sf::ConvexShape mask) {
-	mMask = mask;
-}
+	void Collidable::updateCollidableMask(sf::Vector2f newPosition) {
+		(*mMask).setPosition(newPosition + mOffset);
+	}
+
+	const sf::Shape* Collidable::getMask() const {
+		return mMask;
+	}
+
+	void Collidable::setMask(sf::Shape* mask, sf::Vector2f offset) {
+		mMask = mask;
+		mOffset = offset;
+	}
+
+	void Collidable::debug_draw(sf::RenderTarget& target) {
+		target.draw(*mMask);
+	}
+}//namespace

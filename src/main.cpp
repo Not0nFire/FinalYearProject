@@ -12,29 +12,11 @@
 #pragma comment(lib, "sfml-window.lib")
 #endif
 
-//#include <include/Game.h>
-#include <boost/bind.hpp>
-#include <boost/thread.hpp>
 
-void testFunc(int i) {
-	std::cout << "test " << i << std::endl;
-}
-
-//class testClass {
-//private:
-//	boost::thread t;
-//public:
-//	testClass() {
-//		t = boost::thread(boost::bind(testClass::memberFunc, this, rand() % 10));
-//	}
-//
-//	void memberFunc(int i) {
-//		testFunc(i);
-//	}
-//};
+#include <include/Game.hpp>
 
 int main() {
-	srand(time(NULL));
-	boost::thread t = boost::thread(boost::bind(testFunc, rand() % 10));
-	std::cin.get();
+	
+	Game game;
+	return game.run();
 }

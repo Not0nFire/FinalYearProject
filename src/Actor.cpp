@@ -1,7 +1,7 @@
-#include <include\Actor.h>
+#include <include\Actor.hpp>
 
 Actor::Actor(sf::Texture &texture)
-: sf::Sprite(texture), Collidable(sf::ConvexShape()),  mVisible(true) {
+	: sf::Sprite(texture), Collidable(new sf::CircleShape(20, 8), sf::Vector2f(0.0f, texture.getSize().y * 0.6f)), mVisible(true) {
 }
 
 //Actor::Actor(const char* xml) {

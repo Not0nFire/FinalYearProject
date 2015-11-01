@@ -51,6 +51,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,9 +65,10 @@
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetDir)" /Y
-xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y</Command>
-      <Message>Copy dll files to output directory</Message>
+      <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y /D</Command>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,6 +78,9 @@ xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -87,23 +94,53 @@ xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y</Command>
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y
-xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y</Command>
-      <Message>Copy dll files to output directory</Message>
+      <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D
+xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Actor.cpp" />
+    <ClCompile Include="src\collision\Collidable.cpp" />
+    <ClCompile Include="src\collision\CollisionGroup.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Hero.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Minion.cpp" />
+    <ClCompile Include="src\Pawn.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
+    <ClInclude Include="include\Actor.hpp" />
     <ClInclude Include="include\Collidable.h" />
+    <ClInclude Include="include\Collision\Collidable.hpp" />
+    <ClInclude Include="include\Collision\CollisionGroup.hpp" />
     <ClInclude Include="include\Damage.h" />
+    <ClInclude Include="include\Damage.hpp" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Hero.h" />
+    <ClInclude Include="include\Hero.hpp" />
+    <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\Minion.h" />
+    <ClInclude Include="include\Minion.hpp" />
     <ClInclude Include="include\Pawn.h" />
+    <ClInclude Include="include\Pawn.hpp" />
     <ClInclude Include="include\Renderer.h" />
+    <ClInclude Include="include\Renderer.hpp" />
+    <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\ResourceManager.hpp" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\Scene.hpp" />
+    <ClInclude Include="include\SceneManager.h" />
+    <ClInclude Include="include\SceneManager.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\img\placeholderActor.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
