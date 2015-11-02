@@ -10,7 +10,7 @@ SceneManager* SceneManager::instance() {
 	return mInstance;
 }
 
-const std::string SceneManager::getCurrentScene() const {
+std::string SceneManager::getCurrentScene() const {
 	return mCurrentScene;
 }
 
@@ -42,4 +42,12 @@ bool SceneManager::navigateToScene(std::string const &path ) {
 	}
 
 	return success;
+}
+
+void SceneManager::createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene) {
+
+	mScenes[name] = derivedSceneObject;
+	if (goToScene) {
+		mCurrentScene = name;
+	}
 }

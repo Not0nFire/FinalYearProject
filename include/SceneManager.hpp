@@ -21,13 +21,12 @@ public:
 	static SceneManager* instance();
 
 	// Gets the name of the current scene.
-	const std::string getCurrentScene() const;
+	std::string getCurrentScene() const;
 
 	//get a pointer the the current scene (which allows it to be edited)
 	I_Scene * getEditableScene() const;
 
-	template<typename T>
-	void createScene(std::string const &name, T* derivedSceneObject, bool goToScene = true);
+	void createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene = true);
 
 	// Calls the current scene's update method
 	void updateCurrentScene( sf::Time const &elapsedTime);
@@ -40,13 +39,4 @@ public:
 
 	bool navigateToScene( std::string const &path );
 };
-
-template<typename T>
-void SceneManager::createScene(std::string const &name, T* derivedSceneObject, bool goToScene) {
-
-	mScenes[name] = derivedSceneObject;
-	if (goToScene) {
-		mCurrentScene = name;
-	}
-}
 #endif
