@@ -31,6 +31,10 @@ namespace collision {
 		mMask->setFillColor(sf::Color::Red);
 	}
 
+	void Collidable::setDebugColour(sf::Color const &c) {
+		mMask->setFillColor(c);
+	}
+
 	void Collidable::debug_draw(sf::RenderTarget& target) {
 		target.draw(*mMask);
 	}

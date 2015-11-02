@@ -31,6 +31,7 @@ namespace collision {
 		virtual void onCollision(Collidable* other);
 		virtual void onCollision(Collidable* other, sf::Vector2f mtv);*/
 
+		void setDebugColour(sf::Color const &c);
 		void debug_draw(sf::RenderTarget& target);
 
 		void getAxies(std::vector<sf::Vector2f> &axiesVector);

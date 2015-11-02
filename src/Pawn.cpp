@@ -37,26 +37,36 @@ void Pawn::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
-	if (thor::length(distanceToGoal) > 0) {
-		move(
-			thor::unitVector(distanceToGoal) * static_cast<float>(mMovementSpeed) * elapsedTime.asSeconds()
-			);
-	}
-
-	updateCollidableMask(getPosition());
 
 	switch (mState) {
 	case IDLE:
-		//animate(elapsedTime);
+		setDebugColour(sf::Color::Black);
+		break;
 	case MARCHING:
+		//move towards destination
+		move(
+			thor::unitVector(distanceToGoal) * static_cast<float>(mMovementSpeed) * elapsedTime.asSeconds()
+			);
+		setDebugColour(sf::Color::Cyan);
+		break;
 	case ATTACKING:
+		setDebugColour(sf::Color::Green);
+		break;
 	case STUNNED:
+		setDebugColour(sf::Color::Red);
+		break;
 	case DYING:
+		setDebugColour(sf::Color::Blue);
+		break;
 	case DEAD:
-		//decay(elapsedTime);
+		setDebugColour(sf::Color::White);
+		break;
 	default:
+		setDebugColour(sf::Color::Magenta);
 		break;
 	}
+
+	updateCollidableMask(getPosition());
 }
 
 void Pawn::kill() {

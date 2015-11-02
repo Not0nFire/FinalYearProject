@@ -10,6 +10,6 @@ public:
 	Hero(sf::Texture& texture);
 	~Hero();
 
-	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv);
+	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv) override;
 };
 #endif

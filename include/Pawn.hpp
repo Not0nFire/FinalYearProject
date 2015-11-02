@@ -51,6 +51,7 @@ protected:
 
 #pragma region Signals
 	//signal<void(Pawn&)> onDecayed;
+
 	signal<void(Pawn&)> onStateChanged;
 #pragma endregion
 
@@ -78,7 +79,7 @@ public:
 
 	//bool hasDecayed() const;
 
-	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv);
+	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv) override;
 
 };
 #endif
