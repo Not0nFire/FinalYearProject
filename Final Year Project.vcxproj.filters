@@ -39,13 +39,13 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Minion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\collision\CollisionGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\collision\Collidable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Damage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Hero.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Minion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Pawn.hpp">

@@ -3,6 +3,8 @@
 
 #include <include/Pawn.hpp>
 
+//Now eclipsed by Pawn class
+
 class Minion : public Pawn {
 public:
 	enum Faction {

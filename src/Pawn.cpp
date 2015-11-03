@@ -1,7 +1,24 @@
 #include <include\Pawn.hpp>
 #include <boost/thread/lock_guard.hpp>
 
-Pawn::Pawn(sf::Texture &texture) : Actor(texture), M_MAX_HEALTH(100) {
+Pawn::Pawn(sf::Texture &texture, Faction faction) :
+Actor(texture),
+mFaction(faction),
+mState(State::IDLE),
+M_MAX_HEALTH(100),
+mArmour(Damage::Reduction::NONE),
+mMagicResist(Damage::Reduction::NONE),
+mDamageType(Damage::Type::PHYSICAL),
+mAttackRange(50),
+mMovementSpeed(50),
+mAttackDamage(10),
+mAttacksPerSecond(1.0f),
+mTimeSinceAttack(FLT_MAX),
+mStunDuration(),
+mDestination(),
+mCombatTarget(nullptr)
+{
+	mHealth = M_MAX_HEALTH;
 }
 //Pawn::Pawn(const char* xml) {
 //
@@ -38,6 +55,23 @@ void Pawn::update(sf::Time const &elapsedTime) {
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 
+	//don't bother updating state if dead
+	if (mState != State::DEAD) {
+		//proceed toward goal
+		if (thor::length(distanceToGoal) > mAttackRange) {
+			mState = State::MARCHING;
+			mCombatTarget = nullptr;
+		}
+		//attack if in range
+		else if (mCombatTarget != nullptr) {
+			if (thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange) {
+				mState = State::ATTACKING;
+			}
+		} else {
+			mState = State::IDLE;
+		}
+	}
+
 	switch (mState) {
 	case IDLE:
 		setDebugColour(sf::Color::Black);
@@ -45,18 +79,32 @@ void Pawn::update(sf::Time const &elapsedTime) {
 	case MARCHING:
 		//move towards destination
 		move(
-			thor::unitVector(distanceToGoal) * static_cast<float>(mMovementSpeed) * elapsedTime.asSeconds()
+			thor::unitVector(distanceToGoal) * static_cast<float>(mMovementSpeed)* elapsedTime.asSeconds()
 			);
 		setDebugColour(sf::Color::Cyan);
 		break;
 	case ATTACKING:
-		setDebugColour(sf::Color::Green);
+		//Check if we have a target
+		if (mCombatTarget) {
+			mTimeSinceAttack += elapsedTime.asSeconds();
+
+			//Check if it's time to attack.
+			if (mTimeSinceAttack >= 1/mAttacksPerSecond) {
+				//Deal damage to our target
+				mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
+				mTimeSinceAttack = 0.0f;
+				setDebugColour(sf::Color::Yellow);
+			}
+			else if (mTimeSinceAttack >= 1/mAttacksPerSecond / 2.0f){
+				setDebugColour(sf::Color::Green);
+			}
+		}
+		else {
+			std::cout << "State is ATTACKING, but no combat target!" << std::endl;
+		}
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
-		break;
-	case DYING:
-		setDebugColour(sf::Color::Blue);
 		break;
 	case DEAD:
 		setDebugColour(sf::Color::White);
@@ -71,7 +119,7 @@ void Pawn::update(sf::Time const &elapsedTime) {
 
 void Pawn::kill() {
 	mHealth = 0;
-	mState = State::DYING;
+	mState = State::DEAD;
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type) {
@@ -88,8 +136,28 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 	//apply damage
 	mHealth -= amount;
 
+	std::cout << this << "\tDMG: " << amount << " \t HP: " << mHealth << std::endl;
+
+	bool isDead = mHealth <= 0;
+
+	if (isDead) {
+		mState = State::DEAD;
+	}
+
 	//return true if damage killed us
-	return mHealth <= 0;
+	return isDead;
+}
+
+bool Pawn::takeDamage(int amount, Damage::Type type, Pawn* sender) {
+	if (mCombatTarget == nullptr) {
+		mCombatTarget = sender;
+	} else if (thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
+		mCombatTarget = sender;
+	}
+
+	std::cout << "\nSNDR: " << sender << std::endl;
+
+	return takeDamage(amount, type);
 }
 
 void Pawn::heal(int healAmount) {
@@ -108,13 +176,49 @@ void Pawn::stun(sf::Time duration) {
 	mState = State::STUNNED;
 }
 
+void Pawn::beTaunted(Pawn* taunter) {
+	mCombatTarget = taunter;
+}
+
+bool Pawn::offerTarget(Pawn* target) {
+	bool acceptedTarget = true;
+	if (target->isDead()) {
+		acceptedTarget = false;
+	}
+	else if (target == this) {
+		//std::cout << "Offered self as target..." << std::endl;
+		acceptedTarget = false;
+	}
+	else if (mCombatTarget == nullptr) {
+		beTaunted(target);
+	}
+	else if (mCombatTarget->isDead()) {
+		beTaunted(target);
+	}
+
+	return acceptedTarget;
+}
+
+bool Pawn::targetIsDead() const {
+	bool isDead = true;
+
+	//nullptr is good as dead
+	if (mCombatTarget) {	//	!= nullptr
+		isDead = mCombatTarget->isDead();
+	}
+	return isDead;
+}
+
 Pawn::State Pawn::getState() const {
 	return mState;
 }
-void Pawn::setState(State newState) {
-	mState = newState;
-	onStateChanged(*this);
 
+bool Pawn::isDead() const {
+	return mState == State::DEAD;
+}
+
+Pawn::Faction Pawn::getFaction() const {
+	return mFaction;
 }
 
 void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {

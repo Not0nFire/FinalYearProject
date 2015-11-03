@@ -13,12 +13,13 @@ Level::Level() {
 	mPawns.push_back(mHero);
 
 	for (int i = 1; i < 10; i++) {
-		mPawns.push_back(new Minion(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Minion::Faction::ENEMY));
-		mPawns[i]->setPosition(powf(i*2,2), powf(i*2,2));
+		mPawns.push_back(new Pawn(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY));
+		mPawns[i]->setPosition(powf(i*2.0f,2.0f), powf(i*2.0f,2.0f));
 	}
 
 	for (Pawn* p : mPawns)
 	{
+		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
 	}
 }
@@ -40,8 +41,16 @@ void Level::update(sf::Time const &elapsedTime) {
 		p->update(elapsedTime);
 		if (p != mHero) {
 			p->setDestination(mHero->getPosition());
-		}
-	}
+		}//if
+
+		if (p->targetIsDead()) {
+			for (Pawn* other : mPawns) {
+				if (p->offerTarget(other)) {
+					break;
+				}//if
+			}//for
+		}//if
+	}//for
 	mCollisionGroup.check();
 }//end update
 
