@@ -1,12 +1,13 @@
 #include <include/Level.hpp>
 #include <include/Hero.hpp>
 #include <include/ResourceManager.hpp>
-#include <include/Minion.hpp>
 
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
-Level::Level() {
+Level::Level() :
+mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) )
+{
 	mPawns.reserve(100);
 
 	mHero = new Hero(GET_TEXTURE("./res/img/placeholderActor.png"));
@@ -38,7 +39,9 @@ bool Level::handleEvent(sf::Event &event ) {
 void Level::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
 	for (Pawn* p : mPawns) {
+
 		p->update(elapsedTime);
+
 		if (p != mHero) {
 			p->setDestination(mHero->getPosition());
 		}//if
@@ -52,6 +55,9 @@ void Level::update(sf::Time const &elapsedTime) {
 		}//if
 	}//for
 	mCollisionGroup.check();
+
+	mTower.update(elapsedTime);
+	mTower.acquireTarget(mPawns);
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -61,6 +67,8 @@ void Level::draw(sf::RenderWindow &w) {
 		p->debug_draw(w);
 		w.draw(*p);
 	}
+
+	mTower.draw(w);
 }
 
 Hero* Level::getHero() const {

@@ -1,7 +1,8 @@
 #include <include\Actor.hpp>
 
 Actor::Actor(sf::Texture &texture)
-	: sf::Sprite(texture), Collidable(new sf::CircleShape(20, 8), sf::Vector2f(0.0f, texture.getSize().y * 0.6f)), mVisible(true) {
+	: sf::Sprite(texture), Collidable(new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 10.0f)), mVisible(true) {
+	setOrigin(texture.getSize().x * 0.5f, texture.getSize().y * 0.5f);
 }
 
 //Actor::Actor(const char* xml) {

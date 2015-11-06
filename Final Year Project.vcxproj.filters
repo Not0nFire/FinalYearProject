@@ -48,6 +48,12 @@
     <ClCompile Include="src\Damage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicTower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h">
@@ -119,9 +125,18 @@
     <ClInclude Include="include\Collision\Collidable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Towers\BasicTower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\img\placeholderActorBlue.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

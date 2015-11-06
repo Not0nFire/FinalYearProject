@@ -7,6 +7,7 @@
 #include <include/Pawn.hpp>
 #include <include/Hero.hpp>
 #include <include/Collision/CollisionGroup.hpp>
+#include <include/Towers/BasicTower.h>
 
 class Level : public I_Scene{
 private:
@@ -14,6 +15,8 @@ private:
 	Hero* mHero;
 	std::vector<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
+
+	tower::BasicTower mTower;
 
 	boost::mutex mMutex;
 	
