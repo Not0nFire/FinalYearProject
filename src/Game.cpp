@@ -1,12 +1,32 @@
 #include <include/Game.hpp>
 
-Game::Game()
-	: mLevel(),
-	mRenderer(&mLevel, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
+#define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
+
+Game::Game() :
+	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mRun(false),
 	mPaused(false)
 {
-	onMouseClick.connect(boost::bind(&Pawn::setDestination, mLevel.getHero(), _1));
+	mLevel = new Level();
+	SceneManager::instance()->createScene("Level", mLevel);
+	onMouseClick.connect(boost::bind(&Pawn::setDestination, mLevel->getHero(), _1));
+
+	mMenu = new Menu("Start", GET_FONT("./res/fonts/KENVECTOR_FUTURE.ttf"), &MenuFunctions::changeScene, sf::Vector2f(100.f, 100.f));
+	mMenu->addItem("Quit", &MenuFunctions::exitProgram);
+
+	SceneManager::instance()->createScene("Menu", mMenu);
+	mRenderer.setScene(mMenu);
+
+	//It's dirty but the deadline is hours away. To be cleaned in sprint 2.
+	SceneManager::instance()->onSceneChange.connect([this](std::string str)
+	{
+		if (str == "Level") {
+			mRenderer.setScene(mLevel);
+		}
+		else if (str == "Menu") {
+			mRenderer.setScene(mMenu);
+		}
+	});
 }
 
 Game::~Game() {
@@ -38,7 +58,7 @@ int Game::run() {
 		}
 
 		//Update stuff here...
-		mLevel.update(elapsedTime);
+		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
 	}//while mRun
 
@@ -61,7 +81,14 @@ void Game::handleEvent(sf::Event& event) {
 			mPaused = false;
 			break;
 		case sf::Event::TextEntered: break;
-		case sf::Event::KeyPressed: break;
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Escape) {
+				SceneManager::instance()->navigateToScene("Menu");
+			}
+			else {
+				SceneManager::instance()->passEventToCurrentScene(event);
+			}
+			break;
 		case sf::Event::KeyReleased: break;
 		case sf::Event::MouseWheelMoved: break;
 		case sf::Event::MouseWheelScrolled: break;

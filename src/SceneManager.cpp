@@ -2,8 +2,18 @@
 
 SceneManager* SceneManager::mInstance = nullptr;
 
+SceneManager::SceneManager() {
+	
+}
+
+SceneManager::~SceneManager() {
+	for (std::pair<std::string, I_Scene*> sceneEntry : mScenes) {
+		delete sceneEntry.second;
+	}
+}
+
 SceneManager* SceneManager::instance() {
-	if (mInstance == NULL) {
+	if (mInstance == nullptr) {
 		mInstance = new SceneManager();
 	}
 
@@ -39,6 +49,7 @@ bool SceneManager::navigateToScene(std::string const &path ) {
 	if ( mScenes.find(path) != mScenes.end() ) {
 		mCurrentScene = path;
 		success = true;
+		onSceneChange(mCurrentScene);
 	}
 
 	return success;

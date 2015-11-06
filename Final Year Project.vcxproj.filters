@@ -54,6 +54,9 @@
     <ClCompile Include="src\BasicTower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h">
@@ -131,12 +134,24 @@
     <ClInclude Include="include\Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MenuFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\img\placeholderActorBlue.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\img\projectile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\img\tower.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -19,6 +19,8 @@ private:
 	tower::BasicTower mTower;
 
 	boost::mutex mMutex;
+
+	sf::Sprite backgroundTEMP;
 	
 public:
 	Level();

@@ -2,8 +2,9 @@
 #define _MENU_H
 
 
-#include "SFML\Graphics.hpp"
-#include "SceneManager.h"
+#include <SFML/Graphics.hpp>
+#include <include/SceneManager.hpp>
+#include <include/MenuFunctions.h>
 #include <vector>
 
 using namespace sf;

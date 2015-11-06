@@ -6,8 +6,10 @@
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
 Level::Level() :
-mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) )
+mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
+backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
 {
+
 	mPawns.reserve(100);
 
 	mHero = new Hero(GET_TEXTURE("./res/img/placeholderActor.png"));
@@ -62,6 +64,9 @@ void Level::update(sf::Time const &elapsedTime) {
 
 void Level::draw(sf::RenderWindow &w) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+
+	w.draw(backgroundTEMP);
+
 	//mHero->debug_draw(w);
 	for (Pawn* p : mPawns) {
 		p->debug_draw(w);

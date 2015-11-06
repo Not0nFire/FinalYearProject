@@ -1,8 +1,11 @@
 #ifndef _GAME_H
 #define _GAME_H
 
+#include <include/ResourceManager.hpp>
 #include <include/Renderer.hpp>
 #include <include/Level.hpp>
+#include <include/Menu.hpp>
+#include <include/SceneManager.hpp>
 
 using namespace boost;
 using namespace signals2;
@@ -16,7 +19,8 @@ private:
 
 	void handleEvent(sf::Event &event);
 
-	Level mLevel;
+	Level* mLevel;
+	Menu* mMenu;
 
 public:
 	Game();

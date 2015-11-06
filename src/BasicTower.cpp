@@ -34,7 +34,7 @@ bool BasicTower::acquireTarget(std::vector<Pawn*> const& possibleTargets) {
 	bool targetAqcuired = false;
 	if (!mProjectile.isActive()) {
 		for (Pawn* p : possibleTargets) {
-			if (thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
+			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 				mProjectile.fire(getPosition(), p->getPosition(), 2);
 				targetAqcuired = true;
 				break;

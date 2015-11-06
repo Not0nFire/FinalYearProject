@@ -110,6 +110,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -128,6 +129,8 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
     <ClInclude Include="include\Level.hpp" />
+    <ClInclude Include="include\Menu.hpp" />
+    <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
@@ -145,6 +148,8 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />
     <Image Include="res\img\placeholderActorBlue.png" />
+    <Image Include="res\img\projectile.png" />
+    <Image Include="res\img\tower.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

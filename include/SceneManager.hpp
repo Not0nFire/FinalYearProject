@@ -1,8 +1,10 @@
 #ifndef _SCENE_MANAGER_H
 #define _SCENE_MANAGER_H
 
-#include <map>
 #include <include/Scene.hpp>
+#include <boost/signals2.hpp>
+#include <map>
+using namespace boost::signals2;
 
 //singleton class to handle scenes and the navigation between them
 class SceneManager {
@@ -13,10 +15,10 @@ private:
 
 	static SceneManager *mInstance;
 
-	SceneManager() {}
+	SceneManager();
 
 public:
-	~SceneManager() {}
+	~SceneManager();
 
 	static SceneManager* instance();
 
@@ -38,5 +40,7 @@ public:
 	bool passEventToCurrentScene( sf::Event &theEvent );
 
 	bool navigateToScene( std::string const &path );
+
+	signal<void(std::string)> onSceneChange;
 };
 #endif
