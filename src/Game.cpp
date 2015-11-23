@@ -5,7 +5,8 @@
 Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mRun(false),
-	mPaused(false)
+	mPaused(false),
+	mDesktop()
 {
 	mLevel = new Level();
 	SceneManager::instance()->createScene("Level", mLevel);
@@ -27,6 +28,12 @@ Game::Game() :
 			mRenderer.setScene(mMenu);
 		}
 	});
+
+	//test sfgui
+	mButton = sfg::Button::Create("sfgui test");
+	mButton->SetPosition(sf::Vector2f(100, 100));
+	mButton->GetSignal(sfg::Widget::OnLeftClick).Connect([](){std::cout << "btn_press" << std::endl; });
+	mDesktop.Add(mButton);
 }
 
 Game::~Game() {
@@ -57,6 +64,8 @@ int Game::run() {
 			continue;
 		}
 
+		mDesktop.Update(elapsedTime.asSeconds());	//update the sfgui desktop (and any widgets contained therein)
+
 		//Update stuff here...
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
@@ -68,6 +77,9 @@ int Game::run() {
 }
 
 void Game::handleEvent(sf::Event& event) {
+
+	mDesktop.HandleEvent(event);	//allow sfgui to handle events
+
 	switch (event.type) {
 
 		case sf::Event::Closed:

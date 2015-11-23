@@ -37,6 +37,7 @@ void Renderer::render() {
 		mWindow.clear();
 
 		mSceneToRender->draw(mWindow);
+		mSFGUI.Display(mWindow);
 
 		mMutex.unlock();	//Release the mutex
 

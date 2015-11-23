@@ -5,6 +5,7 @@
 #include <boost/atomic.hpp>
 #include <boost/thread.hpp>
 #include "Scene.hpp"
+#include <SFGUI/SFGUI.hpp>
 
 using namespace boost;
 
@@ -20,6 +21,8 @@ private:
 	thread mThread;	//Thread that rendering takes place on.
 
 	boost::mutex mMutex;
+
+	sfg::SFGUI mSFGUI;	//There should only be one SFGUI in the program and it should not be global.
 
 	void render();
 
