@@ -41,6 +41,6 @@ public:
 
 	bool navigateToScene( std::string const &path );
 
-	signal<void(std::string)> onSceneChange;
+	signal<void(I_Scene* newScene)> onSceneChange;
 };
 #endif

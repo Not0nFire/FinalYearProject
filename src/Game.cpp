@@ -16,16 +16,8 @@ Game::Game() :
 	SceneManager::instance()->createScene("Menu", mMenu);
 	mRenderer.setScene(mMenu);
 
-	//It's dirty but the deadline is hours away. To be cleaned in sprint 2.
-	SceneManager::instance()->onSceneChange.connect([this](std::string str)
-	{
-		if (str == "Level") {
-			mRenderer.setScene(mLevel);
-		}
-		else if (str == "Menu") {
-			mRenderer.setScene(mMenu);
-		}
-	});
+	//Tell the renderer to draw the correct scene whenever the scene changes
+	SceneManager::instance()->onSceneChange.connect( bind(&Renderer::setScene, &mRenderer, _1) );
 }
 
 Game::~Game() {
