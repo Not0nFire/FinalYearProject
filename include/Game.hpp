@@ -13,7 +13,6 @@ using namespace signals2;
 class Game {
 private:
 	Renderer mRenderer;
-	signal<void(sf::Vector2f)> onMouseClick;
 
 	bool mRun, mPaused;
 

@@ -15,6 +15,7 @@ private:
 	Hero* mHero;
 	std::vector<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
+	sf::RenderWindow const* relWindow;	//for getting mouse position
 
 	tower::BasicTower mTower;
 
@@ -23,7 +24,7 @@ private:
 	sf::Sprite backgroundTEMP;
 	
 public:
-	Level();
+	Level(sf::RenderWindow const* _relWindow);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
