@@ -32,7 +32,5 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
-
-	Hero*  getHero() const;
 };
 #endif

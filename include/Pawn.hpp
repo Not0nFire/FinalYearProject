@@ -9,9 +9,14 @@
 using namespace boost::signals2;
 
 class Pawn : public Actor {
+public:
+	enum Faction {
+		PLAYER,
+		ENEMY,
+		NEUTRAL
+	};
 protected:
 #pragma region Fields
-	enum Faction;
 	Faction mFaction;
 
 	enum State {
@@ -60,12 +65,6 @@ protected:
 #pragma endregion
 
 public:
-	enum Faction {
-		PLAYER,
-		ENEMY,
-		NEUTRAL
-	};
-
 	Pawn(sf::Texture &texture, Faction faction);
 	//Pawn(const char* xml);	//todo: #include tinyXML
 	virtual ~Pawn();

@@ -81,10 +81,6 @@ void Level::draw(sf::RenderWindow &w) {
 	mTower.draw(w);
 }
 
-Hero* Level::getHero() const {
-	return mHero;
-}
-
 //bool Level::loadFromXML(const char *path) {
 //	tinyxml2::XMLDocument doc;	//empty xml document
 //
