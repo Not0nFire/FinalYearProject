@@ -4,6 +4,7 @@
 #include <include/Actor.hpp>
 #include <boost/atomic.hpp>
 #include <boost/thread.hpp>
+#include <chrono>
 #include "Scene.hpp"
 
 using namespace boost;
@@ -13,7 +14,7 @@ private:
 	sf::RenderWindow mWindow;
 
 	atomic<bool> mLoopOngoing;	//True if want to keep rendering, false if we want rendering to stop.
-	unsigned int frameDelay;	//Delay between frames in milliseconds
+	std::chrono::milliseconds frameDelay;
 
 	I_Scene* mSceneToRender;
 
