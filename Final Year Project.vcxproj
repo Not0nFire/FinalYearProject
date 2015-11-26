@@ -135,6 +135,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
     <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\Quadtree.hpp" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\Renderer.hpp" />
     <ClInclude Include="include\ResourceManager.h" />
