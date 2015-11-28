@@ -5,15 +5,16 @@
 Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mRun(false),
-	mPaused(false),
-	mDesktop()
+	mPaused(false)
 {
 	mLevel = new Level();
 	SceneManager::instance()->createScene("Level", mLevel);
 	onMouseClick.connect(boost::bind(&Pawn::setDestination, mLevel->getHero(), _1));
 
-	mMenu = new Menu("Start", GET_FONT("./res/fonts/KENVECTOR_FUTURE.ttf"), &MenuFunctions::changeScene, sf::Vector2f(100.f, 100.f));
-	mMenu->addItem("Quit", &MenuFunctions::exitProgram);
+	mMenu = new Menu();
+	mMenu->addLabel("Main Menu");
+	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
+	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
 	SceneManager::instance()->createScene("Menu", mMenu);
 	mRenderer.setScene(mMenu);
@@ -28,12 +29,6 @@ Game::Game() :
 			mRenderer.setScene(mMenu);
 		}
 	});
-
-	//test sfgui
-	mButton = sfg::Button::Create("sfgui test");
-	mButton->SetPosition(sf::Vector2f(100, 100));
-	mButton->GetSignal(sfg::Widget::OnLeftClick).Connect([](){std::cout << "btn_press" << std::endl; });
-	mDesktop.Add(mButton);
 }
 
 Game::~Game() {
@@ -64,8 +59,6 @@ int Game::run() {
 			continue;
 		}
 
-		mDesktop.Update(elapsedTime.asSeconds());	//update the sfgui desktop (and any widgets contained therein)
-
 		//Update stuff here...
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
@@ -77,8 +70,6 @@ int Game::run() {
 }
 
 void Game::handleEvent(sf::Event& event) {
-
-	mDesktop.HandleEvent(event);	//allow sfgui to handle events
 
 	switch (event.type) {
 

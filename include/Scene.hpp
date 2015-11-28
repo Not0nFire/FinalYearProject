@@ -9,7 +9,7 @@ public:
 	//returns true if the event has been processed and no further handling is needed
 	virtual bool handleEvent( sf::Event &Event ) = 0;
 
-	virtual void update( sf::Time const &elapsedTime ) = 0;
+	virtual void update(sf::Time const &elapsedTime) = 0;
 
 	virtual void draw( sf::RenderWindow &w ) = 0;
 
