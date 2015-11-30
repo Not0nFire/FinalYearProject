@@ -15,35 +15,38 @@
 
 #include <include/Game.hpp>
 #include <include/Quadtree.hpp>
+#include <include/TerrainInterpreter.h>
 
-unsigned char GRASS = 0x01;
-unsigned char PATH = 0x02;
-unsigned int maxLevel = 9;
+unsigned int count;
 
 bool myPredicate(Quadtree* node) {
 	bool subdivide = false;
 
-	if (node->getLevel() > 2) {
-		node->setData(PATH);
-	}
+	TerrainInterpreter tI = TerrainInterpreter("./res/img/terrain.bmp");
+	sf::IntRect nB = node->getBounds();
 
-	unsigned char nodeData = node->getData();
-	if ((nodeData & GRASS) && (nodeData & PATH) && node->getLevel() < maxLevel) {
+	node->setData(tI.interpretArea(nB.left, nB.top, nB.width, nB.height));
+
+	if ((node->getData() & TerrainInterpreter::GRASS) && (node->getData() & TerrainInterpreter::PATH)) {
 		subdivide = true;
+		count++;
+		std::cout << count << std::endl;
 	}
 
 	return subdivide;
 }
 
 int main() {
-
+	count = 0;
 	Quadtree myTree(0.f, 0.f, 1000.f, 1000.f);
-	myTree.setData(GRASS | PATH);
+
 	std::function<bool(Quadtree*)> f = &myPredicate;
 	myTree.subdivide(f);
+
 	std::stringstream ss = std::stringstream();
 	myTree.appendToStringStream(ss);
 	std::cout << ss.str() << std::endl;
+
 	std::cin.get();
 	
 	Game game;

@@ -10,20 +10,23 @@ using std::vector;
 
 class Quadtree {
 private:
-	sf::FloatRect mBounds;
-	unsigned char mData;
+	sf::IntRect mBounds;
+	unsigned char mData;	//bitfield
 	unsigned int mLevel;
 
 	Quadtree *mParent;
 	Quadtree *NW, *NE, *SW, *SE;	//child nodes
+	bool mIsLeaf;
 
 public:
-	Quadtree(float x, float y, float width, float height, Quadtree* parent = nullptr);
+	Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent = nullptr);
 
 	~Quadtree();
 
+	sf::IntRect getBounds() const;
 	unsigned char getData() const;
 	unsigned int getLevel() const;
+	bool isLeaf() const;
 
 	void setData(unsigned char newData);
 
@@ -32,10 +35,11 @@ public:
 	void appendToStringStream(std::stringstream &ss);
 };
 
-inline Quadtree::Quadtree(float x, float y, float width, float height, Quadtree* parent) :
+inline Quadtree::Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent) :
 mBounds(x, y, width, height),
 mData(),
-mParent( parent )
+mParent( parent ),
+mIsLeaf(true)
 {
 	NW = NE = SW = SE = nullptr;
 
@@ -54,12 +58,20 @@ inline Quadtree::~Quadtree() {
 	if (SE) delete SE;
 }
 
+inline sf::IntRect Quadtree::getBounds() const {
+	return mBounds;
+}
+
 inline unsigned char Quadtree::getData() const {
 	return mData;
 }
 
 inline unsigned Quadtree::getLevel() const {
 	return mLevel;
+}
+
+inline bool Quadtree::isLeaf() const {
+	return mIsLeaf;
 }
 
 inline void Quadtree::setData(unsigned char newData) {
@@ -72,11 +84,13 @@ inline void Quadtree::setData(unsigned char newData) {
 //		return true;
 //	}
 inline void Quadtree::subdivide(std::function<bool(Quadtree* node)> &predicate) {
-	_ASSERT(NW == nullptr && NE == nullptr && SW == nullptr && SE == nullptr);	//children should be null
+	_ASSERT(mIsLeaf);
 
 	if (predicate(this)) {
 		float halfWidth = mBounds.width / 2.f;
 		float halfHeight = mBounds.height / 2.f;
+
+		mIsLeaf = false;
 
 		//Create child nodes (setting parent to be this)
 		NW = new Quadtree(mBounds.left, mBounds.top, halfWidth, halfHeight, this);

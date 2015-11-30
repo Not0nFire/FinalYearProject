@@ -144,6 +144,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
+    <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
   </ItemGroup>
   <ItemGroup>
