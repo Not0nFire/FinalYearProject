@@ -6,9 +6,15 @@
 #include <map>
 using namespace boost::signals2;
 
-//singleton class to handle scenes and the navigation between them
+/*!
+Singleton class to handle scenes and the navigation between them.
+*/
 class SceneManager {
 private:
+	/*!
+	A map of all scenes managed by the SceneManager.
+	Each scene is identified by its name.
+	*/
 	std::map<std::string, I_Scene*> mScenes;
 
 	std::string mCurrentScene;
@@ -22,25 +28,55 @@ public:
 
 	static SceneManager* instance();
 
-	// Gets the name of the current scene.
+	/*!
+	Gets the name of the current scene (its key in the map of scenes)
+	\returns The name of the current scene.
+	*/
 	std::string getCurrentScene() const;
 
-	//get a pointer the the current scene (which allows it to be edited)
+	/*!
+	Gets a pointer to the current scene, allowing it to be edited.
+	Use getCurrentScene() in place of this method wherever possible.
+	\returns A pointer to the current scene.
+	*/
 	I_Scene * getEditableScene() const;
 
+	/*!
+	Adds a scene to the map under the specified name.
+	\param name The name of the scene (its key in the map)
+	\param derivedSceneObject The scene to be added.
+	\param goToScene True if the new scene should become the current scene (i.e. navigated to immediately)
+	*/
 	void createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene = true);
 
-	// Calls the current scene's update method
+	/*!
+	Calls the current scene's update method.
+	*/
 	void updateCurrentScene( sf::Time const &elapsedTime);
 
-	// Calls the current scene's draw method
+	/*!
+	Calls the current scene's draw method
+	*/
 	void drawCurrentScene( sf::RenderWindow &w );
 
-	// Returns true if no further processing should be done for the event (i.e. the event has been used up )
+	/*!
+	Calls handleEvent on the current scene, passing theEvent.
+	\param theEvent The event that will be passes to the current scene.
+	\returns True if the event has been processed and no further processing of this event is required. (i.e. event is used up)
+	*/
 	bool passEventToCurrentScene( sf::Event &theEvent );
 
+	/*!
+	Sets the current scene to be path.
+	\param path The name of the scene to be navigated to.
+	\returns True if the path matched an existing scene.
+	*/
 	bool navigateToScene( std::string const &path );
 
+	/*!
+	Signal that is invoked whenever the scene changes.
+	The scene pointer passed is the new current scene.
+	*/
 	signal<void(I_Scene* newScene)> onSceneChange;
 };
 #endif

@@ -1,0 +1,208 @@
+\hypertarget{class_pawn}{}\section{Pawn Class Reference}
+\label{class_pawn}\index{Pawn@{Pawn}}
+
+
+Base class for all units in the game. If it walks and attacks, it\textquotesingle{}s a \hyperlink{class_pawn}{Pawn}. Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0.  
+
+
+
+
+{\ttfamily \#include $<$Pawn.\+hpp$>$}
+
+Inheritance diagram for Pawn\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_pawn}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a74f1dff8fc508734c15223aaf95f7566}{}enum {\bfseries Faction} \{ {\bfseries P\+L\+A\+Y\+E\+R}, 
+{\bfseries E\+N\+E\+M\+Y}, 
+{\bfseries N\+E\+U\+T\+R\+A\+L}
+ \}\label{class_pawn_a74f1dff8fc508734c15223aaf95f7566}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a0e5a39bb4a43ba3ce8848b2e9055c5b0}{}{\bfseries Pawn} (sf\+::\+Texture \&texture, Faction faction)\label{class_pawn_a0e5a39bb4a43ba3ce8848b2e9055c5b0}
+
+\item 
+sf\+::\+Vector2f \hyperlink{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}{get\+Destination} () const 
+\item 
+void \hyperlink{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}{set\+Destination} (sf\+::\+Vector2f const \&destination)
+\item 
+\hypertarget{class_pawn_a757e87fbd789d00549e38c1eaa17f0c4}{}int {\bfseries get\+Movement\+Speed} () const \label{class_pawn_a757e87fbd789d00549e38c1eaa17f0c4}
+
+\item 
+\hypertarget{class_pawn_a37f3801cb4e6100ab126d438f2abe786}{}void {\bfseries set\+Movement\+Speed} (int new\+Speed)\label{class_pawn_a37f3801cb4e6100ab126d438f2abe786}
+
+\item 
+\hypertarget{class_pawn_a36bf19ac850570a5e82142e01d3aab67}{}virtual void {\bfseries update} (sf\+::\+Time const \&elapsed\+Time)\label{class_pawn_a36bf19ac850570a5e82142e01d3aab67}
+
+\item 
+\hypertarget{class_pawn_a28ab485f127ce43f33c026300283c546}{}void \hyperlink{class_pawn_a28ab485f127ce43f33c026300283c546}{kill} ()\label{class_pawn_a28ab485f127ce43f33c026300283c546}
+
+\begin{DoxyCompactList}\small\item\em Kills the \hyperlink{class_pawn}{Pawn} outright. Sets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s health to 0 and the state to D\+E\+A\+D. \end{DoxyCompactList}\item 
+bool \hyperlink{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{take\+Damage} (int amount, Damage\+::\+Type type)
+\item 
+\hypertarget{class_pawn_a3fe30c95134f87a7b91e3113b7c2c78b}{}bool {\bfseries take\+Damage} (int amount, Damage\+::\+Type type, \hyperlink{class_pawn}{Pawn} $\ast$sender)\label{class_pawn_a3fe30c95134f87a7b91e3113b7c2c78b}
+
+\item 
+\hypertarget{class_pawn_a26a6eaa626a163283ed66093e17723d6}{}void {\bfseries heal} (int amount)\label{class_pawn_a26a6eaa626a163283ed66093e17723d6}
+
+\item 
+\hypertarget{class_pawn_a197ec1bbce0624316ff8fe0ec49b3d6e}{}void {\bfseries stun} (sf\+::\+Time duration)\label{class_pawn_a197ec1bbce0624316ff8fe0ec49b3d6e}
+
+\item 
+\hypertarget{class_pawn_a52ef95ca2a7c516325df5546e8131d08}{}void {\bfseries be\+Taunted} (\hyperlink{class_pawn}{Pawn} $\ast$taunter)\label{class_pawn_a52ef95ca2a7c516325df5546e8131d08}
+
+\item 
+\hypertarget{class_pawn_aed61c1cf26754757cd4c5cb12421476b}{}bool {\bfseries offer\+Target} (\hyperlink{class_pawn}{Pawn} $\ast$target)\label{class_pawn_aed61c1cf26754757cd4c5cb12421476b}
+
+\item 
+\hypertarget{class_pawn_a4c5bda155d7b73b8fe1f63d9aad423dc}{}bool {\bfseries target\+Is\+Dead} () const \label{class_pawn_a4c5bda155d7b73b8fe1f63d9aad423dc}
+
+\item 
+\hypertarget{class_pawn_a15e50004263b9935f2cd3377c6d4f8a8}{}State {\bfseries get\+State} () const \label{class_pawn_a15e50004263b9935f2cd3377c6d4f8a8}
+
+\item 
+\hypertarget{class_pawn_a9b6dd19cb4c82719d6a9fcc2d9bbee8b}{}bool {\bfseries is\+Dead} () const \label{class_pawn_a9b6dd19cb4c82719d6a9fcc2d9bbee8b}
+
+\item 
+\hypertarget{class_pawn_a574b90f999b689bb42555791b86dc6c8}{}Faction {\bfseries get\+Faction} () const \label{class_pawn_a574b90f999b689bb42555791b86dc6c8}
+
+\item 
+\hypertarget{class_pawn_a166813524eb441632550e72d77c2c5a9}{}virtual void {\bfseries on\+Collide} (Collidable $\ast$other, sf\+::\+Vector2f const \&mtv) override\label{class_pawn_a166813524eb441632550e72d77c2c5a9}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_af8c8816fa179d6aed5aeb1d14514675c}{}enum {\bfseries State} \{ \\*
+{\bfseries I\+D\+L\+E}, 
+{\bfseries M\+A\+R\+C\+H\+I\+N\+G}, 
+{\bfseries A\+T\+T\+A\+C\+K\+I\+N\+G}, 
+{\bfseries S\+T\+U\+N\+N\+E\+D}, 
+\\*
+{\bfseries D\+E\+A\+D}
+ \}\label{class_pawn_af8c8816fa179d6aed5aeb1d14514675c}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a2b643e27c2cd87e523e126701854e653}{}void {\bfseries turn\+To\+Face\+Destination} ()\label{class_pawn_a2b643e27c2cd87e523e126701854e653}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Faction \hyperlink{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}{m\+Faction}
+\item 
+\hypertarget{class_pawn_a336b9f5503c10d5b40bd8d58cd47e0bf}{}State {\bfseries m\+State}\label{class_pawn_a336b9f5503c10d5b40bd8d58cd47e0bf}
+
+\item 
+\hypertarget{class_pawn_a42103e78d43def077c51e85eba4f97aa}{}int {\bfseries m\+Health}\label{class_pawn_a42103e78d43def077c51e85eba4f97aa}
+
+\item 
+\hypertarget{class_pawn_a16586cb1f57ba853ffb43b81e8373048}{}const int {\bfseries M\+\_\+\+M\+A\+X\+\_\+\+H\+E\+A\+L\+T\+H}\label{class_pawn_a16586cb1f57ba853ffb43b81e8373048}
+
+\item 
+\hypertarget{class_pawn_aa843639a827f0c9b001a91e567612ebd}{}\hyperlink{struct_damage_1_1_reduction}{Damage\+::\+Reduction} {\bfseries m\+Armour}\label{class_pawn_aa843639a827f0c9b001a91e567612ebd}
+
+\item 
+\hypertarget{class_pawn_a6ea62d8582b09f47efff68098756bb99}{}\hyperlink{struct_damage_1_1_reduction}{Damage\+::\+Reduction} {\bfseries m\+Magic\+Resist}\label{class_pawn_a6ea62d8582b09f47efff68098756bb99}
+
+\item 
+\hypertarget{class_pawn_a61e5e39820ded53d295335a7691a833d}{}Damage\+::\+Type {\bfseries m\+Damage\+Type}\label{class_pawn_a61e5e39820ded53d295335a7691a833d}
+
+\item 
+\hypertarget{class_pawn_afe2ae3e074f4376171afd1245c8f2ccb}{}float {\bfseries m\+Attack\+Range}\label{class_pawn_afe2ae3e074f4376171afd1245c8f2ccb}
+
+\item 
+\hypertarget{class_pawn_ae19b1c7b75f85373501780ea77466def}{}int {\bfseries m\+Movement\+Speed}\label{class_pawn_ae19b1c7b75f85373501780ea77466def}
+
+\item 
+\hypertarget{class_pawn_a0fbdf4b24764699c111769e4d32e6058}{}int {\bfseries m\+Attack\+Damage}\label{class_pawn_a0fbdf4b24764699c111769e4d32e6058}
+
+\item 
+float \hyperlink{class_pawn_a9daa828974fd50635825e438afe781da}{m\+Attacks\+Per\+Second}
+\item 
+float \hyperlink{class_pawn_a6ce596a12f726a288259e20fe8623bcb}{m\+Time\+Since\+Attack}
+\item 
+\hypertarget{class_pawn_a0e0c74842627aad0eaf7b34847b06725}{}\hyperlink{class_pawn}{Pawn} $\ast$ {\bfseries m\+Combat\+Target}\label{class_pawn_a0e0c74842627aad0eaf7b34847b06725}
+
+\item 
+\hypertarget{class_pawn_a4c9c3499391536b9d21e9969075048d3}{}sf\+::\+Time {\bfseries m\+Stun\+Duration}\label{class_pawn_a4c9c3499391536b9d21e9969075048d3}
+
+\item 
+\hypertarget{class_pawn_ac3011129a1798f170b56d734d23c8edc}{}sf\+::\+Vector2f {\bfseries m\+Destination}\label{class_pawn_ac3011129a1798f170b56d734d23c8edc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for all units in the game. If it walks and attacks, it\textquotesingle{}s a \hyperlink{class_pawn}{Pawn}. Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}{}\index{Pawn@{Pawn}!get\+Destination@{get\+Destination}}
+\index{get\+Destination@{get\+Destination}!Pawn@{Pawn}}
+\subsubsection[{get\+Destination() const }]{\setlength{\rightskip}{0pt plus 5cm}sf\+::\+Vector2f Pawn\+::get\+Destination (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}
+Gets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s destination. \hypertarget{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}{}\index{Pawn@{Pawn}!set\+Destination@{set\+Destination}}
+\index{set\+Destination@{set\+Destination}!Pawn@{Pawn}}
+\subsubsection[{set\+Destination(sf\+::\+Vector2f const \&destination)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::set\+Destination (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Vector2f const \&}]{destination}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}
+Sets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s destination. Pawns currently move straight toward their destination. 
+\begin{DoxyParams}{Parameters}
+{\em destination} & The \hyperlink{class_pawn}{Pawn}\textquotesingle{}s new destination. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{}\index{Pawn@{Pawn}!take\+Damage@{take\+Damage}}
+\index{take\+Damage@{take\+Damage}!Pawn@{Pawn}}
+\subsubsection[{take\+Damage(int amount, Damage\+::\+Type type)}]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::take\+Damage (
+\begin{DoxyParamCaption}
+\item[{int}]{amount, }
+\item[{Damage\+::\+Type}]{type}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}
+Applies damage to the \hyperlink{class_pawn}{Pawn}, taking into account Armour/\+Magic\+Resist 
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of damage to take. \\
+\hline
+{\em type} & The type of damage to take. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_pawn_a9daa828974fd50635825e438afe781da}{}\index{Pawn@{Pawn}!m\+Attacks\+Per\+Second@{m\+Attacks\+Per\+Second}}
+\index{m\+Attacks\+Per\+Second@{m\+Attacks\+Per\+Second}!Pawn@{Pawn}}
+\subsubsection[{m\+Attacks\+Per\+Second}]{\setlength{\rightskip}{0pt plus 5cm}float Pawn\+::m\+Attacks\+Per\+Second\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_a9daa828974fd50635825e438afe781da}
+\begin{DoxyRemark}{Remarks}
+1.\+0f == 1 attack per second 
+\end{DoxyRemark}
+\hypertarget{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}{}\index{Pawn@{Pawn}!m\+Faction@{m\+Faction}}
+\index{m\+Faction@{m\+Faction}!Pawn@{Pawn}}
+\subsubsection[{m\+Faction}]{\setlength{\rightskip}{0pt plus 5cm}Faction Pawn\+::m\+Faction\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}
+The faction that the \hyperlink{class_pawn}{Pawn} belongs to \hypertarget{class_pawn_a6ce596a12f726a288259e20fe8623bcb}{}\index{Pawn@{Pawn}!m\+Time\+Since\+Attack@{m\+Time\+Since\+Attack}}
+\index{m\+Time\+Since\+Attack@{m\+Time\+Since\+Attack}!Pawn@{Pawn}}
+\subsubsection[{m\+Time\+Since\+Attack}]{\setlength{\rightskip}{0pt plus 5cm}float Pawn\+::m\+Time\+Since\+Attack\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_a6ce596a12f726a288259e20fe8623bcb}
+\begin{DoxyRemark}{Remarks}
+1.\+0f == 1 second 
+\end{DoxyRemark}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Pawn.\+hpp\item 
+src/Pawn.\+cpp\end{DoxyCompactItemize}

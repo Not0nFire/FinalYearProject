@@ -25,6 +25,13 @@ public:
 	Game();
 	~Game();
 
+	/*!
+	\brief Begins the game.
+	Intended usage:
+		in main(): return game.run();
+
+	Returns EXIT_SUCCESS (0)
+	*/
 	int run();
 };
 #endif

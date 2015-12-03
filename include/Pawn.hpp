@@ -8,6 +8,10 @@
 
 using namespace boost::signals2;
 
+/*!
+\brief Base class for all units in the game. If it walks and attacks, it's a Pawn.
+Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0.
+*/
 class Pawn : public Actor {
 public:
 	enum Faction {
@@ -17,7 +21,7 @@ public:
 	};
 protected:
 #pragma region Fields
-	Faction mFaction;
+	Faction mFaction; /*!< The faction that the Pawn belongs to */
 
 	enum State {
 		IDLE,
@@ -39,8 +43,8 @@ protected:
 	int mMovementSpeed;
 
 	int mAttackDamage;
-	float mAttacksPerSecond; //1.0f == 1 attack per second
-	float mTimeSinceAttack;	//1.0f == 1 second
+	float mAttacksPerSecond; /*!< \remarks 1.0f == 1 attack per second */
+	float mTimeSinceAttack;	/*!< \remarks 1.0f == 1 second */
 	Pawn* mCombatTarget;
 
 	sf::Time mStunDuration;
@@ -69,7 +73,15 @@ public:
 	//Pawn(const char* xml);	//todo: #include tinyXML
 	virtual ~Pawn();
 
+	/*!
+	Gets the Pawn's destination.
+	*/
 	sf::Vector2f getDestination() const;
+
+	/*!
+	Sets the Pawn's destination. Pawns currently move straight toward their destination.
+	\param destination The Pawn's new destination.
+	*/
 	void setDestination(sf::Vector2f const &destination);
 	
 	int getMovementSpeed() const;
@@ -77,7 +89,17 @@ public:
 
 	virtual void update(sf::Time const &elapsedTime);
 
+	/*!
+	\brief Kills the Pawn outright.
+	Sets the Pawn's health to 0 and the state to DEAD.
+	*/
 	void kill();
+
+	/*!
+	Applies damage to the Pawn, taking into account Armour/MagicResist
+	\param amount The amount of damage to take.
+	\param type The type of damage to take.
+	*/
 	bool takeDamage(int amount, Damage::Type type);
 	bool takeDamage(int amount, Damage::Type type, Pawn* sender);
 	void heal(int amount);
