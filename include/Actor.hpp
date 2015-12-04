@@ -5,11 +5,16 @@
 #include <include/Collision/Collidable.hpp>
 #include <boost/thread/mutex.hpp>
 
-//We can use this class for anything that animates and has collision: hero. minions, buttons, effects, abilities, etc...
+/*!
+\brief Class for anything that animates and has a position.
+Animates and has position and collision.
+A lot is yet to be implemented. Will make heavy used of the thor::Animator class on itself.
+\remarks Used for things like Pawns, Minions, Towers, etc...
+*/
 class Actor : public sf::Sprite, public collision::Collidable {
 protected:
 	bool mVisible;
-	boost::mutex mMutex;	//Not to be confused with the private mutex in Collidable
+	boost::mutex mMutex;	/*!< Not to be confused with the private mutex in Collidable */
 public:
 	Actor(sf::Texture &texture);
 	virtual ~Actor();

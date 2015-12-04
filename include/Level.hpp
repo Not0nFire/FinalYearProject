@@ -15,7 +15,7 @@ private:
 	Hero* mHero;
 	std::vector<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
-	sf::RenderWindow const* relWindow;	//for getting mouse position
+	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
 	tower::BasicTower mTower;
 
@@ -24,6 +24,9 @@ private:
 	sf::Sprite backgroundTEMP;
 	
 public:
+	/*!
+	\param _relWindow RenderWindow to be used for getting relative mouse position.
+	*/
 	Level(sf::RenderWindow const* _relWindow);
 	~Level();
 	

@@ -8,7 +8,7 @@ float Damage::operator*=(float num, Reduction& red) {
 	return red * num;
 }
 
-float Damage::Reduction::operator*(float x) {
+float Damage::Reduction::operator*(float x) const {
 	return value * x;
 }
 

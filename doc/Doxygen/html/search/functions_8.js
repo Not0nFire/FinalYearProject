@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['passeventtocurrentscene',['passEventToCurrentScene',['../class_scene_manager.html#a8540e64a3c1c0d369b853ff393b59822',1,'SceneManager']]]
+  ['level',['Level',['../class_level.html#af6827a1d8fabc7499d053fdf85984d0f',1,'Level']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['instance',['instance',['../class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1',1,'ResourceManager']]]
+  ['handleevent',['handleEvent',['../class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4',1,'I_Scene']]],
+  ['heal',['heal',['../class_pawn.html#a26a6eaa626a163283ed66093e17723d6',1,'Pawn']]]
 ];

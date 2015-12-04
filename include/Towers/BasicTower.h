@@ -8,6 +8,10 @@
 
 namespace tower
 {
+	/*!
+	Tower that fires a projectile toward a target.
+	Aim does not currently take account for moving targets.
+	*/
 	class BasicTower : public Actor {
 		
 		float mRange;

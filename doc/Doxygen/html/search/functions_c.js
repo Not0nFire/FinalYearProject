@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['update',['update',['../class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84',1,'I_Scene']]],
-  ['updatecurrentscene',['updateCurrentScene',['../class_scene_manager.html#a95303770a6b44a29e137605c46b777e7',1,'SceneManager']]]
+  ['renderer',['Renderer',['../class_renderer.html#a2ba0ddcb6c8e9dfa55597ce954904658',1,'Renderer']]],
+  ['run',['run',['../class_game.html#a99fb161fbbe87d25a8b73265a0611e58',1,'Game']]]
 ];

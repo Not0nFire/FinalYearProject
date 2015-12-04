@@ -22,15 +22,16 @@ private:
 	Menu* mMenu;
 
 public:
+	/*!
+	\brief Sets up the game. Takes no arguements.
+	*/
 	Game();
 	~Game();
 
 	/*!
 	\brief Begins the game.
-	Intended usage:
-		in main(): return game.run();
-
-	Returns EXIT_SUCCESS (0)
+	\remarks Intended usage: in main(): return game.run();
+	\returns EXIT_SUCCESS (0)
 	*/
 	int run();
 };

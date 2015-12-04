@@ -1,5 +1,14 @@
 \hypertarget{class_actor}{}\section{Actor Class Reference}
 \label{class_actor}\index{Actor@{Actor}}
+
+
+Class for anything that animates and has a position. Animates and has position and collision. A lot is yet to be implemented. Will make heavy used of the thor\+::\+Animator class on itself.  
+
+
+
+
+{\ttfamily \#include $<$Actor.\+hpp$>$}
+
 Inheritance diagram for Actor\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -27,11 +36,24 @@ Inheritance diagram for Actor\+:\begin{figure}[H]
 \hypertarget{class_actor_a189eba290bff18e57ca29a638f807ff0}{}bool {\bfseries m\+Visible}\label{class_actor_a189eba290bff18e57ca29a638f807ff0}
 
 \item 
-\hypertarget{class_actor_a3515de0782a3532d5af19daaf7d82fe3}{}boost\+::mutex {\bfseries m\+Mutex}\label{class_actor_a3515de0782a3532d5af19daaf7d82fe3}
-
+boost\+::mutex \hyperlink{class_actor_a3515de0782a3532d5af19daaf7d82fe3}{m\+Mutex}
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
+
+\subsection{Detailed Description}
+Class for anything that animates and has a position. Animates and has position and collision. A lot is yet to be implemented. Will make heavy used of the thor\+::\+Animator class on itself. 
+
+\begin{DoxyRemark}{Remarks}
+Used for things like Pawns, Minions, Towers, etc... 
+\end{DoxyRemark}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_actor_a3515de0782a3532d5af19daaf7d82fe3}{}\index{Actor@{Actor}!m\+Mutex@{m\+Mutex}}
+\index{m\+Mutex@{m\+Mutex}!Actor@{Actor}}
+\subsubsection[{m\+Mutex}]{\setlength{\rightskip}{0pt plus 5cm}boost\+::mutex Actor\+::m\+Mutex\hspace{0.3cm}{\ttfamily [protected]}}\label{class_actor_a3515de0782a3532d5af19daaf7d82fe3}
+Not to be confused with the private mutex in Collidable 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

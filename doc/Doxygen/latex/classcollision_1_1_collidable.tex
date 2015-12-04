@@ -18,30 +18,84 @@ Inheritance diagram for collision\+:\+:Collidable\+:\begin{figure}[H]
 \hypertarget{classcollision_1_1_collidable_a59968e2602832ae42750148e1d9a574a}{}void {\bfseries set\+Mask} (sf\+::\+Shape $\ast$mask, sf\+::\+Vector2f offset)\label{classcollision_1_1_collidable_a59968e2602832ae42750148e1d9a574a}
 
 \item 
-\hypertarget{classcollision_1_1_collidable_a1f88bef85869630909cce6d040a6f53a}{}virtual void {\bfseries on\+Collide} (\hyperlink{classcollision_1_1_collidable}{Collidable} $\ast$other, sf\+::\+Vector2f const \&mtv)\label{classcollision_1_1_collidable_a1f88bef85869630909cce6d040a6f53a}
+\hypertarget{classcollision_1_1_collidable_a1f88bef85869630909cce6d040a6f53a}{}virtual void \hyperlink{classcollision_1_1_collidable_a1f88bef85869630909cce6d040a6f53a}{on\+Collide} (\hyperlink{classcollision_1_1_collidable}{Collidable} $\ast$other, sf\+::\+Vector2f const \&mtv)\label{classcollision_1_1_collidable_a1f88bef85869630909cce6d040a6f53a}
 
-\item 
+\begin{DoxyCompactList}\small\item\em Called when we collide with something. \end{DoxyCompactList}\item 
 \hypertarget{classcollision_1_1_collidable_aec61f1b090248e26b4ceaed2ea7ad885}{}void {\bfseries set\+Debug\+Colour} (sf\+::\+Color const \&c)\label{classcollision_1_1_collidable_aec61f1b090248e26b4ceaed2ea7ad885}
 
 \item 
 \hypertarget{classcollision_1_1_collidable_a3acb897afe5bedccab5c857f165e6355}{}void {\bfseries debug\+\_\+draw} (sf\+::\+Render\+Target \&target)\label{classcollision_1_1_collidable_a3acb897afe5bedccab5c857f165e6355}
 
 \item 
-\hypertarget{classcollision_1_1_collidable_afca4351156e8e146db120e715c420c88}{}void {\bfseries get\+Axies} (std\+::vector$<$ sf\+::\+Vector2f $>$ \&axies\+Vector)\label{classcollision_1_1_collidable_afca4351156e8e146db120e715c420c88}
+void \hyperlink{classcollision_1_1_collidable_afca4351156e8e146db120e715c420c88}{get\+Axies} (std\+::vector$<$ sf\+::\+Vector2f $>$ \&axies\+Vector)
+\begin{DoxyCompactList}\small\item\em Gets all axies of the mask. Gets all axies of the mask. Currently inefficient due to the fact that it iterates over all points and returns all axies (a duplicate of each axis is included!). \end{DoxyCompactList}\item 
+\hypertarget{classcollision_1_1_collidable_a10c40bfb76a63c35f468fe0ec2eaf5bd}{}size\+\_\+t \hyperlink{classcollision_1_1_collidable_a10c40bfb76a63c35f468fe0ec2eaf5bd}{get\+Point\+Count} () const \label{classcollision_1_1_collidable_a10c40bfb76a63c35f468fe0ec2eaf5bd}
 
-\item 
-\hypertarget{classcollision_1_1_collidable_a10c40bfb76a63c35f468fe0ec2eaf5bd}{}size\+\_\+t {\bfseries get\+Point\+Count} () const \label{classcollision_1_1_collidable_a10c40bfb76a63c35f468fe0ec2eaf5bd}
-
-\item 
-\hypertarget{classcollision_1_1_collidable_a66173721be9e04f7bd928db63c22d748}{}sf\+::\+Vector2f {\bfseries project\+Onto\+Axis} (sf\+::\+Vector2f \&axis) const \label{classcollision_1_1_collidable_a66173721be9e04f7bd928db63c22d748}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Gets the number of points in the mask. Calls mask-\/$>$get\+Point() and returns the result. \end{DoxyCompactList}\item 
+sf\+::\+Vector2f \hyperlink{classcollision_1_1_collidable_a66173721be9e04f7bd928db63c22d748}{project\+Onto\+Axis} (sf\+::\+Vector2f \&axis) const 
+\begin{DoxyCompactList}\small\item\em Projects the mask onto an axis. Projects each point of the mask onto an axis and returns the min and max points it covers on that axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcollision_1_1_collidable_a715cd89e24e97798727d7cf39b9b8089}{}void {\bfseries update\+Collidable\+Mask} (sf\+::\+Vector2f new\+Position)\label{classcollision_1_1_collidable_a715cd89e24e97798727d7cf39b9b8089}
+void \hyperlink{classcollision_1_1_collidable_a715cd89e24e97798727d7cf39b9b8089}{update\+Collidable\+Mask} (sf\+::\+Vector2f new\+Position)
+\begin{DoxyCompactList}\small\item\em Updates the position of the mask. Updates the position of the mask to equal new\+Position plus the offset. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\end{DoxyCompactItemize}
+
+\subsection{Member Function Documentation}
+\hypertarget{classcollision_1_1_collidable_afca4351156e8e146db120e715c420c88}{}\index{collision\+::\+Collidable@{collision\+::\+Collidable}!get\+Axies@{get\+Axies}}
+\index{get\+Axies@{get\+Axies}!collision\+::\+Collidable@{collision\+::\+Collidable}}
+\subsubsection[{get\+Axies(std\+::vector$<$ sf\+::\+Vector2f $>$ \&axies\+Vector)}]{\setlength{\rightskip}{0pt plus 5cm}void collision\+::\+Collidable\+::get\+Axies (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ sf\+::\+Vector2f $>$ \&}]{axies\+Vector}
+\end{DoxyParamCaption}
+)}\label{classcollision_1_1_collidable_afca4351156e8e146db120e715c420c88}
+
+
+Gets all axies of the mask. Gets all axies of the mask. Currently inefficient due to the fact that it iterates over all points and returns all axies (a duplicate of each axis is included!). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em axis\+Vector\mbox{[}in,out\mbox{]}} & The container of axies to add our axies to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classcollision_1_1_collidable_a66173721be9e04f7bd928db63c22d748}{}\index{collision\+::\+Collidable@{collision\+::\+Collidable}!project\+Onto\+Axis@{project\+Onto\+Axis}}
+\index{project\+Onto\+Axis@{project\+Onto\+Axis}!collision\+::\+Collidable@{collision\+::\+Collidable}}
+\subsubsection[{project\+Onto\+Axis(sf\+::\+Vector2f \&axis) const }]{\setlength{\rightskip}{0pt plus 5cm}sf\+::\+Vector2f collision\+::\+Collidable\+::project\+Onto\+Axis (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Vector2f \&}]{axis}
+\end{DoxyParamCaption}
+) const}\label{classcollision_1_1_collidable_a66173721be9e04f7bd928db63c22d748}
+
+
+Projects the mask onto an axis. Projects each point of the mask onto an axis and returns the min and max points it covers on that axis. 
+
+\begin{DoxyRemark}{Remarks}
+May try to normalize zero length vectors. 
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em axis} & The axis to project onto. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The shadow of the mask along the axis. i.\+e. The min and max points it touches on the axis. 
+\end{DoxyReturn}
+\hypertarget{classcollision_1_1_collidable_a715cd89e24e97798727d7cf39b9b8089}{}\index{collision\+::\+Collidable@{collision\+::\+Collidable}!update\+Collidable\+Mask@{update\+Collidable\+Mask}}
+\index{update\+Collidable\+Mask@{update\+Collidable\+Mask}!collision\+::\+Collidable@{collision\+::\+Collidable}}
+\subsubsection[{update\+Collidable\+Mask(sf\+::\+Vector2f new\+Position)}]{\setlength{\rightskip}{0pt plus 5cm}void collision\+::\+Collidable\+::update\+Collidable\+Mask (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Vector2f}]{new\+Position}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{classcollision_1_1_collidable_a715cd89e24e97798727d7cf39b9b8089}
+
+
+Updates the position of the mask. Updates the position of the mask to equal new\+Position plus the offset. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & new position of the mask, before offset is taken into account. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

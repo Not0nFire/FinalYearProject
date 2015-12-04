@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['setdestination',['setDestination',['../class_pawn.html#a866b60201664eb6a0c743afa13ee5ccb',1,'Pawn']]],
-  ['startrenderloop',['startRenderLoop',['../class_renderer.html#accec1290b82472463245b2b0951f9b7e',1,'Renderer']]],
-  ['stoprenderloop',['stopRenderLoop',['../class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1',1,'Renderer']]]
+  ['offertarget',['offerTarget',['../class_pawn.html#aed61c1cf26754757cd4c5cb12421476b',1,'Pawn']]],
+  ['oncollide',['onCollide',['../classcollision_1_1_collidable.html#a1f88bef85869630909cce6d040a6f53a',1,'collision::Collidable::onCollide()'],['../class_hero.html#a1f9b68a8daecbca5ca949764332c72d7',1,'Hero::onCollide()'],['../class_pawn.html#a166813524eb441632550e72d77c2c5a9',1,'Pawn::onCollide()']]]
 ];
