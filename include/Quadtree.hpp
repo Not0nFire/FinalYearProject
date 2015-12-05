@@ -1,41 +1,37 @@
 #ifndef _QUADTREE_H
 #define _QUADTREE_H
 
-#include <SFML/Graphics.hpp>
-#include <memory>
 #include <functional>
-#include <vector>
-#include <sstream>
-using std::vector;
+#include <SFML/Graphics.hpp>
 
+template<class T>
 class Quadtree {
 private:
 	sf::IntRect mBounds;
-	unsigned char mData;	//bitfield
+	T mData;	//bitfield
 	unsigned int mLevel;
 
-	Quadtree *mParent;
-	Quadtree *NW, *NE, *SW, *SE;	//child nodes
+	Quadtree<T> *mParent;
+	Quadtree<T> *NW, *NE, *SW, *SE;	//child nodes
 	bool mIsLeaf;
 
 public:
-	Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent = nullptr);
+	Quadtree<T>(int x, int y, unsigned int width, unsigned int height, Quadtree* parent = nullptr);
 
-	~Quadtree();
+	~Quadtree<T>();
 
 	sf::IntRect getBounds() const;
-	unsigned char getData() const;
+	T getData() const;
 	unsigned int getLevel() const;
 	bool isLeaf() const;
 
-	void setData(unsigned char newData);
+	void setData(T newData);
 
-	void subdivide(std::function<bool(Quadtree* node)> &predicate);
-
-	void appendToStringStream(std::stringstream &ss);
+	void subdivide(std::function<bool(Quadtree<T>* node)> &predicate);
 };
 
-inline Quadtree::Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent) :
+template<class T>
+Quadtree<T>::Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent) :
 mBounds(x, y, width, height),
 mData(),
 mParent( parent ),
@@ -50,7 +46,8 @@ mIsLeaf(true)
 	}
 }
 
-inline Quadtree::~Quadtree() {
+template<class T>
+Quadtree<T>::~Quadtree() {
 	//delete child nodes
 	if (NW) delete NW;
 	if (NE) delete NE;
@@ -58,23 +55,28 @@ inline Quadtree::~Quadtree() {
 	if (SE) delete SE;
 }
 
-inline sf::IntRect Quadtree::getBounds() const {
+template<class T>
+sf::IntRect Quadtree<T>::getBounds() const {
 	return mBounds;
 }
 
-inline unsigned char Quadtree::getData() const {
+template<class T>
+T Quadtree<T>::getData() const {
 	return mData;
 }
 
-inline unsigned Quadtree::getLevel() const {
+template<class T>
+unsigned Quadtree<T>::getLevel() const {
 	return mLevel;
 }
 
-inline bool Quadtree::isLeaf() const {
+template<class T>
+bool Quadtree<T>::isLeaf() const {
 	return mIsLeaf;
 }
 
-inline void Quadtree::setData(unsigned char newData) {
+template<class T>
+void Quadtree<T>::setData(T newData) {
 	mData = newData;
 }
 
@@ -83,7 +85,8 @@ inline void Quadtree::setData(unsigned char newData) {
 //	if((nodeData & TerrainData.Grass) && (nodeData & TerrainData.Path)) {
 //		return true;
 //	}
-inline void Quadtree::subdivide(std::function<bool(Quadtree* node)> &predicate) {
+template<class T>
+void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> &predicate) {
 	_ASSERT(mIsLeaf);
 
 	if (predicate(this)) {
@@ -107,27 +110,6 @@ inline void Quadtree::subdivide(std::function<bool(Quadtree* node)> &predicate) 
 		NE->subdivide(predicate);
 		SW->subdivide(predicate);
 		SE->subdivide(predicate);
-	}
-}
-
-inline void Quadtree::appendToStringStream(std::stringstream& ss) {
-	if (mLevel == 0) {
-		ss << "QuadTree {\n";
-	}
-	for (int i = 0; i < mLevel; ++i) {
-		ss << "\t";
-	}
-
-	ss << "~ " << (mData & 0x01 ? "G" : "") << (mData & 0x02 ? "P" : "") << '\n';
-
-	if (NW) {
-		NW->appendToStringStream(ss);
-		NE->appendToStringStream(ss);
-		SW->appendToStringStream(ss);
-		NE->appendToStringStream(ss);
-	}
-	if (mLevel == 0) {
-		ss << "}";
 	}
 }
 #endif	//include guard

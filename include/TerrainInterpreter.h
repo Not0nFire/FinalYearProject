@@ -62,6 +62,18 @@ public:
 
 		return terrainFlags;
 	}
+
+	//Counts the number of flags in a field (by bitshifting and counting the number of 1 digits)
+	unsigned int countFlags(unsigned int flags) {
+		unsigned int count;
+		for (count = 0u; flags != 0u; flags >>= 1) {
+			if (flags & 0x01) {
+				++count;
+			}
+		}
+
+		return count;
+	}
 };
 
 const sf::Color TerrainInterpreter::mGrassColor = sf::Color::Green;

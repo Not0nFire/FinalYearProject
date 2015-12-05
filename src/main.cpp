@@ -19,7 +19,7 @@
 
 unsigned int count;
 
-bool myPredicate(Quadtree* node) {
+bool myPredicate(Quadtree<unsigned char>* node) {
 	bool subdivide = false;
 
 	TerrainInterpreter tI = TerrainInterpreter("./res/img/terrain.bmp");
@@ -27,7 +27,7 @@ bool myPredicate(Quadtree* node) {
 
 	node->setData(tI.interpretArea(nB.left, nB.top, nB.width, nB.height));
 
-	if ((node->getData() & TerrainInterpreter::GRASS) && (node->getData() & TerrainInterpreter::PATH)) {
+	if ((node->getData() & (TerrainInterpreter::GRASS) && (node->getData() & TerrainInterpreter::PATH) && node->getLevel() < 6U)) {
 		subdivide = true;
 		count++;
 		std::cout << count << std::endl;
@@ -38,14 +38,10 @@ bool myPredicate(Quadtree* node) {
 
 int main() {
 	count = 0;
-	Quadtree myTree(0.f, 0.f, 1000.f, 1000.f);
+	Quadtree<unsigned char> myTree(0.f, 0.f, 1000.f, 1000.f);
 
-	std::function<bool(Quadtree*)> f = &myPredicate;
+	std::function<bool(Quadtree<unsigned char>*)> f = &myPredicate;
 	myTree.subdivide(f);
-
-	std::stringstream ss = std::stringstream();
-	myTree.appendToStringStream(ss);
-	std::cout << ss.str() << std::endl;
 
 	std::cin.get();
 	
