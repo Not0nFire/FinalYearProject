@@ -18,16 +18,17 @@
 #include <include/TerrainInterpreter.h>
 
 unsigned int count;
+TerrainInterpreter tI = TerrainInterpreter("./res/img/terrain.bmp");
 
 bool myPredicate(Quadtree<unsigned char>* node) {
 	bool subdivide = false;
 
-	TerrainInterpreter tI = TerrainInterpreter("./res/img/terrain.bmp");
+	
 	sf::IntRect nB = node->getBounds();
 
 	node->setData(tI.interpretArea(nB.left, nB.top, nB.width, nB.height));
 
-	if ((node->getData() & (TerrainInterpreter::GRASS) && (node->getData() & TerrainInterpreter::PATH) && node->getLevel() < 6U)) {
+	if ((node->getData() & (TerrainInterpreter::GRASS) && (node->getData() & TerrainInterpreter::PATH))) {
 		subdivide = true;
 		count++;
 		std::cout << count << std::endl;
