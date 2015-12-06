@@ -8,14 +8,14 @@ private:
 	sf::Image mImage;
 	static const sf::Color mGrassColor, mPathColor;
 public:
-	static const unsigned char GRASS	=	0x01;
-	static const unsigned char PATH		=	0x10;
+	static const unsigned char GRASS;
+	static const unsigned char PATH;
 
 	TerrainInterpreter(std::string imagePath){
 		mImage.loadFromFile(imagePath);
 	}
 
-	unsigned char interpretPixel(unsigned int x, unsigned int y) {
+	unsigned char interpretPixel(unsigned int x, unsigned int y) const {
 		unsigned char terrainFlags = 0x00;
 		const sf::Color pixel = mImage.getPixel(x, y);
 
@@ -28,7 +28,7 @@ public:
 		return terrainFlags;
 	}
 
-	unsigned char interpretArea(unsigned int left, unsigned int top, unsigned int width, unsigned int height) {
+	unsigned char interpretArea(unsigned int left, unsigned int top, unsigned int width, unsigned int height) const {
 		unsigned char terrainFlags = 0x00;
 		const unsigned int right = left + width;
 		const unsigned int bottom = top + height;
@@ -75,7 +75,4 @@ public:
 		return count;
 	}
 };
-
-const sf::Color TerrainInterpreter::mGrassColor = sf::Color::Green;
-const sf::Color TerrainInterpreter::mPathColor = sf::Color::White;
 #endif

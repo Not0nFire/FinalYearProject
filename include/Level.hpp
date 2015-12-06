@@ -8,6 +8,8 @@
 #include <include/Hero.hpp>
 #include <include/Collision/CollisionGroup.hpp>
 #include <include/Towers/BasicTower.h>
+#include <include/Quadtree.hpp>
+#include <include/TerrainInterpreter.h>
 
 class Level : public I_Scene{
 private:
@@ -21,6 +23,8 @@ private:
 	boost::mutex mMutex;
 
 	sf::Sprite backgroundTEMP;
+
+	Quadtree<unsigned char> terrainTree;
 	
 public:
 	Level();

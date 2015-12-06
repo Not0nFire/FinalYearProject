@@ -8,7 +8,7 @@ template<class T>
 class Quadtree {
 private:
 	sf::IntRect mBounds;
-	T mData;	//bitfield
+	T mData;
 	unsigned int mLevel;
 
 	Quadtree<T> *mParent;
@@ -27,7 +27,7 @@ public:
 
 	void setData(T newData);
 
-	void subdivide(std::function<bool(Quadtree<T>* node)> &predicate);
+	void subdivide(std::function<bool(Quadtree<T>* node)> const &predicate);
 };
 
 template<class T>
@@ -86,7 +86,7 @@ void Quadtree<T>::setData(T newData) {
 //		return true;
 //	}
 template<class T>
-void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> &predicate) {
+void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> const &predicate) {
 	_ASSERT(mIsLeaf);
 
 	if (predicate(this)) {

@@ -7,7 +7,8 @@
 
 Level::Level() :
 mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
-backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
+backgroundTEMP( GET_TEXTURE("./res/img/terrain.bmp") ),
+terrainTree(0, 0, 1000u, 1000u)
 {
 
 	mPawns.reserve(100);
@@ -25,6 +26,24 @@ backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
 		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
 	}
+
+	//Subdivide terrainTree
+	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
+	terrainTree.subdivide([interpreter](Quadtree<unsigned char>* node)
+	{
+		sf::IntRect nB = node->getBounds();
+
+		node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
+
+		if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
+			(node->getData() & TerrainInterpreter::PATH) &&	//also contains path and
+			node->getLevel() < 10u)								//is less than 10 levels deep in the tree
+		{
+			return true;
+		}
+
+		return false;
+	});//end terrainTree subdivision
 }
 
 Level::~Level() {
