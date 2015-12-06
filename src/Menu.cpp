@@ -1,8 +1,10 @@
 #include "../include/Menu.hpp"
 
-Menu::Menu(sfg::Box::Orientation orientation, float spacing) {
+Menu::Menu(std::string const &themePath, sfg::Box::Orientation orientation, float spacing) {
+	mDesktop.LoadThemeFromFile(themePath);
 	mBox = sfg::Box::Create(orientation, spacing);
 	mBox->SetRequisition(sf::Vector2f(200, 400));
+	mBox->SetPosition(sf::Vector2f(200, 300));
 	mDesktop.Add(mBox);
 }
 
@@ -18,8 +20,11 @@ void Menu::addButton(sf::String const& label, std::function<void()> onClick, sf:
 	mBox->Pack(btn);
 }
 
-void Menu::addLabel(sf::String const& label, sf::Vector2f const& minSize) {
+void Menu::addLabel(sf::String const& label, bool title, sf::Vector2f const& minSize) {
 	sfg::Label::Ptr lbl = sfg::Label::Create(label);
+	if (title) {
+		lbl->SetId("title");
+	}
 	lbl->SetRequisition(minSize);
 	mBox->Pack(lbl);
 }

@@ -14,6 +14,7 @@ Game::Game() :
 	mMenu = new Menu();
 	mMenu->addLabel("Main Menu");
 	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
+	mMenu->addButton("Test", [](){std::cout << "test button clicked" << std::endl; });
 	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
 	SceneManager::instance()->createScene("Menu", mMenu);
@@ -71,6 +72,8 @@ int Game::run() {
 
 void Game::handleEvent(sf::Event& event) {
 
+	SceneManager::instance()->passEventToCurrentScene(event);
+
 	switch (event.type) {
 
 		case sf::Event::Closed:
@@ -85,13 +88,6 @@ void Game::handleEvent(sf::Event& event) {
 			break;
 		case sf::Event::TextEntered: break;
 		case sf::Event::KeyPressed:
-			if (event.key.code == sf::Keyboard::Escape) {
-				SceneManager::instance()->navigateToScene("Menu");
-			}
-			else {
-				SceneManager::instance()->passEventToCurrentScene(event);
-			}
-			break;
 		case sf::Event::KeyReleased: break;
 		case sf::Event::MouseWheelMoved: break;
 		case sf::Event::MouseWheelScrolled: break;

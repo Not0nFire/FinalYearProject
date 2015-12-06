@@ -29,12 +29,14 @@ void Renderer::render() {
 	sf::Clock clock;
 
 	mWindow.setActive(true);
+	mWindow.resetGLStates();	//required for sfgui (text displays as blocks without this line)
 
 	while (mLoopOngoing) {
 
 		mMutex.lock();	//Block until ownership can be obtained
 
 		mWindow.clear();
+		
 
 		mSceneToRender->draw(mWindow);
 		mSFGUI.Display(mWindow);

@@ -16,13 +16,13 @@ private:
 	sfg::Box::Ptr mBox;
 
 public:
-	Menu(sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 0.0f);
+	Menu(std::string const &themePath = "./res/gui.theme", sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 10.0f);
 
 	static Menu* fromXML(const char* path);
 
 	//Make these private when tinyXML is implemented
 	void addButton(sf::String const &label, std::function<void()> onClick, sf::Vector2f const &minSize = sf::Vector2f());
-	void addLabel(sf::String const &label, sf::Vector2f const &minSize = sf::Vector2f());
+	void addLabel(sf::String const &label, bool title = false, sf::Vector2f const &minSize = sf::Vector2f());
 
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::update(sf::Time const &elapsedTime) override;
