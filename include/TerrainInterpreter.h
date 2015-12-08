@@ -10,6 +10,7 @@ private:
 public:
 	static const unsigned char GRASS;
 	static const unsigned char PATH;
+	static const unsigned char NONE;
 
 	TerrainInterpreter(std::string imagePath){
 		mImage.loadFromFile(imagePath);

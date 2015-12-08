@@ -14,7 +14,10 @@ mProjectile(10,
 			ResourceManager<sf::Texture>::instance()->get("././res/img/projectile.png")
 			)
 {
+	auto bounds = getLocalBounds();
+	setOrigin(bounds.width * .05f, bounds.height * 0.8f);
 	setPosition(position);
+	updateCollidableMask(getPosition());
 }
 
 BasicTower::~BasicTower() {}

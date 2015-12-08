@@ -68,6 +68,11 @@ int Game::run() {
 }
 
 void Game::handleEvent(sf::Event& event) {
+
+	if (SceneManager::instance()->passEventToCurrentScene(event)) {
+		return; //event is already handled
+	}
+
 	switch (event.type) {
 
 		case sf::Event::Closed:
@@ -85,10 +90,6 @@ void Game::handleEvent(sf::Event& event) {
 			if (event.key.code == sf::Keyboard::Escape) {
 				SceneManager::instance()->navigateToScene("Menu");
 			}
-			else {
-				SceneManager::instance()->passEventToCurrentScene(event);
-			}
-			break;
 		case sf::Event::KeyReleased: break;
 		case sf::Event::MouseWheelMoved: break;
 		case sf::Event::MouseWheelScrolled: break;

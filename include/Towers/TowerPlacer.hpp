@@ -20,7 +20,7 @@ public:
 
 	/*!
 	If location is valid for tower placement,
-	emplaces a tower into the container.
+	puts a tower into the container.
 	*/
 	bool place();
 
@@ -58,7 +58,7 @@ protected:
 	//! Shape used to test for validity with the terrain tree.
 	sf::Shape* mMask;
 
-	//! The (ptr to) container of tower pointers, into which we will emplace new towers.
+	//! The (ptr to) container of tower pointers, into which we will put new towers.
 	std::vector<tower::BasicTower*> *mTowerContainer;
 
 	/*!

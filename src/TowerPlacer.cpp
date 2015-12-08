@@ -30,14 +30,15 @@ bool TowerPlacer::place() {
 
 	//If tower placement is valid...
 	if (mIsActive && mIsValid) {
-		///...emplace the tower in the container
-		/*mTowerContainer->emplace_back(
+		///...put a tower in the container
+		mTowerContainer->push_back(new tower::BasicTower(
 			ResourceManager<sf::Texture>::instance()->get("./res/img/tower.png"),
-			sf::Vector2f(500, 300), 300.0f, 1.0f, 10,
+			mMask->getPosition() - mMask->getOrigin(), 300.0f, 1.0f, 10,
 			Damage::Type::PHYSICAL
-			);*/
+			));
 
 		placed = true;
+		mIsActive = false;
 	}
 
 	return placed;
@@ -57,11 +58,13 @@ void TowerPlacer::activate() {
 }
 
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) {
-	renderTarget.draw(mOverlay);
+	if (mIsActive) {
+		renderTarget.draw(mOverlay);
 
 #ifdef _DEBUG
-	renderTarget.draw(*mMask);
+		renderTarget.draw(*mMask);
 #endif
+	}
 }
 
 void TowerPlacer::checkValidity() {
@@ -71,11 +74,14 @@ void TowerPlacer::checkValidity() {
 		bool previouslyValid = mIsValid;
 		mIsValid = true;
 
+		//For each point of the shape...
 		size_t numPoints = mMask->getPointCount();
 		for (size_t index = 0u; index < numPoints; ++index) {
 
+			//get the point of the shape, taking into account origin and position. (i.e. world bounds, not local bounds)
 			sf::Vector2f point = mMask->getPoint(index) + mMask->getPosition() - mMask->getOrigin();
-			unsigned char terrainAtPoint = 0x00;
+
+			unsigned char terrainAtPoint = TerrainInterpreter::NONE;
 
 			//get data at point (returns false if point not in tree)
 			if (!mTerrainTree->query(point.x, point.y, terrainAtPoint)) {

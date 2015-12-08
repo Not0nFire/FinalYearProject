@@ -19,7 +19,7 @@ private:
 	std::vector<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
 
-	tower::BasicTower mTower;
+	std::vector<tower::BasicTower*> mTowers;
 
 	boost::mutex mMutex;
 
