@@ -57,10 +57,11 @@ void TowerPlacer::activate() {
 }
 
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) {
+	renderTarget.draw(mOverlay);
+
 #ifdef _DEBUG
 	renderTarget.draw(*mMask);
 #endif
-	renderTarget.draw(mOverlay);
 }
 
 void TowerPlacer::checkValidity() {
@@ -73,7 +74,7 @@ void TowerPlacer::checkValidity() {
 		size_t numPoints = mMask->getPointCount();
 		for (size_t index = 0u; index < numPoints; ++index) {
 
-			sf::Vector2f point = mMask->getPoint(index) + mMask->getPosition();
+			sf::Vector2f point = mMask->getPoint(index) + mMask->getPosition() - mMask->getOrigin();
 			unsigned char terrainAtPoint = 0x00;
 
 			//get data at point (returns false if point not in tree)
