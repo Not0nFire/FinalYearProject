@@ -3,7 +3,7 @@
 sf::Vector2f const Projectile::G = sf::Vector2f(0,100);
 
 Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture) :
-Actor(texture),
+Actor(texture, new sf::CircleShape(10, 3), sf::Vector2f(0.0f, 0.0f)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false)

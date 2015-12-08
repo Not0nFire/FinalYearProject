@@ -11,7 +11,7 @@ protected:
 	bool mVisible;
 	boost::mutex mMutex;	//Not to be confused with the private mutex in Collidable
 public:
-	Actor(sf::Texture &texture);
+	Actor(sf::Texture &texture, sf::Shape* collisionMask, sf::Vector2f const &maskOffset);
 	virtual ~Actor();
 
 	void setVisible(bool isVisible = true);

@@ -10,6 +10,7 @@ private:
 	sf::IntRect mBounds;
 	T mData;
 	unsigned int mLevel;
+	int aStarHeuristic;
 
 	Quadtree<T> *mParent;
 	Quadtree<T> *NW, *NE, *SW, *SE;	//child nodes
@@ -28,12 +29,15 @@ public:
 	void setData(T newData);
 
 	void subdivide(std::function<bool(Quadtree<T>* node)> const &predicate);
+
+	bool query(int x, int y, T& dataOut);
 };
 
 template<class T>
 Quadtree<T>::Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent) :
 mBounds(x, y, width, height),
 mData(),
+aStarHeuristic(sqrtf(width * height)),
 mParent( parent ),
 mIsLeaf(true)
 {
@@ -111,5 +115,29 @@ void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> const &predicate
 		SW->subdivide(predicate);
 		SE->subdivide(predicate);
 	}
+}
+
+template <class T>
+bool Quadtree<T>::query(int x, int y, T& dataOut) {
+	bool containsPoint = mBounds.contains(x, y);
+
+	//If this node contains the point...
+	if (containsPoint) {
+		//If this node is a leaf...
+		if (mIsLeaf) {
+			//...set the data to be (a ptr to) this node's data
+			dataOut = mData;
+		} else {
+			//else query each child node in turn (if the previous child node did not contain the point)
+			if (!NW->query(x, y, dataOut)) {
+				if (!NE->query(x, y, dataOut)) {
+					if (!SW->query(x, y, dataOut)) {
+						SE->query(x, y, dataOut);
+					}//end if !SW->query
+				}//end if !NE->query
+			}//end if !NW->query
+		}//end else !leaf
+	}//end if containsPoint
+	return containsPoint;
 }
 #endif	//include guard

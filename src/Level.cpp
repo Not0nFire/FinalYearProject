@@ -8,7 +8,8 @@
 Level::Level() :
 mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
 backgroundTEMP( GET_TEXTURE("./res/img/terrain.bmp") ),
-terrainTree(0, 0, 1000u, 1000u)
+terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
+mTowerPlacer(terrainTree, nullptr)
 {
 
 	mPawns.reserve(100);
@@ -29,14 +30,14 @@ terrainTree(0, 0, 1000u, 1000u)
 
 	//Subdivide terrainTree
 	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
-	terrainTree.subdivide([interpreter](Quadtree<unsigned char>* node)
+	terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
 	{
 		sf::IntRect nB = node->getBounds();
 
 		node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
 
 		if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
-			(node->getData() & TerrainInterpreter::PATH) &&	//also contains path and
+			(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
 			node->getLevel() < 10u)								//is less than 10 levels deep in the tree
 		{
 			return true;
@@ -44,6 +45,8 @@ terrainTree(0, 0, 1000u, 1000u)
 
 		return false;
 	});//end terrainTree subdivision
+
+	mTowerPlacer.activate();
 }
 
 Level::~Level() {
@@ -93,6 +96,9 @@ void Level::draw(sf::RenderWindow &w) {
 	}
 
 	mTower.draw(w);
+
+	mTowerPlacer.update(sf::Mouse::getPosition(w));
+	mTowerPlacer.draw(w);
 }
 
 Hero* Level::getHero() const {

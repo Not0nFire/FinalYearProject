@@ -10,6 +10,7 @@
 #include <include/Towers/BasicTower.h>
 #include <include/Quadtree.hpp>
 #include <include/TerrainInterpreter.h>
+#include <include/Towers/TowerPlacer.hpp>
 
 class Level : public I_Scene{
 private:
@@ -24,7 +25,8 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
-	Quadtree<unsigned char> terrainTree;
+	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
+	TowerPlacer mTowerPlacer;
 	
 public:
 	Level();

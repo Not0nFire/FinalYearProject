@@ -4,7 +4,7 @@
 using namespace tower;
 
 BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType) :
-Actor(texture),
+Actor(texture, new sf::CircleShape(40, 4), sf::Vector2f(-20.0f, 10.0f)),
 mRange(range),
 mAttacksPerSecond(attacksPerSecond),
 mDamage(damage),
