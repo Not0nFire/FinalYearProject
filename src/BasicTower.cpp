@@ -4,7 +4,20 @@
 using namespace tower;
 
 BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType) :
-Actor(texture, new sf::CircleShape(40, 4), sf::Vector2f(-20.0f, 10.0f)),
+Actor(texture,
+
+//define points of shape (there HAS to be a better way!)
+[]()
+{
+	sf::ConvexShape* mask = new sf::ConvexShape(4u);
+	mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
+	mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
+	mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
+	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
+	return mask;
+}(),
+
+sf::Vector2f(0.0f, 0.0f)),
 mRange(range),
 mAttacksPerSecond(attacksPerSecond),
 mDamage(damage),
@@ -15,9 +28,13 @@ mProjectile(10,
 			)
 {
 	auto bounds = getLocalBounds();
-	setOrigin(bounds.width * .05f, bounds.height * 0.8f);
+	setOrigin(bounds.width * .05f, bounds.height * 0.85f);
 	setPosition(position);
+
+	
 	updateCollidableMask(getPosition());
+
+	printf("tower: %f, %f. mask: %f, %f.", getPosition().x, getPosition().y, getMask()->getPosition().x, getMask()->getPosition().y);
 }
 
 BasicTower::~BasicTower() {}

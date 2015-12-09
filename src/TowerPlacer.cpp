@@ -33,7 +33,7 @@ bool TowerPlacer::place() {
 		///...put a tower in the container
 		mTowerContainer->push_back(new tower::BasicTower(
 			ResourceManager<sf::Texture>::instance()->get("./res/img/tower.png"),
-			mMask->getPosition() - mMask->getOrigin(), 300.0f, 1.0f, 10,
+			mMask->getPosition() - sf::Vector2f(mMask->getOrigin().x, 0.f), 300.0f, 1.0f, 10,
 			Damage::Type::PHYSICAL
 			));
 
