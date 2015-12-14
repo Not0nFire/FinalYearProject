@@ -8,7 +8,9 @@
 Level::Level(sf::RenderWindow const* _relWindow) :
 mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
 relWindow(_relWindow),
-backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
+backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
+terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
+mTowerPlacer(terrainTree, &mTowers)
 {
 
 	mPawns.reserve(100);
@@ -26,6 +28,24 @@ backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
 		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
 	}
+
+	//Subdivide terrainTree
+	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
+	terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
+	{
+		sf::IntRect nB = node->getBounds();
+
+		node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
+
+		if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
+			(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
+			node->getLevel() < 10u)								//is less than 10 levels deep in the tree
+		{
+			return true;
+		}
+
+		return false;
+	});//end terrainTree subdivision
 }
 
 Level::~Level() {
@@ -36,11 +56,26 @@ Level::~Level() {
 
 bool Level::handleEvent(sf::Event &event ) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+<<<<<<< HEAD
+	bool handled = false;
+	if (event.type == sf::Event::EventType::MouseButtonPressed) {
+		if (mTowerPlacer.place()) {
+			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
+			handled = true;
+		}
+
+	} else if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
+		mTowerPlacer.activate();
+		handled = true;
+	}
+	return handled;
+=======
 	if (event.type == sf::Event::MouseButtonPressed) {
 		assert(relWindow != nullptr);
 		mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)));
 	}
 	return false;
+>>>>>>> master
 }
 
 void Level::update(sf::Time const &elapsedTime) {
@@ -63,8 +98,10 @@ void Level::update(sf::Time const &elapsedTime) {
 	}//for
 	mCollisionGroup.check();
 
-	mTower.update(elapsedTime);
-	mTower.acquireTarget(mPawns);
+	for (auto tower : mTowers) {
+		tower->update(elapsedTime);
+		tower->acquireTarget(mPawns);
+	}
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -78,7 +115,13 @@ void Level::draw(sf::RenderWindow &w) {
 		w.draw(*p);
 	}
 
-	mTower.draw(w);
+	for (auto tower : mTowers) {
+		tower->debug_draw(w);
+		tower->draw(w);
+	}
+
+	mTowerPlacer.update(sf::Mouse::getPosition(w));
+	mTowerPlacer.draw(w);
 }
 
 //bool Level::loadFromXML(const char *path) {

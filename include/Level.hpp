@@ -8,6 +8,9 @@
 #include <include/Hero.hpp>
 #include <include/Collision/CollisionGroup.hpp>
 #include <include/Towers/BasicTower.h>
+#include <include/Quadtree.hpp>
+#include <include/TerrainInterpreter.h>
+#include <include/Towers/TowerPlacer.hpp>
 
 class Level : public I_Scene{
 private:
@@ -17,11 +20,14 @@ private:
 	collision::CollisionGroup mCollisionGroup;
 	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
-	tower::BasicTower mTower;
+	std::vector<tower::BasicTower*> mTowers;
 
 	boost::mutex mMutex;
 
 	sf::Sprite backgroundTEMP;
+
+	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
+	TowerPlacer mTowerPlacer;
 	
 public:
 	/*!

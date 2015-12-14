@@ -115,6 +115,8 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\TerrainInterpreter.cpp" />
+    <ClCompile Include="src\TowerPlacer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
@@ -135,6 +137,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
     <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\Quadtree.hpp" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\Renderer.hpp" />
     <ClInclude Include="include\ResourceManager.h" />
@@ -143,7 +146,9 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
+    <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
+    <ClInclude Include="include\Towers\TowerPlacer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />

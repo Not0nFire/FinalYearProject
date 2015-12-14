@@ -59,6 +59,11 @@ int Game::run() {
 }
 
 void Game::handleEvent(sf::Event& event) {
+
+	if (SceneManager::instance()->passEventToCurrentScene(event)) {
+		return; //event is already handled
+	}
+
 	switch (event.type) {
 
 		case sf::Event::Closed:
@@ -71,7 +76,6 @@ void Game::handleEvent(sf::Event& event) {
 			mPaused = false;
 			break;
 		default:
-			SceneManager::instance()->passEventToCurrentScene(event);
 			break;
 	}
 }

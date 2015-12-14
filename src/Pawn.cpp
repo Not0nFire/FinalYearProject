@@ -2,7 +2,7 @@
 #include <boost/thread/lock_guard.hpp>
 
 Pawn::Pawn(sf::Texture &texture, Faction faction) :
-Actor(texture),
+Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 10.0f)),
 mFaction(faction),
 mState(State::IDLE),
 M_MAX_HEALTH(100),
