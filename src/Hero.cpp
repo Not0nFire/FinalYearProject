@@ -2,8 +2,8 @@
 
 Hero::Hero(sf::Texture &texture) : Pawn(texture, Faction::PLAYER){
 	mMovementSpeed = 100;
-	mHealth = 9000;
-	mAttackDamage = 1;
+	mHealth = 500;
+	mAttackDamage = 20;
 	mAttacksPerSecond = 2.0f;
 }
 

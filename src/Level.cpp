@@ -9,7 +9,8 @@ Level::Level(sf::RenderWindow const* _relWindow) :
 relWindow(_relWindow),
 backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
 terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
-mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup)
+mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup),
+mPath(/*put xml path here when tinyXML2 implemented*/)
 {
 
 	mPawns.reserve(100);
@@ -18,8 +19,8 @@ mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup)
 	mPawns.push_back(mHero);
 
 	for (int i = 1; i < 10; i++) {
-		mPawns.push_back(new Pawn(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY));
-		mPawns[i]->setPosition(powf(i*2.0f,2.0f), powf(i*2.0f,2.0f));
+		mPawns.push_back(new Minion(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY, mPath));
+		mPawns[i]->setPosition(mPath.begin()->getPoint());
 	}
 
 	for (Pawn* p : mPawns)
@@ -81,10 +82,6 @@ void Level::update(sf::Time const &elapsedTime) {
 	for (Pawn* p : mPawns) {
 
 		p->update(elapsedTime);
-
-		if (p != mHero) {
-			p->setDestination(mHero->getPosition());
-		}//if
 
 		if (p->targetIsDead()) {
 			for (Pawn* other : mPawns) {
