@@ -13,7 +13,6 @@ using namespace signals2;
 class Game {
 private:
 	Renderer mRenderer;
-	signal<void(sf::Vector2f)> onMouseClick;
 
 	bool mRun, mPaused;
 
@@ -23,9 +22,17 @@ private:
 	Menu* mMenu;
 
 public:
+	/*!
+	\brief Sets up the game. Takes no arguements.
+	*/
 	Game();
 	~Game();
 
+	/*!
+	\brief Begins the game.
+	\remarks Intended usage: in main(): return game.run();
+	\returns EXIT_SUCCESS (0)
+	*/
 	int run();
 };
 #endif

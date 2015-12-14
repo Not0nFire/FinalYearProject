@@ -5,9 +5,10 @@
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
-Level::Level() :
-mTowers(),
-backgroundTEMP( GET_TEXTURE("./res/img/terrain.bmp") ),
+Level::Level(sf::RenderWindow const* _relWindow) :
+mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
+relWindow(_relWindow),
+backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
 terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
 mTowerPlacer(terrainTree, &mTowers)
 {
@@ -55,6 +56,7 @@ Level::~Level() {
 
 bool Level::handleEvent(sf::Event &event ) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+<<<<<<< HEAD
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
 		if (mTowerPlacer.place()) {
@@ -67,6 +69,13 @@ bool Level::handleEvent(sf::Event &event ) {
 		handled = true;
 	}
 	return handled;
+=======
+	if (event.type == sf::Event::MouseButtonPressed) {
+		assert(relWindow != nullptr);
+		mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)));
+	}
+	return false;
+>>>>>>> master
 }
 
 void Level::update(sf::Time const &elapsedTime) {
@@ -113,10 +122,6 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer.update(sf::Mouse::getPosition(w));
 	mTowerPlacer.draw(w);
-}
-
-Hero* Level::getHero() const {
-	return mHero;
 }
 
 //bool Level::loadFromXML(const char *path) {

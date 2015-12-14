@@ -1,0 +1,49 @@
+\hypertarget{class_resource_manager}{}\section{Resource\+Manager$<$ T $>$ Class Template Reference}
+\label{class_resource_manager}\index{Resource\+Manager$<$ T $>$@{Resource\+Manager$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Resource\+Manager.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+T \& \hyperlink{class_resource_manager_ac429dfbb66104f517dee009b7bc03599}{get} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Gets a resource by its path in the file system. If the resource specified by path has not already been loaded\+: Loads the resource, puts the resource into the map (with path as the key), returns the loaded resource. If the key \char`\"{}path\char`\"{} exists in the map it means the resource has already been loaded, so just return the resource. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_resource_manager_a3dcdce6201a938ee51be3d23879e46e1}{}static \hyperlink{class_resource_manager}{Resource\+Manager}$<$ T $>$ $\ast$ \hyperlink{class_resource_manager_a3dcdce6201a938ee51be3d23879e46e1}{instance} ()\label{class_resource_manager_a3dcdce6201a938ee51be3d23879e46e1}
+
+\begin{DoxyCompactList}\small\item\em Instanciates (or returns the instance of) the \hyperlink{class_resource_manager}{Resource\+Manager}. Instanciates (or gets the existing instance of) the Resource\+Manager$<$\+T$>$ where T = an S\+F\+M\+L resource type. Each instance of \hyperlink{class_resource_manager}{Resource\+Manager} manages a different type of resource (e.\+g. Resource\+Manager$<$\+Texture$>$, Resource\+Manager$<$\+Font$>$). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$class Resource\+Manager$<$ T $>$}
+
+Simple S\+F\+M\+L resource manager. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_resource_manager_ac429dfbb66104f517dee009b7bc03599}{}\index{Resource\+Manager@{Resource\+Manager}!get@{get}}
+\index{get@{get}!Resource\+Manager@{Resource\+Manager}}
+\subsubsection[{get(std\+::string path)}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ T \& {\bf Resource\+Manager}$<$ T $>$\+::get (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{path}
+\end{DoxyParamCaption}
+)}\label{class_resource_manager_ac429dfbb66104f517dee009b7bc03599}
+
+
+Gets a resource by its path in the file system. If the resource specified by path has not already been loaded\+: Loads the resource, puts the resource into the map (with path as the key), returns the loaded resource. If the key \char`\"{}path\char`\"{} exists in the map it means the resource has already been loaded, so just return the resource. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The location of the resource in the file system. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the requested resource. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Resource\+Manager.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,134 @@
+\hypertarget{class_scene_manager}{}\section{Scene\+Manager Class Reference}
+\label{class_scene_manager}\index{Scene\+Manager@{Scene\+Manager}}
+
+
+{\ttfamily \#include $<$Scene\+Manager.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{class_scene_manager_a77bd9095429893110454ccd716a9fff5}{get\+Current\+Scene} () const 
+\item 
+\hyperlink{class_i___scene}{I\+\_\+\+Scene} $\ast$ \hyperlink{class_scene_manager_a618fb8cab23a252b98c66a3ef27147ca}{get\+Editable\+Scene} () const 
+\item 
+void \hyperlink{class_scene_manager_a2c5918c732cedd929db77c37da2bf3b5}{create\+Scene} (std\+::string const \&name, \hyperlink{class_i___scene}{I\+\_\+\+Scene} $\ast$derived\+Scene\+Object, bool go\+To\+Scene=true)
+\item 
+void \hyperlink{class_scene_manager_a95303770a6b44a29e137605c46b777e7}{update\+Current\+Scene} (sf\+::\+Time const \&elapsed\+Time)
+\item 
+void \hyperlink{class_scene_manager_a1d3facb4a9f1e172c30fc1981cde325c}{draw\+Current\+Scene} (sf\+::\+Render\+Window \&w)
+\item 
+bool \hyperlink{class_scene_manager_a8540e64a3c1c0d369b853ff393b59822}{pass\+Event\+To\+Current\+Scene} (sf\+::\+Event \&the\+Event)
+\item 
+bool \hyperlink{class_scene_manager_abe3f30d22a5a781e719d2fc881f00ef3}{navigate\+To\+Scene} (std\+::string const \&path)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_scene_manager_a4b597c83770eced37c85eda6a5664c89}{}static \hyperlink{class_scene_manager}{Scene\+Manager} $\ast$ {\bfseries instance} ()\label{class_scene_manager_a4b597c83770eced37c85eda6a5664c89}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+signal$<$ void(\hyperlink{class_i___scene}{I\+\_\+\+Scene} $\ast$new\+Scene)$>$ \hyperlink{class_scene_manager_ae1768cf1a2da5736571da6516d512379}{on\+Scene\+Change}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Singleton class to handle scenes and the navigation between them. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_scene_manager_a2c5918c732cedd929db77c37da2bf3b5}{}\index{Scene\+Manager@{Scene\+Manager}!create\+Scene@{create\+Scene}}
+\index{create\+Scene@{create\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{create\+Scene(std\+::string const \&name, I\+\_\+\+Scene $\ast$derived\+Scene\+Object, bool go\+To\+Scene=true)}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\+Manager\+::create\+Scene (
+\begin{DoxyParamCaption}
+\item[{std\+::string const \&}]{name, }
+\item[{{\bf I\+\_\+\+Scene} $\ast$}]{derived\+Scene\+Object, }
+\item[{bool}]{go\+To\+Scene = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}\label{class_scene_manager_a2c5918c732cedd929db77c37da2bf3b5}
+Adds a scene to the map under the specified name. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the scene (its key in the map) \\
+\hline
+{\em derived\+Scene\+Object} & The scene to be added. \\
+\hline
+{\em go\+To\+Scene} & True if the new scene should become the current scene (i.\+e. navigated to immediately) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_scene_manager_a1d3facb4a9f1e172c30fc1981cde325c}{}\index{Scene\+Manager@{Scene\+Manager}!draw\+Current\+Scene@{draw\+Current\+Scene}}
+\index{draw\+Current\+Scene@{draw\+Current\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{draw\+Current\+Scene(sf\+::\+Render\+Window \&w)}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\+Manager\+::draw\+Current\+Scene (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Render\+Window \&}]{w}
+\end{DoxyParamCaption}
+)}\label{class_scene_manager_a1d3facb4a9f1e172c30fc1981cde325c}
+Calls the current scene\textquotesingle{}s draw method \hypertarget{class_scene_manager_a77bd9095429893110454ccd716a9fff5}{}\index{Scene\+Manager@{Scene\+Manager}!get\+Current\+Scene@{get\+Current\+Scene}}
+\index{get\+Current\+Scene@{get\+Current\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{get\+Current\+Scene() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Scene\+Manager\+::get\+Current\+Scene (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_scene_manager_a77bd9095429893110454ccd716a9fff5}
+Gets the name of the current scene (its key in the map of scenes) \begin{DoxyReturn}{Returns}
+The name of the current scene. 
+\end{DoxyReturn}
+\hypertarget{class_scene_manager_a618fb8cab23a252b98c66a3ef27147ca}{}\index{Scene\+Manager@{Scene\+Manager}!get\+Editable\+Scene@{get\+Editable\+Scene}}
+\index{get\+Editable\+Scene@{get\+Editable\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{get\+Editable\+Scene() const }]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\+\_\+\+Scene} $\ast$ Scene\+Manager\+::get\+Editable\+Scene (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_scene_manager_a618fb8cab23a252b98c66a3ef27147ca}
+Gets a pointer to the current scene, allowing it to be edited. Use \hyperlink{class_scene_manager_a77bd9095429893110454ccd716a9fff5}{get\+Current\+Scene()} in place of this method wherever possible. \begin{DoxyReturn}{Returns}
+A pointer to the current scene. 
+\end{DoxyReturn}
+\hypertarget{class_scene_manager_abe3f30d22a5a781e719d2fc881f00ef3}{}\index{Scene\+Manager@{Scene\+Manager}!navigate\+To\+Scene@{navigate\+To\+Scene}}
+\index{navigate\+To\+Scene@{navigate\+To\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{navigate\+To\+Scene(std\+::string const \&path)}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\+Manager\+::navigate\+To\+Scene (
+\begin{DoxyParamCaption}
+\item[{std\+::string const \&}]{path}
+\end{DoxyParamCaption}
+)}\label{class_scene_manager_abe3f30d22a5a781e719d2fc881f00ef3}
+Sets the current scene to be path. 
+\begin{DoxyParams}{Parameters}
+{\em path} & The name of the scene to be navigated to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the path matched an existing scene. 
+\end{DoxyReturn}
+\hypertarget{class_scene_manager_a8540e64a3c1c0d369b853ff393b59822}{}\index{Scene\+Manager@{Scene\+Manager}!pass\+Event\+To\+Current\+Scene@{pass\+Event\+To\+Current\+Scene}}
+\index{pass\+Event\+To\+Current\+Scene@{pass\+Event\+To\+Current\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{pass\+Event\+To\+Current\+Scene(sf\+::\+Event \&the\+Event)}]{\setlength{\rightskip}{0pt plus 5cm}bool Scene\+Manager\+::pass\+Event\+To\+Current\+Scene (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Event \&}]{the\+Event}
+\end{DoxyParamCaption}
+)}\label{class_scene_manager_a8540e64a3c1c0d369b853ff393b59822}
+Calls handle\+Event on the current scene, passing the\+Event. 
+\begin{DoxyParams}{Parameters}
+{\em the\+Event} & The event that will be passes to the current scene. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the event has been processed and no further processing of this event is required. (i.\+e. event is used up) 
+\end{DoxyReturn}
+\hypertarget{class_scene_manager_a95303770a6b44a29e137605c46b777e7}{}\index{Scene\+Manager@{Scene\+Manager}!update\+Current\+Scene@{update\+Current\+Scene}}
+\index{update\+Current\+Scene@{update\+Current\+Scene}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{update\+Current\+Scene(sf\+::\+Time const \&elapsed\+Time)}]{\setlength{\rightskip}{0pt plus 5cm}void Scene\+Manager\+::update\+Current\+Scene (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Time const \&}]{elapsed\+Time}
+\end{DoxyParamCaption}
+)}\label{class_scene_manager_a95303770a6b44a29e137605c46b777e7}
+Calls the current scene\textquotesingle{}s update method. 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_scene_manager_ae1768cf1a2da5736571da6516d512379}{}\index{Scene\+Manager@{Scene\+Manager}!on\+Scene\+Change@{on\+Scene\+Change}}
+\index{on\+Scene\+Change@{on\+Scene\+Change}!Scene\+Manager@{Scene\+Manager}}
+\subsubsection[{on\+Scene\+Change}]{\setlength{\rightskip}{0pt plus 5cm}signal$<$void({\bf I\+\_\+\+Scene}$\ast$ new\+Scene)$>$ Scene\+Manager\+::on\+Scene\+Change}\label{class_scene_manager_ae1768cf1a2da5736571da6516d512379}
+Signal that is invoked whenever the scene changes. The scene pointer passed is the new current scene. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Scene\+Manager.\+hpp\item 
+src/Scene\+Manager.\+cpp\end{DoxyCompactItemize}

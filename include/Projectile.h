@@ -28,15 +28,27 @@ public:
 	Projectile(int damage, Damage::Type damageType, sf::Texture& texture);
 	~Projectile();
 
+	/*!
+	Fires the projectile in a computed arc.
+	\param from The location to fire from.
+	\param to The destination of the projectile.
+	\param flightTimeSeconds How much time the projectile should take to reach its destination.
+	*/
 	virtual void fire(sf::Vector2f const &from, sf::Vector2f const &to, float flightTimeSeconds);
 
-	//Add a function pointer to be called when projectile reaches its target.
+	/*!
+	Adds a function pointer to be called when projectile reaches its target.
+	*/
 	void connectOnHit(void(*funcPtr)(Projectile*));
 
-	//Remove a function pointer from being called when projectile reaches its target.
+	/*!
+	Remove a function pointer from being called when projectile reaches its target.
+	*/
 	void disconnectOnHit(void(*funcPtr)(Projectile*));
 
-	//Remove all function pointers from being called when projectile reaches its target.
+	/*!
+	Remove all function pointers from being called when projectile reaches its target.
+	*/
 	void disconnectAllOnHit();
 
 	virtual void update(sf::Time const &elapsedTime);

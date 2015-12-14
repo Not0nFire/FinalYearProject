@@ -18,6 +18,7 @@ private:
 	Hero* mHero;
 	std::vector<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
+	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
 	std::vector<tower::BasicTower*> mTowers;
 
@@ -29,7 +30,10 @@ private:
 	TowerPlacer mTowerPlacer;
 	
 public:
-	Level();
+	/*!
+	\param _relWindow RenderWindow to be used for getting relative mouse position.
+	*/
+	Level(sf::RenderWindow const* _relWindow);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
@@ -37,7 +41,5 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
-
-	Hero*  getHero() const;
 };
 #endif
