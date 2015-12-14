@@ -39,12 +39,12 @@ public:
 	/*!
 	Adds a function pointer to be called when projectile reaches its target.
 	*/
-	void connectOnHit(void(*funcPtr)(Projectile*));
+	void connectOnHit(std::function<void(Projectile*)> func);
 
 	/*!
 	Remove a function pointer from being called when projectile reaches its target.
 	*/
-	void disconnectOnHit(void(*funcPtr)(Projectile*));
+	//void disconnectOnHit(void(*funcPtr)(Projectile*));
 
 	/*!
 	Remove all function pointers from being called when projectile reaches its target.
@@ -56,5 +56,9 @@ public:
 	bool isActive() const;
 
 	virtual void onCollide(Collidable* other, sf::Vector2f const& mtv) override;
+
+	int getDamage() const;
+
+	Damage::Type getDamageType() const;
 };
 #endif

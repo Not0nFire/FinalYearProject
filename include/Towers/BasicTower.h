@@ -5,6 +5,8 @@
 #include <include/Damage.hpp>
 #include <include/Projectile.h>
 #include <include/Pawn.hpp>
+#include <include/Collision/CollisionGroup.hpp>
+
 
 namespace tower
 {
@@ -23,7 +25,7 @@ namespace tower
 		Projectile mProjectile;
 
 	public:
-		BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType);
+		BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup);
 		virtual ~BasicTower();
 
 		void update(sf::Time const &elapsedTime);

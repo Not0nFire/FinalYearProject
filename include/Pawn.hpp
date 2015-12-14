@@ -5,6 +5,7 @@
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>
+#include <include/Projectile.h>
 
 using namespace boost::signals2;
 

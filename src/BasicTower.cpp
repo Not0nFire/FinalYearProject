@@ -3,7 +3,7 @@
 
 using namespace tower;
 
-BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType) :
+BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup) :
 Actor(texture,
 
 //define points of shape (there HAS to be a better way!)
@@ -28,13 +28,15 @@ mProjectile(10,
 			)
 {
 	auto bounds = getLocalBounds();
-	setOrigin(bounds.width * .05f, bounds.height * 0.85f);
+	setOrigin(bounds.width * .5f, bounds.height * 0.85f);
 	setPosition(position);
-
 	
 	updateCollidableMask(getPosition());
 
 	printf("tower: %f, %f. mask: %f, %f.", getPosition().x, getPosition().y, getMask()->getPosition().x, getMask()->getPosition().y);
+
+	//Tell the projectile to check for collision when it hits
+	mProjectile.connectOnHit(bind(&collision::CollisionGroup::checkAgainst, projectileCollisionGroup, _1));
 }
 
 BasicTower::~BasicTower() {}
@@ -47,6 +49,7 @@ void BasicTower::draw(sf::RenderTarget& target) {
 	target.draw(*this);
 	if (mProjectile.isActive()) {
 		target.draw(mProjectile);
+		mProjectile.debug_draw(target);
 	}
 }
 

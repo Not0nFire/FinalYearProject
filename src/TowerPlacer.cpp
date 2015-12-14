@@ -3,13 +3,14 @@
 const sf::Color TowerPlacer::mValidColor = sf::Color::Green;
 const sf::Color TowerPlacer::mInvalidColor = sf::Color::Red;
 
-TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer) :
+TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, collision::CollisionGroup* collisionGroup) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
 mOverlay(ResourceManager<sf::Texture>::instance()->get("./res/img/tower_ghost.png")),
 mMask(new sf::CircleShape(40, 4u)),
-mTowerContainer(towerContainer)
+mTowerContainer(towerContainer),
+towerProjectileCollisionGroup(collisionGroup)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
@@ -18,7 +19,7 @@ mTowerContainer(towerContainer)
 	mMask->setOrigin(maskBounds.width * 0.5f, maskBounds.height * 0.5f);
 
 	auto overlayBounds = mOverlay.getLocalBounds();
-	mOverlay.setOrigin(overlayBounds.width * 0.5f, overlayBounds.height * 0.8f);
+	mOverlay.setOrigin(overlayBounds.width * 0.5f, overlayBounds.height * 0.85f);
 }
 
 TowerPlacer::~TowerPlacer() {
@@ -33,8 +34,9 @@ bool TowerPlacer::place() {
 		///...put a tower in the container
 		mTowerContainer->push_back(new tower::BasicTower(
 			ResourceManager<sf::Texture>::instance()->get("./res/img/tower.png"),
-			mMask->getPosition() - sf::Vector2f(mMask->getOrigin().x, 0.f), 300.0f, 1.0f, 10,
-			Damage::Type::PHYSICAL
+			mMask->getPosition(), 300.0f, 1.0f, 10,
+			Damage::Type::PHYSICAL,
+			towerProjectileCollisionGroup
 			));
 
 		placed = true;

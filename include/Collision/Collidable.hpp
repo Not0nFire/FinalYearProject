@@ -2,9 +2,7 @@
 #define _COLLIDABLE_H
 
 #include <SFML/Graphics.hpp>
-#include <boost/signals2.hpp>
 
-using namespace boost::signals2;
 namespace collision {
 
 	class Collidable {

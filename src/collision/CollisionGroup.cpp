@@ -113,7 +113,7 @@ namespace collision {
 		sf::Vector2f mtv;
 		for (Collidable* member : mMembers)
 		{
-			if (checkPair(member, other, mtv))
+			if (checkPair(other, member, mtv))
 			{
 				member->onCollide(other, mtv);
 				other->onCollide(member, -mtv);

@@ -136,8 +136,6 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 	//apply damage
 	mHealth -= amount;
 
-	std::cout << this << "\tDMG: " << amount << " \t HP: " << mHealth << std::endl;
-
 	bool isDead = mHealth <= 0;
 
 	if (isDead) {
@@ -154,8 +152,6 @@ bool Pawn::takeDamage(int amount, Damage::Type type, Pawn* sender) {
 	} else if (thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
 		mCombatTarget = sender;
 	}
-
-	std::cout << "\nSNDR: " << sender << std::endl;
 
 	return takeDamage(amount, type);
 }
@@ -222,7 +218,13 @@ Pawn::Faction Pawn::getFaction() const {
 }
 
 void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
-	move(mtv *.25f);	//By no means perfect but it prevents all pawns piling onto each other and that's all we need right now.
+	Projectile* projectile = dynamic_cast<Projectile*>(other);
+	if (projectile) {
+		takeDamage(projectile->getDamage(), projectile->getDamageType());
+		std::cout << "\nTower hit" << std::endl;
+	} else {
+		move(mtv *.5f);	//By no means perfect but it prevents all pawns piling onto each other and that's all we need right now.
+	}
 }
 
 //bool Pawn::hasDecayed() const {

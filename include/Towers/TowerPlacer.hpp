@@ -15,7 +15,7 @@ typedef Quadtree<unsigned char> TerrainTree;
 
 class TowerPlacer {
 public:
-	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer);
+	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, collision::CollisionGroup* collisionGroup);
 	~TowerPlacer();
 
 	/*!
@@ -74,5 +74,7 @@ protected:
 private:
 	static const sf::Color mValidColor;
 	static const sf::Color mInvalidColor;
+
+	collision::CollisionGroup* towerProjectileCollisionGroup;
 };
 #endif
