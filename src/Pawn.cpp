@@ -209,6 +209,10 @@ bool Pawn::targetIsDead() const {
 	return isDead;
 }
 
+int Pawn::getHealth() const {
+	return mHealth;
+}
+
 Pawn::State Pawn::getState() const {
 	return mState;
 }

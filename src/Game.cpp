@@ -5,9 +5,10 @@
 Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mRun(false),
-	mPaused(false)
+	mPaused(false),
+	mSFGUI(new sfg::SFGUI())
 {
-	mLevel = new Level();
+	mLevel = new Level(mSFGUI);
 	SceneManager::instance()->createScene("Level", mLevel);
 	onMouseClick.connect(boost::bind(&Pawn::setDestination, mLevel->getHero(), _1));
 
@@ -18,7 +19,9 @@ Game::Game() :
 	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
 	SceneManager::instance()->createScene("Menu", mMenu);
-	mRenderer.setScene(mMenu);
+	SceneManager::instance()->createScene("Level", mLevel);
+	onMouseClick.connect(boost::bind(&Pawn::setDestination, mLevel->getHero(), _1));
+	mRenderer.setScene(mLevel);
 
 	//It's dirty but the deadline is hours away. To be cleaned in sprint 2.
 	SceneManager::instance()->onSceneChange.connect([this](std::string str)

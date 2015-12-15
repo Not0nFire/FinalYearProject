@@ -3,9 +3,16 @@ Label, Window, Button, CheckButton, ComboBox, Frame, Entry, ToggleButton {
 	FontSize: 30;
 }
 
-Labal#title {
+Label#title {
 	FontSize: 72;
-	Color: 778899ff;
+	Color: #778899ff;
+}
+
+ProgressBar#health {
+	BackgroundColor: #4d0000ff;
+	BarColor: #cc0000ff;
+	BorderColor: #ff0000ff;
+	BarBorderColor: #ff8000ff;
 }
 
 Window {

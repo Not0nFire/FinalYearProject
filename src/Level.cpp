@@ -5,9 +5,10 @@
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
-Level::Level() :
+Level::Level(std::shared_ptr<sfg::SFGUI> sfgui) :
 mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
-backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
+backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
+mHud(sfgui)
 {
 
 	mPawns.reserve(100);
@@ -25,6 +26,8 @@ backgroundTEMP( GET_TEXTURE("./res/img/bg.png") )
 		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
 	}
+
+	mHud.addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
 }
 
 Level::~Level() {
@@ -60,6 +63,8 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	mTower.update(elapsedTime);
 	mTower.acquireTarget(mPawns);
+
+	mHud.update(elapsedTime);
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -74,6 +79,8 @@ void Level::draw(sf::RenderWindow &w) {
 	}
 
 	mTower.draw(w);
+
+	mHud.draw(w);
 }
 
 Hero* Level::getHero() const {

@@ -22,6 +22,8 @@ private:
 	Level* mLevel;
 	Menu* mMenu;
 
+	std::shared_ptr<sfg::SFGUI> mSFGUI;
+
 public:
 	Game();
 	~Game();

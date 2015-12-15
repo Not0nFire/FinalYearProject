@@ -8,6 +8,7 @@
 #include <include/Hero.hpp>
 #include <include/Collision/CollisionGroup.hpp>
 #include <include/Towers/BasicTower.h>
+#include <include/HUD.hpp>
 
 class Level : public I_Scene{
 private:
@@ -21,9 +22,11 @@ private:
 	boost::mutex mMutex;
 
 	sf::Sprite backgroundTEMP;
+
+	HUD mHud;
 	
 public:
-	Level();
+	Level(std::shared_ptr<sfg::SFGUI> sfgui);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;

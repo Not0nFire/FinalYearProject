@@ -88,6 +88,8 @@ public:
 	bool offerTarget(Pawn* target);	//temporary until chairscript (target acquisition) (returns true if target accepted)
 	bool targetIsDead() const;
 
+	int getHealth() const;
+
 	State getState() const;
 	bool isDead() const;
 

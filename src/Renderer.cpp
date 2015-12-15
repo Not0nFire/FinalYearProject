@@ -39,7 +39,6 @@ void Renderer::render() {
 		
 
 		mSceneToRender->draw(mWindow);
-		mSFGUI.Display(mWindow);
 
 		mMutex.unlock();	//Release the mutex
 
@@ -61,10 +60,12 @@ const sf::RenderWindow& Renderer::getWindow() const {
 }
 
 void Renderer::setScene(I_Scene* newScene) {
+	make_lock_guard<boost::mutex>(mMutex);
 	mSceneToRender = newScene;
 }
 
 
 bool Renderer::pollEvent(sf::Event& event) {
+	make_lock_guard<boost::mutex>(mMutex);
 	return mWindow.pollEvent(event);
 }
