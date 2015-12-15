@@ -1,6 +1,8 @@
 #include "../include/Menu.hpp"
 
-Menu::Menu(std::string const &themePath, sfg::Box::Orientation orientation, float spacing) {
+Menu::Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath, sfg::Box::Orientation orientation, float spacing) :
+mSFGUI(gui)
+{
 	mDesktop.LoadThemeFromFile(themePath);
 	mBox = sfg::Box::Create(orientation, spacing);
 	mBox->SetRequisition(sf::Vector2f(200, 400));
@@ -34,9 +36,16 @@ bool Menu::handleEvent(sf::Event &Event) {
 	return true;
 }
 
+void Menu::cleanup() {
+	mBox->Show(false);	//hide sfgui widgets
+}
+
+
 void Menu::draw( sf::RenderWindow &w ) {
+	mSFGUI->Display(w);
 }
 
 void Menu::update(sf::Time const &elapsedTime) {
+	mBox->Show();
 	mDesktop.Update(elapsedTime.asSeconds());
 }

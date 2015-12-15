@@ -1,7 +1,7 @@
 #include <include\Actor.hpp>
 
-Actor::Actor(sf::Texture &texture)
-	: sf::Sprite(texture), Collidable(new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 10.0f)), mVisible(true) {
+Actor::Actor(sf::Texture &texture, sf::Shape* collisionMask, sf::Vector2f const &maskOffset)
+	: sf::Sprite(texture), Collidable(collisionMask, maskOffset), mVisible(true) {
 	setOrigin(texture.getSize().x * 0.5f, texture.getSize().y * 0.5f);
 }
 

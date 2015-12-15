@@ -5,9 +5,12 @@
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
-Level::Level(std::shared_ptr<sfg::SFGUI> sfgui) :
-mTower( tower::BasicTower(GET_TEXTURE("./res/img/tower.png"), sf::Vector2f(500, 300), 300.0f, 1.0f, 10, Damage::Type::PHYSICAL) ),
+Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
+relWindow(_relWindow),
 backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
+terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
+mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup),
+mPath(/*put xml path here when tinyXML2 implemented*/),
 mHud(sfgui)
 {
 
@@ -17,8 +20,8 @@ mHud(sfgui)
 	mPawns.push_back(mHero);
 
 	for (int i = 1; i < 10; i++) {
-		mPawns.push_back(new Pawn(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY));
-		mPawns[i]->setPosition(powf(i*2.0f,2.0f), powf(i*2.0f,2.0f));
+		mPawns.push_back(new Minion(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY, mPath));
+		mPawns[i]->setPosition(mPath.begin()->getPoint());
 	}
 
 	for (Pawn* p : mPawns)
@@ -31,7 +34,26 @@ mHud(sfgui)
 		}
 	}
 
+
 	mHud.addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
+
+	//Subdivide terrainTree
+	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
+	terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
+	{
+		sf::IntRect nB = node->getBounds();
+
+		node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
+
+		if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
+			(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
+			node->getLevel() < 10u)								//is less than 10 levels deep in the tree
+		{
+			return true;
+		}
+
+		return false;
+	});//end terrainTree subdivision
 }
 
 Level::~Level() {
@@ -42,7 +64,25 @@ Level::~Level() {
 
 bool Level::handleEvent(sf::Event &event ) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
-	return false;
+
+	bool handled = false;
+	if (event.type == sf::Event::EventType::MouseButtonPressed) {
+		if (mTowerPlacer.place()) {
+			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
+			handled = true;
+		} else {
+			assert(relWindow != nullptr);
+			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)));
+			handled = true;
+		}
+
+	} else if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
+		mTowerPlacer.activate();
+		handled = true;
+
+	}
+
+	return handled;
 }
 
 void Level::update(sf::Time const &elapsedTime) {
@@ -50,10 +90,6 @@ void Level::update(sf::Time const &elapsedTime) {
 	for (Pawn* p : mPawns) {
 
 		p->update(elapsedTime);
-
-		if (p != mHero) {
-			p->setDestination(mHero->getPosition());
-		}//if
 
 		if (p->targetIsDead()) {
 			for (Pawn* other : mPawns) {
@@ -65,8 +101,11 @@ void Level::update(sf::Time const &elapsedTime) {
 	}//for
 	mCollisionGroup.check();
 
-	mTower.update(elapsedTime);
-	mTower.acquireTarget(mPawns);
+
+	for (auto tower : mTowers) {
+		tower->update(elapsedTime);
+		tower->acquireTarget(mPawns);
+	}
 
 	mHud.update(elapsedTime);
 }//end update
@@ -82,14 +121,21 @@ void Level::draw(sf::RenderWindow &w) {
 		w.draw(*p);
 	}
 
-	mTower.draw(w);
+	for (auto tower : mTowers) {
+		tower->debug_draw(w);
+		tower->draw(w);
+	}
+
+	mTowerPlacer.update(sf::Mouse::getPosition(w));
+	mTowerPlacer.draw(w);
 
 	mHud.draw(w);
 }
 
-Hero* Level::getHero() const {
-	return mHero;
+void Level::cleanup() {
+	mHud.hide();
 }
+
 
 //bool Level::loadFromXML(const char *path) {
 //	tinyxml2::XMLDocument doc;	//empty xml document

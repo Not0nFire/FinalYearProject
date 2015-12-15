@@ -3,7 +3,7 @@
 sf::Vector2f const Projectile::G = sf::Vector2f(0,100);
 
 Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture) :
-Actor(texture),
+Actor(texture, new sf::CircleShape(10, 6), sf::Vector2f(0.0f, 0.0f)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false)
@@ -20,13 +20,13 @@ Projectile::~Projectile() {
 // v^2 = u^2 + 2as
 // s = vt - 0.5at^2
 
-void Projectile::connectOnHit(void(* funcPtr)(Projectile*)) {
-	onHit.connect(funcPtr);
+void Projectile::connectOnHit(std::function<void(Projectile*)> func) {
+	onHit.connect(func);
 }
 
-void Projectile::disconnectOnHit(void(* funcPtr)(Projectile*)) {
-	onHit.disconnect(funcPtr);
-}
+//void Projectile::disconnectOnHit(void(* funcPtr)(Projectile*)) {
+//	onHit.disconnect(funcPtr);
+//}
 
 void Projectile::disconnectAllOnHit() {
 	onHit.disconnect_all_slots();
@@ -57,6 +57,7 @@ void Projectile::update(sf::Time const& elapsedTime) {
 
 		//if we've reached our target (allowing for a little innaccuracy)
 		if (mTimeToLive <= 0) {
+			updateCollidableMask(getPosition());
 			mActive = false;
 			onHit(this);
 		}
@@ -65,6 +66,14 @@ void Projectile::update(sf::Time const& elapsedTime) {
 
 bool Projectile::isActive() const {
 	return mActive;
+}
+
+int Projectile::getDamage() const {
+	return mDamage;
+}
+
+Damage::Type Projectile::getDamageType() const {
+	return mDamageType;
 }
 
 void Projectile::onCollide(Collidable* other, sf::Vector2f const& mtv) {

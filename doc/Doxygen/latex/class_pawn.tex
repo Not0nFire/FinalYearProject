@@ -1,0 +1,383 @@
+\hypertarget{class_pawn}{}\section{Pawn Class Reference}
+\label{class_pawn}\index{Pawn@{Pawn}}
+
+
+Base class for all units in the game. If it walks and attacks, it\textquotesingle{}s a \hyperlink{class_pawn}{Pawn}. Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0.  
+
+
+
+
+{\ttfamily \#include $<$Pawn.\+hpp$>$}
+
+Inheritance diagram for Pawn\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_pawn}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a74f1dff8fc508734c15223aaf95f7566}{}enum {\bfseries Faction} \{ {\bfseries P\+L\+A\+Y\+E\+R}, 
+{\bfseries E\+N\+E\+M\+Y}, 
+{\bfseries N\+E\+U\+T\+R\+A\+L}
+ \}\label{class_pawn_a74f1dff8fc508734c15223aaf95f7566}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a0e5a39bb4a43ba3ce8848b2e9055c5b0}{}{\bfseries Pawn} (sf\+::\+Texture \&texture, Faction faction)\label{class_pawn_a0e5a39bb4a43ba3ce8848b2e9055c5b0}
+
+\item 
+sf\+::\+Vector2f \hyperlink{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}{get\+Destination} () const 
+\item 
+void \hyperlink{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}{set\+Destination} (sf\+::\+Vector2f const \&destination)
+\begin{DoxyCompactList}\small\item\em Sets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s destination. \end{DoxyCompactList}\item 
+\hypertarget{class_pawn_a757e87fbd789d00549e38c1eaa17f0c4}{}int {\bfseries get\+Movement\+Speed} () const \label{class_pawn_a757e87fbd789d00549e38c1eaa17f0c4}
+
+\item 
+\hypertarget{class_pawn_a37f3801cb4e6100ab126d438f2abe786}{}void {\bfseries set\+Movement\+Speed} (int new\+Speed)\label{class_pawn_a37f3801cb4e6100ab126d438f2abe786}
+
+\item 
+virtual void \hyperlink{class_pawn_a36bf19ac850570a5e82142e01d3aab67}{update} (sf\+::\+Time const \&elapsed\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{class_pawn}{Pawn}. State becomes M\+A\+R\+C\+H\+I\+N\+G is goal is further than attack range. State becomes A\+T\+T\+A\+C\+K\+I\+N\+G if has a target and target is within attack range. Else state become I\+D\+L\+E. \end{DoxyCompactList}\item 
+\hypertarget{class_pawn_a28ab485f127ce43f33c026300283c546}{}void \hyperlink{class_pawn_a28ab485f127ce43f33c026300283c546}{kill} ()\label{class_pawn_a28ab485f127ce43f33c026300283c546}
+
+\begin{DoxyCompactList}\small\item\em Kills the \hyperlink{class_pawn}{Pawn} outright. Sets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s health to 0 and the state to D\+E\+A\+D. \end{DoxyCompactList}\item 
+bool \hyperlink{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{take\+Damage} (int amount, Damage\+::\+Type type)
+\item 
+bool \hyperlink{class_pawn_a3fe30c95134f87a7b91e3113b7c2c78b}{take\+Damage} (int amount, Damage\+::\+Type type, \hyperlink{class_pawn}{Pawn} $\ast$sender)
+\begin{DoxyCompactList}\small\item\em Same as \hyperlink{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{take\+Damage()} Used when taking damage from another pawn, so that we can choose to retaliate if we so wish. \end{DoxyCompactList}\item 
+void \hyperlink{class_pawn_a26a6eaa626a163283ed66093e17723d6}{heal} (int amount)
+\begin{DoxyCompactList}\small\item\em Heals for the specified amount. Heals for the specified amount. Cannot heal beyond max health. \end{DoxyCompactList}\item 
+void \hyperlink{class_pawn_a197ec1bbce0624316ff8fe0ec49b3d6e}{stun} (sf\+::\+Time duration)
+\begin{DoxyCompactList}\small\item\em Get stunned. Become stunned for the specified amount of time. Stuns do not stack. If a subsequant stun is applied, the stun with the longer duration is used. i.\+e. A stun of 1 second cannot cancel out a 5 second stun, nor does it becoe a 6 second stun. \end{DoxyCompactList}\item 
+void \hyperlink{class_pawn_a52ef95ca2a7c516325df5546e8131d08}{be\+Taunted} (\hyperlink{class_pawn}{Pawn} $\ast$taunter)
+\begin{DoxyCompactList}\small\item\em Become forced to attack th taunter. Changes combat target to be the taunter. Has no associated duration so subsequqnt taunts will override each other. \end{DoxyCompactList}\item 
+bool \hyperlink{class_pawn_aed61c1cf26754757cd4c5cb12421476b}{offer\+Target} (\hyperlink{class_pawn}{Pawn} $\ast$target)
+\begin{DoxyCompactList}\small\item\em Offer a potential target to the \hyperlink{class_pawn}{Pawn}. Offer a target to the \hyperlink{class_pawn}{Pawn}, who then decides whether to accept it or not. \end{DoxyCompactList}\item 
+bool \hyperlink{class_pawn_a4c5bda155d7b73b8fe1f63d9aad423dc}{target\+Is\+Dead} () const 
+\item 
+State \hyperlink{class_pawn_a15e50004263b9935f2cd3377c6d4f8a8}{get\+State} () const 
+\begin{DoxyCompactList}\small\item\em Gets the current state of the \hyperlink{class_pawn}{Pawn}. \end{DoxyCompactList}\item 
+bool \hyperlink{class_pawn_a9b6dd19cb4c82719d6a9fcc2d9bbee8b}{is\+Dead} () const 
+\item 
+Faction \hyperlink{class_pawn_a574b90f999b689bb42555791b86dc6c8}{get\+Faction} () const 
+\item 
+virtual void \hyperlink{class_pawn_a166813524eb441632550e72d77c2c5a9}{on\+Collide} (Collidable $\ast$other, sf\+::\+Vector2f const \&mtv) override
+\begin{DoxyCompactList}\small\item\em Called whenever the \hyperlink{class_pawn}{Pawn} collides with something. Virtual method that is invoked whenver this \hyperlink{class_pawn}{Pawn} collides with something. Moves the \hyperlink{class_pawn}{Pawn} a portion of the minimum translation vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_af8c8816fa179d6aed5aeb1d14514675c}{}enum {\bfseries State} \{ \\*
+{\bfseries I\+D\+L\+E}, 
+{\bfseries M\+A\+R\+C\+H\+I\+N\+G}, 
+{\bfseries A\+T\+T\+A\+C\+K\+I\+N\+G}, 
+{\bfseries S\+T\+U\+N\+N\+E\+D}, 
+\\*
+{\bfseries D\+E\+A\+D}
+ \}\label{class_pawn_af8c8816fa179d6aed5aeb1d14514675c}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pawn_a2b643e27c2cd87e523e126701854e653}{}void {\bfseries turn\+To\+Face\+Destination} ()\label{class_pawn_a2b643e27c2cd87e523e126701854e653}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Faction \hyperlink{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}{m\+Faction}
+\item 
+\hypertarget{class_pawn_a336b9f5503c10d5b40bd8d58cd47e0bf}{}State {\bfseries m\+State}\label{class_pawn_a336b9f5503c10d5b40bd8d58cd47e0bf}
+
+\item 
+\hypertarget{class_pawn_a42103e78d43def077c51e85eba4f97aa}{}int {\bfseries m\+Health}\label{class_pawn_a42103e78d43def077c51e85eba4f97aa}
+
+\item 
+\hypertarget{class_pawn_a16586cb1f57ba853ffb43b81e8373048}{}const int {\bfseries M\+\_\+\+M\+A\+X\+\_\+\+H\+E\+A\+L\+T\+H}\label{class_pawn_a16586cb1f57ba853ffb43b81e8373048}
+
+\item 
+\hypertarget{class_pawn_aa843639a827f0c9b001a91e567612ebd}{}\hyperlink{struct_damage_1_1_reduction}{Damage\+::\+Reduction} {\bfseries m\+Armour}\label{class_pawn_aa843639a827f0c9b001a91e567612ebd}
+
+\item 
+\hypertarget{class_pawn_a6ea62d8582b09f47efff68098756bb99}{}\hyperlink{struct_damage_1_1_reduction}{Damage\+::\+Reduction} {\bfseries m\+Magic\+Resist}\label{class_pawn_a6ea62d8582b09f47efff68098756bb99}
+
+\item 
+\hypertarget{class_pawn_a61e5e39820ded53d295335a7691a833d}{}Damage\+::\+Type {\bfseries m\+Damage\+Type}\label{class_pawn_a61e5e39820ded53d295335a7691a833d}
+
+\item 
+\hypertarget{class_pawn_afe2ae3e074f4376171afd1245c8f2ccb}{}float {\bfseries m\+Attack\+Range}\label{class_pawn_afe2ae3e074f4376171afd1245c8f2ccb}
+
+\item 
+\hypertarget{class_pawn_ae19b1c7b75f85373501780ea77466def}{}int {\bfseries m\+Movement\+Speed}\label{class_pawn_ae19b1c7b75f85373501780ea77466def}
+
+\item 
+\hypertarget{class_pawn_a0fbdf4b24764699c111769e4d32e6058}{}int {\bfseries m\+Attack\+Damage}\label{class_pawn_a0fbdf4b24764699c111769e4d32e6058}
+
+\item 
+float \hyperlink{class_pawn_a9daa828974fd50635825e438afe781da}{m\+Attacks\+Per\+Second}
+\item 
+float \hyperlink{class_pawn_a6ce596a12f726a288259e20fe8623bcb}{m\+Time\+Since\+Attack}
+\item 
+\hypertarget{class_pawn_a0e0c74842627aad0eaf7b34847b06725}{}\hyperlink{class_pawn}{Pawn} $\ast$ {\bfseries m\+Combat\+Target}\label{class_pawn_a0e0c74842627aad0eaf7b34847b06725}
+
+\item 
+\hypertarget{class_pawn_a4c9c3499391536b9d21e9969075048d3}{}sf\+::\+Time {\bfseries m\+Stun\+Duration}\label{class_pawn_a4c9c3499391536b9d21e9969075048d3}
+
+\item 
+\hypertarget{class_pawn_ac3011129a1798f170b56d734d23c8edc}{}sf\+::\+Vector2f {\bfseries m\+Destination}\label{class_pawn_ac3011129a1798f170b56d734d23c8edc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for all units in the game. If it walks and attacks, it\textquotesingle{}s a \hyperlink{class_pawn}{Pawn}. Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_pawn_a52ef95ca2a7c516325df5546e8131d08}{}\index{Pawn@{Pawn}!be\+Taunted@{be\+Taunted}}
+\index{be\+Taunted@{be\+Taunted}!Pawn@{Pawn}}
+\subsubsection[{be\+Taunted(\+Pawn $\ast$taunter)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::be\+Taunted (
+\begin{DoxyParamCaption}
+\item[{{\bf Pawn} $\ast$}]{taunter}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a52ef95ca2a7c516325df5546e8131d08}
+
+
+Become forced to attack th taunter. Changes combat target to be the taunter. Has no associated duration so subsequqnt taunts will override each other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em taunter} & The new target for this \hyperlink{class_pawn}{Pawn}. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}{}\index{Pawn@{Pawn}!get\+Destination@{get\+Destination}}
+\index{get\+Destination@{get\+Destination}!Pawn@{Pawn}}
+\subsubsection[{get\+Destination() const }]{\setlength{\rightskip}{0pt plus 5cm}sf\+::\+Vector2f Pawn\+::get\+Destination (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a27c4b05b5e5dc303d5c9a838cc96a7cf}
+Gets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s destination. \hypertarget{class_pawn_a574b90f999b689bb42555791b86dc6c8}{}\index{Pawn@{Pawn}!get\+Faction@{get\+Faction}}
+\index{get\+Faction@{get\+Faction}!Pawn@{Pawn}}
+\subsubsection[{get\+Faction() const }]{\setlength{\rightskip}{0pt plus 5cm}Pawn\+::\+Faction Pawn\+::get\+Faction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a574b90f999b689bb42555791b86dc6c8}
+Gets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s faction. (N\+E\+U\+T\+R\+A\+L, P\+L\+A\+Y\+E\+R, E\+N\+E\+M\+Y) \begin{DoxyReturn}{Returns}
+Faction enum 
+\end{DoxyReturn}
+\hypertarget{class_pawn_a15e50004263b9935f2cd3377c6d4f8a8}{}\index{Pawn@{Pawn}!get\+State@{get\+State}}
+\index{get\+State@{get\+State}!Pawn@{Pawn}}
+\subsubsection[{get\+State() const }]{\setlength{\rightskip}{0pt plus 5cm}Pawn\+::\+State Pawn\+::get\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a15e50004263b9935f2cd3377c6d4f8a8}
+
+
+Gets the current state of the \hyperlink{class_pawn}{Pawn}. 
+
+\begin{DoxyReturn}{Returns}
+State enum 
+\end{DoxyReturn}
+\hypertarget{class_pawn_a26a6eaa626a163283ed66093e17723d6}{}\index{Pawn@{Pawn}!heal@{heal}}
+\index{heal@{heal}!Pawn@{Pawn}}
+\subsubsection[{heal(int amount)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::heal (
+\begin{DoxyParamCaption}
+\item[{int}]{amount}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a26a6eaa626a163283ed66093e17723d6}
+
+
+Heals for the specified amount. Heals for the specified amount. Cannot heal beyond max health. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The number of health points to heal for. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a9b6dd19cb4c82719d6a9fcc2d9bbee8b}{}\index{Pawn@{Pawn}!is\+Dead@{is\+Dead}}
+\index{is\+Dead@{is\+Dead}!Pawn@{Pawn}}
+\subsubsection[{is\+Dead() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::is\+Dead (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a9b6dd19cb4c82719d6a9fcc2d9bbee8b}
+Gets whether the \hyperlink{class_pawn}{Pawn} is dead or not. Does not take into account health, only checks current state. \begin{DoxyReturn}{Returns}
+True if the \hyperlink{class_pawn}{Pawn} is dead. 
+\end{DoxyReturn}
+\hypertarget{class_pawn_aed61c1cf26754757cd4c5cb12421476b}{}\index{Pawn@{Pawn}!offer\+Target@{offer\+Target}}
+\index{offer\+Target@{offer\+Target}!Pawn@{Pawn}}
+\subsubsection[{offer\+Target(\+Pawn $\ast$target)}]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::offer\+Target (
+\begin{DoxyParamCaption}
+\item[{{\bf Pawn} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}\label{class_pawn_aed61c1cf26754757cd4c5cb12421476b}
+
+
+Offer a potential target to the \hyperlink{class_pawn}{Pawn}. Offer a target to the \hyperlink{class_pawn}{Pawn}, who then decides whether to accept it or not. 
+
+\begin{DoxyRemark}{Remarks}
+Temporary until Chai\+Script (target acquisition) 
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em target} & A possible combat target. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the target was accepted. 
+\end{DoxyReturn}
+\hypertarget{class_pawn_a166813524eb441632550e72d77c2c5a9}{}\index{Pawn@{Pawn}!on\+Collide@{on\+Collide}}
+\index{on\+Collide@{on\+Collide}!Pawn@{Pawn}}
+\subsubsection[{on\+Collide(\+Collidable $\ast$other, sf\+::\+Vector2f const \&mtv) override}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::on\+Collide (
+\begin{DoxyParamCaption}
+\item[{Collidable $\ast$}]{other, }
+\item[{sf\+::\+Vector2f const \&}]{mtv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_pawn_a166813524eb441632550e72d77c2c5a9}
+
+
+Called whenever the \hyperlink{class_pawn}{Pawn} collides with something. Virtual method that is invoked whenver this \hyperlink{class_pawn}{Pawn} collides with something. Moves the \hyperlink{class_pawn}{Pawn} a portion of the minimum translation vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The object we collided with. \\
+\hline
+{\em mtv} & The Minimum Translation Vector for the collision. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_hero_a1f9b68a8daecbca5ca949764332c72d7}{Hero}.
+
+\hypertarget{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}{}\index{Pawn@{Pawn}!set\+Destination@{set\+Destination}}
+\index{set\+Destination@{set\+Destination}!Pawn@{Pawn}}
+\subsubsection[{set\+Destination(sf\+::\+Vector2f const \&destination)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::set\+Destination (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Vector2f const \&}]{destination}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a866b60201664eb6a0c743afa13ee5ccb}
+
+
+Sets the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s destination. 
+
+\begin{DoxyRemark}{Remarks}
+Pawns currently move straight toward their destination. 
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em destination} & The \hyperlink{class_pawn}{Pawn}\textquotesingle{}s new destination. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a197ec1bbce0624316ff8fe0ec49b3d6e}{}\index{Pawn@{Pawn}!stun@{stun}}
+\index{stun@{stun}!Pawn@{Pawn}}
+\subsubsection[{stun(sf\+::\+Time duration)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::stun (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Time}]{duration}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a197ec1bbce0624316ff8fe0ec49b3d6e}
+
+
+Get stunned. Become stunned for the specified amount of time. Stuns do not stack. If a subsequant stun is applied, the stun with the longer duration is used. i.\+e. A stun of 1 second cannot cancel out a 5 second stun, nor does it becoe a 6 second stun. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em duration} & The length of the stun. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{}\index{Pawn@{Pawn}!take\+Damage@{take\+Damage}}
+\index{take\+Damage@{take\+Damage}!Pawn@{Pawn}}
+\subsubsection[{take\+Damage(int amount, Damage\+::\+Type type)}]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::take\+Damage (
+\begin{DoxyParamCaption}
+\item[{int}]{amount, }
+\item[{Damage\+::\+Type}]{type}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}
+Applies damage to the \hyperlink{class_pawn}{Pawn}, taking into account Armour/\+Magic\+Resist. 
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of damage to take. \\
+\hline
+{\em type} & The type of damage to take. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a3fe30c95134f87a7b91e3113b7c2c78b}{}\index{Pawn@{Pawn}!take\+Damage@{take\+Damage}}
+\index{take\+Damage@{take\+Damage}!Pawn@{Pawn}}
+\subsubsection[{take\+Damage(int amount, Damage\+::\+Type type, Pawn $\ast$sender)}]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::take\+Damage (
+\begin{DoxyParamCaption}
+\item[{int}]{amount, }
+\item[{Damage\+::\+Type}]{type, }
+\item[{{\bf Pawn} $\ast$}]{sender}
+\end{DoxyParamCaption}
+)}\label{class_pawn_a3fe30c95134f87a7b91e3113b7c2c78b}
+
+
+Same as \hyperlink{class_pawn_a33dbdacc56d2f0728d7485b508b6d28e}{take\+Damage()} Used when taking damage from another pawn, so that we can choose to retaliate if we so wish. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of damage to take. \\
+\hline
+{\em type} & The type of damage to take. \\
+\hline
+{\em sender} & The dealer of damage, the disher of pain. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pawn_a4c5bda155d7b73b8fe1f63d9aad423dc}{}\index{Pawn@{Pawn}!target\+Is\+Dead@{target\+Is\+Dead}}
+\index{target\+Is\+Dead@{target\+Is\+Dead}!Pawn@{Pawn}}
+\subsubsection[{target\+Is\+Dead() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Pawn\+::target\+Is\+Dead (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_pawn_a4c5bda155d7b73b8fe1f63d9aad423dc}
+Checks if the \hyperlink{class_pawn}{Pawn}\textquotesingle{}s combat target is dead. \begin{DoxyReturn}{Returns}
+True if target is dead. 
+\end{DoxyReturn}
+\hypertarget{class_pawn_a36bf19ac850570a5e82142e01d3aab67}{}\index{Pawn@{Pawn}!update@{update}}
+\index{update@{update}!Pawn@{Pawn}}
+\subsubsection[{update(sf\+::\+Time const \&elapsed\+Time)}]{\setlength{\rightskip}{0pt plus 5cm}void Pawn\+::update (
+\begin{DoxyParamCaption}
+\item[{sf\+::\+Time const \&}]{elapsed\+Time}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_pawn_a36bf19ac850570a5e82142e01d3aab67}
+
+
+Updates the \hyperlink{class_pawn}{Pawn}. State becomes M\+A\+R\+C\+H\+I\+N\+G is goal is further than attack range. State becomes A\+T\+T\+A\+C\+K\+I\+N\+G if has a target and target is within attack range. Else state become I\+D\+L\+E. 
+
+Moves toward goal if M\+A\+R\+C\+H\+I\+N\+G. Attacks target if A\+T\+T\+A\+C\+K\+I\+N\+G, takinbg into account attacks per second. Does nothing if state is somethig else.
+
+Calls update\+Collidable\+Mask with current position at end of method.
+
+
+\begin{DoxyParams}{Parameters}
+{\em elapsed\+Time} & The amount of time elapsed since last update tick. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_pawn_a9daa828974fd50635825e438afe781da}{}\index{Pawn@{Pawn}!m\+Attacks\+Per\+Second@{m\+Attacks\+Per\+Second}}
+\index{m\+Attacks\+Per\+Second@{m\+Attacks\+Per\+Second}!Pawn@{Pawn}}
+\subsubsection[{m\+Attacks\+Per\+Second}]{\setlength{\rightskip}{0pt plus 5cm}float Pawn\+::m\+Attacks\+Per\+Second\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_a9daa828974fd50635825e438afe781da}
+\begin{DoxyRemark}{Remarks}
+1.\+0f == 1 attack per second 
+\end{DoxyRemark}
+\hypertarget{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}{}\index{Pawn@{Pawn}!m\+Faction@{m\+Faction}}
+\index{m\+Faction@{m\+Faction}!Pawn@{Pawn}}
+\subsubsection[{m\+Faction}]{\setlength{\rightskip}{0pt plus 5cm}Faction Pawn\+::m\+Faction\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_ad37825a7c274b2418d2e9d9bdd8afbf1}
+The faction that the \hyperlink{class_pawn}{Pawn} belongs to \hypertarget{class_pawn_a6ce596a12f726a288259e20fe8623bcb}{}\index{Pawn@{Pawn}!m\+Time\+Since\+Attack@{m\+Time\+Since\+Attack}}
+\index{m\+Time\+Since\+Attack@{m\+Time\+Since\+Attack}!Pawn@{Pawn}}
+\subsubsection[{m\+Time\+Since\+Attack}]{\setlength{\rightskip}{0pt plus 5cm}float Pawn\+::m\+Time\+Since\+Attack\hspace{0.3cm}{\ttfamily [protected]}}\label{class_pawn_a6ce596a12f726a288259e20fe8623bcb}
+\begin{DoxyRemark}{Remarks}
+1.\+0f == 1 second 
+\end{DoxyRemark}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Pawn.\+hpp\item 
+src/Pawn.\+cpp\end{DoxyCompactItemize}

@@ -14,7 +14,7 @@ void Renderer::startRenderLoop(const unsigned int framesPerSecond) {
 	mLoopOngoing = true;
 
 	//Calculate delay (in milliseconds) from frames per second
-	frameDelay = 1000 / framesPerSecond;
+	frameDelay = std::chrono::milliseconds(1000 / framesPerSecond);
 
 	mThread = thread( bind(&Renderer::render, this) );
 	//render();
@@ -26,27 +26,28 @@ void Renderer::stopRenderLoop() {
 }
 
 void Renderer::render() {
-	sf::Clock clock;
+	std::chrono::steady_clock clock;
+	auto lastFrameTime = clock.now();
 
 	mWindow.setActive(true);
 	mWindow.resetGLStates();	//required for sfgui (text displays as blocks without this line)
 
 	while (mLoopOngoing) {
 
-		mMutex.lock();	//Block until ownership can be obtained
+		//fixed timestep
+		if (clock.now() - lastFrameTime >= frameDelay) {
+			mMutex.lock();	//Block until ownership can be obtained
 
-		mWindow.clear();
-		
+			lastFrameTime = clock.now();
 
-		mSceneToRender->draw(mWindow);
+			mWindow.clear();
 
-		mMutex.unlock();	//Release the mutex
+			mSceneToRender->draw(mWindow);
 
-		mWindow.display();
+			mWindow.display();
 
-		clock.restart();
-
-		this_thread::sleep_for(chrono::milliseconds(frameDelay));
+			mMutex.unlock();	//Release the mutex
+		}
 
 	}//end while(mLoop)
 }

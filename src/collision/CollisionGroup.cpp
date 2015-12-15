@@ -108,4 +108,16 @@ namespace collision {
 	void CollisionGroup::remove(Collidable* entry) {
 		mMembers.erase( std::remove(mMembers.begin(), mMembers.end(), entry) );
 	}
+
+	void CollisionGroup::checkAgainst(Collidable* other) {
+		sf::Vector2f mtv;
+		for (Collidable* member : mMembers)
+		{
+			if (checkPair(other, member, mtv))
+			{
+				member->onCollide(other, mtv);
+				other->onCollide(member, -mtv);
+			}
+		}
+	}
 }

@@ -24,6 +24,8 @@ namespace collision {
 		void check();
 		void add(Collidable* entry);
 		void remove(Collidable* entry);
+
+		void checkAgainst(Collidable* other);
 	};
 }
 #endif

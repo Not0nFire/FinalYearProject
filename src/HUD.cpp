@@ -32,7 +32,8 @@ namespace HUD_Detail {
 HUD::HUD(std::shared_ptr<sfg::SFGUI> sfgui) :
 mSFGUI(sfgui),
 mWidgets(),
-mDesktop()
+mDesktop(),
+mIsShown(true)
 {
 }
 
@@ -58,4 +59,24 @@ void HUD::addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f cons
 
 void HUD::addHealthBarStatic(Pawn* pawn, sf::Vector2f const &location, sf::Vector2f const &size) {
 	mHealthBars.push_back(new HUD_Detail::HealthBarStatic(pawn, location, size, mDesktop));
+}
+
+void HUD::show() {
+	for (auto w : mWidgets) {
+		w->Show(true);
+	}
+
+	mIsShown = true;
+}
+
+void HUD::hide() {
+	for (auto w : mWidgets) {
+		w->Show(false);
+	}
+
+	mIsShown - false;
+}
+
+bool HUD::isShown() const {
+	return mIsShown;
 }

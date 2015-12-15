@@ -47,9 +47,10 @@ bool SceneManager::navigateToScene(std::string const &path ) {
 	bool success = false;
 
 	if ( mScenes.find(path) != mScenes.end() ) {
+		mScenes[mCurrentScene]->cleanup();
 		mCurrentScene = path;
 		success = true;
-		onSceneChange(mCurrentScene);
+		onSceneChange(mScenes[mCurrentScene]);
 	}
 
 	return success;

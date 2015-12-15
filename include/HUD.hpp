@@ -64,6 +64,10 @@ public:
 	template<typename ValueType>
 	void addImageWithLabel(std::string const &filePath, sf::Vector2u location, ValueType* labelValue);
 
+	void show();
+	void hide();
+	bool isShown() const;
+
 private:
 	//! HUD cannot be copy constructed
 	HUD(HUD const &other) = delete;
@@ -74,5 +78,7 @@ private:
 	std::list<HUD_Detail::HealthBarStatic*> mHealthBars;
 
 	sfg::Desktop mDesktop;
+
+	bool mIsShown;
 };
 #endif

@@ -14,9 +14,10 @@ private:
 
 	sfg::Desktop mDesktop;
 	sfg::Box::Ptr mBox;
+	std::shared_ptr<sfg::SFGUI> mSFGUI;
 
 public:
-	Menu(std::string const &themePath = "./res/gui.theme", sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 10.0f);
+	Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath = "./res/gui.theme", sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 10.0f);
 
 	static Menu* fromXML(const char* path);
 
@@ -27,5 +28,6 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::update(sf::Time const &elapsedTime) override;
 	bool I_Scene::handleEvent(sf::Event &Event) override;
+	void I_Scene::cleanup() override;
 };
 #endif

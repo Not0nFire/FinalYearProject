@@ -114,10 +114,15 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\Minion.cpp" />
+    <ClCompile Include="src\Pathing\Node.cpp" />
+    <ClCompile Include="src\Pathing\Path.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\TerrainInterpreter.cpp" />
+    <ClCompile Include="src\TowerPlacer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
@@ -136,9 +141,13 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
+    <ClInclude Include="include\Minion.hpp" />
+    <ClInclude Include="include\Pathing\Node.hpp" />
+    <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
     <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\Quadtree.hpp" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\Renderer.hpp" />
     <ClInclude Include="include\ResourceManager.h" />
@@ -147,7 +156,9 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
+    <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
+    <ClInclude Include="include\Towers\TowerPlacer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />

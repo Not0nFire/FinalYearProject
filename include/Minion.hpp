@@ -2,21 +2,17 @@
 #define _MINION_H
 
 #include <include/Pawn.hpp>
-
-//Now eclipsed by Pawn class
+#include <include/Pathing/Path.hpp>
 
 class Minion : public Pawn {
-public:
-	enum Faction {
-		ENEMY, PLAYER, NEUTRAL
-	};
-protected:
-	Faction mFaction;
+private:
+	Node* mPathNode;
 
-	//void calculateBehaviour();	//requires chai script
 public:
 
-	Minion(sf::Texture &texture, Faction _faction);
-	~Minion();
+	Minion(sf::Texture &texture, Faction faction, Path const &pathToFollow);
+	virtual ~Minion();
+
+	virtual void update(sf::Time const &elapsedTime) override;
 };
 #endif
