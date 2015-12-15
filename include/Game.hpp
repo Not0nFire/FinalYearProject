@@ -21,6 +21,8 @@ private:
 	Level* mLevel;
 	Menu* mMenu;
 
+	std::shared_ptr<sfg::SFGUI> mSFGUI;
+
 public:
 	/*!
 	\brief Sets up the game. Takes no arguements.

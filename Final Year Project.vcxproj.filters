@@ -57,6 +57,9 @@
     <ClCompile Include="src\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\HUD.cpp">
+	  <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\TerrainInterpreter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="include\MenuFunctions.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HUD.hpp">
+	 <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Quadtree.hpp">
       <Filter>Header Files</Filter>

@@ -1,117 +1,51 @@
 #include "../include/Menu.hpp"
 
-Menu::Menu(String const &text, Font const &font, void (*function)(String), Vector2f position, Color mainColor, Color hiliteColor, int item_spacing)
-	: m_itemSpacing( item_spacing ), m_font( font ), m_mainColor( mainColor ), m_hiliteColor( hiliteColor ) {
-
-	//push first item onto list with its associated function (pointer) and initialise selected iterator
-	m_items.push_back( std::make_pair( Text( text, font ), function) );
-	m_selected = m_items.begin();
-
-	m_selected->first.setPosition( position );
-	m_selected->first.setColor( hiliteColor );
+Menu::Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath, sfg::Box::Orientation orientation, float spacing) :
+mSFGUI(gui)
+{
+	mDesktop.LoadThemeFromFile(themePath);
+	mBox = sfg::Box::Create(orientation, spacing);
+	mBox->SetRequisition(sf::Vector2f(200, 400));
+	mBox->SetPosition(sf::Vector2f(200, 300));
+	mDesktop.Add(mBox);
 }
 
-void Menu::addItem(String const &text, void (*function)(String) ) {
-	m_items.push_back( std::make_pair( Text( text, m_font ), function ) );
-
-	Text* thisItem = &m_items.rbegin()->first;
-	Text* lastItem = &( ++m_items.rbegin() )->first;
-	
-	//place this item below the last item
-	thisItem->setPosition( lastItem->getPosition().x, lastItem->getPosition().y + lastItem->getCharacterSize() + m_itemSpacing);
-
-	m_selected = m_items.begin();
+Menu* Menu::fromXML(const char* path) {
+	throw "Not Implemented -- Requires TinyXML2";
+	return nullptr;
 }
 
-
-//std::pair<Text, void (*)(void)> Menu::getItemAtIndex(unsigned int const index) const {
-//	return m_items.at(index);
-//}
-
-void Menu::moveDown() {
-	m_selected->first.setColor( m_mainColor );
-
-	//move to top of list if trying to move past bottom
-	if( ++m_selected == m_items.end() )
-		m_selected = m_items.begin();
-
-	m_selected->first.setColor( m_hiliteColor );
+void Menu::addButton(sf::String const& label, std::function<void()> onClick, sf::Vector2f const& minSize) {
+	sfg::Button::Ptr btn = sfg::Button::Create(label);
+	btn->SetRequisition(minSize);
+	btn->GetSignal(sfg::Button::OnLeftClick).Connect(onClick);
+	mBox->Pack(btn);
 }
 
-void Menu::moveUp() {
-	m_selected->first.setColor( m_mainColor );
-
-	//move to bottom of list if trying to move past top
-	if ( m_selected == m_items.begin() )
-		m_selected = m_items.end();
-
-	m_selected--;
-
-	m_selected->first.setColor( m_hiliteColor );
-}
-
-bool Menu::handleEvent(Event &Event) {
-
-	bool handled = false;
-	if (Event.type == Event::EventType::KeyPressed) {
-		switch (Event.key.code) {
-		case Keyboard::Down:
-			moveDown();
-			handled = true;
-			break;
-		case Keyboard::Up:
-			moveUp();
-			handled = true;
-			break;
-		case Keyboard::Return:
-		case Keyboard::Space:
-			select();
-			handled = true;
-			break;
-		}
+void Menu::addLabel(sf::String const& label, bool title, sf::Vector2f const& minSize) {
+	sfg::Label::Ptr lbl = sfg::Label::Create(label);
+	if (title) {
+		lbl->SetId("title");
 	}
-	return handled;
+	lbl->SetRequisition(minSize);
+	mBox->Pack(lbl);
+}
+
+bool Menu::handleEvent(sf::Event &Event) {
+	mDesktop.HandleEvent(Event);
+	return true;
+}
+
+void Menu::cleanup() {
+	mBox->Show(false);	//hide sfgui widgets
 }
 
 
-//invokes the function pointer of the currently selected item
-void Menu::select() {
-	m_selected->second( m_selected->first.getString() );
+void Menu::draw( sf::RenderWindow &w ) {
+	mSFGUI->Display(w);
 }
 
-//std::pair<Text, void (*)(String)> Menu::getSelected() const {
-//	return *m_selected;
-//}
-
-void Menu::draw( RenderWindow &w ) {
-	for( auto itr = m_items.begin();
-		itr != m_items.end();
-		itr++ )
-	{
-		w.draw( itr->first );
-	}
-}
-
-//Vector2i Menu::getPosition() const {
-//	return m_position;
-//}
-
-Color Menu::getMainColor() const {
-	return m_mainColor;
-}
-
-Color Menu::getHiliteColor() const {
-	return m_hiliteColor;
-}
-
-//void Menu::setPosition( Vector2i const &newPos ) {
-//	m_position = newPos;
-//}
-
-void Menu::setMainColor( Color const &color ) {
-	m_mainColor = color;
-}
-
-void Menu::setHiliteColor( Color const &color) {
-	m_hiliteColor = color;
+void Menu::update(sf::Time const &elapsedTime) {
+	mBox->Show();
+	mDesktop.Update(elapsedTime.asSeconds());
 }

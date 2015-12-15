@@ -5,12 +5,13 @@
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
-Level::Level(sf::RenderWindow const* _relWindow) :
+Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
 relWindow(_relWindow),
 backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
 terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
 mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup),
-mPath(/*put xml path here when tinyXML2 implemented*/)
+mPath(/*put xml path here when tinyXML2 implemented*/),
+mHud(sfgui)
 {
 
 	mPawns.reserve(100);
@@ -27,7 +28,14 @@ mPath(/*put xml path here when tinyXML2 implemented*/)
 	{
 		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
+
+		if (p != mHero) {
+			mHud.addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+		}
 	}
+
+
+	mHud.addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
 
 	//Subdivide terrainTree
 	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
@@ -93,10 +101,13 @@ void Level::update(sf::Time const &elapsedTime) {
 	}//for
 	mCollisionGroup.check();
 
+
 	for (auto tower : mTowers) {
 		tower->update(elapsedTime);
 		tower->acquireTarget(mPawns);
 	}
+
+	mHud.update(elapsedTime);
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -117,7 +128,14 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer.update(sf::Mouse::getPosition(w));
 	mTowerPlacer.draw(w);
+
+	mHud.draw(w);
 }
+
+void Level::cleanup() {
+	mHud.hide();
+}
+
 
 //bool Level::loadFromXML(const char *path) {
 //	tinyxml2::XMLDocument doc;	//empty xml document

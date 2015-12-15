@@ -5,13 +5,19 @@
 Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mRun(false),
-	mPaused(false)
+	mPaused(false),
+	mSFGUI(new sfg::SFGUI())
 {
-	mLevel = new Level(&mRenderer.getWindow());
+
+
+	mLevel = new Level(&mRenderer.getWindow(), mSFGUI);
 	SceneManager::instance()->createScene("Level", mLevel);
 
-	mMenu = new Menu("Start", GET_FONT("./res/fonts/KENVECTOR_FUTURE.ttf"), &MenuFunctions::changeScene, sf::Vector2f(100.f, 100.f));
-	mMenu->addItem("Quit", &MenuFunctions::exitProgram);
+	mMenu = new Menu(mSFGUI);
+	mMenu->addLabel("Main Menu");
+	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
+	mMenu->addButton("Test", [](){std::cout << "test button clicked" << std::endl; });
+	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
 	SceneManager::instance()->createScene("Menu", mMenu);
 	mRenderer.setScene(mMenu);

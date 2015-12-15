@@ -165,6 +165,11 @@ public:
 	*/
 	bool targetIsDead() const;
 
+	/*
+	Returns the current health of the pawn.
+	*/
+	int getHealth() const;
+
 	/*!
 	\brief Gets the current state of the Pawn.
 	\returns State enum

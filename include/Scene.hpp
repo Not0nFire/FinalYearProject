@@ -26,6 +26,8 @@ public:
 	*/
 	virtual void draw( sf::RenderWindow &w ) = 0;
 
+	virtual void cleanup() = 0;
+
 	virtual ~I_Scene() {}
 };
 #endif

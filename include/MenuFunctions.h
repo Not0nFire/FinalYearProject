@@ -8,15 +8,15 @@
 namespace MenuFunctions
 {
 	//Output to console the name of the item followed by "activated!"
-	inline void output(sf::String string) {
-		std::cout << string.toAnsiString() << " activated!" << std::endl;
+	inline void output(std::string string) {
+		std::cout << string << " activated!" << std::endl;
 	}
 
 	//Navigate to a scene (if one has been set up for the item)
-	inline void changeScene(sf::String string) {
+	inline void changeScene(std::string string) {
 		output(string);
 
-		if (string == "Start")
+		if (string == "Level")
 			SceneManager::instance()->navigateToScene("Level");
 
 		/*else if (string == "Options")
@@ -29,9 +29,9 @@ namespace MenuFunctions
 			std::cout << "No suitable scene to change to!\nDid you set one up in MenuFunctions.h?" << std::endl;
 	}
 
-	inline void exitProgram(sf::String string) {
+	inline void exitProgram(std::string string) {
 		output(string);
-		std::cout << "Program terminated with string: " << string.toAnsiString() << std::endl;
+		std::cout << "Program terminated with string: " << string << std::endl;
 		exit(EXIT_SUCCESS);	//not ideal but alternative will have to wait
 		// (ideally we want to return from main, not call exit(0))
 	}

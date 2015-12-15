@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(SFGUI)/include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(SFGUI)/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\;$(BOOST_ROOT);$(THOR)/include;$(SFML)/include;$(SFGUI)/include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(BOOST_ROOT)/stage/lib;$(THOR)/lib;$(SFML)/lib;$(SFGUI)/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -66,7 +66,8 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetDir)" /Y /D
-xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y /D</Command>
+xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
       <Message>
       </Message>
     </PreBuildEvent>
@@ -95,7 +96,8 @@ xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y /D</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D
-xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
+xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D</Command>
       <Message>
       </Message>
     </PreBuildEvent>
@@ -108,6 +110,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Damage.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hero.cpp" />
+    <ClCompile Include="src\HUD.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
@@ -133,6 +136,7 @@ xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
+    <ClInclude Include="include\HUD.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\MenuFunctions.h" />

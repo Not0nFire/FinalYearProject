@@ -30,6 +30,7 @@ void Renderer::render() {
 	auto lastFrameTime = clock.now();
 
 	mWindow.setActive(true);
+	mWindow.resetGLStates();	//required for sfgui (text displays as blocks without this line)
 
 	while (mLoopOngoing) {
 
@@ -60,12 +61,12 @@ const sf::RenderWindow& Renderer::getWindow() const {
 }
 
 void Renderer::setScene(I_Scene* newScene) {
-	lock_guard<boost::mutex> lock(mMutex);
+	make_lock_guard<boost::mutex>(mMutex);
 	mSceneToRender = newScene;
 }
 
 
 bool Renderer::pollEvent(sf::Event& event) {
-	lock_guard<boost::mutex> lock(mMutex);
+	make_lock_guard<boost::mutex>(mMutex);
 	return mWindow.pollEvent(event);
 }
