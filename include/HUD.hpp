@@ -10,14 +10,25 @@
 
 namespace HUD_Detail
 {
-	struct HealthBarStatic {
+	class HealthBarStatic {
+	protected:
 		Pawn* mPawnToTrack;
 		sfg::ProgressBar::Ptr mBar;
 		const float M_MAX_HEALTH;
 
+	public:
 		HealthBarStatic(Pawn* pwn, sf::Vector2f const &location, sf::Vector2f const &size, sfg::Desktop &desktop);
 
-		void update();
+		virtual void update();
+	};
+
+	class HealthBarFollowing : public HealthBarStatic{
+	protected:
+		sf::Vector2f mOffset;
+	public:
+		HealthBarFollowing(Pawn* pwn, sf::Vector2f const &offset, sf::Vector2f const &size, sfg::Desktop &desktop);
+
+		virtual void update() override;
 	};
 }
 
@@ -33,7 +44,7 @@ public:
 	void draw(sf::RenderWindow &window) const;
 
 	//! Adds a health bar that follows a pawn.
-	void addHealthBar(Pawn* pawn);
+	void addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f const &size = sf::Vector2f(50.f, 5.f));
 
 	//! Adds a bar that tracks a pawns health.
 	void addHealthBarStatic(Pawn* pawn, sf::Vector2f const &location, sf::Vector2f const &size);

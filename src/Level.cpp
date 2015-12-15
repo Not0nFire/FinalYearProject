@@ -25,6 +25,10 @@ mHud(sfgui)
 	{
 		p->offerTarget(mHero);
 		mCollisionGroup.add(p);
+
+		if (p != mHero) {
+			mHud.addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+		}
 	}
 
 	mHud.addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
