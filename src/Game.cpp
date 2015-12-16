@@ -16,7 +16,7 @@ Game::Game() :
 	mMenu = new Menu(mSFGUI);
 	mMenu->addLabel("Main Menu");
 	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
-	mMenu->addButton("Test", [](){std::cout << "test button clicked" << std::endl; });
+	//mMenu->addButton("Test", [](){std::cout << "test button clicked" << std::endl; });
 	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
 	SceneManager::instance()->createScene("Menu", mMenu);
