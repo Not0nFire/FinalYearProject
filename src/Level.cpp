@@ -11,12 +11,17 @@ backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
 terrainTree(new TerrainTree(0, 0, 1000u, 1000u)),
 mTowerPlacer(terrainTree, &mTowers, &mCollisionGroup),
 mPath(/*put xml path here when tinyXML2 implemented*/),
-mHud(sfgui)
+mHud(sfgui),
+mLivesRemaining(3),
+mBounds(sf::Vector2f(), sf::Vector2f(_relWindow->getSize().x, _relWindow->getSize().y)),
+mIsLost(false),
+mIsWon(false)
 {
 
 	mPawns.reserve(100);
 
 	mHero = new Hero(GET_TEXTURE("./res/img/placeholderActor.png"));
+	mHero->setPosition(mBounds.width * 0.5f, mBounds.height * 0.5f);
 	mPawns.push_back(mHero);
 
 	for (int i = 1; i < 10; i++) {
@@ -87,18 +92,38 @@ bool Level::handleEvent(sf::Event &event ) {
 
 void Level::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+	bool allPawnsDead = true;
 	for (Pawn* p : mPawns) {
 
 		p->update(elapsedTime);
 
-		if (p->targetIsDead()) {
-			for (Pawn* other : mPawns) {
-				if (p->offerTarget(other)) {
-					break;
-				}//if
-			}//for
-		}//if
+		if (!p->isDead()) {
+			allPawnsDead = false;
+
+
+			if (p->getPosition().x > mBounds.left + mBounds.width) {
+
+				//TODO: delete/erase pawn
+				p->kill();
+
+				if (--mLivesRemaining <= 0) {
+					mIsLost = true;
+				}
+			}//if out of bounds
+
+			else if (p->targetIsDead()) {
+				for (Pawn* other : mPawns) {
+					if (p->offerTarget(other)) {
+						break;
+					}//if
+				}//for
+			}//if target dead
+
+		}//if !dead
 	}//for
+
+	mIsWon = allPawnsDead;	//update win condition
+
 	mCollisionGroup.check();
 
 
@@ -134,6 +159,14 @@ void Level::draw(sf::RenderWindow &w) {
 
 void Level::cleanup() {
 	mHud.hide();
+}
+
+bool Level::isLost() const {
+	return mIsLost;
+}
+
+bool Level::isWon() const {
+	return mIsWon;
 }
 
 

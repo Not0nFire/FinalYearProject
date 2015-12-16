@@ -17,6 +17,14 @@ namespace HUD_Detail {
 		mBar->SetFraction(mPawnToTrack->getHealth() / M_MAX_HEALTH);
 	}
 
+	void HealthBarStatic::hide() {
+		mBar->Show(false);
+	}
+
+	void HealthBarStatic::show() {
+		mBar->Show(true);
+	}
+
 	HealthBarFollowing::HealthBarFollowing(Pawn* pwn, sf::Vector2f const& offset, sf::Vector2f const& size, sfg::Desktop& desktop) :
 		HealthBarStatic(pwn, pwn->getPosition() + offset, size, desktop),
 		mOffset(offset)
@@ -66,6 +74,10 @@ void HUD::show() {
 		w->Show(true);
 	}
 
+	for (auto hb : mHealthBars) {
+		hb->show();
+	}
+
 	mIsShown = true;
 }
 
@@ -74,7 +86,11 @@ void HUD::hide() {
 		w->Show(false);
 	}
 
-	mIsShown - false;
+	for (auto hb : mHealthBars) {
+		hb->hide();
+	}
+
+	mIsShown = false;
 }
 
 bool HUD::isShown() const {

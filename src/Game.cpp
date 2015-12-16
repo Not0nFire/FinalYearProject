@@ -8,11 +8,11 @@ Game::Game() :
 	mPaused(false),
 	mSFGUI(new sfg::SFGUI())
 {
-
-
+	//create level scene
 	mLevel = new Level(&mRenderer.getWindow(), mSFGUI);
 	SceneManager::instance()->createScene("Level", mLevel);
 
+	//create main menu scene
 	mMenu = new Menu(mSFGUI);
 	mMenu->addLabel("Main Menu");
 	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
@@ -57,9 +57,17 @@ int Game::run() {
 		//Update stuff here...
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
+		if (mLevel->isWon() || mLevel->isLost()) {
+			mRun = false;
+		}
+
 	}//while mRun
 
 	mRenderer.stopRenderLoop();
+
+	//\a is audible blip
+	printf("\a\n-----\nPlayer %s.\n-----\n\nPress any key to exit.", mLevel->isWon() ? "won" : "lost");
+	std::cin.get();
 
 	return EXIT_SUCCESS;
 }

@@ -34,6 +34,11 @@ private:
 	TowerPlacer mTowerPlacer;
 
 	Path mPath;
+
+	int mLivesRemaining;
+	sf::FloatRect mBounds;
+
+	bool mIsLost, mIsWon;
 	
 public:
 	/*!
@@ -46,6 +51,9 @@ public:
 	void I_Scene::update(sf::Time const &elapsedTime) override;
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::cleanup() override;
+
+	bool isLost() const;
+	bool isWon() const;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };

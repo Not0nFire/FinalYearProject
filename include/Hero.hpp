@@ -5,6 +5,9 @@
 
 class Hero : public Pawn {
 protected:
+
+	virtual void doAttack(float secondsElapsed) override;
+
 	//Ability mAbility;
 public:
 	Hero(sf::Texture& texture);

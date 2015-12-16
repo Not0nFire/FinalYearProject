@@ -4,6 +4,7 @@ Minion::Minion(sf::Texture& texture, Faction faction, Path const &pathToFollow) 
 Pawn(texture, faction),
 mPathNode(pathToFollow.begin())
 {
+	setDestination(mPathNode->getPoint());
 }
 
 Minion::~Minion() {

@@ -61,6 +61,12 @@ protected:
 	//bool decay(sf::Time const &elapsedTime);
 	void turnToFaceDestination();
 
+	virtual void calculateState(sf::Vector2f const &goalDisplacement);
+
+	virtual void doAttack(float secondsElapsed);
+
+	virtual void doMarch(sf::Vector2f const &goalDisplacement, float secondsElapsed);
+
 #pragma endregion
 
 #pragma region Signals

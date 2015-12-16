@@ -2,7 +2,7 @@
 #include <boost/thread/lock_guard.hpp>
 
 Pawn::Pawn(sf::Texture &texture, Faction faction) :
-Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 10.0f)),
+Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
 mFaction(faction),
 mState(State::IDLE),
 M_MAX_HEALTH(100),
@@ -36,6 +36,63 @@ void Pawn::turnToFaceDestination() {
 
 }
 
+void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
+	//don't bother updating state if dead
+	if (mState != State::DEAD) {
+
+		//attack if in range
+		if (mCombatTarget != nullptr &&
+			!mCombatTarget->isDead() &&
+			(thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange)
+			)
+		{
+				mState = State::ATTACKING;
+		}
+
+		//proceed toward goal
+		else if (thor::length(goalDisplacement) > 5) {
+			mState = State::MARCHING;
+
+		}
+
+		else {
+			mState = State::IDLE;
+		}
+	}
+}
+
+void Pawn::doAttack(float secondsElapsed) {
+	_ASSERT(mState = State::ATTACKING);
+
+	//Check if we have a target
+	if (mCombatTarget) {
+		mTimeSinceAttack += secondsElapsed;
+
+		//Check if it's time to attack.
+		if (mTimeSinceAttack >= 1 / mAttacksPerSecond) {
+			//Deal damage to our target
+			mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
+			mTimeSinceAttack = 0.0f;
+			setDebugColour(sf::Color::Yellow);
+		}
+		else if (mTimeSinceAttack >= 1 / mAttacksPerSecond / 2.0f){
+			setDebugColour(sf::Color::Green);
+		}
+	}
+	else {
+		std::cout << "State is ATTACKING, but no combat target!" << std::endl;
+	}
+}
+
+void Pawn::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
+	//move towards destination
+	if (thor::length(goalDisplacement) >= 1) {
+		move(
+			thor::unitVector(goalDisplacement) * static_cast<float>(mMovementSpeed) * secondsElapsed
+			);
+	}
+}
+
 sf::Vector2f Pawn::getDestination() const {
 	return mDestination;
 }
@@ -55,53 +112,18 @@ void Pawn::update(sf::Time const &elapsedTime) {
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 
-	//don't bother updating state if dead
-	if (mState != State::DEAD) {
-		//proceed toward goal
-		if (thor::length(distanceToGoal) > mAttackRange) {
-			mState = State::MARCHING;
-			mCombatTarget = nullptr;
-		}
-		//attack if in range
-		else if (mCombatTarget != nullptr) {
-			if (thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange) {
-				mState = State::ATTACKING;
-			}
-		} else {
-			mState = State::IDLE;
-		}
-	}
+	calculateState(distanceToGoal);
 
 	switch (mState) {
 	case IDLE:
 		setDebugColour(sf::Color::Black);
 		break;
 	case MARCHING:
-		//move towards destination
-		move(
-			thor::unitVector(distanceToGoal) * static_cast<float>(mMovementSpeed)* elapsedTime.asSeconds()
-			);
+		doMarch(distanceToGoal, elapsedTime.asSeconds());
 		setDebugColour(sf::Color::Cyan);
 		break;
 	case ATTACKING:
-		//Check if we have a target
-		if (mCombatTarget) {
-			mTimeSinceAttack += elapsedTime.asSeconds();
-
-			//Check if it's time to attack.
-			if (mTimeSinceAttack >= 1/mAttacksPerSecond) {
-				//Deal damage to our target
-				mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
-				mTimeSinceAttack = 0.0f;
-				setDebugColour(sf::Color::Yellow);
-			}
-			else if (mTimeSinceAttack >= 1/mAttacksPerSecond / 2.0f){
-				setDebugColour(sf::Color::Green);
-			}
-		}
-		else {
-			std::cout << "State is ATTACKING, but no combat target!" << std::endl;
-		}
+		doAttack(elapsedTime.asSeconds());
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
@@ -173,12 +195,19 @@ void Pawn::stun(sf::Time duration) {
 }
 
 void Pawn::beTaunted(Pawn* taunter) {
-	mCombatTarget = taunter;
+		mCombatTarget = taunter;
 }
 
 bool Pawn::offerTarget(Pawn* target) {
 	bool acceptedTarget = true;
-	if (target->isDead()) {
+
+	if (target->getFaction() == this->getFaction()) {
+		acceptedTarget = false;
+	}
+	else if (thor::length(target->getPosition() - this->getPosition()) > mAttackRange) {
+		acceptedTarget = false;
+	}
+	else if (target->isDead()) {
 		acceptedTarget = false;
 	}
 	else if (target == this) {

@@ -36,9 +36,9 @@ void Renderer::render() {
 
 		//fixed timestep
 		if (clock.now() - lastFrameTime >= frameDelay) {
-			mMutex.lock();	//Block until ownership can be obtained
-
 			lastFrameTime = clock.now();
+
+			mMutex.lock();	//Block until ownership can be obtained
 
 			mWindow.clear();
 
@@ -50,6 +50,8 @@ void Renderer::render() {
 		}
 
 	}//end while(mLoop)
+
+	mWindow.close();
 }
 
 thread& Renderer::getThread() {

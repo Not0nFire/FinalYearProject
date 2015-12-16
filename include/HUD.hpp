@@ -20,6 +20,9 @@ namespace HUD_Detail
 		HealthBarStatic(Pawn* pwn, sf::Vector2f const &location, sf::Vector2f const &size, sfg::Desktop &desktop);
 
 		virtual void update();
+
+		void hide();
+		void show();
 	};
 
 	class HealthBarFollowing : public HealthBarStatic{
