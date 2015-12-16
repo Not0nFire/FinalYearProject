@@ -97,7 +97,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 		p->update(elapsedTime);
 
-		if (!p->isDead()) {
+		if (p != mHero && !p->isDead()) {
 			allPawnsDead = false;
 
 
