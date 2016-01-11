@@ -169,6 +169,71 @@ bool Level::isWon() const {
 	return mIsWon;
 }
 
+Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath) :
+relWindow(_relWindow),
+mHud(sfgui),
+mIsLost(false),
+mIsWon(false)
+{
+	using namespace tinyxml2;
+
+	XMLDocument doc;	//empty xml document
+
+	XMLError result = doc.LoadFile(xmlPath);	//try to load the xml from file
+	if ( result != XML_NO_ERROR )
+		throw result;	//throw an error if one occured
+
+	XMLElement* root = doc.FirstChildElement("Level");	//root <Level> node
+
+	//find the background in the xml file and tell the resource manager to get it
+	ResourceManager<sf::Texture>::instance()->get(
+		root->FirstChildElement("Background")->GetText()
+		);
+
+	//----------------------------------------------------------
+	//Load <TerrainData> element and use it to instantiate the interpreter and subdivide the TerrainTree.
+	//This has its own scope.
+	{
+		//instantiate the interpreter with the image path from the xml node
+		TerrainInterpreter interpreter = TerrainInterpreter(
+			root->FirstChildElement("TerrainData")->GetText()
+			);
+
+		//get the size of the image so we can construct our terrain tree.
+		sf::Vector2u imageSize = interpreter.getImageSize();
+
+		//make a shared_ptr to the newly constructed terrain tree
+		terrainTree = std::make_shared<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
+
+		//begin subdivision of terrain tree using the TerrainInterpreter
+		terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
+		{
+			sf::IntRect nB = node->getBounds();
+
+			//Set the data of the node to correspond to the interpreters data
+			node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
+
+			//Subdivide this node if the following conditions are met:
+			if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
+				(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
+				node->getLevel() < 10u)								//is less than 10 levels deep in the tree
+			{
+				return true;
+			}
+
+			return false;
+		});//end terrainTree subdivision lambda
+	}//end terrain data scope
+
+	//----------------------------------------------------------
+	//Create level path from <Path> and its children <Node>
+	mPath = Path(root->FirstChildElement("Path"));
+
+	//----------------------------------------------------------
+	//Create enemies from xml
+
+}
+
 
 //bool Level::loadFromXML(const char *path) {
 //	tinyxml2::XMLDocument doc;	//empty xml document

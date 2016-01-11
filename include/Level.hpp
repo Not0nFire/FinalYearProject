@@ -14,6 +14,8 @@
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
 
+#include <include/TinyXML2/tinyxml2.h>
+
 class Level : public I_Scene{
 private:
 
@@ -45,6 +47,7 @@ public:
 	\param _relWindow RenderWindow to be used for getting relative mouse position.
 	*/
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
