@@ -2,6 +2,7 @@
 #define _HERO_H
 
 #include <include/Pawn.hpp>
+#include <include/ResourceManager.hpp>
 
 class Hero : public Pawn {
 protected:

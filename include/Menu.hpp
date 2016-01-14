@@ -8,6 +8,7 @@
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Widgets.hpp>
 #include <vector>
+#include <SFML/Audio.hpp>
 
 class Menu : public I_Scene{
 private:
@@ -15,6 +16,7 @@ private:
 	sfg::Desktop mDesktop;
 	sfg::Box::Ptr mBox;
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
+	sf::Music mBgMusic;
 
 public:
 	Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath = "./res/gui.theme", sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 10.0f);

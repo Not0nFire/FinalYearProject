@@ -4,6 +4,7 @@
 
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
+#define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
 Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
 relWindow(_relWindow),
@@ -25,7 +26,12 @@ mIsWon(false)
 	mPawns.push_back(mHero);
 
 	for (int i = 1; i < 10; i++) {
-		mPawns.push_back(new Minion(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY, mPath));
+		mPawns.push_back(new Minion(
+			GET_TEXTURE("./res/img/placeholderActorBlue.png"),
+			Pawn::Faction::ENEMY,
+			GET_SFX("./res/sfx/hit01.ogg"),
+			mPath)
+			);
 		mPawns[i]->setPosition(mPath.begin()->getPoint());
 	}
 
@@ -59,6 +65,9 @@ mIsWon(false)
 
 		return false;
 	});//end terrainTree subdivision
+
+	mBgMusic.openFromFile("./res/mus/level.ogg");
+	mBgMusic.setLoop(true);
 }
 
 Level::~Level() {
@@ -133,6 +142,10 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	mHud.update(elapsedTime);
+
+	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.play();
+	}
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -159,6 +172,7 @@ void Level::draw(sf::RenderWindow &w) {
 
 void Level::cleanup() {
 	mHud.hide();
+	mBgMusic.stop();
 }
 
 bool Level::isLost() const {

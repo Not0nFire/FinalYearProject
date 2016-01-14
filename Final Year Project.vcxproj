@@ -66,6 +66,7 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy "$(SFML)\bin\*-d-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFML)\bin\openal32.dll" "$(TargetDir)" /Y /D
 xcopy "$(THOR)\bin\thor-d.dll" "$(TargetDir)" /Y /D
 xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
       <Message>
@@ -96,6 +97,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D
+xcopy "$(SFML)\bin\openal32.dll" "$(TargetDir)" /Y /D
 xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D
 xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D</Command>
       <Message>
@@ -165,6 +167,9 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <Image Include="res\img\placeholderActorBlue.png" />
     <Image Include="res\img\projectile.png" />
     <Image Include="res\img\tower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

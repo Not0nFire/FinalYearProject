@@ -10,7 +10,7 @@ private:
 
 public:
 
-	Minion(sf::Texture &texture, Faction faction, Path const &pathToFollow);
+	Minion(sf::Texture &texture, Faction faction, sf::SoundBuffer const &attackSound, Path const &pathToFollow);
 	virtual ~Minion();
 
 	virtual void update(sf::Time const &elapsedTime) override;

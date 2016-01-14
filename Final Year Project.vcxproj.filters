@@ -58,7 +58,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HUD.cpp">
-	  <Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TerrainInterpreter.cpp">
       <Filter>Source Files</Filter>
@@ -159,7 +159,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HUD.hpp">
-	 <Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Quadtree.hpp">
       <Filter>Header Files</Filter>
@@ -193,5 +193,8 @@
     <Image Include="res\img\tower.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>
 #include <include/Projectile.h>
+#include <SFML/Audio.hpp>
 
 using namespace boost::signals2;
 
@@ -52,6 +53,8 @@ protected:
 
 	sf::Vector2f mDestination;
 
+	sf::Sound mAttackSound;
+
 	//sf::Time mDecayTime;
 	//bool mDecayed;
 #pragma endregion
@@ -76,7 +79,7 @@ protected:
 #pragma endregion
 
 public:
-	Pawn(sf::Texture &texture, Faction faction);
+	Pawn(sf::Texture &texture, Faction faction, sf::SoundBuffer const &attackSound);
 	//Pawn(const char* xml);	//todo: #include tinyXML
 	virtual ~Pawn();
 

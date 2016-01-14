@@ -1,7 +1,7 @@
 #include <include/Minion.hpp>
 
-Minion::Minion(sf::Texture& texture, Faction faction, Path const &pathToFollow) :
-Pawn(texture, faction),
+Minion::Minion(sf::Texture& texture, Faction faction, sf::SoundBuffer const &attackSound, Path const &pathToFollow) :
+Pawn(texture, faction, attackSound),
 mPathNode(pathToFollow.begin())
 {
 	setDestination(mPathNode->getPoint());

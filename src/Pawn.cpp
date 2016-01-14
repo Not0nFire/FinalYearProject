@@ -1,7 +1,7 @@
 #include <include\Pawn.hpp>
 #include <boost/thread/lock_guard.hpp>
 
-Pawn::Pawn(sf::Texture &texture, Faction faction) :
+Pawn::Pawn(sf::Texture &texture, Faction faction, sf::SoundBuffer const &attackSound) :
 Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
 mFaction(faction),
 mState(State::IDLE),
@@ -16,7 +16,8 @@ mAttacksPerSecond(1.0f),
 mTimeSinceAttack(FLT_MAX),
 mStunDuration(),
 mDestination(),
-mCombatTarget(nullptr)
+mCombatTarget(nullptr),
+mAttackSound(attackSound)
 {
 	mHealth = M_MAX_HEALTH;
 }
@@ -62,7 +63,7 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 }
 
 void Pawn::doAttack(float secondsElapsed) {
-	_ASSERT(mState = State::ATTACKING);
+	_ASSERT(mState == State::ATTACKING);
 
 	//Check if we have a target
 	if (mCombatTarget) {
@@ -73,6 +74,7 @@ void Pawn::doAttack(float secondsElapsed) {
 			//Deal damage to our target
 			mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
 			mTimeSinceAttack = 0.0f;
+			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
 		}
 		else if (mTimeSinceAttack >= 1 / mAttacksPerSecond / 2.0f){

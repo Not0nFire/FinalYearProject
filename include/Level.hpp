@@ -13,6 +13,7 @@
 #include <include/TerrainInterpreter.h>
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
+#include <SFML/Audio.hpp>
 
 class Level : public I_Scene{
 private:
@@ -39,6 +40,8 @@ private:
 	sf::FloatRect mBounds;
 
 	bool mIsLost, mIsWon;
+
+	sf::Music mBgMusic;
 	
 public:
 	/*!

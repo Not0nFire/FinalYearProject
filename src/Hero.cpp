@@ -1,6 +1,8 @@
 #include <include/Hero.hpp>
 
-Hero::Hero(sf::Texture &texture) : Pawn(texture, Faction::PLAYER){
+Hero::Hero(sf::Texture &texture) :
+Pawn(texture, Faction::PLAYER, ResourceManager<sf::SoundBuffer>::instance()->get("./res/sfx/hit01.ogg"))
+{
 	mMovementSpeed = 100;
 	mHealth = 500;
 	mAttackDamage = 20;
