@@ -15,7 +15,8 @@ mHud(sfgui),
 mLivesRemaining(3),
 mBounds(sf::Vector2f(), sf::Vector2f(_relWindow->getSize().x, _relWindow->getSize().y)),
 mIsLost(false),
-mIsWon(false)
+mIsWon(false),
+mCamera(_relWindow->getSize())
 {
 
 	mPawns.reserve(100);
@@ -23,6 +24,8 @@ mIsWon(false)
 	mHero = new Hero(GET_TEXTURE("./res/img/placeholderActor.png"));
 	mHero->setPosition(mBounds.width * 0.5f, mBounds.height * 0.5f);
 	mPawns.push_back(mHero);
+
+	mCamera.setTarget(mHero);
 
 	for (int i = 1; i < 10; i++) {
 		mPawns.push_back(new Minion(GET_TEXTURE("./res/img/placeholderActorBlue.png"), Pawn::Faction::ENEMY, mPath));
@@ -77,7 +80,8 @@ bool Level::handleEvent(sf::Event &event ) {
 			handled = true;
 		} else {
 			assert(relWindow != nullptr);
-			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)));
+			//setDestination( mouse position in window + camera displacement );
+			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
 			handled = true;
 		}
 
@@ -133,10 +137,13 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	mHud.update(elapsedTime);
+	mCamera.update();
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+
+	w.setView(mCamera);
 
 	w.draw(backgroundTEMP);
 
