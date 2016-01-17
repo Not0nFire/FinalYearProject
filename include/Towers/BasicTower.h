@@ -24,6 +24,8 @@ namespace tower
 
 		Projectile mProjectile;
 
+		sf::Vector2f leadTarget(Pawn* target, float time) const;
+
 	public:
 		BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup);
 		virtual ~BasicTower();

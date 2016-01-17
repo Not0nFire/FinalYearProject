@@ -58,7 +58,7 @@ bool BasicTower::acquireTarget(std::vector<Pawn*> const& possibleTargets) {
 	if (!mProjectile.isActive()) {
 		for (Pawn* p : possibleTargets) {
 			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
-				mProjectile.fire(getPosition(), p->getPosition(), 2);
+				mProjectile.fire(getPosition(), leadTarget(p, 2.f), 2.f);
 				targetAqcuired = true;
 				break;
 			}//if (range)
@@ -66,4 +66,12 @@ bool BasicTower::acquireTarget(std::vector<Pawn*> const& possibleTargets) {
 	}//if (active)
 
 	return targetAqcuired;
+}
+
+sf::Vector2f BasicTower::leadTarget(Pawn* target, float time) const {
+	//sf::Vector2f targetPos = target->getPosition();
+	//sf::Vector2f heading = thor::unitVector(target->getDestination() - targetPos);
+	//sf::Vector2f prediction = targetPos + (heading * (target->getMovementSpeed() * time));
+	//return prediction;
+	return target->getPosition() + (thor::unitVector(target->getDestination() - target->getPosition()) * (target->getMovementSpeed() * time));
 }
