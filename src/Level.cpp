@@ -16,7 +16,7 @@ mLivesRemaining(3),
 mBounds(sf::Vector2f(), sf::Vector2f(_relWindow->getSize().x, _relWindow->getSize().y)),
 mIsLost(false),
 mIsWon(false),
-mCamera(_relWindow->getSize())
+mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f))
 {
 
 	mPawns.reserve(100);
@@ -80,7 +80,7 @@ bool Level::handleEvent(sf::Event &event ) {
 			handled = true;
 		} else {
 			assert(relWindow != nullptr);
-			//setDestination( mouse position in window + camera displacement );
+			//destination = mouse position in window + camera position
 			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
 			handled = true;
 		}
@@ -158,7 +158,7 @@ void Level::draw(sf::RenderWindow &w) {
 		tower->draw(w);
 	}
 
-	mTowerPlacer.update(sf::Mouse::getPosition(w));
+	mTowerPlacer.update(sf::Mouse::getPosition(w) + sf::Vector2i(mCamera.getDisplacement()));
 	mTowerPlacer.draw(w);
 
 	mHud.draw(w);
