@@ -5,6 +5,10 @@
 //using namespace tinyxml2;
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 
+bool Level::compareDepth(Actor* A, Actor* B) {
+	return A->getPosition().y < B->getPosition().y;
+}
+
 Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
 relWindow(_relWindow),
 backgroundTEMP( GET_TEXTURE("./res/img/bg.png") ),
@@ -140,15 +144,15 @@ void Level::draw(sf::RenderWindow &w) {
 
 	w.draw(backgroundTEMP);
 
-	//mHero->debug_draw(w);
-	for (Pawn* p : mPawns) {
-		p->debug_draw(w);
-		w.draw(*p);
-	}
+	//Perhaps this list should be a class member?
+	std::list<Actor*> allActors;
+	allActors.insert(allActors.end(), mPawns.begin(), mPawns.end());
+	allActors.insert(allActors.end(), mTowers.begin(), mTowers.end());
+	allActors.sort(&compareDepth);
 
-	for (auto tower : mTowers) {
-		tower->debug_draw(w);
-		tower->draw(w);
+	for (Actor* actor : allActors) {
+		actor->debug_draw(w);
+		actor->draw(w);
 	}
 
 	mTowerPlacer.update(sf::Mouse::getPosition(w));

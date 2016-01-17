@@ -39,6 +39,9 @@ private:
 	sf::FloatRect mBounds;
 
 	bool mIsLost, mIsWon;
+
+	//! Compares the y position of two actors for the purpose of sorting the draw order
+	static bool compareDepth(Actor* A, Actor* B);
 	
 public:
 	/*!

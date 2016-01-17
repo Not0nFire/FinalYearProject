@@ -32,7 +32,7 @@ namespace tower
 
 		void update(sf::Time const &elapsedTime);
 
-		virtual void draw(sf::RenderTarget &target);
+		virtual void draw(sf::RenderTarget &target) override;
 
 		bool acquireTarget(std::vector<Pawn*> const &possibleTargets);	//yet another method to be replaced by chaiscript
 	};

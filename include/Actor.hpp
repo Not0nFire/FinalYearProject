@@ -22,5 +22,7 @@ public:
 	void setVisible(bool isVisible = true);
 	bool toggleVisible();
 	bool getVisible() const;
+
+	virtual void draw(sf::RenderTarget &target);
 };
 #endif
