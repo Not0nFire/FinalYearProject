@@ -121,6 +121,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="src\Pawn.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TowerPlacer.cpp" />
