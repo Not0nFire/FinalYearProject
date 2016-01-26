@@ -1,0 +1,18 @@
+<AnimationSet>
+  <!-- using thor::Animator -->
+  <Animation name="walk">
+    <Frame>
+      <X></X>
+      <Y></Y>
+      <Width></Width>
+      <Height></Height>
+    </Frame>
+    <Frame></Frame>
+    <Frame></Frame>
+  </Animation>
+  <Animation name="attack">
+    <Frame></Frame>
+    <Frame></Frame>
+    <Frame></Frame>
+  </Animation>
+</AnimationSet>

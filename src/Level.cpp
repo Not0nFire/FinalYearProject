@@ -35,12 +35,12 @@ mIsWon(false)
 		mCollisionGroup.add(p);
 
 		if (p != mHero) {
-			mHud.addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+			mHud->addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
 		}
 	}
 
 
-	mHud.addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
+	mHud->addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f,20.f));
 
 	//Subdivide terrainTree
 	TerrainInterpreter interpreter = TerrainInterpreter("./res/img/terrain.bmp");
@@ -72,7 +72,7 @@ bool Level::handleEvent(sf::Event &event ) {
 
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
-		if (mTowerPlacer.place()) {
+		if (mTowerPlacer->place()) {
 			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
 			handled = true;
 		} else {
@@ -82,7 +82,7 @@ bool Level::handleEvent(sf::Event &event ) {
 		}
 
 	} else if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
-		mTowerPlacer.activate();
+		mTowerPlacer->activate();
 		handled = true;
 
 	}
@@ -132,7 +132,7 @@ void Level::update(sf::Time const &elapsedTime) {
 		tower->acquireTarget(mPawns);
 	}
 
-	mHud.update(elapsedTime);
+	mHud->update(elapsedTime);
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -151,14 +151,14 @@ void Level::draw(sf::RenderWindow &w) {
 		tower->draw(w);
 	}
 
-	mTowerPlacer.update(sf::Mouse::getPosition(w));
-	mTowerPlacer.draw(w);
+	mTowerPlacer->update(sf::Mouse::getPosition(w));
+	mTowerPlacer->draw(w);
 
-	mHud.draw(w);
+	mHud->draw(w);
 }
 
 void Level::cleanup() {
-	mHud.hide();
+	mHud->hide();
 }
 
 bool Level::isLost() const {
@@ -169,41 +169,24 @@ bool Level::isWon() const {
 	return mIsWon;
 }
 
-Level::Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath) :
-relWindow(_relWindow),
-mHud(sfgui),
+#define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
+Level::Level(tinyxml2::XMLElement* root) :
+backgroundTEMP(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
+mPath(root->FirstChildElement("Path")),
 mIsLost(false),
 mIsWon(false)
 {
-	using namespace tinyxml2;
-
-	XMLDocument doc;	//empty xml document
-
-	XMLError result = doc.LoadFile(xmlPath);	//try to load the xml from file
-	if ( result != XML_NO_ERROR )
-		throw result;	//throw an error if one occured
-
-	XMLElement* root = doc.FirstChildElement("Level");	//root <Level> node
-
-	//find the background in the xml file and tell the resource manager to get it
-	ResourceManager<sf::Texture>::instance()->get(
-		root->FirstChildElement("Background")->GetText()
-		);
-
-	//----------------------------------------------------------
 	//Load <TerrainData> element and use it to instantiate the interpreter and subdivide the TerrainTree.
 	//This has its own scope.
 	{
 		//instantiate the interpreter with the image path from the xml node
-		TerrainInterpreter interpreter = TerrainInterpreter(
-			root->FirstChildElement("TerrainData")->GetText()
-			);
+		TerrainInterpreter interpreter = TerrainInterpreter(root->GET_CHILD_VALUE("TerrainData"));
 
 		//get the size of the image so we can construct our terrain tree.
-		sf::Vector2u imageSize = interpreter.getImageSize();
+		const sf::Vector2u imageSize = interpreter.getImageSize();
 
 		//make a shared_ptr to the newly constructed terrain tree
-		terrainTree = std::make_shared<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
+		terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
 
 		//begin subdivision of terrain tree using the TerrainInterpreter
 		terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
@@ -226,14 +209,14 @@ mIsWon(false)
 	}//end terrain data scope
 
 	//----------------------------------------------------------
-	//Create level path from <Path> and its children <Node>
-	mPath = Path(root->FirstChildElement("Path"));
-
-	//----------------------------------------------------------
-	//Create enemies from xml
-
+	//For each <ENEMY> element under the <ENEMIES> tag
+	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("ENEMIES")->FirstChildElement("ENEMY");
+		enemyElement != nullptr;
+		enemyElement = enemyElement->NextSiblingElement())
+	{
+		mPawns.push_back(new Minion(enemyElement));
+	}
 }
-
 
 //bool Level::loadFromXML(const char *path) {
 //	tinyxml2::XMLDocument doc;	//empty xml document

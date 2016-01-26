@@ -1,0 +1,16 @@
+<MINION_DEF name="basic_enemy">
+  <!-- pawn stuff -->
+  <Faction>ENEMY</Faction>
+  <Health>100</Health>
+  <Armour>NONE</Armour>
+  <MagicResist>NONE</MagicResist>
+  <DamageType>PHYSICAL</DamageType>
+  <AttackRange>30</AttackRange>
+  <AttackDamage>10</AttackDamage>
+  <AttacksPerSecond>1</AttacksPerSecond>
+  <MovementSpeed>100</MovementSpeed>
+  
+  <!-- actor stuff -->
+  <Texture ext="png">placeholder_actor</Texture>
+  <AnimSet>basicAnimSet</AnimSet>
+</MINION_DEF>

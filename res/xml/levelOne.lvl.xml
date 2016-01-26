@@ -19,7 +19,9 @@
 		</Node>
 	</Path>
 	<Enemies>
-		<Enemy>
-		</Enemy>
+    <ENEMY type="basic_enemy">
+      <X></X>
+      <Y></Y>
+    </ENEMY>
 	</Enemies>
 </Level>

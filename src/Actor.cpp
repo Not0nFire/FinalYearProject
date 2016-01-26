@@ -5,6 +5,12 @@ Actor::Actor(sf::Texture &texture, sf::Shape* collisionMask, sf::Vector2f const 
 	setOrigin(texture.getSize().x * 0.5f, texture.getSize().y * 0.5f);
 }
 
+Actor::Actor(tinyxml2::XMLElement* element) :
+sf::Sprite(ResourceManager<sf::Texture>::instance()->get(element->FirstChildElement("TEXTURE")->GetText())),	//create sprite with texture from xml
+Collidable()
+{
+}
+
 //Actor::Actor(const char* xml) {
 //
 //}

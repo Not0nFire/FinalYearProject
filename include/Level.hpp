@@ -30,10 +30,10 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
-	HUD mHud;
+	std::unique_ptr<HUD> mHud;
 	
-	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
-	TowerPlacer mTowerPlacer;
+	std::unique_ptr<Quadtree<unsigned char>> terrainTree;
+	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	Path mPath;
 
@@ -48,6 +48,7 @@ public:
 	*/
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);
+	Level(tinyxml2::XMLElement* root);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;

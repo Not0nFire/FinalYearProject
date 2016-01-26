@@ -77,6 +77,7 @@ protected:
 
 public:
 	Pawn(sf::Texture &texture, Faction faction);
+	Pawn()
 	//Pawn(const char* xml);	//todo: #include tinyXML
 	virtual ~Pawn();
 

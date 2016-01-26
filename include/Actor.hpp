@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <include/Collision/Collidable.hpp>
 #include <boost/thread/mutex.hpp>
+#include <include/TinyXML2/tinyxml2.h>
+#include <include/ResourceManager.hpp>
 
 /*!
 \brief Class for anything that animates and has a position.
@@ -17,6 +19,7 @@ protected:
 	boost::mutex mMutex;	/*!< Not to be confused with the private mutex in Collidable */
 public:
 	Actor(sf::Texture &texture, sf::Shape* collisionMask, sf::Vector2f const &maskOffset);
+	Actor(tinyxml2::XMLElement* element);
 	virtual ~Actor();
 
 	void setVisible(bool isVisible = true);
