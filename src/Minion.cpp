@@ -7,6 +7,13 @@ mPathNode(pathToFollow.begin())
 	setDestination(mPathNode->getPoint());
 }
 
+Minion::Minion(PawnDef const& def, sf::Vector2f const &position, Path const &pathToFollow) :
+Pawn(def),
+mPathNode(pathToFollow.begin())
+{
+	setPosition(position);
+}
+
 Minion::~Minion() {
 	
 }

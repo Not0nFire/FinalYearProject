@@ -37,14 +37,14 @@ public:
 Scene is only constructed when a method is called on it; It can be constructed prematurely by calling loadNow().
 */
 template <class SceneType>
-class SceneProxy<SceneType> {
+class SceneProxy {
 public:
 	/*
 	\brief Constructs a SceneProxy. Stores the xmlPath. Scene is NOT constructed here.
 	\param xmlPath Path to xml file that will be used to load scene. Root node of file should be <Scene>.
 	*/
-	SceneProxy<SceneType>(const char * xmlPath);
-	~SceneProxy<SceneType>();
+	SceneProxy(const char * xmlPath);
+	~SceneProxy();
 
 	/*
 	\brief Calls handleEvent on the scene object.

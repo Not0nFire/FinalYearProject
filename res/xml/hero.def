@@ -1,0 +1,16 @@
+<MINION_DEF name="hero">
+  <!-- pawn stuff -->
+  <Faction>PLAYER</Faction>
+  <Health>1000</Health>
+  <Armour>0.50</Armour>
+  <MagicResist>0.25</MagicResist>
+  <DamageType>PHYSICAL</DamageType>
+  <AttackRange>40</AttackRange>
+  <AttackDamage>20</AttackDamage>
+  <AttacksPerSecond>1.5</AttacksPerSecond>
+  <MovementSpeed>150</MovementSpeed>
+  
+  <!-- actor stuff -->
+  <Texture>././res/img/placeholderActorBlue.png</Texture>
+  <AnimSet>basicAnimSet</AnimSet>
+</MINION_DEF>

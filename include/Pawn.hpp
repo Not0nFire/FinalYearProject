@@ -7,6 +7,8 @@
 #include <Thor/Vectors.hpp>
 #include <include/Projectile.h>
 
+struct PawnDef;
+
 using namespace boost::signals2;
 
 /*!
@@ -77,8 +79,7 @@ protected:
 
 public:
 	Pawn(sf::Texture &texture, Faction faction);
-	Pawn()
-	//Pawn(const char* xml);	//todo: #include tinyXML
+	Pawn(PawnDef const &def);
 	virtual ~Pawn();
 
 	/*!
@@ -204,5 +205,30 @@ public:
 	\param mtv The Minimum Translation Vector for the collision.
 	*/
 	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv) override;
+};
+
+struct PawnDef {
+	PawnDef() :	//These fields require initialization
+	faction(Pawn::Faction::ENEMY),
+	armour(Damage::Reduction::NONE),
+	magicResist(Damage::Reduction::NONE)
+	{}
+
+	Pawn::Faction faction;
+	unsigned int health;
+	unsigned int movementSpeed;
+
+	//Used to create Damage::Reduction objects
+	float armour;
+	float magicResist;
+
+	Damage::Type damageType;
+
+	unsigned int attackRange;
+	unsigned int attackDamage;
+	float attacksPerSecond;
+
+	std::string texturePath;
+	std::string animationSet;
 };
 #endif

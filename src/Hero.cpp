@@ -9,6 +9,12 @@ Hero::Hero(sf::Texture &texture) : Pawn(texture, Faction::PLAYER){
 	mMagicResist = Damage::Reduction{ Damage::Reduction::MEDIUM };
 }
 
+Hero::Hero(PawnDef const &def, sf::Vector2f const &position) :
+Pawn(def)
+{
+	setPosition(position);
+}
+
 Hero::~Hero() {
 }
 

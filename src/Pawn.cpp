@@ -20,9 +20,27 @@ mCombatTarget(nullptr)
 {
 	mHealth = M_MAX_HEALTH;
 }
-//Pawn::Pawn(const char* xml) {
-//
-//}
+
+Pawn::Pawn(PawnDef const& def) :
+Actor(ResourceManager<sf::Texture>::instance()->get(def.texturePath), new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
+mFaction(def.faction),
+mState(State::IDLE),
+M_MAX_HEALTH(def.health),
+mArmour(def.armour),
+mMagicResist(def.magicResist),
+mDamageType(def.damageType),
+mAttackRange(def.attackRange),
+mMovementSpeed(def.movementSpeed),
+mAttackDamage(def.attackDamage),
+mAttacksPerSecond(def.attacksPerSecond),
+mTimeSinceAttack(FLT_MAX),
+mCombatTarget(nullptr),
+mStunDuration(),
+mDestination()
+{
+	mHealth = M_MAX_HEALTH;
+}
+
 Pawn::~Pawn() {
 
 }

@@ -13,8 +13,6 @@ mRoot(new Node(0.f, 130.f, 80.f))
 }
 
 Path::Path(const tinyxml2::XMLElement* const xml) {
-	_ASSERT(xml->Name() == "Path");
-
 	//The XMLElement is constant, the pointer value is NOT.
 	const tinyxml2::XMLElement* xmlnode = xml->FirstChildElement("Node");
 

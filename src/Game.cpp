@@ -9,7 +9,15 @@ Game::Game() :
 	mSFGUI(new sfg::SFGUI())
 {
 	//create level scene
-	mLevel = new Level(&mRenderer.getWindow(), mSFGUI);
+	//mLevel = new Level(&mRenderer.getWindow(), mSFGUI);
+
+	tinyxml2::XMLDocument doc;
+	tinyxml2::XMLError result = doc.LoadFile("./res/xml/levelOne.lvl");	//try to load the xml from file
+	if (result != tinyxml2::XML_NO_ERROR)
+		throw result;	//throw an error if one occured
+
+	tinyxml2::XMLElement* root = doc.FirstChildElement("Level");
+	mLevel = new Level(root, &(mRenderer.getWindow()), mSFGUI);
 	SceneManager::instance()->createScene("Level", mLevel);
 
 	//create main menu scene

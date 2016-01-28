@@ -13,6 +13,7 @@
 #include <include/TerrainInterpreter.h>
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
+#include <include/MinionCreation/MinionFactory.hpp>
 
 #include <include/TinyXML2/tinyxml2.h>
 
@@ -30,9 +31,9 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
-	std::unique_ptr<HUD> mHud;
+	std::shared_ptr<HUD> mHud;
 	
-	std::unique_ptr<Quadtree<unsigned char>> terrainTree;
+	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
 	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	Path mPath;
@@ -46,9 +47,9 @@ public:
 	/*!
 	\param _relWindow RenderWindow to be used for getting relative mouse position.
 	*/
-	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
-	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);
-	Level(tinyxml2::XMLElement* root);
+	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
+	Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
