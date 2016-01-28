@@ -31,7 +31,7 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
-	std::shared_ptr<HUD> mHud;
+	std::unique_ptr<HUD> mHud;
 	
 	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
 	std::unique_ptr<TowerPlacer> mTowerPlacer;

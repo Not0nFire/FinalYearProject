@@ -154,11 +154,11 @@ void Level::draw(sf::RenderWindow &w) {
 	mTowerPlacer->update(sf::Mouse::getPosition(w));
 	mTowerPlacer->draw(w);
 
-	//mHud->draw(w);
+	mHud->draw(w);
 }
 
 void Level::cleanup() {
-	//mHud->hide();
+	mHud->hide();
 }
 
 bool Level::isLost() const {
@@ -173,12 +173,13 @@ bool Level::isWon() const {
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
+relWindow(_relWindow),
 backgroundTEMP(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
+mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
 mPath(root->FirstChildElement("Path")),
+mLivesRemaining(atoi(root->GET_CHILD_VALUE("Lives"))),
 mIsLost(false),
-mIsWon(false),
-//mHud(sfgui),
-relWindow(_relWindow)
+mIsWon(false)
 {
 	//Load <TerrainData> element and use it to instantiate the interpreter and subdivide the TerrainTree.
 	//This has its own scope.
@@ -188,6 +189,8 @@ relWindow(_relWindow)
 
 		//get the size of the image so we can construct our terrain tree.
 		const sf::Vector2u imageSize = interpreter.getImageSize();
+
+		mBounds = sf::FloatRect(0, 0, imageSize.x, imageSize.y);	//set the level bounds to match the image size
 
 		//make a shared_ptr to the newly constructed terrain tree
 		terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
@@ -214,7 +217,7 @@ relWindow(_relWindow)
 
 	//----------------------------------------------------------
 	MinionFactory factory;
-	//For each <ENEMY> element under the <ENEMIES> tag
+	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
 		enemyElement != nullptr;
 		enemyElement = enemyElement->NextSiblingElement())
@@ -239,7 +242,7 @@ relWindow(_relWindow)
 			//ask the factory to produce an enemy of [type] at [pos] that follows [mPath]
 			pawn = factory.produce(type, pos, mPath);
 		}
-		mPawns.push_back(factory.produce(type, pos, mPath));
+		mPawns.push_back(pawn);
 	}
 
 	for (Pawn* p : mPawns)
@@ -248,11 +251,11 @@ relWindow(_relWindow)
 		mCollisionGroup.add(p);
 
 		if (p != mHero) {
-			//mHud->addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+			mHud->addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
 		}
 	}
 
-	//mHud->addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
+	mHud->addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
 }
