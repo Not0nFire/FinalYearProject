@@ -1,16 +1,40 @@
-<MINION_DEF name="hero">
-  <!-- pawn stuff -->
-  <Faction>PLAYER</Faction>
-  <Health>1000</Health>
-  <Armour>0.50</Armour>
-  <MagicResist>0.25</MagicResist>
-  <DamageType>PHYSICAL</DamageType>
-  <AttackRange>40</AttackRange>
-  <AttackDamage>20</AttackDamage>
-  <AttacksPerSecond>1.5</AttacksPerSecond>
-  <MovementSpeed>150</MovementSpeed>
-  
-  <!-- actor stuff -->
-  <Texture>././res/img/placeholderActorBlue.png</Texture>
-  <AnimSet>basicAnimSet</AnimSet>
-</MINION_DEF>
+<Hero name="hero">
+  <Pawn>
+    <Faction>PLAYER</Faction>
+    <Health>1000</Health>
+    <Armour>0.50</Armour>
+    <MagicResist>0.25</MagicResist>
+    <DamageType>PHYSICAL</DamageType>
+    <AttackRange>50</AttackRange>
+    <AttackDamage>10</AttackDamage>
+    <AttacksPerSecond>1.5</AttacksPerSecond>
+    <MovementSpeed>150</MovementSpeed>
+
+    <Actor>
+      <!-- Texture path, this will be the texture's key in the ResourceManager -->
+      <Texture>././res/img/placeholderActor.png</Texture>
+      <Animation path="././res/xml/walk.anim">
+        <!-- Friendly name, local to each Actor -->
+        <Name>walk</Name>
+        <!-- Duration of animation in seconds -->
+        <Duration>1.f</Duration>
+      </Animation>
+      <Animation path="././res/xml/attack.anim">
+        <!-- Friendly name, local to each Actor -->
+        <Name>attack</Name>
+        <!-- Duration of animation in seconds -->
+        <Duration>1.f</Duration>
+      </Animation>
+
+      <!--
+      Used to check for collisions.
+      Options for type are "Circle" and "Convex";
+      Circle requires a radius, whereas Convex requires the x, y and index of each point.
+      -->
+      <Collidable pointCount="6" type="Circle">
+        <Offset x="0" y="50"/>
+        <Radius>25.f</Radius>
+      </Collidable>
+    </Actor>
+  </Pawn>
+</Hero>

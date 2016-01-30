@@ -21,23 +21,24 @@ mCombatTarget(nullptr)
 	mHealth = M_MAX_HEALTH;
 }
 
-Pawn::Pawn(PawnDef const& def) :
-Actor(ResourceManager<sf::Texture>::instance()->get(def.texturePath), new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
-mFaction(def.faction),
-mState(State::IDLE),
-M_MAX_HEALTH(def.health),
-mArmour(def.armour),
-mMagicResist(def.magicResist),
-mDamageType(def.damageType),
-mAttackRange(def.attackRange),
-mMovementSpeed(def.movementSpeed),
-mAttackDamage(def.attackDamage),
-mAttacksPerSecond(def.attacksPerSecond),
+#define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
+Pawn::Pawn(tinyxml2::XMLElement* xml) :
+Actor(xml->FirstChildElement("Actor")),
+mFaction(std::string(GET_ELEMENT("Faction")) == "ENEMY" ? Faction::ENEMY : Faction::PLAYER),
+mState(IDLE),
+M_MAX_HEALTH(atoi(GET_ELEMENT("Health"))),
+mArmour(atof(GET_ELEMENT("Armour"))),
+mMagicResist(atof(GET_ELEMENT("MagicResist"))),
+mDamageType(std::string(GET_ELEMENT("DamageType")) == "PHYSICAL" ? Damage::Type::PHYSICAL : Damage::Type::MAGICAL),
+mAttackRange(atoi(GET_ELEMENT("AttackRange"))),
+mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
+mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
+mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mCombatTarget(nullptr),
-mStunDuration(),
-mDestination()
+mCombatTarget(nullptr)
 {
+	_ASSERT(std::string(xml->Name()) == "Pawn");
+
 	mHealth = M_MAX_HEALTH;
 }
 

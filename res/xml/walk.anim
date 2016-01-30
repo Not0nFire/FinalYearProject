@@ -1,0 +1,16 @@
+<Animation name="walk">
+  <Frame>
+    <X>0</X>
+    <Y>0</Y>
+    <Width>100</Width>
+    <Height>100</Height>
+    <Duration>1.f</Duration>
+  </Frame>
+  <Frame>
+    <X>100</X>
+    <Y>0</Y>
+    <Width>100</Width>
+    <Height>100</Height>
+    <Duration>1.f</Duration>
+  </Frame>
+</Animation>

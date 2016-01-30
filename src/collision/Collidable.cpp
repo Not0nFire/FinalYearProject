@@ -6,7 +6,52 @@ namespace collision {
 
 	Collidable::Collidable(sf::Shape* mask, sf::Vector2f offset)
 		: mMask(mask), mOffset(offset) {
-		(*mMask).setFillColor(sf::Color::Magenta);
+		mMask->setFillColor(sf::Color::Magenta);
+	}
+
+	Collidable::Collidable(tinyxml2::XMLElement* xml) {
+		_ASSERT(std::string(xml->Name()) == "Collidable");
+
+		std::string shapeType = xml->Attribute("type");
+
+		//Construct different sf::Shape derivative depending on shapeType as specified in the xml
+		if (shapeType == "Circle") {
+
+			//Construct circle shape
+			mMask = new sf::CircleShape(
+				atof(xml->FirstChildElement("Radius")->GetText()),	//Get radius of shape from xml
+				atoi(xml->Attribute("pointCount"))	//Get point count of shape from xml
+				);
+
+		} else if (shapeType == "Convex") {
+
+			//Construct convex shape with points as specified in the xml
+			sf::ConvexShape* shape = new sf::ConvexShape(atoi(xml->Attribute("pointCount")));
+
+			for (tinyxml2::XMLElement* pointElement = xml->FirstChildElement("Point");
+				pointElement != nullptr;
+				pointElement = pointElement->NextSiblingElement("Point"))
+			{
+				//Set the position of each point.
+				shape->setPoint(
+					atoi(pointElement->Attribute("index")),
+						sf::Vector2f(
+						atof(pointElement->Attribute("x")), 
+						atof(pointElement->Attribute("y"))
+					)
+				);//end shape->setPoint(..)
+			}//end for(pointElement)
+
+			mMask = shape;			
+		} else {
+			throw "Invalid shapeType";
+		}
+
+		//Get the offset of the shape (if one has been specified)
+		tinyxml2::XMLElement* offsetElement = xml->FirstChildElement("Offset");
+		if (offsetElement != nullptr) {
+			mOffset = sf::Vector2f(atof(offsetElement->Attribute("x")), atof(offsetElement->Attribute("y")));
+		}
 	}
 
 	Collidable::~Collidable() {

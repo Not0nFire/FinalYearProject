@@ -78,7 +78,7 @@
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MinionFactory.cpp">
+    <ClCompile Include="src\UnitFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,10 +188,7 @@
     <ClInclude Include="include\TinyXML2\tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\MinionCreation\MinionFactory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MinionCreation\PawnDef.hpp">
+    <ClInclude Include="include\UnitFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

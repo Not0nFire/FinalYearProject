@@ -1,17 +1,41 @@
 #include <include\Actor.hpp>
 
 Actor::Actor(sf::Texture &texture, sf::Shape* collisionMask, sf::Vector2f const &maskOffset)
-	: sf::Sprite(texture), Collidable(collisionMask, maskOffset), mVisible(true) {
+	: sf::Sprite(texture), Collidable(collisionMask, maskOffset), mVisible(true)
+{
 	setOrigin(texture.getSize().x * 0.5f, texture.getSize().y * 0.5f);
 }
 
-//Actor::Actor(const char* xml) {
-//
-//}
-//
-//Actor::Actor(const char* xml, sf::Texture &overrideTexture) {
-//
-//}
+Actor::Actor(tinyxml2::XMLElement* xml) :
+//Get texture path from xml and request it from resource manager
+Sprite(ResourceManager<sf::Texture>::instance()->get(xml->FirstChildElement("Texture")->GetText())),
+Collidable(xml->FirstChildElement("Collidable")),
+mAnimator(),
+mVisible(true)
+{
+	//Assert that xml tag name is Actor
+	_ASSERT(std::string(xml->Name()) == "Actor");
+
+	using namespace thor;
+
+	//For each <Animation> tag
+	for (tinyxml2::XMLElement* animElement = xml->FirstChildElement("Animation");
+		animElement != nullptr;
+		animElement = animElement->NextSiblingElement("Animation"))
+	{
+		std::string path = animElement->Attribute("path");	//Path to file containing definition of animation
+		std::string name = animElement->FirstChildElement("Name")->GetText();	//Name of animation, as it will be known locally
+		float duration = atof(animElement->FirstChildElement("Duration")->GetText());	//Length of animation in seconds
+		
+		//Create a reference to the animation that we get from the ResourceManager
+		RefAnimation<FrameAnimation> animation = RefAnimation<FrameAnimation>(
+			ResourceManager<FrameAnimation>::instance()->get(path)
+			);
+
+		//Add the animation to our animator
+		mAnimator.addAnimation(name, animation, sf::seconds(duration));
+	}
+}
 
 Actor::~Actor() {
 

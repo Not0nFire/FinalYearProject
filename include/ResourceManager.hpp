@@ -3,6 +3,8 @@
 #include <boost/thread.hpp>
 #include <memory>
 #include <map>
+#include <Thor/Animations.hpp>
+#include <include/TinyXML2/tinyxml2.h>
 
 /*!
 Simple SFML resource manager.
@@ -38,7 +40,7 @@ public:
 	\param path The location of the resource in the file system.
 	\returns A reference to the requested resource.
 	*/
-	T& get(std::string path);
+	T& get(std::string const &path);
 };
 
 template<typename T>
@@ -63,21 +65,69 @@ ResourceManager<T>* ResourceManager<T>::instance() {
 }
 
 template<typename T>
-T& ResourceManager<T>::get(std::string path) {
+T& ResourceManager<T>::get(std::string const &path) {
 	//lock the mutex
 	boost::lock_guard<boost::mutex> lock(mResourceMutex);
 
 	//if path does not exist as a key in the map
 	if (!mResources.count(path)) {
-		//load texture from path
+		//load resource from path
 		std::unique_ptr<T> res(new T);
 		res->loadFromFile(path);
 
-		//put the texture into the map (move it instead of copying)
+		//put the resource into the map (move it instead of copying)
 		mResources.insert(std::make_pair(path, std::move(res)));
 	}
 
 	//return reference to the texture
 	return *mResources.at(path);
 }//unlock the mutex here when lock_guard goes out of scope
+
+//Specialized template for Thor's FrameAnimations.
+template<>
+inline thor::FrameAnimation& ResourceManager<thor::FrameAnimation>::get(std::string const &path) {
+	//Lock the mutex
+	boost::lock_guard<boost::mutex> lock(mResourceMutex);
+
+	//If path does not exist as a key in the map
+	if (!mResources.count(path)) {
+		std::unique_ptr<thor::FrameAnimation> anim(new thor::FrameAnimation());
+		
+		//Load animation from path
+		using namespace tinyxml2;
+		XMLDocument doc;
+		XMLError result = doc.LoadFile(path.c_str());
+		if (result != XML_NO_ERROR) {
+			throw result;
+		}
+
+		XMLElement* root = doc.FirstChildElement("Animation");
+
+		//For each <Frame> element under <Animation>
+		for (XMLElement* frameElement = root->FirstChildElement("Frame");
+			frameElement != nullptr;
+			frameElement = frameElement->NextSiblingElement("Frame"))
+		{
+			//Get relative duration of frame
+			float duration = atof(frameElement->FirstChildElement("Duration")->GetText());
+
+			//Get rectangle to be used as frame
+			sf::IntRect subrect = sf::IntRect(
+				atoi(frameElement->FirstChildElement("X")->GetText()),
+				atoi(frameElement->FirstChildElement("Y")->GetText()),
+				atoi(frameElement->FirstChildElement("Width")->GetText()),
+				atoi(frameElement->FirstChildElement("Height")->GetText())
+				);
+
+			//Add the frame to the animation
+			anim->addFrame(duration, subrect);
+		}
+
+		//Put the animation into the map (move it instead of copying)
+		mResources.insert(std::make_pair(path, std::move(anim)));
+	}
+
+	//return reference to the animation
+	return *mResources.at(path);
+}//Unlock the mutex here when lock_guard goes out of scope
 #endif

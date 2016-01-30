@@ -216,7 +216,7 @@ mIsWon(false)
 	}//end terrain data scope
 
 	//----------------------------------------------------------
-	MinionFactory factory;
+	UnitFactory factory;
 	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
 		enemyElement != nullptr;
@@ -234,13 +234,13 @@ mIsWon(false)
 		Pawn * pawn;
 		if (type == "hero")
 		{
-			pawn = factory.produce(type, pos);
+			pawn = factory.produce(type);
 			mHero = dynamic_cast<Hero*>(pawn);
 		}
 		else
 		{
-			//ask the factory to produce an enemy of [type] at [pos] that follows [mPath]
-			pawn = factory.produce(type, pos, mPath);
+			pawn = factory.produce(type);
+			dynamic_cast<Minion*>(pawn)->setPath(mPath.begin());
 		}
 		mPawns.push_back(pawn);
 	}

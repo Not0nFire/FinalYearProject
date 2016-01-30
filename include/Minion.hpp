@@ -3,17 +3,23 @@
 
 #include <include/Pawn.hpp>
 #include <include/Pathing/Path.hpp>
-#include <include/MinionCreation/PawnDef.hpp>
 
 class Minion : public Pawn {
 private:
-	Node* mPathNode;
+	//Variable pointer to const object.
+	const Node* mPathNode;
 
 public:
 
 	Minion(sf::Texture &texture, Faction faction, Path const &pathToFollow);
-	Minion(PawnDef const &def, sf::Vector2f const &position, Path const &pathToFollow);
+	Minion(tinyxml2::XMLElement* xml);
 	virtual ~Minion();
+
+	/*!
+	\brief Sets the path that the Minion will follow.
+	\param pathNode Variable pointer to const Node object.
+	*/
+	void setPath(const Node* pathNode);
 
 	virtual void update(sf::Time const &elapsedTime) override;
 };

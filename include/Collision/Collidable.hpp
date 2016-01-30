@@ -2,6 +2,7 @@
 #define _COLLIDABLE_H
 
 #include <SFML/Graphics.hpp>
+#include <include/TinyXML2/tinyxml2.h>
 
 namespace collision {
 
@@ -21,6 +22,14 @@ namespace collision {
 
 	public:
 		Collidable(sf::Shape* mask, sf::Vector2f offset);
+		/*!
+		\brief Constructs a Collidable from an xml tag.
+		Tag requires pointCoint and type attributes in addition to child tags depending on type specified.
+		\remarks <Offset> tag is optional.
+		\remarks Valid types are "Circle" and "Convex" and correspond to the respective sf::Shape derivative.
+		\param xml Tag in the form <Collidable pointCount="???" type="???">
+		*/
+		Collidable(tinyxml2::XMLElement* xml);
 		virtual ~Collidable();
 
 		const sf::Shape* getMask() const;
