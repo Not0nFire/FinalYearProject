@@ -13,15 +13,9 @@
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
       <Texture>././res/img/placeholderActor.png</Texture>
-      <Animation path="././res/xml/walk.anim">
+      <Animation path="././res/xml/run.anim">
         <!-- Friendly name, local to each Actor -->
         <Name>walk</Name>
-        <!-- Duration of animation in seconds -->
-        <Duration>1.f</Duration>
-      </Animation>
-      <Animation path="././res/xml/attack.anim">
-        <!-- Friendly name, local to each Actor -->
-        <Name>attack</Name>
         <!-- Duration of animation in seconds -->
         <Duration>1.f</Duration>
       </Animation>
@@ -32,7 +26,7 @@
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="6" type="Circle">
-        <Offset x="0" y="50"/>
+        <Offset x="-12.5f" y="-10.f"/>
         <Radius>25.f</Radius>
       </Collidable>
     </Actor>

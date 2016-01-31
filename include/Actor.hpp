@@ -30,6 +30,9 @@ public:
 	explicit Actor(tinyxml2::XMLElement* xml);
 	virtual ~Actor();
 
+	void animate(sf::Time const &elapsedTime);
+	void playAnimation(std::string name, bool loop = false);
+
 	void setVisible(bool isVisible = true);
 	bool toggleVisible();
 	bool getVisible() const;

@@ -13,6 +13,8 @@ Hero::Hero(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn"))
 {
 	_ASSERT(std::string(xml->Name()) == "Hero");
+
+	playAnimation("walk", true);
 }
 
 Hero::~Hero() {

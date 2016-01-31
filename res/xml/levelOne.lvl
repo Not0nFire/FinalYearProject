@@ -24,6 +24,14 @@
       <X>100</X>
       <Y>200</Y>
     </Unit>
+    <Unit type="fast_enemy">
+      <X>200</X>
+      <Y>100</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>300</Y>
+    </Unit>
 	<Unit type="hero">
       <X>500</X>
       <Y>400</Y>

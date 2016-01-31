@@ -155,6 +155,8 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		break;
 	}
 
+	animate(elapsedTime);
+
 	updateCollidableMask(getPosition());
 }
 

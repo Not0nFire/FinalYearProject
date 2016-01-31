@@ -41,17 +41,17 @@ Actor::~Actor() {
 
 }
 
-//void Actor::animate(sf::Time const &elapsedTime) {
-//	mAnimator.update(elapsedTime);
-//	mAnimator.animate(*this);
-//}
-//
+void Actor::animate(sf::Time const &elapsedTime) {
+	mAnimator.update(elapsedTime);
+	mAnimator.animate(*this);
+}
+
 //bool Actor::addAnimation(std::string name, thor::FrameAnimation &anim, sf::Time const &duration) {
 //	mAnimator.addAnimation(name, anim, duration);
 //}
-//void Actor::playAnimation(std::string name, bool loop = false) {
-//	mAnimator.playAnimation(name, loop);
-//}
+void Actor::playAnimation(std::string name, bool loop) {
+	mAnimator.playAnimation(name, loop);
+}
 //void Actor::stopAnimation() {
 //	mAnimator.stopAnimation();
 //}
