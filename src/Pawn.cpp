@@ -40,6 +40,8 @@ mCombatTarget(nullptr)
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
 	mHealth = M_MAX_HEALTH;
+
+	playAnimation("idle", true);
 }
 
 Pawn::~Pawn() {
@@ -67,6 +69,24 @@ void Pawn::turnToFaceDestination() {
 }
 
 void Pawn::calculateAnimation() {
+	switch (mState)
+	{
+	case IDLE:
+		if (isPlayingAnimation() && getPlayingAnimation() != "idle")
+			playAnimation("idle", true);
+		break;
+	case MARCHING:
+		if (isPlayingAnimation() && getPlayingAnimation() != "walk")
+			playAnimation("walk", true);
+		break;
+	case ATTACKING:
+		if (isPlayingAnimation() && getPlayingAnimation() != "attack")
+			playAnimation("attack", true);
+		break;
+	case STUNNED: break;
+	case DEAD: break;
+	default: break;
+	}
 }
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {

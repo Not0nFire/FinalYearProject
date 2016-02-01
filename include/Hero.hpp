@@ -8,8 +8,6 @@ protected:
 
 	virtual void doAttack(float secondsElapsed) override;
 
-	virtual void calculateAnimation() override;
-
 	//Ability mAbility;
 public:
 	Hero(sf::Texture& texture);
