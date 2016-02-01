@@ -122,7 +122,7 @@ void Level::update(sf::Time const &elapsedTime) {
 		}//if !dead
 	}//for
 
-	mIsWon = allPawnsDead;	//update win condition
+	mIsWon = allPawnsDead;
 
 	mCollisionGroup.check();
 
@@ -133,6 +133,15 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	//mHud->update(elapsedTime);
+
+	if (mIsLost)
+	{
+		onLose();
+	}
+	else if (mIsWon)
+	{
+		onWin();
+	}
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -161,14 +170,8 @@ void Level::cleanup() {
 	mHud->hide();
 }
 
-bool Level::isLost() const {
-	//return mIsLost;
-	return false;
-}
-
-bool Level::isWon() const {
-	//return mIsWon;
-	return false;
+int Level::getID() const {
+	return mId;
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
@@ -179,7 +182,8 @@ mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
 mPath(root->FirstChildElement("Path")),
 mLivesRemaining(atoi(root->GET_CHILD_VALUE("Lives"))),
 mIsLost(false),
-mIsWon(false)
+mIsWon(false),
+mId(atoi(root->Attribute("id")))
 {
 	//Load <TerrainData> element and use it to instantiate the interpreter and subdivide the TerrainTree.
 	//This has its own scope.

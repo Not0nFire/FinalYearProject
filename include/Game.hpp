@@ -19,7 +19,7 @@ private:
 
 	void handleEvent(sf::Event &event);
 
-	Level* mLevel;
+	Level *mLevelOne, *mLevelTwo;
 	Menu* mMenu;
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;

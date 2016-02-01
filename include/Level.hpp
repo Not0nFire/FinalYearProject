@@ -42,6 +42,8 @@ private:
 	sf::FloatRect mBounds;
 
 	bool mIsLost, mIsWon;
+
+	const int mId;
 	
 public:
 	/*!
@@ -57,8 +59,9 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::cleanup() override;
 
-	bool isLost() const;
-	bool isWon() const;
+	signal<void()> onWin, onLose;
+
+	int getID() const;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };

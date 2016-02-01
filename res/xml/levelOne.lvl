@@ -1,4 +1,4 @@
-<Level>
+<Level id="1">
   <Lives>3</Lives>
 	<Background>./res/img/bg.png</Background>
 	<TerrainData>./res/img/terrain.bmp</TerrainData>

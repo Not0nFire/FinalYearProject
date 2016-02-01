@@ -17,8 +17,20 @@ Game::Game() :
 		throw result;	//throw an error if one occured
 
 	tinyxml2::XMLElement* root = doc.FirstChildElement("Level");
-	mLevel = new Level(root, &(mRenderer.getWindow()), mSFGUI);
-	SceneManager::instance()->createScene("Level", mLevel);
+	mLevelOne = new Level(root, &(mRenderer.getWindow()), mSFGUI);
+	SceneManager::instance()->createScene("LevelOne", mLevelOne);
+	mLevelOne->onLose.connect([this](){ mRun = false; });
+	mLevelOne->onWin.connect([](){ SceneManager::instance()->navigateToScene("LevelTwo"); });
+
+
+	result = doc.LoadFile("./res/xml/levelTwo.lvl");
+	if (result != tinyxml2::XML_NO_ERROR)
+		throw result;	//throw an error if one occured
+	root = doc.FirstChildElement("Level");
+	mLevelTwo = new Level(root, &(mRenderer.getWindow()), mSFGUI);
+	SceneManager::instance()->createScene("LevelTwo", mLevelTwo);
+	mLevelTwo->onLose.connect([this](){ mRun = false; });
+	mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
 
 	//create main menu scene
 	mMenu = new Menu(mSFGUI);
@@ -65,16 +77,10 @@ int Game::run() {
 		//Update stuff here...
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
-		if (mLevel->isWon() || mLevel->isLost()) {
-			mRun = false;
-		}
-
 	}//while mRun
 
 	mRenderer.stopRenderLoop();
 
-	//\a is audible blip
-	printf("\a\n-----\nPlayer %s.\n-----\n\nPress any key to exit.", mLevel->isWon() ? "won" : "lost");
 	std::cin.get();
 
 	return EXIT_SUCCESS;
