@@ -12,7 +12,25 @@
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
-      <Texture>././res/img/placeholderActorRed.png</Texture>
+      <Texture>././res/img/enemy_2.png</Texture>
+      <Animation path="././res/xml/basic_enemy_run.anim">
+        <Name>walk</Name>
+        <Duration>0.5f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_idle.anim">
+        <Name>idle</Name>
+        <Duration>1.5f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_attack.anim">
+        <Name>attack</Name>
+        <Duration>0.8f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_death.anim">
+        <Name>death</Name>
+        <Duration>2.f</Duration>
+      </Animation>
+
+      <Origin x="25.f" y="25.f"/>
       
       <!--
       Used to check for collisions.

@@ -28,6 +28,10 @@
       <X>300</X>
       <Y>300</Y>
     </Unit>
+    <Unit type="fast_enemy">
+      <X>50</X>
+      <Y>50</Y>
+    </Unit>
 	<Unit type="hero">
       <X>500</X>
       <Y>400</Y>
