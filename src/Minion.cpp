@@ -7,15 +7,18 @@ mPathNode(pathToFollow.begin())
 	setDestination(mPathNode->getPoint());
 }
 
-Minion::Minion(PawnDef const& def, sf::Vector2f const &position, Path const &pathToFollow) :
-Pawn(def),
-mPathNode(pathToFollow.begin())
+Minion::Minion(tinyxml2::XMLElement* xml) :
+Pawn(xml->FirstChildElement("Pawn"))
 {
-	setPosition(position);
+	_ASSERT(std::string(xml->Name()) == "Minion");
 }
 
 Minion::~Minion() {
 	
+}
+
+void Minion::setPath(const Node* pathNode) {
+	mPathNode = pathNode;
 }
 
 void Minion::update(sf::Time const& elapsedTime) {

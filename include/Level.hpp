@@ -13,7 +13,7 @@
 #include <include/TerrainInterpreter.h>
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
-#include <include/MinionCreation/MinionFactory.hpp>
+#include <include/UnitFactory.hpp>
 
 #include <include/TinyXML2/tinyxml2.h>
 

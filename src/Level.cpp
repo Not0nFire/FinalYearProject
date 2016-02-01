@@ -220,7 +220,7 @@ mId(atoi(root->Attribute("id")))
 	}//end terrain data scope
 
 	//----------------------------------------------------------
-	MinionFactory factory;
+	UnitFactory factory;
 	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
 		enemyElement != nullptr;
@@ -238,28 +238,27 @@ mId(atoi(root->Attribute("id")))
 		Pawn * pawn;
 		if (type == "hero")
 		{
-			pawn = factory.produce(type, pos);
+			pawn = factory.produce(type);
 			mHero = dynamic_cast<Hero*>(pawn);
+			mHud->addHealthBarStatic(pawn, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
 		}
 		else
 		{
-			//ask the factory to produce an enemy of [type] at [pos] that follows [mPath]
-			pawn = factory.produce(type, pos, mPath);
+			pawn = factory.produce(type);
+			mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+			dynamic_cast<Minion*>(pawn)->setPath(mPath.begin());
 		}
+
+		pawn->setDestination(pos);
+		pawn->setPosition(pos);
+		mCollisionGroup.add(pawn);
 		mPawns.push_back(pawn);
 	}
 
 	for (Pawn* p : mPawns)
 	{
 		p->offerTarget(mHero);
-		mCollisionGroup.add(p);
-
-		if (p != mHero) {
-			mHud->addHealthBar(p, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
-		}
 	}
-
-	mHud->addHealthBarStatic(mHero, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
 }

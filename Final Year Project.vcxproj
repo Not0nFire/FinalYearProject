@@ -116,7 +116,6 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
-    <ClCompile Include="src\MinionFactory.cpp" />
     <ClCompile Include="src\Pathing\Node.cpp" />
     <ClCompile Include="src\Pathing\Path.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
@@ -125,6 +124,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TowerPlacer.cpp" />
+    <ClCompile Include="src\UnitFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
@@ -144,8 +144,6 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />
-    <ClInclude Include="include\MinionCreation\PawnDef.hpp" />
-    <ClInclude Include="include\MinionCreation\MinionFactory.hpp" />
     <ClInclude Include="include\Pathing\Node.hpp" />
     <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
@@ -164,6 +162,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
     <ClInclude Include="include\Towers\TowerPlacer.hpp" />
+    <ClInclude Include="include\UnitFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />

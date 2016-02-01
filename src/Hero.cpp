@@ -9,10 +9,12 @@ Hero::Hero(sf::Texture &texture) : Pawn(texture, Faction::PLAYER){
 	mMagicResist = Damage::Reduction{ Damage::Reduction::MEDIUM };
 }
 
-Hero::Hero(PawnDef const &def, sf::Vector2f const &position) :
-Pawn(def)
+Hero::Hero(tinyxml2::XMLElement* xml) :
+Pawn(xml->FirstChildElement("Pawn"))
 {
-	setPosition(position);
+	_ASSERT(std::string(xml->Name()) == "Hero");
+
+	playAnimation("idle", true);
 }
 
 Hero::~Hero() {
