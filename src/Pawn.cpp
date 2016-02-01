@@ -56,13 +56,11 @@ Pawn::~Pawn() {
 void Pawn::turnToFaceDestination() {
 	sf::Vector2f scale = getScale();
 	float posX = getPosition().x;
+	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : mDestination.x;	//face target if attacking
 
 	//mirror the sprite, making it face the right way
-	if (mDestination.x < posX && scale.x > 0)
-	{
-		setScale(scale.x * -1, scale.y);
-	}
-	else if (mDestination.x > posX && scale.x < 0)
+	if ((faceThis < posX && scale.x > 0) ||
+		faceThis > posX && scale.x < 0)
 	{
 		setScale(scale.x * -1, scale.y);
 	}
@@ -84,7 +82,10 @@ void Pawn::calculateAnimation() {
 			playAnimation("attack", true);
 		break;
 	case STUNNED: break;
-	case DEAD: break;
+	case DEAD:
+		if (isPlayingAnimation() && getPlayingAnimation() != "death")
+			playAnimation("death", false);
+		break;
 	default: break;
 	}
 }

@@ -25,6 +25,10 @@
         <Name>attack</Name>
         <Duration>1.f</Duration>
       </Animation>
+      <Animation path="././res/xml/basic_enemy_death.anim">
+        <Name>death</Name>
+        <Duration>1.f</Duration>
+      </Animation>
 
       <Origin x="25.f" y="25.f"/>
       

@@ -27,6 +27,10 @@
         <Name>attack</Name>
         <Duration>0.6f</Duration>
       </Animation>
+      <Animation path="././res/xml/hero_death.anim">
+        <Name>death</Name>
+        <Duration>1.f</Duration>
+      </Animation>
 
       <Origin x="25.f" y="50.f"/>
 
