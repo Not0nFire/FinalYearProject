@@ -61,6 +61,8 @@ protected:
 	//bool decay(sf::Time const &elapsedTime);
 	void turnToFaceDestination();
 
+	virtual void calculateAnimation();
+
 	virtual void calculateState(sf::Vector2f const &goalDisplacement);
 
 	virtual void doAttack(float secondsElapsed);

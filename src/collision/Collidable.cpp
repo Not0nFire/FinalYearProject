@@ -52,6 +52,9 @@ namespace collision {
 		if (offsetElement != nullptr) {
 			mOffset = sf::Vector2f(atof(offsetElement->Attribute("x")), atof(offsetElement->Attribute("y")));
 		}
+
+		sf::FloatRect bounds = mMask->getLocalBounds();
+		mMask->setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
 	}
 
 	Collidable::~Collidable() {

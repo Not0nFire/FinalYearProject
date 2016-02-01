@@ -18,6 +18,17 @@ mVisible(true)
 
 	using namespace thor;
 
+	//Read the origin from xml, or set to centre of sprite if not found
+	tinyxml2::XMLElement* originElement = xml->FirstChildElement("Origin");
+	if (originElement)
+	{
+		setOrigin(atof(originElement->Attribute("x")), atof(originElement->Attribute("y")));
+	}
+	else
+	{
+		setOrigin(getLocalBounds().width * 0.5f, getLocalBounds().height * 0.5f);
+	}
+
 	//For each <Animation> tag
 	for (tinyxml2::XMLElement* animElement = xml->FirstChildElement("Animation");
 		animElement != nullptr;
@@ -55,12 +66,12 @@ void Actor::playAnimation(std::string name, bool loop) {
 //void Actor::stopAnimation() {
 //	mAnimator.stopAnimation();
 //}
-//bool Actor::isPlayingAnimation() const {
-//	return mAnimator.isPlayingAnimation();
-//}
-//std::string Actor::getPlayingAnimation() const {
-//	return mAnimator.getPlayingAnimation();
-//}
+bool Actor::isPlayingAnimation() const {
+	return mAnimator.isPlayingAnimation();
+}
+std::string Actor::getPlayingAnimation() const {
+	return mAnimator.getPlayingAnimation();
+}
 
 void Actor::setVisible(bool isVisible) {
 	mVisible = isVisible;

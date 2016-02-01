@@ -52,7 +52,21 @@ Pawn::~Pawn() {
 //}
 
 void Pawn::turnToFaceDestination() {
+	sf::Vector2f scale = getScale();
+	float posX = getPosition().x;
 
+	//mirror the sprite, making it face the right way
+	if (mDestination.x < posX && scale.x > 0)
+	{
+		setScale(scale.x * -1, scale.y);
+	}
+	else if (mDestination.x > posX && scale.x < 0)
+	{
+		setScale(scale.x * -1, scale.y);
+	}
+}
+
+void Pawn::calculateAnimation() {
 }
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
@@ -154,6 +168,10 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		setDebugColour(sf::Color::Magenta);
 		break;
 	}
+
+	turnToFaceDestination();
+
+	calculateAnimation();
 
 	animate(elapsedTime);
 

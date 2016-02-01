@@ -31,6 +31,8 @@ public:
 	virtual ~Actor();
 
 	void animate(sf::Time const &elapsedTime);
+	bool isPlayingAnimation() const;
+	std::string getPlayingAnimation() const;
 	void playAnimation(std::string name, bool loop = false);
 
 	void setVisible(bool isVisible = true);

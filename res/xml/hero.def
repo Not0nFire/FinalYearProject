@@ -12,13 +12,23 @@
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
-      <Texture>././res/img/placeholderActor.png</Texture>
-      <Animation path="././res/xml/run.anim">
+      <Texture>././res/img/hero.png</Texture>
+      <Animation path="././res/xml/hero_run.anim">
         <!-- Friendly name, local to each Actor -->
         <Name>walk</Name>
         <!-- Duration of animation in seconds -->
+        <Duration>0.6f</Duration>
+      </Animation>
+      <Animation path="././res/xml/hero_idle.anim">
+        <Name>idle</Name>
         <Duration>1.f</Duration>
       </Animation>
+      <Animation path="././res/xml/hero_attack.anim">
+        <Name>attack</Name>
+        <Duration>0.6f</Duration>
+      </Animation>
+
+      <Origin x="25.f" y="50.f"/>
 
       <!--
       Used to check for collisions.
@@ -26,7 +36,7 @@
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="6" type="Circle">
-        <Offset x="-12.5f" y="-10.f"/>
+        <Offset x="-2.5f" y="-5.f"/>
         <Radius>25.f</Radius>
       </Collidable>
     </Actor>
