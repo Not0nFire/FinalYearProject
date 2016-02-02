@@ -18,6 +18,12 @@ namespace MenuFunctions
 
 		if (string == "Level")
 			SceneManager::instance()->navigateToScene("LevelOne");
+		else if (string == "Level2")
+			SceneManager::instance()->navigateToScene("LevelTwo");
+		else if (string == "Menu")
+		{
+			SceneManager::instance()->navigateToScene("Menu");
+		}
 
 		/*else if (string == "Options")
 			SceneManager::instance()->navigateToScene("OPTIONS_MENU");

@@ -10,6 +10,8 @@
     <AttacksPerSecond>1.5</AttacksPerSecond>
     <MovementSpeed>150</MovementSpeed>
 
+    <AttackSound>./res/sfx/hit01.ogg</AttackSound>
+
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
       <Texture>././res/img/hero.png</Texture>

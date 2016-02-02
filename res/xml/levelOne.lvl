@@ -2,6 +2,8 @@
   <Lives>3</Lives>
 	<Background>./res/img/bg.png</Background>
 	<TerrainData>./res/img/terrain.bmp</TerrainData>
+  <Music volume="50">./res/mus/level.ogg</Music>
+  <NextLevel>LevelTwo</NextLevel>
 	<Path>
 		<Node>
 			<X>100</X>

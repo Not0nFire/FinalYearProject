@@ -10,8 +10,6 @@ private:
 	const Node* mPathNode;
 
 public:
-
-	Minion(sf::Texture &texture, Faction faction, Path const &pathToFollow);
 	Minion(tinyxml2::XMLElement* xml);
 	virtual ~Minion();
 

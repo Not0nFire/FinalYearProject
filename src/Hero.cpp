@@ -1,14 +1,5 @@
 #include <include/Hero.hpp>
 
-Hero::Hero(sf::Texture &texture) : Pawn(texture, Faction::PLAYER){
-	mMovementSpeed = 100;
-	mHealth = 500;
-	mAttackDamage = 20;
-	mAttacksPerSecond = 2.0f;
-	mArmour = Damage::Reduction{ Damage::Reduction::LIGHT };
-	mMagicResist = Damage::Reduction{ Damage::Reduction::MEDIUM };
-}
-
 Hero::Hero(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn"))
 {

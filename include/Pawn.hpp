@@ -6,6 +6,7 @@
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>
 #include <include/Projectile.h>
+#include <SFML/Audio.hpp>
 
 using namespace boost::signals2;
 
@@ -52,6 +53,8 @@ protected:
 
 	sf::Vector2f mDestination;
 
+	sf::Sound mAttackSound;
+
 	//sf::Time mDecayTime;
 	//bool mDecayed;
 #pragma endregion
@@ -78,7 +81,6 @@ protected:
 #pragma endregion
 
 public:
-	Pawn(sf::Texture &texture, Faction faction);
 	/*!
 	\brief Constructs a pawn from an xml element.
 	Parses members from child xml tags.

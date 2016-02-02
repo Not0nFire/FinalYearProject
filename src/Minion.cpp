@@ -1,12 +1,5 @@
 #include <include/Minion.hpp>
 
-Minion::Minion(sf::Texture& texture, Faction faction, Path const &pathToFollow) :
-Pawn(texture, faction),
-mPathNode(pathToFollow.begin())
-{
-	setDestination(mPathNode->getPoint());
-}
-
 Minion::Minion(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn"))
 {

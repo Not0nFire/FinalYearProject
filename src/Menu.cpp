@@ -9,6 +9,9 @@ mBackground(ResourceManager<sf::Texture>::instance()->get("./res/img/menubg.png"
 	mBox->SetRequisition(sf::Vector2f(200, 400));
 	mBox->SetPosition(sf::Vector2f(200, 300));
 	mDesktop.Add(mBox);
+
+	mBgMusic.openFromFile("./res/mus/menu.ogg");
+	mBgMusic.setLoop(true);
 }
 
 Menu* Menu::fromXML(const char* path) {
@@ -39,6 +42,7 @@ bool Menu::handleEvent(sf::Event &Event) {
 
 void Menu::cleanup() {
 	mBox->Show(false);	//hide sfgui widgets
+	mBgMusic.stop();
 }
 
 
@@ -50,4 +54,8 @@ void Menu::draw( sf::RenderWindow &w ) {
 void Menu::update(sf::Time const &elapsedTime) {
 	mBox->Show();
 	mDesktop.Update(elapsedTime.asSeconds());
+
+	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.play();
+	}
 }

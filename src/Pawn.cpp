@@ -1,26 +1,6 @@
 #include <include\Pawn.hpp>
 #include <boost/thread/lock_guard.hpp>
 
-Pawn::Pawn(sf::Texture &texture, Faction faction) :
-Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
-mFaction(faction),
-mState(State::IDLE),
-M_MAX_HEALTH(100),
-mArmour(Damage::Reduction::NONE),
-mMagicResist(Damage::Reduction::NONE),
-mDamageType(Damage::Type::PHYSICAL),
-mAttackRange(50),
-mMovementSpeed(50),
-mAttackDamage(10),
-mAttacksPerSecond(1.0f),
-mTimeSinceAttack(FLT_MAX),
-mStunDuration(),
-mDestination(),
-mCombatTarget(nullptr)
-{
-	mHealth = M_MAX_HEALTH;
-}
-
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
 Actor(xml->FirstChildElement("Actor")),
@@ -40,6 +20,8 @@ mCombatTarget(nullptr)
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
 	mHealth = M_MAX_HEALTH;
+
+	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(GET_ELEMENT("AttackSound")));
 
 	playAnimation("idle", true);
 }
@@ -116,7 +98,7 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 }
 
 void Pawn::doAttack(float secondsElapsed) {
-	_ASSERT(mState = State::ATTACKING);
+	_ASSERT(mState == State::ATTACKING);
 
 	//Check if we have a target
 	if (mCombatTarget) {
@@ -127,6 +109,7 @@ void Pawn::doAttack(float secondsElapsed) {
 			//Deal damage to our target
 			mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
 			mTimeSinceAttack = 0.0f;
+			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
 		}
 		else if (mTimeSinceAttack >= 1 / mAttacksPerSecond / 2.0f){
@@ -316,7 +299,15 @@ void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
 		std::cout << "\nTower hit" << std::endl;
 	} else {
-		move(mtv *.5f);	//By no means perfect but it prevents all pawns piling onto each other and that's all we need right now.
+		Pawn* pawn = dynamic_cast<Pawn*>(other);
+		if (pawn)
+		{
+			move(mtv * 0.5f);
+			offerTarget(pawn);
+		}
+		else {
+			move(mtv);
+		}
 	}
 }
 

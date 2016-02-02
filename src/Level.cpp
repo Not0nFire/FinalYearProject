@@ -3,6 +3,7 @@
 #include <include/ResourceManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
+#define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
 bool Level::compareDepth(Actor* A, Actor* B) {
 	return A->getPosition().y < B->getPosition().y;
@@ -18,8 +19,14 @@ mLivesRemaining(atoi(root->GET_CHILD_VALUE("Lives"))),
 mIsLost(false),
 mIsWon(false),
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
-mId(atoi(root->Attribute("id")))
+mId(atoi(root->Attribute("id"))),
+mNextScene(root->GET_CHILD_VALUE("NextLevel"))
 {
+	
+	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
+	mBgMusic.setVolume(atoi(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music> as an integer
+	mBgMusic.setLoop(true);
+
 	//instantiate the interpreter with the image path from the xml node
 	TerrainInterpreter interpreter = TerrainInterpreter(root->GET_CHILD_VALUE("TerrainData"));
 
@@ -76,7 +83,7 @@ mId(atoi(root->Attribute("id")))
 		else
 		{
 			pawn = factory.produce(type);
-			mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
+			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
 			dynamic_cast<Minion*>(pawn)->setPath(mPath.begin());
 		}
 
@@ -92,6 +99,8 @@ mId(atoi(root->Attribute("id")))
 	}
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
+
+	mCamera.setTarget(mHero);
 }
 
 Level::~Level() {
@@ -167,16 +176,21 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	mCamera.update();
-	mHud->update(elapsedTime);
 
-	if (mIsLost)
-	{
-		onLose();
+	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.play();
 	}
-	else if (mIsWon)
-	{
-		onWin();
-	}
+
+		mHud->update(elapsedTime);
+
+		//if (mIsLost)
+		//{
+		//	onLose();
+		//}
+		//else if (mIsWon)
+		//{
+		//	onWin();
+		//}
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
@@ -203,10 +217,23 @@ void Level::draw(sf::RenderWindow &w) {
 	mHud->draw(w);
 }
 
+bool Level::isWon() const {
+	return mIsWon;
+}
+
+bool Level::isLost() const {
+	return mIsLost;
+}
+
 void Level::cleanup() {
 	mHud->hide();
+	mBgMusic.stop();
 }
 
 int Level::getID() const {
 	return mId;
+}
+
+std::string Level::getNextScene() const {
+	return mNextScene;
 }

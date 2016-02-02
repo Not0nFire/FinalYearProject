@@ -14,6 +14,7 @@
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
 #include <include/Camera.hpp>
+#include <SFML/Audio.hpp>
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 
@@ -44,8 +45,11 @@ private:
 
 	bool mIsLost, mIsWon;
 
+	sf::Music mBgMusic;
 
 	const int mId;
+
+	const std::string mNextScene;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
 	static bool compareDepth(Actor* A, Actor* B);
@@ -64,9 +68,12 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::cleanup() override;
 
-	signal<void()> onWin, onLose;
+	//signal<void()> onWin, onLose;
+	bool isWon() const;
+	bool isLost() const;
 
 	int getID() const;
+	std::string getNextScene() const;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };

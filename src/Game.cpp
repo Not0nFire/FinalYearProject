@@ -19,8 +19,8 @@ Game::Game() :
 	tinyxml2::XMLElement* root = doc.FirstChildElement("Level");
 	mLevelOne = new Level(root, &(mRenderer.getWindow()), mSFGUI);
 	SceneManager::instance()->createScene("LevelOne", mLevelOne);
-	mLevelOne->onLose.connect([this](){ mRun = false; });
-	mLevelOne->onWin.connect([](){ SceneManager::instance()->navigateToScene("LevelTwo"); });
+	//mLevelOne->onLose.connect([this](){ mRun = false; });
+	//mLevelOne->onWin.connect([](){ SceneManager::instance()->navigateToScene("LevelTwo"); });
 
 
 	result = doc.LoadFile("./res/xml/levelTwo.lvl");
@@ -29,13 +29,13 @@ Game::Game() :
 	root = doc.FirstChildElement("Level");
 	mLevelTwo = new Level(root, &(mRenderer.getWindow()), mSFGUI);
 	SceneManager::instance()->createScene("LevelTwo", mLevelTwo);
-	mLevelTwo->onLose.connect([this](){ mRun = false; });
-	mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
+	//mLevelTwo->onLose.connect([this](){ mRun = false; });
+	//mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
 
 	//create main menu scene
 	mMenu = new Menu(mSFGUI);
 	mMenu->addLabel("Main Menu");
-	mMenu->addButton("Start", bind(&MenuFunctions::changeScene, "Level"));
+	mMenu->addButton("Start", [](){ SceneManager::instance()->navigateToScene("LevelOne"); });
 	//mMenu->addButton("Test", [](){std::cout << "test button clicked" << std::endl; });
 	mMenu->addButton("Quit", bind(&MenuFunctions::exitProgram, "Quit"));
 
@@ -76,6 +76,20 @@ int Game::run() {
 
 		//Update stuff here...
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
+
+		//Go to new scene if level is won/lost
+		Level* lvl = dynamic_cast<Level*>(SceneManager::instance()->getEditableScene());
+		if (lvl)
+		{
+			if (lvl->isLost())
+			{
+				SceneManager::instance()->navigateToScene("Menu");
+			}
+			else if (lvl->isWon())
+			{
+				SceneManager::instance()->navigateToScene(lvl->getNextScene());
+			}
+		}
 
 	}//while mRun
 

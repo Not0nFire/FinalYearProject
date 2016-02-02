@@ -9,6 +9,7 @@
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Widgets.hpp>
 #include <vector>
+#include <SFML/Audio.hpp>
 
 class Menu : public I_Scene{
 private:
@@ -16,6 +17,7 @@ private:
 	sfg::Desktop mDesktop;
 	sfg::Box::Ptr mBox;
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
+	sf::Music mBgMusic;
 
 	sf::Sprite mBackground;
 

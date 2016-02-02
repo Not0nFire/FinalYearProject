@@ -8,14 +8,16 @@
     <AttackRange>20</AttackRange>
     <AttackDamage>7</AttackDamage>
     <AttacksPerSecond>2</AttacksPerSecond>
-    <MovementSpeed>150</MovementSpeed>
+    <MovementSpeed>60</MovementSpeed>
+
+    <AttackSound>./res/sfx/hit01.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
       <Texture>././res/img/enemy_2.png</Texture>
       <Animation path="././res/xml/basic_enemy_run.anim">
         <Name>walk</Name>
-        <Duration>0.5f</Duration>
+        <Duration>0.8f</Duration>
       </Animation>
       <Animation path="././res/xml/basic_enemy_idle.anim">
         <Name>idle</Name>
