@@ -1,7 +1,8 @@
 #include "../include/Menu.hpp"
 
 Menu::Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath, sfg::Box::Orientation orientation, float spacing) :
-mSFGUI(gui)
+mSFGUI(gui),
+mBackground(ResourceManager<sf::Texture>::instance()->get("./res/img/menubg.png"))
 {
 	mDesktop.LoadThemeFromFile(themePath);
 	mBox = sfg::Box::Create(orientation, spacing);
@@ -46,6 +47,7 @@ void Menu::cleanup() {
 
 
 void Menu::draw( sf::RenderWindow &w ) {
+	w.draw(mBackground);
 	mSFGUI->Display(w);
 }
 

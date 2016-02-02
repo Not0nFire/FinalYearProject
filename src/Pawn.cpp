@@ -1,29 +1,31 @@
 #include <include\Pawn.hpp>
 #include <boost/thread/lock_guard.hpp>
 
-Pawn::Pawn(sf::Texture &texture, Faction faction, sf::SoundBuffer const &attackSound) :
-Actor(texture, new sf::CircleShape(20, 8), sf::Vector2f(-20.0f, 5.0f)),
-mFaction(faction),
-mState(State::IDLE),
-M_MAX_HEALTH(100),
-mArmour(Damage::Reduction::NONE),
-mMagicResist(Damage::Reduction::NONE),
-mDamageType(Damage::Type::PHYSICAL),
-mAttackRange(50),
-mMovementSpeed(50),
-mAttackDamage(10),
-mAttacksPerSecond(1.0f),
+#define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
+Pawn::Pawn(tinyxml2::XMLElement* xml) :
+Actor(xml->FirstChildElement("Actor")),
+mFaction(std::string(GET_ELEMENT("Faction")) == "ENEMY" ? Faction::ENEMY : Faction::PLAYER),
+mState(IDLE),
+M_MAX_HEALTH(atoi(GET_ELEMENT("Health"))),
+mArmour(atof(GET_ELEMENT("Armour"))),
+mMagicResist(atof(GET_ELEMENT("MagicResist"))),
+mDamageType(std::string(GET_ELEMENT("DamageType")) == "PHYSICAL" ? Damage::Type::PHYSICAL : Damage::Type::MAGICAL),
+mAttackRange(atoi(GET_ELEMENT("AttackRange"))),
+mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
+mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
+mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mStunDuration(),
-mDestination(),
-mCombatTarget(nullptr),
-mAttackSound(attackSound)
+mCombatTarget(nullptr)
 {
+	_ASSERT(std::string(xml->Name()) == "Pawn");
+
 	mHealth = M_MAX_HEALTH;
+
+	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(GET_ELEMENT("AttackSound")));
+
+	playAnimation("idle", true);
 }
-//Pawn::Pawn(const char* xml) {
-//
-//}
+
 Pawn::~Pawn() {
 
 }
@@ -34,7 +36,40 @@ Pawn::~Pawn() {
 //}
 
 void Pawn::turnToFaceDestination() {
+	sf::Vector2f scale = getScale();
+	float posX = getPosition().x;
+	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : mDestination.x;	//face target if attacking
 
+	//mirror the sprite, making it face the right way
+	if ((faceThis < posX && scale.x > 0) ||
+		faceThis > posX && scale.x < 0)
+	{
+		setScale(scale.x * -1, scale.y);
+	}
+}
+
+void Pawn::calculateAnimation() {
+	switch (mState)
+	{
+	case IDLE:
+		if (isPlayingAnimation() && getPlayingAnimation() != "idle")
+			playAnimation("idle", true);
+		break;
+	case MARCHING:
+		if (isPlayingAnimation() && getPlayingAnimation() != "walk")
+			playAnimation("walk", true);
+		break;
+	case ATTACKING:
+		if (isPlayingAnimation() && getPlayingAnimation() != "attack")
+			playAnimation("attack", true);
+		break;
+	case STUNNED: break;
+	case DEAD:
+		if (isPlayingAnimation() && getPlayingAnimation() != "death")
+			playAnimation("death", false);
+		break;
+	default: break;
+	}
 }
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
@@ -137,6 +172,12 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		setDebugColour(sf::Color::Magenta);
 		break;
 	}
+
+	turnToFaceDestination();
+
+	calculateAnimation();
+
+	animate(elapsedTime);
 
 	updateCollidableMask(getPosition());
 }
@@ -258,7 +299,15 @@ void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
 		std::cout << "\nTower hit" << std::endl;
 	} else {
-		move(mtv *.5f);	//By no means perfect but it prevents all pawns piling onto each other and that's all we need right now.
+		Pawn* pawn = dynamic_cast<Pawn*>(other);
+		if (pawn)
+		{
+			move(mtv * 0.5f);
+			offerTarget(pawn);
+		}
+		else {
+			move(mtv);
+		}
 	}
 }
 

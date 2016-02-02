@@ -1,14 +1,17 @@
 #include <include/Minion.hpp>
 
-Minion::Minion(sf::Texture& texture, Faction faction, sf::SoundBuffer const &attackSound, Path const &pathToFollow) :
-Pawn(texture, faction, attackSound),
-mPathNode(pathToFollow.begin())
+Minion::Minion(tinyxml2::XMLElement* xml) :
+Pawn(xml->FirstChildElement("Pawn"))
 {
-	setDestination(mPathNode->getPoint());
+	_ASSERT(std::string(xml->Name()) == "Minion");
 }
 
 Minion::~Minion() {
 	
+}
+
+void Minion::setPath(const Node* pathNode) {
+	mPathNode = pathNode;
 }
 
 void Minion::update(sf::Time const& elapsedTime) {

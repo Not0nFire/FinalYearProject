@@ -6,12 +6,18 @@
 
 class Minion : public Pawn {
 private:
-	Node* mPathNode;
+	//Variable pointer to const object.
+	const Node* mPathNode;
 
 public:
-
-	Minion(sf::Texture &texture, Faction faction, sf::SoundBuffer const &attackSound, Path const &pathToFollow);
+	Minion(tinyxml2::XMLElement* xml);
 	virtual ~Minion();
+
+	/*!
+	\brief Sets the path that the Minion will follow.
+	\param pathNode Variable pointer to const Node object.
+	*/
+	void setPath(const Node* pathNode);
 
 	virtual void update(sf::Time const &elapsedTime) override;
 };

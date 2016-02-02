@@ -6,6 +6,7 @@
 #include <include/Level.hpp>
 #include <include/Menu.hpp>
 #include <include/SceneManager.hpp>
+#include <include/TinyXML2/tinyxml2.h>
 
 using namespace boost;
 using namespace signals2;
@@ -18,7 +19,7 @@ private:
 
 	void handleEvent(sf::Event &event);
 
-	Level* mLevel;
+	Level *mLevelOne, *mLevelTwo;
 	Menu* mMenu;
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;

@@ -1,0 +1,48 @@
+<Minion name="basic_enemy">
+  <Pawn>
+    <Faction>ENEMY</Faction>
+    <Health>100</Health>
+    <Armour>0.25</Armour>
+    <MagicResist>0.0</MagicResist>
+    <DamageType>PHYSICAL</DamageType>
+    <AttackRange>30</AttackRange>
+    <AttackDamage>10</AttackDamage>
+    <AttacksPerSecond>1</AttacksPerSecond>
+    <MovementSpeed>100</MovementSpeed>
+
+    <AttackSound>./res/sfx/hit01.ogg</AttackSound>
+
+    <Actor>
+      <!-- Texture path, this will be the texture's key in the ResourceManager -->
+      <Texture>././res/img/enemy.png</Texture>
+      <Animation path="././res/xml/basic_enemy_run.anim">
+        <Name>walk</Name>
+        <Duration>0.8f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_idle.anim">
+        <Name>idle</Name>
+        <Duration>1.5f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_attack.anim">
+        <Name>attack</Name>
+        <Duration>1.f</Duration>
+      </Animation>
+      <Animation path="././res/xml/basic_enemy_death.anim">
+        <Name>death</Name>
+        <Duration>1.f</Duration>
+      </Animation>
+
+      <Origin x="25.f" y="25.f"/>
+      
+      <!--
+      Used to check for collisions.
+      Options for type are "Circle" and "Convex";
+      Circle requires a radius, whereas Convex requires the x, y and index of each point.
+      -->
+      <Collidable pointCount="6" type="Circle">
+        <Offset x="0" y="25"/>
+        <Radius>25.f</Radius>
+      </Collidable>
+    </Actor>
+  </Pawn>
+</Minion>

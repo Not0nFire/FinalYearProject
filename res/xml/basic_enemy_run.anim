@@ -1,0 +1,30 @@
+<Animation>
+	<Frame>
+		<X>15</X>
+		<Y>105</Y>
+		<Width>50</Width>
+		<Height>50</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame>
+		<X>69</X>
+		<Y>105</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame>
+		<X>123</X>
+		<Y>105</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame>
+		<X>177</X>
+		<Y>105</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

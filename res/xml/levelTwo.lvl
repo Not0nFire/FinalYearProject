@@ -1,0 +1,42 @@
+<Level id="2">
+  <Lives>3</Lives>
+	<Background>./res/img/bg2.png</Background>
+	<TerrainData>./res/img/terrain2.bmp</TerrainData>
+  <Music volume="50">./res/mus/Heroic_Demise.ogg</Music>
+  <NextLevel>Menu</NextLevel>
+	<Path>
+		<Node>
+			<X>180</X>
+			<Y>220</Y>
+			<Radius>80</Radius>
+		</Node>
+		<Node>
+			<X>400</X>
+			<Y>530</Y>
+			<Radius>75</Radius>
+		</Node>
+		<Node>
+			<X>150</X>
+			<Y>850</Y>
+			<Radius>100</Radius>
+		</Node>
+	</Path>
+	<Units>
+    <Unit type="basic_enemy">
+      <X>250</X>
+      <Y>50</Y>
+    </Unit>
+	<Unit type="basic_enemy">
+      <X>200</X>
+      <Y>30</Y>
+    </Unit>
+	<Unit type="basic_enemy">
+      <X>260</X>
+      <Y>70</Y>
+    </Unit>
+	<Unit type="hero">
+      <X>400</X>
+      <Y>500</Y>
+	</Unit>
+	</Units>
+</Level>

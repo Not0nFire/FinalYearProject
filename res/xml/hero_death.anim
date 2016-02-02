@@ -1,0 +1,31 @@
+<Animation>
+  <!-- Don't loop this -->
+	<Frame>
+		<X>82</X>
+		<Y>807</Y>
+		<Width>50</Width>
+		<Height>50</Height>
+		<Duration>2.f</Duration>
+	</Frame>
+	<Frame>
+		<X>136</X>
+		<Y>807</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>0.5f</Duration>
+	</Frame>
+	<Frame>
+		<X>190</X>
+		<Y>807</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>1.5f</Duration>
+	</Frame>
+	<Frame>
+		<X>244</X>
+		<Y>807</Y>
+    <Width>50</Width>
+    <Height>50</Height>
+		<Duration>0.1f</Duration>
+	</Frame>
+</Animation>

@@ -24,13 +24,15 @@ namespace tower
 
 		Projectile mProjectile;
 
+		sf::Vector2f leadTarget(Pawn* target, float time) const;
+
 	public:
 		BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup);
 		virtual ~BasicTower();
 
 		void update(sf::Time const &elapsedTime);
 
-		virtual void draw(sf::RenderTarget &target);
+		virtual void draw(sf::RenderTarget &target) override;
 
 		bool acquireTarget(std::vector<Pawn*> const &possibleTargets);	//yet another method to be replaced by chaiscript
 	};

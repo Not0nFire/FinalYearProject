@@ -4,8 +4,8 @@ namespace Damage {
 	/*!
 	\brief Damage Reduction, such as Armour or Magic Resistance.
 	Used to reduce damage by an appropriate amount.
-	Usage: Damage::Reducation mArmour = { Damage::Reduction::MEDIUM };
-	See Pawn::takeDamage().
+	Usage: Damage::Reduction mArmour = Damage::Reduction::MEDIUM;
+	\see Pawn::takeDamage().
 	*/
 	struct Reduction {
 		static const float NONE, LIGHT, MEDIUM, HEAVY, IMMUNE;
@@ -17,10 +17,11 @@ namespace Damage {
 
 		float operator*(float x) const;
 		friend float operator*=(float num, Reduction &red);
+		Reduction& operator=(float newValue);
 	};
 
 	/*!
-	Types of damage. Used when calculating resistance to damage.
+	\brief Types of damage. Used when calculating resistance to damage.
 	*/
 	enum Type {
 		PHYSICAL, MAGICAL

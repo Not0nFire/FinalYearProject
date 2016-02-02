@@ -1,14 +1,11 @@
 #include <include/Hero.hpp>
 
-Hero::Hero(sf::Texture &texture) :
-Pawn(texture, Faction::PLAYER, ResourceManager<sf::SoundBuffer>::instance()->get("./res/sfx/hit01.ogg"))
+Hero::Hero(tinyxml2::XMLElement* xml) :
+Pawn(xml->FirstChildElement("Pawn"))
 {
-	mMovementSpeed = 100;
-	mHealth = 500;
-	mAttackDamage = 20;
-	mAttacksPerSecond = 2.0f;
-	mArmour = Damage::Reduction{ Damage::Reduction::LIGHT };
-	mMagicResist = Damage::Reduction{ Damage::Reduction::MEDIUM };
+	_ASSERT(std::string(xml->Name()) == "Hero");
+
+	playAnimation("idle", true);
 }
 
 Hero::~Hero() {

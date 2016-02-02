@@ -11,7 +11,7 @@ protected:
 
 	//Ability mAbility;
 public:
-	Hero(sf::Texture& texture);
+	Hero(tinyxml2::XMLElement* xml);
 	~Hero();
 
 	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv) override;

@@ -1,0 +1,16 @@
+<Animation>
+	<Frame>
+		<X>28</X>
+		<Y>52</Y>
+		<Width>50</Width>
+		<Height>50</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+		<Frame>
+		<X>28</X>
+		<Y>471</Y>
+		<Width>50</Width>
+		<Height>50</Height>
+		<Duration>0.5f</Duration>
+	</Frame>
+</Animation>

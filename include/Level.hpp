@@ -14,6 +14,8 @@
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
 #include <SFML/Audio.hpp>
+#include <include/UnitFactory.hpp>
+#include <include/TinyXML2/tinyxml2.h>
 
 class Level : public I_Scene{
 private:
@@ -29,10 +31,10 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
-	HUD mHud;
+	std::unique_ptr<HUD> mHud;
 	
 	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
-	TowerPlacer mTowerPlacer;
+	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	Path mPath;
 
@@ -42,12 +44,21 @@ private:
 	bool mIsLost, mIsWon;
 
 	sf::Music mBgMusic;
+
+	const int mId;
+
+	const std::string mNextScene;
+
+	//! Compares the y position of two actors for the purpose of sorting the draw order
+	static bool compareDepth(Actor* A, Actor* B);
 	
 public:
 	/*!
 	\param _relWindow RenderWindow to be used for getting relative mouse position.
 	*/
-	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
+	Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
@@ -55,8 +66,12 @@ public:
 	void I_Scene::draw(sf::RenderWindow &w) override;
 	void I_Scene::cleanup() override;
 
-	bool isLost() const;
+	//signal<void()> onWin, onLose;
 	bool isWon() const;
+	bool isLost() const;
+
+	int getID() const;
+	std::string getNextScene() const;
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };

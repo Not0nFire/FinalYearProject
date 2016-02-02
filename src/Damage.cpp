@@ -12,6 +12,11 @@ float Damage::Reduction::operator*(float x) const {
 	return value * x;
 }
 
+Damage::Reduction& Damage::Reduction::operator=(float newValue) {
+	value = newValue;
+	return *this;
+}
+
 const float Damage::Reduction::NONE = 1.00f;
 const float Damage::Reduction::LIGHT = 0.75f;
 const float Damage::Reduction::MEDIUM = 0.50f;
