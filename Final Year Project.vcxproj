@@ -106,6 +106,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
     <ClCompile Include="src\Damage.cpp" />
@@ -129,6 +130,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
+    <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />
     <ClInclude Include="include\Collision\CollisionGroup.hpp" />

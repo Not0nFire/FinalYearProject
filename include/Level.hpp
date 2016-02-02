@@ -13,8 +13,8 @@
 #include <include/TerrainInterpreter.h>
 #include <include/Towers/TowerPlacer.hpp>
 #include <include/Pathing/Path.hpp>
+#include <include/Camera.hpp>
 #include <include/UnitFactory.hpp>
-
 #include <include/TinyXML2/tinyxml2.h>
 
 class Level : public I_Scene{
@@ -31,6 +31,7 @@ private:
 
 	sf::Sprite backgroundTEMP;
 
+	Camera mCamera;
 	std::unique_ptr<HUD> mHud;
 	
 	std::shared_ptr<Quadtree<unsigned char>> terrainTree;

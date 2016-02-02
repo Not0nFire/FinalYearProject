@@ -75,6 +75,9 @@
     <ClCompile Include="src\Minion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="include\Minion.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Camera.hpp">
+	      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TinyXML2\tinyxml2.h">
       <Filter>Header Files</Filter>

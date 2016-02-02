@@ -17,41 +17,38 @@ mPath(root->FirstChildElement("Path")),
 mLivesRemaining(atoi(root->GET_CHILD_VALUE("Lives"))),
 mIsLost(false),
 mIsWon(false),
+mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id")))
 {
-	//Load <TerrainData> element and use it to instantiate the interpreter and subdivide the TerrainTree.
-	//This has its own scope.
+	//instantiate the interpreter with the image path from the xml node
+	TerrainInterpreter interpreter = TerrainInterpreter(root->GET_CHILD_VALUE("TerrainData"));
+
+	//get the size of the image so we can construct our terrain tree.
+	const sf::Vector2u imageSize = interpreter.getImageSize();
+
+	mBounds = sf::FloatRect(0, 0, imageSize.x, imageSize.y);	//set the level bounds to match the image size
+
+	//make a shared_ptr to the newly constructed terrain tree
+	terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
+
+	//begin subdivision of terrain tree using the TerrainInterpreter
+	terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
 	{
-		//instantiate the interpreter with the image path from the xml node
-		TerrainInterpreter interpreter = TerrainInterpreter(root->GET_CHILD_VALUE("TerrainData"));
+		sf::IntRect nB = node->getBounds();
 
-		//get the size of the image so we can construct our terrain tree.
-		const sf::Vector2u imageSize = interpreter.getImageSize();
+		//Set the data of the node to correspond to the interpreters data
+		node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
 
-		mBounds = sf::FloatRect(0, 0, imageSize.x, imageSize.y);	//set the level bounds to match the image size
-
-		//make a shared_ptr to the newly constructed terrain tree
-		terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
-
-		//begin subdivision of terrain tree using the TerrainInterpreter
-		terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
+		//Subdivide this node if the following conditions are met:
+		if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
+			(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
+			node->getLevel() < 10u)								//is less than 10 levels deep in the tree
 		{
-			sf::IntRect nB = node->getBounds();
+			return true;
+		}
 
-			//Set the data of the node to correspond to the interpreters data
-			node->setData(interpreter.interpretArea(nB.left, nB.top, nB.width, nB.height));
-
-			//Subdivide this node if the following conditions are met:
-			if ((node->getData() & TerrainInterpreter::GRASS) &&	//If node contains grass and
-				(node->getData() & TerrainInterpreter::PATH) &&		//also contains path and
-				node->getLevel() < 10u)								//is less than 10 levels deep in the tree
-			{
-				return true;
-			}
-
-			return false;
-		});//end terrainTree subdivision lambda
-	}//end terrain data scope
+		return false;
+	});//end terrainTree subdivision lambda
 
 	//----------------------------------------------------------
 	UnitFactory factory;
@@ -113,7 +110,8 @@ bool Level::handleEvent(sf::Event &event ) {
 			handled = true;
 		} else {
 			assert(relWindow != nullptr);
-			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)));
+			//destination = mouse position in window + camera position
+			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
 			handled = true;
 		}
 
@@ -168,7 +166,8 @@ void Level::update(sf::Time const &elapsedTime) {
 		tower->acquireTarget(mPawns);
 	}
 
-	//mHud->update(elapsedTime);
+	mCamera.update();
+	mHud->update(elapsedTime);
 
 	if (mIsLost)
 	{
@@ -182,6 +181,8 @@ void Level::update(sf::Time const &elapsedTime) {
 
 void Level::draw(sf::RenderWindow &w) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
+
+	w.setView(mCamera);
 
 	w.draw(backgroundTEMP);
 
