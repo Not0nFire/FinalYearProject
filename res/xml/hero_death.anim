@@ -5,7 +5,7 @@
 		<Y>807</Y>
 		<Width>50</Width>
 		<Height>50</Height>
-		<Duration>2.f</Duration>
+		<Duration>1.5f</Duration>
 	</Frame>
 	<Frame>
 		<X>136</X>
@@ -19,7 +19,7 @@
 		<Y>807</Y>
     <Width>50</Width>
     <Height>50</Height>
-		<Duration>1.5f</Duration>
+		<Duration>2.0f</Duration>
 	</Frame>
 	<Frame>
 		<X>244</X>

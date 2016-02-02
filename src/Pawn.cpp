@@ -123,11 +123,11 @@ void Pawn::doAttack(float secondsElapsed) {
 
 void Pawn::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
 	//move towards destination
-	if (thor::length(goalDisplacement) >= 1) {
+	//if (thor::length(goalDisplacement) >= 1) {
 		move(
 			thor::unitVector(goalDisplacement) * static_cast<float>(mMovementSpeed) * secondsElapsed
 			);
-	}
+	//}
 }
 
 sf::Vector2f Pawn::getDestination() const {
@@ -260,7 +260,8 @@ bool Pawn::offerTarget(Pawn* target) {
 	else if (mCombatTarget == nullptr) {
 		beTaunted(target);
 	}
-	else if (mCombatTarget->isDead()) {
+	//if current target is dead or far away...
+	else if (mCombatTarget->isDead() || thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
 		beTaunted(target);
 	}
 
@@ -302,7 +303,7 @@ void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 		Pawn* pawn = dynamic_cast<Pawn*>(other);
 		if (pawn)
 		{
-			move(mtv * 0.5f);
+			move(mtv);
 			offerTarget(pawn);
 		}
 		else {

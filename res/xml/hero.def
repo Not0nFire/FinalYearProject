@@ -1,11 +1,11 @@
 <Hero name="hero">
   <Pawn>
     <Faction>PLAYER</Faction>
-    <Health>1000</Health>
+    <Health>100</Health>
     <Armour>0.50</Armour>
     <MagicResist>0.25</MagicResist>
     <DamageType>PHYSICAL</DamageType>
-    <AttackRange>50</AttackRange>
+    <AttackRange>60</AttackRange>
     <AttackDamage>10</AttackDamage>
     <AttacksPerSecond>1.5</AttacksPerSecond>
     <MovementSpeed>150</MovementSpeed>
@@ -31,7 +31,7 @@
       </Animation>
       <Animation path="././res/xml/hero_death.anim">
         <Name>death</Name>
-        <Duration>1.f</Duration>
+        <Duration>3.f</Duration>
       </Animation>
 
       <Origin x="25.f" y="50.f"/>

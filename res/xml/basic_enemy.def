@@ -5,7 +5,7 @@
     <Armour>0.25</Armour>
     <MagicResist>0.0</MagicResist>
     <DamageType>PHYSICAL</DamageType>
-    <AttackRange>30</AttackRange>
+    <AttackRange>60</AttackRange>
     <AttackDamage>10</AttackDamage>
     <AttacksPerSecond>1</AttacksPerSecond>
     <MovementSpeed>30</MovementSpeed>

@@ -20,7 +20,8 @@ mIsLost(false),
 mIsWon(false),
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id"))),
-mNextScene(root->GET_CHILD_VALUE("NextLevel"))
+mNextScene(root->GET_CHILD_VALUE("NextLevel")),
+mMinionFlock(std::make_shared<std::list<Minion*>>())
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -77,14 +78,16 @@ mNextScene(root->GET_CHILD_VALUE("NextLevel"))
 		if (type == "hero")
 		{
 			pawn = factory.produce(type);
-			mHero = dynamic_cast<Hero*>(pawn);
+			mHero = static_cast<Hero*>(pawn);
 			mHud->addHealthBarStatic(pawn, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
 		}
 		else
 		{
 			pawn = factory.produce(type);
 			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
-			dynamic_cast<Minion*>(pawn)->setPath(mPath.begin());
+			Minion* minion = static_cast<Minion*>(pawn);
+			minion->setPath(mPath.begin());
+			minion->addToFlock(mMinionFlock);
 		}
 
 		pawn->setDestination(pos);

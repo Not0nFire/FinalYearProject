@@ -30,6 +30,18 @@
       <X>300</X>
       <Y>300</Y>
     </Unit>
+    <Unit type="basic_enemy">
+      <X>600</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>100</X>
+      <Y>300</Y>
+    </Unit>
     <Unit type="fast_enemy">
       <X>50</X>
       <Y>50</Y>

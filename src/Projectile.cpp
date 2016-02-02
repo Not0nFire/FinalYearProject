@@ -80,6 +80,7 @@ void Projectile::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 	Pawn* pawn = dynamic_cast<Pawn*>(other);
 	if (pawn && pawn->getFaction() == Pawn::Faction::ENEMY) {
 		pawn->takeDamage(mDamage, mDamageType);
+		printf("Projectile Hit!\n");
 		mActive = false;
 	}
 }

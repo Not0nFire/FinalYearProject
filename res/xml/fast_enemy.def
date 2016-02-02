@@ -5,7 +5,7 @@
     <Armour>0.0</Armour>
     <MagicResist>0.0</MagicResist>
     <DamageType>PHYSICAL</DamageType>
-    <AttackRange>20</AttackRange>
+    <AttackRange>60</AttackRange>
     <AttackDamage>7</AttackDamage>
     <AttacksPerSecond>2</AttacksPerSecond>
     <MovementSpeed>60</MovementSpeed>
@@ -40,8 +40,8 @@
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="6" type="Circle">
-        <Offset x="0" y="0"/>
-        <Radius>20.f</Radius>
+        <Offset x="0" y="25"/>
+        <Radius>25.f</Radius>
       </Collidable>
     </Actor>
   </Pawn>

@@ -51,6 +51,8 @@ private:
 
 	const std::string mNextScene;
 
+	std::shared_ptr<std::list<Minion*>> mMinionFlock;
+
 	//! Compares the y position of two actors for the purpose of sorting the draw order
 	static bool compareDepth(Actor* A, Actor* B);
 	
