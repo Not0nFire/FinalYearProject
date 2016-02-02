@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <include/SceneManager.hpp>
+#include <include/ResourceManager.hpp>
 #include <include/MenuFunctions.h>
 #include <SFGUI/SFGUI.hpp>
 #include <SFGUI/Widgets.hpp>
@@ -15,6 +16,8 @@ private:
 	sfg::Desktop mDesktop;
 	sfg::Box::Ptr mBox;
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
+
+	sf::Sprite mBackground;
 
 public:
 	Menu(std::shared_ptr<sfg::SFGUI> gui, std::string const &themePath = "./res/gui.theme", sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, float spacing = 10.0f);
