@@ -16,6 +16,10 @@ public:
 		mImage.loadFromFile(imagePath);
 	}
 
+	sf::Vector2u getImageSize() const {
+		return mImage.getSize();
+	}
+
 	unsigned char interpretPixel(unsigned int x, unsigned int y) const {
 		unsigned char terrainFlags = 0x00;
 		const sf::Color pixel = mImage.getPixel(x, y);
