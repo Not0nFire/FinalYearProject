@@ -58,7 +58,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\HUD.cpp">
-	  <Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TerrainInterpreter.cpp">
       <Filter>Source Files</Filter>
@@ -73,6 +73,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Minion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\TinyXML2\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnitFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,7 +165,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HUD.hpp">
-	 <Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Quadtree.hpp">
       <Filter>Header Files</Filter>
@@ -177,6 +183,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Minion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TinyXML2\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UnitFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

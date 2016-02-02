@@ -61,6 +61,8 @@ protected:
 	//bool decay(sf::Time const &elapsedTime);
 	void turnToFaceDestination();
 
+	virtual void calculateAnimation();
+
 	virtual void calculateState(sf::Vector2f const &goalDisplacement);
 
 	virtual void doAttack(float secondsElapsed);
@@ -77,7 +79,13 @@ protected:
 
 public:
 	Pawn(sf::Texture &texture, Faction faction);
-	//Pawn(const char* xml);	//todo: #include tinyXML
+	/*!
+	\brief Constructs a pawn from an xml element.
+	Parses members from child xml tags.
+	Requires child <Actor> tag for base class construction.
+	\param xml A <Pawn> xml tag, containing an <Actor> tag and tags for all member variables.
+	*/
+	Pawn(tinyxml2::XMLElement* xml);
 	virtual ~Pawn();
 
 	/*!
@@ -87,7 +95,7 @@ public:
 
 	/*!
 	\brief Sets the Pawn's destination.
-	\remarks Pawns currently move straight toward their destination.
+	\remarks Pawns move straight toward their destination.
 	\param destination The Pawn's new destination.
 	*/
 	void setDestination(sf::Vector2f const &destination);
@@ -102,7 +110,7 @@ public:
 	Else state become IDLE.
 
 	Moves toward goal if MARCHING.
-	Attacks target if ATTACKING, takinbg into account attacks per second.
+	Attacks target if ATTACKING, taking into account attacks per second.
 	Does nothing if state is somethig else.
 
 	Calls updateCollidableMask with current position at end of method.
@@ -151,7 +159,7 @@ public:
 
 	/*!
 	\brief Become forced to attack th taunter.
-	Changes combat target to be the taunter. Has no associated duration so subsequqnt taunts will override each other.
+	Changes combat target to be the taunter. Has no associated duration so subsequent taunts will override each other.
 	\param taunter The new target for this Pawn.
 	*/
 	void beTaunted(Pawn* taunter);

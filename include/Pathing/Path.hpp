@@ -1,6 +1,8 @@
 #ifndef _NODE_PATH_H
 #define _NODE_PATH_H
 
+#include <include/TinyXML2/tinyxml2.h>
+
 #include "Node.hpp"
 
 /*!
@@ -12,10 +14,9 @@ public:
 	Path();
 
 	/*!
-	Intended for use with tinyXML2.
 	Constructs a path from xml.
 	*/
-	Path(const char* xmlPath);
+	explicit Path(const tinyxml2::XMLElement* const xml);
 
 	~Path();
 
