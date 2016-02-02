@@ -20,9 +20,6 @@ public:
 		ENEMY,
 		NEUTRAL
 	};
-protected:
-#pragma region Fields
-	Faction mFaction; /*!< The faction that the Pawn belongs to */
 
 	enum State {
 		IDLE,
@@ -31,6 +28,9 @@ protected:
 		STUNNED,
 		DEAD
 	};
+protected:
+#pragma region Fields
+	Faction mFaction; /*!< The faction that the Pawn belongs to */
 	State mState;
 
 	int mHealth;

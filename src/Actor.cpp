@@ -83,3 +83,7 @@ bool Actor::toggleVisible() {
 bool Actor::getVisible() const {
 	return mVisible;
 }
+
+void Actor::draw(sf::RenderTarget& target) {
+	target.draw(*this);
+}
