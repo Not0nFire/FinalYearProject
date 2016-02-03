@@ -255,7 +255,7 @@ void Level::draw(sf::RenderWindow &w) {
 	allActors.sort(&compareDepth);
 
 	for (Actor* actor : allActors) {
-		actor->debug_draw(w);
+		//actor->debug_draw(w);
 		actor->draw(w);
 	}
 

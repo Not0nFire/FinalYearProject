@@ -99,7 +99,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
       <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D
 xcopy "$(SFML)\bin\openal32.dll" "$(TargetDir)" /Y /D
 xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D
-xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D</Command>
+xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
       <Message>
       </Message>
     </PreBuildEvent>
