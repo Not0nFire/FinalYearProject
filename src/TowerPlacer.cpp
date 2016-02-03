@@ -7,16 +7,24 @@ TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<t
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
-mOverlay(ResourceManager<sf::Texture>::instance()->get("./res/img/tower_ghost.png")),
-mMask(new sf::CircleShape(40, 4u)),
+mOverlay(ResourceManager<sf::Texture>::instance()->get("./res/img/tower_ghost_s.png")),
+mMask([]()
+{
+	sf::ConvexShape* mask = new sf::ConvexShape(4u);
+	mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
+	mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
+	mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
+	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
+	return mask;
+}()),
 mTowerContainer(towerContainer),
 towerProjectileCollisionGroup(collisionGroup)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
 	//set origin to be centre of shape
-	auto maskBounds = mMask->getLocalBounds();
-	mMask->setOrigin(maskBounds.width * 0.5f, maskBounds.height * 0.5f);
+	//auto maskBounds = mMask->getLocalBounds();
+	//mMask->setOrigin(maskBounds.width * 0.5f, maskBounds.height * 0.5f);
 
 	auto overlayBounds = mOverlay.getLocalBounds();
 	mOverlay.setOrigin(overlayBounds.width * 0.5f, overlayBounds.height * 0.85f);
