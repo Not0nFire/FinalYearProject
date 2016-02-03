@@ -39,7 +39,7 @@ public:
 	Draws the tower overlay to the render target.
 	\remarks If debugging, also draws the collision mask.
 	*/
-	void draw(sf::RenderTarget &renderTarget);
+	void draw(sf::RenderTarget &renderTarget) const;
 
 protected:
 

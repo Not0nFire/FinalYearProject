@@ -3,6 +3,7 @@
 #include <include/ResourceManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
+#define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 #define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
 bool Level::compareDepth(Actor* A, Actor* B) {
@@ -15,7 +16,8 @@ relWindow(_relWindow),
 backgroundTEMP(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
 mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
 mPath(root->FirstChildElement("Path")),
-mLivesRemaining(atoi(root->GET_CHILD_VALUE("Lives"))),
+mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
+mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
 mIsLost(false),
 mIsWon(false),
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
@@ -101,9 +103,15 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		p->offerTarget(mHero);
 	}
 
+	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
+	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 60.f, 10.f), sf::Vector2f(30.f, 0.f), mMoney);
+
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
 
 	mCamera.setTarget(mHero);
+
+	mUnderlayTex.create(imageSize.x, imageSize.y);
+	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
 }
 
 Level::~Level() {
@@ -117,7 +125,8 @@ bool Level::handleEvent(sf::Event &event ) {
 
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
-		if (mTowerPlacer->place()) {
+		if (*mMoney >= tower::BasicTower::getCost() && mTowerPlacer->place()) {
+			*mMoney -= tower::BasicTower::getCost();
 			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
 			handled = true;
 		} else {
@@ -139,20 +148,20 @@ bool Level::handleEvent(sf::Event &event ) {
 void Level::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allPawnsDead = true;
-	for (Pawn* p : mPawns) {
-
+	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
+		Pawn* p = *itr;
 		p->update(elapsedTime);
 
 		if (p != mHero && !p->isDead()) {
 			allPawnsDead = false;
 
-
-			if (p->getPosition().x > mBounds.left + mBounds.width) {
+			//if out of bounds
+			if (!mBounds.contains(p->getPosition())) {
 
 				//TODO: delete/erase pawn
 				p->kill();
 
-				if (--mLivesRemaining <= 0) {
+				if (--(*mLivesRemaining) <= 0) {
 					mIsLost = true;
 				}
 			}//if out of bounds
@@ -166,6 +175,23 @@ void Level::update(sf::Time const &elapsedTime) {
 			}//if target dead
 
 		}//if !dead
+		else
+		{
+			//if dead and not playing an animation...
+			if (!p->isPlayingAnimation() && p!=mHero)
+			{
+				//draw to underlay and erase
+				mUnderlayTex.draw(*p);
+				mUnderlayTex.display();
+				itr = mPawns.erase(std::find(mPawns.begin(), mPawns.end(), p));
+
+				//award money for enemies that die
+				if(p->getFaction() != Pawn::Faction::PLAYER) {
+					*mMoney += static_cast<Minion*>(p)->getMonetaryValue();
+				}
+			}
+
+		}
 	}//for
 
 	mIsWon = allPawnsDead;
@@ -184,24 +210,28 @@ void Level::update(sf::Time const &elapsedTime) {
 		mBgMusic.play();
 	}
 
-		mHud->update(elapsedTime);
+	mHud->update(elapsedTime);
 
-		//if (mIsLost)
-		//{
-		//	onLose();
-		//}
-		//else if (mIsWon)
-		//{
-		//	onWin();
-		//}
+	mTowerPlacer->update(sf::Mouse::getPosition(*relWindow) + sf::Vector2i(mCamera.getDisplacement()));
+
+	//if (mIsLost)
+	//{
+	//	onLose();
+	//}
+	//else if (mIsWon)
+	//{
+	//	onWin();
+	//}
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
-
+	
 	w.setView(mCamera);
 
 	w.draw(backgroundTEMP);
+
+	w.draw(mUnderlaySpr);
 
 	//Perhaps this list should be a class member?
 	std::list<Actor*> allActors;
@@ -214,7 +244,6 @@ void Level::draw(sf::RenderWindow &w) {
 		actor->draw(w);
 	}
 
-	mTowerPlacer->update(sf::Mouse::getPosition(w));
 	mTowerPlacer->draw(w);
 
 	mHud->draw(w);

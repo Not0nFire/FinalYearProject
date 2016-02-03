@@ -123,11 +123,11 @@ void Pawn::doAttack(float secondsElapsed) {
 
 void Pawn::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
 	//move towards destination
-	//if (thor::length(goalDisplacement) >= 1) {
+	if (thor::length(goalDisplacement) > 0) {
 		move(
 			thor::unitVector(goalDisplacement) * static_cast<float>(mMovementSpeed) * secondsElapsed
 			);
-	//}
+	}
 }
 
 sf::Vector2f Pawn::getDestination() const {

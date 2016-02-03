@@ -1,4 +1,5 @@
 <Hero name="hero">
+  <HealthRegen rate="100">1</HealthRegen>
   <Pawn>
     <Faction>PLAYER</Faction>
     <Health>100</Health>

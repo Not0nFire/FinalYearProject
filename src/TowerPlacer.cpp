@@ -59,7 +59,7 @@ void TowerPlacer::activate() {
 	mIsActive = true;
 }
 
-void TowerPlacer::draw(sf::RenderTarget& renderTarget) {
+void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {
 	if (mIsActive) {
 		renderTarget.draw(mOverlay);
 

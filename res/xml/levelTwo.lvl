@@ -3,6 +3,7 @@
 	<Background>./res/img/bg2.png</Background>
 	<TerrainData>./res/img/terrain2.bmp</TerrainData>
   <Music volume="50">./res/mus/Heroic_Demise.ogg</Music>
+  <StartingMoney>100</StartingMoney>
   <NextLevel>Menu</NextLevel>
 	<Path>
 		<Node>

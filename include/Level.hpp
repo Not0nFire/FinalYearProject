@@ -22,7 +22,7 @@ class Level : public I_Scene{
 private:
 
 	Hero* mHero;
-	std::vector<Pawn*> mPawns;
+	std::list<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
 	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
@@ -40,8 +40,12 @@ private:
 
 	Path mPath;
 
-	int mLivesRemaining;
+	std::shared_ptr<int> mMoney;
+	std::shared_ptr<int> mLivesRemaining;
 	sf::FloatRect mBounds;
+
+	sf::RenderTexture mUnderlayTex;
+	sf::Sprite mUnderlaySpr;
 
 	bool mIsLost, mIsWon;
 

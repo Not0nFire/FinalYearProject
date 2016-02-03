@@ -14,6 +14,8 @@ private:
 	sf::Vector2f separation() const;
 	sf::Vector2f cohesion() const;
 
+	const unsigned int mMonetaryValue;
+
 protected:
 	void doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) override;
 
@@ -30,5 +32,7 @@ public:
 	void addToFlock(std::shared_ptr<std::list<Minion*>> flock);
 
 	virtual void update(sf::Time const &elapsedTime) override;
+
+	unsigned int getMonetaryValue() const;
 };
 #endif

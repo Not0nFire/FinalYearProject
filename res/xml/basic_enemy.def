@@ -1,4 +1,5 @@
 <Minion name="basic_enemy">
+  <MoneyValue>25</MoneyValue>
   <Pawn>
     <Faction>ENEMY</Faction>
     <Health>100</Health>

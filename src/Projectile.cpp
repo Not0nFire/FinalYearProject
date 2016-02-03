@@ -8,6 +8,7 @@ mDamage(damage),
 mDamageType(damageType),
 mActive(false)
 {
+	setOrigin(40.f, 2.f);
 }
 
 Projectile::~Projectile() {
@@ -52,7 +53,7 @@ void Projectile::update(sf::Time const& elapsedTime) {
 		float elapsedSeconds = elapsedTime.asSeconds();
 		mVelocity += G * elapsedSeconds;
 		move(mVelocity * elapsedSeconds);
-		rotate(elapsedTime.asMilliseconds());
+		setRotation(thor::toDegree(atan2f(mVelocity.y, mVelocity.x)));
 		mTimeToLive -= elapsedSeconds;
 
 		//if we've reached our target (allowing for a little innaccuracy)

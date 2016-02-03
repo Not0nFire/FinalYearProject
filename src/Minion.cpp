@@ -1,7 +1,8 @@
 #include <include/Minion.hpp>
 
 Minion::Minion(tinyxml2::XMLElement* xml) :
-Pawn(xml->FirstChildElement("Pawn"))
+Pawn(xml->FirstChildElement("Pawn")),
+mMonetaryValue(atoi(xml->FirstChildElement("MoneyValue")->GetText()))
 {
 	_ASSERT(std::string(xml->Name()) == "Minion");
 }
@@ -109,4 +110,8 @@ void Minion::update(sf::Time const& elapsedTime) {
 	}
 
 	Pawn::update(elapsedTime);
+}
+
+unsigned Minion::getMonetaryValue() const {
+	return mMonetaryValue;
 }

@@ -33,6 +33,17 @@ namespace HUD_Detail
 
 		virtual void update() override;
 	};
+
+	class LabelImagePair {
+	protected:
+		sf::Sprite mImage;
+		sf::Text mText;
+		std::shared_ptr<int> mValueToTrack;
+	public:
+		LabelImagePair(std::shared_ptr<int> valueToTrack, sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f offset, bool imageFirst = true);
+		virtual void update();
+		virtual void draw(sf::RenderWindow &w);
+	};
 }
 
 class HUD {
@@ -65,7 +76,7 @@ public:
 
 	//! Adds an image with label that tracks a value (e.g. coin image and amount of money)
 	template<typename ValueType>
-	void addImageWithLabel(std::string const &filePath, sf::Vector2u location, ValueType* labelValue);
+	void addImageWithLabel(sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f const &offset, std::shared_ptr<ValueType> labelValue);
 
 	void show();
 	void hide();
@@ -79,9 +90,15 @@ private:
 	std::list<sfg::Widget::Ptr> mWidgets;
 
 	std::list<HUD_Detail::HealthBarStatic*> mHealthBars;
+	std::list<HUD_Detail::LabelImagePair*> mLabelImagePairs;
 
 	sfg::Desktop mDesktop;
 
 	bool mIsShown;
 };
+
+template <typename ValueType>
+void HUD::addImageWithLabel(sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f const &offset, std::shared_ptr<ValueType> labelValue) {
+	mLabelImagePairs.push_back(new HUD_Detail::LabelImagePair(labelValue, tex, fnt, position, offset));
+}
 #endif

@@ -3,6 +3,7 @@
 	<Background>./res/img/bg.png</Background>
 	<TerrainData>./res/img/terrain.bmp</TerrainData>
   <Music volume="50">./res/mus/level.ogg</Music>
+  <StartingMoney>300</StartingMoney>
   <NextLevel>LevelTwo</NextLevel>
 	<Path>
 		<Node>
@@ -20,6 +21,11 @@
 			<Y>250</Y>
 			<Radius>75</Radius>
 		</Node>
+    <Node>
+      <X>10000</X>
+      <Y>250</Y>
+      <Radius>200</Radius>
+    </Node>
 	</Path>
 	<Units>
     <Unit type="basic_enemy">

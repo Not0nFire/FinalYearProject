@@ -1,7 +1,10 @@
 #include <include/Hero.hpp>
 
 Hero::Hero(tinyxml2::XMLElement* xml) :
-Pawn(xml->FirstChildElement("Pawn"))
+Pawn(xml->FirstChildElement("Pawn")),
+mTicks(0u),
+mTicksPerRegen(atoi(xml->FirstChildElement("HealthRegen")->Attribute("rate"))),
+mHealthRegen(atoi(xml->FirstChildElement("HealthRegen")->GetText()))
 {
 	_ASSERT(std::string(xml->Name()) == "Hero");
 
@@ -9,6 +12,18 @@ Pawn(xml->FirstChildElement("Pawn"))
 }
 
 Hero::~Hero() {
+}
+
+void Hero::update(sf::Time const& elapsedTime) {
+	mTicks = (mTicks + 1) % UINT32_MAX;
+	if (mState != DEAD && mTicks >= mTicksPerRegen)
+	{
+		mTicks -= mTicksPerRegen;
+		heal(mHealthRegen);
+	}
+
+	Pawn::update(elapsedTime);
+
 }
 
 void Hero::doAttack(float secondsElapsed) {

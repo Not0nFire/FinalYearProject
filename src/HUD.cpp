@@ -35,6 +35,32 @@ namespace HUD_Detail {
 		HealthBarStatic::update();
 		mBar->SetPosition(mPawnToTrack->getPosition() + mOffset);
 	}
+
+	LabelImagePair::LabelImagePair(std::shared_ptr<int> valueToTrack, sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const& position, sf::Vector2f offset, bool imageFirst) :
+		mValueToTrack(valueToTrack)
+	{
+		mImage.setTexture(tex);
+		mText.setFont(fnt);
+		if (imageFirst)
+		{
+			mImage.setPosition(position);
+			mText.setPosition(position + offset);
+		}
+		else
+		{
+			mText.setPosition(position);
+			mImage.setPosition(position + offset);
+		}
+	}
+
+	void LabelImagePair::update() {
+		mText.setString(std::to_string(*mValueToTrack));
+	}
+
+	void LabelImagePair::draw(sf::RenderWindow & w) {
+		w.draw(mImage);
+		w.draw(mText);
+	}
 }//end namespace HUD_Detail
 
 HUD::HUD(std::shared_ptr<sfg::SFGUI> sfgui) :
@@ -54,11 +80,22 @@ void HUD::update(sf::Time const& elapsedTime) {
 		healthBar->update();
 	}
 
+	for (auto lblimg : mLabelImagePairs)
+	{
+		lblimg->update();
+	}
+
 	mDesktop.Update(elapsedTime.asSeconds());
 }
 
 void HUD::draw(sf::RenderWindow& window) const {
+	window.setView(window.getDefaultView());
 	mSFGUI->Display(window);
+
+	for (auto lblimg : mLabelImagePairs)
+	{
+		lblimg->draw(window);
+	}
 }
 
 void HUD::addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f const &size) {
