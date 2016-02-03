@@ -13,7 +13,7 @@ bool Level::compareDepth(Actor* A, Actor* B) {
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
 relWindow(_relWindow),
-backgroundTEMP(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
+mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
 mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
 mPath(root->FirstChildElement("Path")),
 mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
@@ -243,7 +243,7 @@ void Level::draw(sf::RenderWindow &w) {
 	
 	w.setView(mCamera);
 
-	w.draw(backgroundTEMP);
+	w.draw(mBackground);
 
 	w.draw(mUnderlaySpr);
 

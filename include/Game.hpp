@@ -13,6 +13,7 @@ using namespace signals2;
 
 class Game {
 private:
+	//! Threaded Renderer with fixed timestep.
 	Renderer mRenderer;
 
 	bool mRun, mPaused;

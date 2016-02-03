@@ -10,6 +10,7 @@
 
 namespace HUD_Detail
 {
+	//! Healthbar that tracks a Pawn and stays at a set position on the screen.
 	class HealthBarStatic {
 	protected:
 		Pawn* mPawnToTrack;
@@ -25,6 +26,7 @@ namespace HUD_Detail
 		void show();
 	};
 
+	//! Healthbar that follows the position of the Pawn that is tracks.
 	class HealthBarFollowing : public HealthBarStatic{
 	protected:
 		sf::Vector2f mOffset;

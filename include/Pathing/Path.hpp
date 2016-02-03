@@ -6,7 +6,8 @@
 #include "Node.hpp"
 
 /*!
-A one-way path of nodes.
+\brief A one-way path of nodes.
+Uses a recursive structure.
 */
 class Path {
 public:
@@ -20,8 +21,10 @@ public:
 
 	~Path();
 
+	//! Returns the next node in the path after current.
 	static Node* getNext(Node* current);
 
+	//! Returns the starting node of the path.
 	Node* begin() const;
 
 private:

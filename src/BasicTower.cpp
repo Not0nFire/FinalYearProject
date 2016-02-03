@@ -24,8 +24,8 @@ mRange(range),
 mAttacksPerSecond(attacksPerSecond),
 mDamage(damage),
 mDamageType(damageType),
-mProjectile(10,
-			Damage::Type::PHYSICAL,
+mProjectile(mDamage,
+			mDamageType,
 			ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png")
 ),
 mProjectileSpawnOffset(0.f, -80.f)

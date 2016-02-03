@@ -11,7 +11,6 @@
 /*!
 \brief Class for anything that animates and has a position.
 Animates and has position and collision.
-A lot is yet to be implemented. Will make heavy used of the thor::Animator class on itself.
 \remarks Used for things like Pawns, Minions, Towers, etc...
 */
 class Actor : public sf::Sprite, public collision::Collidable {
@@ -30,10 +29,11 @@ public:
 	explicit Actor(tinyxml2::XMLElement* xml);
 	virtual ~Actor();
 
+	//! Updates the animator and applies it to ourself
 	void animate(sf::Time const &elapsedTime);
-	bool isPlayingAnimation() const;
-	std::string getPlayingAnimation() const;
-	void playAnimation(std::string name, bool loop = false);
+	bool isPlayingAnimation() const;	//!< Returns true if an animation is currently playing.
+	std::string getPlayingAnimation() const;	//!< Gets the name of the playing animation. Undefined behaviour if no animation playing.
+	void playAnimation(std::string name, bool loop = false);	//!< Begins playing an animation by name.
 
 	void setVisible(bool isVisible = true);
 	bool toggleVisible();

@@ -34,7 +34,7 @@ private:
 	*/
 	void loadDefinition(std::string const &name);
 
-	std::string mDefinitionFolderPath;
-	std::string mFileExt;
+	std::string mDefinitionFolderPath;	//!< Path to folder containing xml unit definitions.
+	std::string mFileExt;	//!< File extension of xml unit definitions.
 };
 #endif

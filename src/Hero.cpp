@@ -3,7 +3,7 @@
 Hero::Hero(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn")),
 mTicks(0u),
-mTicksPerRegen(atoi(xml->FirstChildElement("HealthRegen")->Attribute("rate"))),
+M_TICKS_PER_REGEN(atoi(xml->FirstChildElement("HealthRegen")->Attribute("rate"))),
 mHealthRegen(atoi(xml->FirstChildElement("HealthRegen")->GetText()))
 {
 	_ASSERT(std::string(xml->Name()) == "Hero");
@@ -16,9 +16,9 @@ Hero::~Hero() {
 
 void Hero::update(sf::Time const& elapsedTime) {
 	mTicks = (mTicks + 1) % UINT32_MAX;
-	if (mState != DEAD && mTicks >= mTicksPerRegen)
+	if (mState != DEAD && mTicks >= M_TICKS_PER_REGEN)
 	{
-		mTicks -= mTicksPerRegen;
+		mTicks -= M_TICKS_PER_REGEN;
 		heal(mHealthRegen);
 	}
 
@@ -33,5 +33,5 @@ void Hero::doAttack(float secondsElapsed) {
 }
 
 void Hero::onCollide(Collidable* other, sf::Vector2f const& mtv) {
-	collision::Collidable::onCollide(other, mtv);	//call base method
+	Pawn::onCollide(other, mtv);	//call base method
 }

@@ -27,37 +27,55 @@ private:
 	collision::CollisionGroup mCollisionGroup;
 	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
+	//! List of ranged towers in the level
 	std::vector<tower::BasicTower*> mTowers;
 
 	boost::mutex mMutex;
 
-	sf::Sprite backgroundTEMP;
+	//! Visual backdrop of level
+	sf::Sprite mBackground;
 
+	//! Camera that follows mHero.
 	Camera mCamera;
+
 	std::unique_ptr<HUD> mHud;
 	
+	//! Quadtree used to decide where towers can be placed.
 	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
+
+	//! Tool for placing ranged towers.
 	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
+	//! Path that Minions will follow.
 	Path mPath;
 
+	//! Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers.
 	std::shared_ptr<int> mMoney;
+	//! Number of enemies that can make it through the level alive before losing.
 	std::shared_ptr<int> mLivesRemaining;
+	//! Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens.
 	sf::FloatRect mBounds;
 
+	//! RenderTexture used for persisting dead bodies without clogging the update.
 	sf::RenderTexture mUnderlayTex;
+	//! Sprite used to draw mUnderlayTex to the screen.
 	sf::Sprite mUnderlaySpr;
 
 	bool mIsLost, mIsWon;
 
+	//! Background music of the level.
 	sf::Music mBgMusic;
 
+	//! Level id. CURRENTLY UNUSED.
 	const int mId;
 
+	//! Scene to go to if player completes this level.
 	const std::string mNextScene;
 
+	//! Tower that produces player-friendly Minions.
 	tower::UnitTower testUnitTower;
 
+	//! Flock of enemy minions.
 	std::shared_ptr<std::list<Minion*>> mMinionFlock;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order

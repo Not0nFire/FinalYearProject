@@ -5,9 +5,8 @@
 #include <include/Actor.hpp>
 
 /*!
-* Follow camera that can target an Actor
+\brief Follow camera that can target an Actor
 */
-
 class Camera : public sf::View
 {
 public:
