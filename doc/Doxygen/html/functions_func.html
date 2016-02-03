@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -76,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_a"><span>a</span></a></li>
       <li><a href="#index_b"><span>b</span></a></li>
       <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
@@ -91,10 +102,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
-      <li class="current"><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li class="current"><a href="#index_~"><span>~</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_func.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -112,7 +138,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 &#160;
 
+<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>acquireTarget()
+: <a class="el" href="classtower_1_1_basic_tower.html#ade6593cde2fee96e6bbbbf5686ad806c">tower::BasicTower</a>
+</li>
+<li>activate()
+: <a class="el" href="class_tower_placer.html#a705fb5b98325fd26af1eaffc9ca330a3">TowerPlacer</a>
+</li>
+<li>Actor()
+: <a class="el" href="class_actor.html#afafebe407ca202acc6a717651cf39b50">Actor</a>
+</li>
+<li>addHealthBar()
+: <a class="el" href="class_h_u_d.html#a1bd01a033db28ad30bd5bfe977a3d298">HUD</a>
+</li>
+<li>addHealthBarStatic()
+: <a class="el" href="class_h_u_d.html#adce50086d96ce6dabce6b6b8ce739093">HUD</a>
+</li>
+<li>addImage()
+: <a class="el" href="class_h_u_d.html#aca5e2e8502d6144050922a7382594179">HUD</a>
+</li>
+<li>addImageArray()
+: <a class="el" href="class_h_u_d.html#addb89f27ac58c70595c2d67b506e7fd1">HUD</a>
+</li>
+<li>addImageWithLabel()
+: <a class="el" href="class_h_u_d.html#a896220e0a9216a459a40510d4741884c">HUD</a>
+</li>
+<li>addToFlock()
+: <a class="el" href="class_minion.html#a7d29c6281859c113009488b92f2ad106">Minion</a>
+</li>
+<li>animate()
+: <a class="el" href="class_actor.html#ad9f64a11f4d05e71a6ea32ed5caa1674">Actor</a>
+</li>
+<li>append()
+: <a class="el" href="class_node.html#afc6e149c6dea38791d88fb92ad8abb17">Node</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
+<li>BasicTower()
+: <a class="el" href="classtower_1_1_basic_tower.html#a9054f3c731bb3e63ab39872c6287b7fb">tower::BasicTower</a>
+</li>
+<li>begin()
+: <a class="el" href="class_path.html#a103983fc0642313ce93eb69068d03c99">Path</a>
+</li>
 <li>beTaunted()
 : <a class="el" href="class_pawn.html#a52ef95ca2a7c516325df5546e8131d08">Pawn</a>
 </li>
@@ -120,8 +189,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>calculateColor()
+: <a class="el" href="class_tower_placer.html#abde2f2da667522f718b74bfde5c0e705">TowerPlacer</a>
+</li>
+<li>checkValidity()
+: <a class="el" href="class_tower_placer.html#a20c5d849a01048d6b07094a02a35eac1">TowerPlacer</a>
+</li>
+<li>clamp()
+: <a class="el" href="class_camera.html#a2f98f5e39706239b6a38dd088682d956">Camera</a>
+</li>
+<li>cohesion()
+: <a class="el" href="class_minion.html#a3cedaebb20587a228347026c0ab267c8">Minion</a>
+</li>
+<li>Collidable()
+: <a class="el" href="classcollision_1_1_collidable.html#a2f65e5e7c7b45876ffe806782a77dc6c">collision::Collidable</a>
+</li>
+<li>compareDepth()
+: <a class="el" href="class_level.html#a8da64c1bfe5a6ab56e9445184845bc44">Level</a>
+</li>
 <li>connectOnHit()
-: <a class="el" href="class_projectile.html#a7cea27d367f2ce5c4e4845938db540e8">Projectile</a>
+: <a class="el" href="class_projectile.html#af5373d0f315c373899dd1cdad502325a">Projectile</a>
 </li>
 <li>createScene()
 : <a class="el" href="class_scene_manager.html#a2c5918c732cedd929db77c37da2bf3b5">SceneManager</a>
@@ -133,11 +220,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>disconnectAllOnHit()
 : <a class="el" href="class_projectile.html#a4dbf5fa734587fc2a73a59a78cbb5671">Projectile</a>
 </li>
-<li>disconnectOnHit()
-: <a class="el" href="class_projectile.html#a8d1d09f473c63567b8a47a7e0de12854">Projectile</a>
+<li>doAttack()
+: <a class="el" href="class_hero.html#a2c4268e6e02a48138f84500011858dbc">Hero</a>
+</li>
+<li>doMarch()
+: <a class="el" href="class_minion.html#afd5d199a8bfc371defbe12f66a2cd5ea">Minion</a>
 </li>
 <li>draw()
-: <a class="el" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene</a>
+: <a class="el" href="class_h_u_d.html#a13cd6f2072d538ca4350f977e5543d70">HUD</a>
+, <a class="el" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene</a>
+, <a class="el" href="classtower_1_1_basic_tower.html#aa2219082cf257767cd6a763dda68639f">tower::BasicTower</a>
+, <a class="el" href="class_tower_placer.html#ab71b3763e1816bd5bb9bad8719413d14">TowerPlacer</a>
 </li>
 <li>drawCurrentScene()
 : <a class="el" href="class_scene_manager.html#a1d3facb4a9f1e172c30fc1981cde325c">SceneManager</a>
@@ -147,7 +240,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
 <li>fire()
-: <a class="el" href="class_projectile.html#ae7af649786b87d205e96f11eb992f078">Projectile</a>
+: <a class="el" href="class_projectile.html#a6dd6c6e122bf055dcb623d3e102b0f2d">Projectile</a>
 </li>
 </ul>
 
@@ -157,10 +250,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_game.html#ad59df6562a58a614fda24622d3715b65">Game</a>
 </li>
 <li>get()
-: <a class="el" href="class_resource_manager.html#ac429dfbb66104f517dee009b7bc03599">ResourceManager&lt; T &gt;</a>
+: <a class="el" href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">ResourceManager&lt; T &gt;</a>
 </li>
 <li>getAxies()
 : <a class="el" href="classcollision_1_1_collidable.html#afca4351156e8e146db120e715c420c88">collision::Collidable</a>
+</li>
+<li>getCentre()
+: <a class="el" href="class_node.html#a0c6f23c74f5b96c7480b6e95cde9b0e6">Node</a>
+</li>
+<li>getCost()
+: <a class="el" href="classtower_1_1_basic_tower.html#a4f152dc1121af8ab471e59db758d5a98">tower::BasicTower</a>
 </li>
 <li>getCurrentScene()
 : <a class="el" href="class_scene_manager.html#a77bd9095429893110454ccd716a9fff5">SceneManager</a>
@@ -168,17 +267,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getDestination()
 : <a class="el" href="class_pawn.html#a27c4b05b5e5dc303d5c9a838cc96a7cf">Pawn</a>
 </li>
+<li>getDisplacement()
+: <a class="el" href="class_camera.html#a336970eccb29e9d882d6b3fdda71605f">Camera</a>
+</li>
 <li>getEditableScene()
-: <a class="el" href="class_scene_manager.html#a618fb8cab23a252b98c66a3ef27147ca">SceneManager</a>
+: <a class="el" href="class_scene_manager.html#ac81727c53378eab091ff85d195b1c7ec">SceneManager</a>
 </li>
 <li>getFaction()
-: <a class="el" href="class_pawn.html#a574b90f999b689bb42555791b86dc6c8">Pawn</a>
+: <a class="el" href="class_pawn.html#a202e827fdd6eb2dca497292d9cfab653">Pawn</a>
+</li>
+<li>getMonetaryValue()
+: <a class="el" href="class_minion.html#ac76ac86d6ae9707b6856c5298edff005">Minion</a>
+</li>
+<li>getNext()
+: <a class="el" href="class_node.html#a6d27ab829f5125aeca7345d351ba4816">Node</a>
+, <a class="el" href="class_path.html#a41cfab5f7e40cad8434ed6fff9d93786">Path</a>
+</li>
+<li>getPlayingAnimation()
+: <a class="el" href="class_actor.html#aa64bd84ff77dba6d46832821054493c0">Actor</a>
+</li>
+<li>getPoint()
+: <a class="el" href="class_node.html#adc73720f74cd4bd53535179b0bfa9396">Node</a>
 </li>
 <li>getPointCount()
 : <a class="el" href="classcollision_1_1_collidable.html#a10c40bfb76a63c35f468fe0ec2eaf5bd">collision::Collidable</a>
 </li>
+<li>getScene()
+: <a class="el" href="class_scene_proxy.html#ad3eb7ebc9220f6a34ae44acd8ca8cbe6">SceneProxy&lt; SceneType &gt;</a>
+</li>
 <li>getState()
-: <a class="el" href="class_pawn.html#a15e50004263b9935f2cd3377c6d4f8a8">Pawn</a>
+: <a class="el" href="class_pawn.html#af4a26fde8785464645f6637347b1d568">Pawn</a>
 </li>
 </ul>
 
@@ -190,6 +308,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>heal()
 : <a class="el" href="class_pawn.html#a26a6eaa626a163283ed66093e17723d6">Pawn</a>
 </li>
+<li>HUD()
+: <a class="el" href="class_h_u_d.html#ad7e2a6913eee5c9df49ef660d44b2844">HUD</a>
+</li>
 </ul>
 
 
@@ -199,6 +320,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>isDead()
 : <a class="el" href="class_pawn.html#a9b6dd19cb4c82719d6a9fcc2d9bbee8b">Pawn</a>
+</li>
+<li>isPlayingAnimation()
+: <a class="el" href="class_actor.html#a7f31093c2bae07e55d9e192a41b88997">Actor</a>
 </li>
 </ul>
 
@@ -211,8 +335,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>leadTarget()
+: <a class="el" href="classtower_1_1_basic_tower.html#a8e79669b6f3548b1ddd8e2630a003ea2">tower::BasicTower</a>
+</li>
 <li>Level()
-: <a class="el" href="class_level.html#af6827a1d8fabc7499d053fdf85984d0f">Level</a>
+: <a class="el" href="class_level.html#a25ac82a4759777169da1620dc1ecc2c1">Level</a>
+</li>
+<li>loadDefinition()
+: <a class="el" href="class_unit_factory.html#a2647fad77eb9583802a46b07ec817f62">UnitFactory</a>
 </li>
 </ul>
 
@@ -229,9 +359,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_pawn.html#aed61c1cf26754757cd4c5cb12421476b">Pawn</a>
 </li>
 <li>onCollide()
-: <a class="el" href="classcollision_1_1_collidable.html#a1f88bef85869630909cce6d040a6f53a">collision::Collidable</a>
-, <a class="el" href="class_hero.html#a1f9b68a8daecbca5ca949764332c72d7">Hero</a>
-, <a class="el" href="class_pawn.html#a166813524eb441632550e72d77c2c5a9">Pawn</a>
+: <a class="el" href="classcollision_1_1_collidable.html#a2035032a624f95e8b2934dfe57e1d0af">collision::Collidable</a>
+, <a class="el" href="class_hero.html#aa33f73dece9883667b178a784c905cd0">Hero</a>
+, <a class="el" href="class_pawn.html#a9da4b5dc37b59ba6c62592f4543f801b">Pawn</a>
 </li>
 </ul>
 
@@ -239,6 +369,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
 <li>passEventToCurrentScene()
 : <a class="el" href="class_scene_manager.html#a8540e64a3c1c0d369b853ff393b59822">SceneManager</a>
+</li>
+<li>Path()
+: <a class="el" href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path</a>
+</li>
+<li>Pawn()
+: <a class="el" href="class_pawn.html#aa23725eec3c48824f49853b2dc846932">Pawn</a>
+</li>
+<li>place()
+: <a class="el" href="class_tower_placer.html#a0f8562bcd1288d5e9e4a1d7d1768343b">TowerPlacer</a>
+</li>
+<li>playAnimation()
+: <a class="el" href="class_actor.html#a5e0c92d65af1b173254d382f9939cc5b">Actor</a>
+</li>
+<li>produce()
+: <a class="el" href="class_unit_factory.html#ab960e55ca6112f78f8fd89902f8a9b96">UnitFactory</a>
 </li>
 <li>projectOntoAxis()
 : <a class="el" href="classcollision_1_1_collidable.html#a66173721be9e04f7bd928db63c22d748">collision::Collidable</a>
@@ -257,8 +402,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>separation()
+: <a class="el" href="class_minion.html#aff19b058f719f8c1c7b9f7cc2f7d1f66">Minion</a>
+</li>
 <li>setDestination()
 : <a class="el" href="class_pawn.html#a866b60201664eb6a0c743afa13ee5ccb">Pawn</a>
+</li>
+<li>setPath()
+: <a class="el" href="class_minion.html#abaff3329f7b1eaae1afdcb4cdcfa831d">Minion</a>
+</li>
+<li>spawnUnit()
+: <a class="el" href="classtower_1_1_unit_tower.html#afe8d1e187abcc19fa33a0919cd4e04fe">tower::UnitTower</a>
 </li>
 <li>startRenderLoop()
 : <a class="el" href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">Renderer</a>
@@ -283,9 +437,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>UnitFactory()
+: <a class="el" href="class_unit_factory.html#a9d79cddd5b1043f3ec2a582bf7c4dd0e">UnitFactory</a>
+</li>
+<li>UnitTower()
+: <a class="el" href="classtower_1_1_unit_tower.html#a51d3552cdc5b30dde66959c1337a8695">tower::UnitTower</a>
+</li>
 <li>update()
-: <a class="el" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene</a>
-, <a class="el" href="class_pawn.html#a36bf19ac850570a5e82142e01d3aab67">Pawn</a>
+: <a class="el" href="class_camera.html#a42cda7239981a5618660d04bd5893556">Camera</a>
+, <a class="el" href="class_hero.html#a84db22ca98ee16809c93f543f871891f">Hero</a>
+, <a class="el" href="class_h_u_d.html#ad38353d494df9a5f91f661d43ec62a70">HUD</a>
+, <a class="el" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene</a>
+, <a class="el" href="class_minion.html#acd71f2e961a6ec7905026560d09b0ae8">Minion</a>
+, <a class="el" href="class_pawn.html#ab3e209603ea2ee6d71b1f26550f311f3">Pawn</a>
+, <a class="el" href="classtower_1_1_basic_tower.html#ae52de3defe1dbe1ddfc7c1be0a1265d3">tower::BasicTower</a>
+, <a class="el" href="classtower_1_1_unit_tower.html#afcbde962b95e3ca8f78b647cbb189a0e">tower::UnitTower</a>
+, <a class="el" href="class_tower_placer.html#ad57b1a63f3550b721b987c764f21b7d8">TowerPlacer</a>
 </li>
 <li>updateCollidableMask()
 : <a class="el" href="classcollision_1_1_collidable.html#a715cd89e24e97798727d7cf39b9b8089">collision::Collidable</a>
@@ -294,12 +461,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_scene_manager.html#a95303770a6b44a29e137605c46b777e7">SceneManager</a>
 </li>
 </ul>
+
+
+<h3><a class="anchor" id="index_~"></a>- ~ -</h3><ul>
+<li>~Minion()
+: <a class="el" href="class_minion.html#a801fb38f11b26e0a4154d638ef4b8b4e">Minion</a>
+</li>
+<li>~Node()
+: <a class="el" href="class_node.html#aa0840c3cb5c7159be6d992adecd2097c">Node</a>
+</li>
+</ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

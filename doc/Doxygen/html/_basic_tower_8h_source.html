@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -64,6 +74,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_basic_tower_8h_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,11 +103,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_15b01e328d59bbaed73b7a1d4c41ac38.html">Towers</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">BasicTower.h</div>  </div>
@@ -95,41 +115,69 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;include/Damage.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;include/Projectile.h&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/Pawn.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacetower.html">tower</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classtower_1_1_basic_tower.html">BasicTower</a> : <span class="keyword">public</span> <a class="code" href="class_actor.html">Actor</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">float</span> mRange;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">float</span> mAttacksPerSecond;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        Damage::Type mDamageType;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">int</span> mDamage;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="class_projectile.html">Projectile</a> mProjectile;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="classtower_1_1_basic_tower.html">BasicTower</a>(sf::Texture &amp;texture, sf::Vector2f position, <span class="keywordtype">float</span> range, <span class="keywordtype">float</span> attacksPerSecond, <span class="keywordtype">int</span> damage, Damage::Type damageType);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classtower_1_1_basic_tower.html">BasicTower</a>();</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;include/Collision/CollisionGroup.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacetower.html">tower</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html">   17</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classtower_1_1_basic_tower.html">BasicTower</a> : <span class="keyword">public</span> <a class="code" href="class_actor.html">Actor</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#a7c8c87af01ee12fc7f2790cb47f180b1">   20</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classtower_1_1_basic_tower.html#a7c8c87af01ee12fc7f2790cb47f180b1">mRange</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#aa07235d8f0608504fa92ecefc08ed8e7">   22</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="classtower_1_1_basic_tower.html#aa07235d8f0608504fa92ecefc08ed8e7">mAttacksPerSecond</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#afe234073bd578f0b04e60750b247e753">   25</a></span>&#160;        Damage::Type <a class="code" href="classtower_1_1_basic_tower.html#afe234073bd578f0b04e60750b247e753">mDamageType</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#acbfb44cd26496b5369e4ff927e343ead">   27</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classtower_1_1_basic_tower.html#acbfb44cd26496b5369e4ff927e343ead">mDamage</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">void</span> update(sf::Time <span class="keyword">const</span> &amp;elapsedTime);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> draw(sf::RenderTarget &amp;target);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">bool</span> acquireTarget(std::vector&lt;Pawn*&gt; <span class="keyword">const</span> &amp;possibleTargets);  <span class="comment">//yet another method to be replaced by chaiscript</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="classtower_1_1_basic_tower_html"><div class="ttname"><a href="classtower_1_1_basic_tower.html">tower::BasicTower</a></div><div class="ttdef"><b>Definition:</b> BasicTower.h:15</div></div>
-<div class="ttc" id="class_actor_html"><div class="ttname"><a href="class_actor.html">Actor</a></div><div class="ttdoc">Class for anything that animates and has a position. Animates and has position and collision...</div><div class="ttdef"><b>Definition:</b> Actor.hpp:14</div></div>
-<div class="ttc" id="class_projectile_html"><div class="ttname"><a href="class_projectile.html">Projectile</a></div><div class="ttdef"><b>Definition:</b> Projectile.h:12</div></div>
-<div class="ttc" id="namespacetower_html"><div class="ttname"><a href="namespacetower.html">tower</a></div><div class="ttdef"><b>Definition:</b> BasicTower.h:9</div></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#affd99afe8bbcfbe976667d740a08807f">   30</a></span>&#160;        <a class="code" href="class_projectile.html">Projectile</a> <a class="code" href="classtower_1_1_basic_tower.html#affd99afe8bbcfbe976667d740a08807f">mProjectile</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#a49118cf51a88cb83606f3fb6188d03f9">   32</a></span>&#160;        sf::Vector2f <a class="code" href="classtower_1_1_basic_tower.html#a49118cf51a88cb83606f3fb6188d03f9">mProjectileSpawnOffset</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        sf::Vector2f <a class="code" href="classtower_1_1_basic_tower.html#a8e79669b6f3548b1ddd8e2630a003ea2">leadTarget</a>(<a class="code" href="class_pawn.html">Pawn</a>* target, <span class="keywordtype">float</span> time) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classtower_1_1_basic_tower.html#aeb16d0e0e098dc3d84fb6de9ec9b5097">   41</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="classtower_1_1_basic_tower.html#aeb16d0e0e098dc3d84fb6de9ec9b5097">mCost</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="classtower_1_1_basic_tower.html#a9054f3c731bb3e63ab39872c6287b7fb">BasicTower</a>(sf::Texture &amp;texture, sf::Vector2f position, <span class="keywordtype">float</span> range, <span class="keywordtype">float</span> attacksPerSecond, <span class="keywordtype">int</span> damage, Damage::Type damageType, <a class="code" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a>* projectileCollisionGroup);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classtower_1_1_basic_tower.html">BasicTower</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classtower_1_1_basic_tower.html#ae52de3defe1dbe1ddfc7c1be0a1265d3">update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtower_1_1_basic_tower.html#aa2219082cf257767cd6a763dda68639f">draw</a>(sf::RenderTarget &amp;target) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classtower_1_1_basic_tower.html#ade6593cde2fee96e6bbbbf5686ad806c">acquireTarget</a>(std::list&lt;Pawn*&gt; <span class="keyword">const</span> &amp;possibleTargets);    <span class="comment">//yet another method to be replaced by chaiscript</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classtower_1_1_basic_tower.html#a4f152dc1121af8ab471e59db758d5a98">getCost</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:17</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_ade6593cde2fee96e6bbbbf5686ad806c"><div class="ttname"><a href="classtower_1_1_basic_tower.html#ade6593cde2fee96e6bbbbf5686ad806c">tower::BasicTower::acquireTarget</a></div><div class="ttdeci">bool acquireTarget(std::list&lt; Pawn * &gt; const &amp;possibleTargets)</div><div class="ttdoc">Tries to fire and the members of possibleTargets. Fires if projectile is not already in the air and a...</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_ae52de3defe1dbe1ddfc7c1be0a1265d3"><div class="ttname"><a href="classtower_1_1_basic_tower.html#ae52de3defe1dbe1ddfc7c1be0a1265d3">tower::BasicTower::update</a></div><div class="ttdeci">void update(sf::Time const &amp;elapsedTime)</div><div class="ttdoc">Updates the projectile. </div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_acbfb44cd26496b5369e4ff927e343ead"><div class="ttname"><a href="classtower_1_1_basic_tower.html#acbfb44cd26496b5369e4ff927e343ead">tower::BasicTower::mDamage</a></div><div class="ttdeci">int mDamage</div><div class="ttdoc">The amount of damage each projectile inflicts. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:27</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_afe234073bd578f0b04e60750b247e753"><div class="ttname"><a href="classtower_1_1_basic_tower.html#afe234073bd578f0b04e60750b247e753">tower::BasicTower::mDamageType</a></div><div class="ttdeci">Damage::Type mDamageType</div><div class="ttdoc">The type of damage to inflick (PHYSICAL or MAGICAL) </div><div class="ttdef"><b>Definition:</b> BasicTower.h:25</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_a49118cf51a88cb83606f3fb6188d03f9"><div class="ttname"><a href="classtower_1_1_basic_tower.html#a49118cf51a88cb83606f3fb6188d03f9">tower::BasicTower::mProjectileSpawnOffset</a></div><div class="ttdeci">sf::Vector2f mProjectileSpawnOffset</div><div class="ttdoc">Relative position at which to fire the projectile from. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:32</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_a7c8c87af01ee12fc7f2790cb47f180b1"><div class="ttname"><a href="classtower_1_1_basic_tower.html#a7c8c87af01ee12fc7f2790cb47f180b1">tower::BasicTower::mRange</a></div><div class="ttdeci">float mRange</div><div class="ttdoc">Radius that the tower can fire within. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:20</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html"><div class="ttname"><a href="classtower_1_1_basic_tower.html">tower::BasicTower</a></div><div class="ttdoc">Tower that fires a projectile toward a target. Takes account for moving targets. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:17</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_a8e79669b6f3548b1ddd8e2630a003ea2"><div class="ttname"><a href="classtower_1_1_basic_tower.html#a8e79669b6f3548b1ddd8e2630a003ea2">tower::BasicTower::leadTarget</a></div><div class="ttdeci">sf::Vector2f leadTarget(Pawn *target, float time) const </div><div class="ttdoc">Predicts where a marching Pawn will be after a certain number of seconds. </div></div>
+<div class="ttc" id="classcollision_1_1_collision_group_html"><div class="ttname"><a href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a></div><div class="ttdef"><b>Definition:</b> CollisionGroup.hpp:9</div></div>
+<div class="ttc" id="class_actor_html"><div class="ttname"><a href="class_actor.html">Actor</a></div><div class="ttdoc">Class for anything that animates and has a position. Animates and has position and collision...</div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
+<div class="ttc" id="class_projectile_html"><div class="ttname"><a href="class_projectile.html">Projectile</a></div><div class="ttdoc">Object that follows a pro-computed arc toward a target and checks for collision on impact...</div><div class="ttdef"><b>Definition:</b> Projectile.h:13</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_aeb16d0e0e098dc3d84fb6de9ec9b5097"><div class="ttname"><a href="classtower_1_1_basic_tower.html#aeb16d0e0e098dc3d84fb6de9ec9b5097">tower::BasicTower::mCost</a></div><div class="ttdeci">static const int mCost</div><div class="ttdoc">How much money the tower costs to place. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:41</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_a9054f3c731bb3e63ab39872c6287b7fb"><div class="ttname"><a href="classtower_1_1_basic_tower.html#a9054f3c731bb3e63ab39872c6287b7fb">tower::BasicTower::BasicTower</a></div><div class="ttdeci">BasicTower(sf::Texture &amp;texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup *projectileCollisionGroup)</div><div class="ttdoc">Consructs a Basic Tower. </div></div>
+<div class="ttc" id="namespacetower_html"><div class="ttname"><a href="namespacetower.html">tower</a></div><div class="ttdef"><b>Definition:</b> BasicTower.h:11</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_a4f152dc1121af8ab471e59db758d5a98"><div class="ttname"><a href="classtower_1_1_basic_tower.html#a4f152dc1121af8ab471e59db758d5a98">tower::BasicTower::getCost</a></div><div class="ttdeci">static int getCost()</div><div class="ttdoc">Returns the money cost of placing this tower. </div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_aa2219082cf257767cd6a763dda68639f"><div class="ttname"><a href="classtower_1_1_basic_tower.html#aa2219082cf257767cd6a763dda68639f">tower::BasicTower::draw</a></div><div class="ttdeci">virtual void draw(sf::RenderTarget &amp;target) override</div><div class="ttdoc">Draws the tower and its projectile. </div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_aa07235d8f0608504fa92ecefc08ed8e7"><div class="ttname"><a href="classtower_1_1_basic_tower.html#aa07235d8f0608504fa92ecefc08ed8e7">tower::BasicTower::mAttacksPerSecond</a></div><div class="ttdeci">float mAttacksPerSecond</div><div class="ttdoc">Currently unused. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:22</div></div>
+<div class="ttc" id="classtower_1_1_basic_tower_html_affd99afe8bbcfbe976667d740a08807f"><div class="ttname"><a href="classtower_1_1_basic_tower.html#affd99afe8bbcfbe976667d740a08807f">tower::BasicTower::mProjectile</a></div><div class="ttdeci">Projectile mProjectile</div><div class="ttdoc">Projectile that the tower fires. </div><div class="ttdef"><b>Definition:</b> BasicTower.h:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_15b01e328d59bbaed73b7a1d4c41ac38.html">Towers</a></li><li class="navelem"><b>BasicTower.h</b></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

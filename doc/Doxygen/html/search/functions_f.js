@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['update',['update',['../class_pawn.html#a36bf19ac850570a5e82142e01d3aab67',1,'Pawn::update()'],['../class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84',1,'I_Scene::update()']]],
-  ['updatecollidablemask',['updateCollidableMask',['../classcollision_1_1_collidable.html#a715cd89e24e97798727d7cf39b9b8089',1,'collision::Collidable']]],
-  ['updatecurrentscene',['updateCurrentScene',['../class_scene_manager.html#a95303770a6b44a29e137605c46b777e7',1,'SceneManager']]]
+  ['takedamage',['takeDamage',['../class_pawn.html#a33dbdacc56d2f0728d7485b508b6d28e',1,'Pawn::takeDamage(int amount, Damage::Type type)'],['../class_pawn.html#a3fe30c95134f87a7b91e3113b7c2c78b',1,'Pawn::takeDamage(int amount, Damage::Type type, Pawn *sender)']]],
+  ['targetisdead',['targetIsDead',['../class_pawn.html#a4c5bda155d7b73b8fe1f63d9aad423dc',1,'Pawn']]]
 ];

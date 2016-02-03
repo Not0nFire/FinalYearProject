@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="5,81,139,108"/>
+<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="187,107,240,133"/>
+<area shape="rect" id="node3" href="$class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="325,31,379,57"/>
+<area shape="rect" id="node6" href="$class_projectile.html" title="Object that follows a pro&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="314,81,390,108"/>
+<area shape="rect" id="node7" href="$classtower_1_1_basic_tower.html" title="Tower that fires a projectile toward a target. Takes account for moving targets. " alt="" coords="288,132,416,159"/>
+<area shape="rect" id="node8" href="$classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="293,183,411,209"/>
+<area shape="rect" id="node4" href="$class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="469,5,519,32"/>
+<area shape="rect" id="node5" href="$class_minion.html" title="Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing ..." alt="" coords="464,56,524,83"/>
+</map>

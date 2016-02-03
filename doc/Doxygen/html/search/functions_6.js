@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['instance',['instance',['../class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1',1,'ResourceManager']]],
-  ['isdead',['isDead',['../class_pawn.html#a9b6dd19cb4c82719d6a9fcc2d9bbee8b',1,'Pawn']]]
+  ['handleevent',['handleEvent',['../class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4',1,'I_Scene']]],
+  ['heal',['heal',['../class_pawn.html#a26a6eaa626a163283ed66093e17723d6',1,'Pawn']]],
+  ['hud',['HUD',['../class_h_u_d.html#ad7e2a6913eee5c9df49ef660d44b2844',1,'HUD']]]
 ];

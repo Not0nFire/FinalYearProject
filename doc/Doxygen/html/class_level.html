@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_level.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,29 +106,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_level-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Level Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Playable level of the game.  
+ <a href="class_level.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_level_8hpp_source.html">Level.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Level:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="class_level.png" usemap="#Level_map" alt=""/>
-  <map id="Level_map" name="Level_map">
-<area href="class_i___scene.html" alt="I_Scene" shape="rect" coords="0,0,58,24"/>
+<div class="center"><img src="class_level__inherit__graph.png" border="0" usemap="#_level_inherit__map" alt="Inheritance graph"/></div>
+<map name="_level_inherit__map" id="_level_inherit__map">
+<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,5,75,32"/>
 </map>
- </div></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Level:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_level__coll__graph.png" border="0" usemap="#_level_coll__map" alt="Collaboration graph"/></div>
+<map name="_level_coll__map" id="_level_coll__map">
+<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,275,75,301"/>
+<area shape="rect" id="node3" href="classcollision_1_1_collision_group.html" title="collision::CollisionGroup" alt="" coords="99,275,261,301"/>
+<area shape="rect" id="node4" href="class_path.html" title="A one&#45;way path of nodes. Uses a recursive structure. " alt="" coords="285,275,334,301"/>
+<area shape="rect" id="node5" href="class_node.html" title="Node" alt="" coords="259,185,311,212"/>
+<area shape="rect" id="node14" href="classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="358,275,477,301"/>
+<area shape="rect" id="node6" href="class_camera.html" title="Follow camera that can target an Actor. " alt="" coords="699,185,765,212"/>
+<area shape="rect" id="node8" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="467,81,520,108"/>
+<area shape="rect" id="node12" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="498,185,553,212"/>
+<area shape="rect" id="node10" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="491,5,624,32"/>
+<area shape="rect" id="node11" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="501,275,550,301"/>
+<area shape="rect" id="node13" href="struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="552,81,688,108"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af6827a1d8fabc7499d053fdf85984d0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#af6827a1d8fabc7499d053fdf85984d0f">Level</a> (sf::RenderWindow const *_relWindow)</td></tr>
-<tr class="separator:af6827a1d8fabc7499d053fdf85984d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ac82a4759777169da1620dc1ecc2c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a25ac82a4759777169da1620dc1ecc2c1">Level</a> (tinyxml2::XMLElement *root, sf::RenderWindow const *_relWindow, std::shared_ptr&lt; sfg::SFGUI &gt; sfgui)</td></tr>
+<tr class="separator:a25ac82a4759777169da1620dc1ecc2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5e0fc9d0ccf1929bd30dd86e6177253"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5e0fc9d0ccf1929bd30dd86e6177253"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::handleEvent</b> (sf::Event &amp;Event) override</td></tr>
 <tr class="separator:ad5e0fc9d0ccf1929bd30dd86e6177253"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,6 +161,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::update</b> (
 <tr class="memitem:aa509bef4114cc07f7e119ea36a75a2d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa509bef4114cc07f7e119ea36a75a2d5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::draw</b> (sf::RenderWindow &amp;w) override</td></tr>
 <tr class="separator:aa509bef4114cc07f7e119ea36a75a2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67088a1af11f1b8a51fedec1c99cc921"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67088a1af11f1b8a51fedec1c99cc921"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::cleanup</b> () override</td></tr>
+<tr class="separator:a67088a1af11f1b8a51fedec1c99cc921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adafd86fcf2013cb9f396e6341edbf148"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adafd86fcf2013cb9f396e6341edbf148"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isWon</b> () const </td></tr>
+<tr class="separator:adafd86fcf2013cb9f396e6341edbf148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401af8b9e3de7e13d8fd4b596a57a175"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a401af8b9e3de7e13d8fd4b596a57a175"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLost</b> () const </td></tr>
+<tr class="separator:a401af8b9e3de7e13d8fd4b596a57a175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718e88ac9d29083bcc2f8113207fbbe9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a718e88ac9d29083bcc2f8113207fbbe9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getID</b> () const </td></tr>
+<tr class="separator:a718e88ac9d29083bcc2f8113207fbbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3abc5c8208c9a9fc05c6de5100fa41c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3abc5c8208c9a9fc05c6de5100fa41c2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getNextScene</b> () const </td></tr>
+<tr class="separator:a3abc5c8208c9a9fc05c6de5100fa41c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_i___scene"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i___scene')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i___scene.html">I_Scene</a></td></tr>
 <tr class="memitem:a5e7cb2bc39ea754e521d65d0881d4dd4 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">handleEvent</a> (sf::Event &amp;Event)=0</td></tr>
 <tr class="separator:a5e7cb2bc39ea754e521d65d0881d4dd4 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,18 +183,136 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::draw</b> (sf
 <tr class="separator:ada171bbf373154e624f87aa8b7b52f84 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af21a22b1c85f99443cdf64b12ad57c36 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">draw</a> (sf::RenderWindow &amp;w)=0</td></tr>
 <tr class="separator:af21a22b1c85f99443cdf64b12ad57c36 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95d445937aeaf0e3fc2ff618a6e7130 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab95d445937aeaf0e3fc2ff618a6e7130"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> ()=0</td></tr>
+<tr class="separator:ab95d445937aeaf0e3fc2ff618a6e7130 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a8da64c1bfe5a6ab56e9445184845bc44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8da64c1bfe5a6ab56e9445184845bc44"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a8da64c1bfe5a6ab56e9445184845bc44">compareDepth</a> (<a class="el" href="class_actor.html">Actor</a> *A, <a class="el" href="class_actor.html">Actor</a> *B)</td></tr>
+<tr class="memdesc:a8da64c1bfe5a6ab56e9445184845bc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the y position of two actors for the purpose of sorting the draw order. <br /></td></tr>
+<tr class="separator:a8da64c1bfe5a6ab56e9445184845bc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a31bf9d2defce76a0b98022308dd2cbea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31bf9d2defce76a0b98022308dd2cbea"></a>
+<a class="el" href="class_hero.html">Hero</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mHero</b></td></tr>
+<tr class="separator:a31bf9d2defce76a0b98022308dd2cbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac470001f99834e3337d3a7e85fdd8447"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac470001f99834e3337d3a7e85fdd8447"></a>
+std::list&lt; <a class="el" href="class_pawn.html">Pawn</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPawns</b></td></tr>
+<tr class="separator:ac470001f99834e3337d3a7e85fdd8447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a004c295bc163bb153c3d3da39c4c23ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a004c295bc163bb153c3d3da39c4c23ae"></a>
+<a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mCollisionGroup</b></td></tr>
+<tr class="separator:a004c295bc163bb153c3d3da39c4c23ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94114555b2359264be240a9dfaf95254"><td class="memItemLeft" align="right" valign="top">sf::RenderWindow const *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a94114555b2359264be240a9dfaf95254">relWindow</a></td></tr>
+<tr class="separator:a94114555b2359264be240a9dfaf95254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3302029bf928a206f85e5b5c688056d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3302029bf928a206f85e5b5c688056d8"></a>
+std::vector&lt; <a class="el" href="classtower_1_1_basic_tower.html">tower::BasicTower</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a3302029bf928a206f85e5b5c688056d8">mTowers</a></td></tr>
+<tr class="memdesc:a3302029bf928a206f85e5b5c688056d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of ranged towers in the level. <br /></td></tr>
+<tr class="separator:a3302029bf928a206f85e5b5c688056d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa691769159c31952ca1f69e2bffa14e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa691769159c31952ca1f69e2bffa14e"></a>
+boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mMutex</b></td></tr>
+<tr class="separator:aaa691769159c31952ca1f69e2bffa14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a541fc0f6d6f51ef7a34c2316e0df6a38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a541fc0f6d6f51ef7a34c2316e0df6a38"></a>
+sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">mBackground</a></td></tr>
+<tr class="memdesc:a541fc0f6d6f51ef7a34c2316e0df6a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visual backdrop of level. <br /></td></tr>
+<tr class="separator:a541fc0f6d6f51ef7a34c2316e0df6a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d5860310a79ad7a24715fed1db2c0da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d5860310a79ad7a24715fed1db2c0da"></a>
+<a class="el" href="class_camera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">mCamera</a></td></tr>
+<tr class="memdesc:a8d5860310a79ad7a24715fed1db2c0da"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="Follow camera that can target an Actor. ">Camera</a> that follows mHero. <br /></td></tr>
+<tr class="separator:a8d5860310a79ad7a24715fed1db2c0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ef078f61ea65f8ef46ee6e0ea86bae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37ef078f61ea65f8ef46ee6e0ea86bae"></a>
+std::unique_ptr&lt; <a class="el" href="class_h_u_d.html">HUD</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mHud</b></td></tr>
+<tr class="separator:a37ef078f61ea65f8ef46ee6e0ea86bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac679f35372255300b4c44349ddadb96c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac679f35372255300b4c44349ddadb96c"></a>
+std::shared_ptr&lt; <a class="el" href="class_quadtree.html">Quadtree</a>&lt; unsigned char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ac679f35372255300b4c44349ddadb96c">terrainTree</a></td></tr>
+<tr class="memdesc:ac679f35372255300b4c44349ddadb96c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_quadtree.html" title="Simple Quadtree implementation using templates. ">Quadtree</a> used to decide where towers can be placed. <br /></td></tr>
+<tr class="separator:ac679f35372255300b4c44349ddadb96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5f363808a956193255d3c7d1e6fd3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc5f363808a956193255d3c7d1e6fd3f"></a>
+std::unique_ptr&lt; <a class="el" href="class_tower_placer.html">TowerPlacer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">mTowerPlacer</a></td></tr>
+<tr class="memdesc:acc5f363808a956193255d3c7d1e6fd3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tool for placing ranged towers. <br /></td></tr>
+<tr class="separator:acc5f363808a956193255d3c7d1e6fd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad896bc008684f42a671fa3ca3c129f2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad896bc008684f42a671fa3ca3c129f2a"></a>
+<a class="el" href="class_path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">mPath</a></td></tr>
+<tr class="memdesc:ad896bc008684f42a671fa3ca3c129f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_path.html" title="A one-way path of nodes. Uses a recursive structure. ">Path</a> that Minions will follow. <br /></td></tr>
+<tr class="separator:ad896bc008684f42a671fa3ca3c129f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086e8328bae124144d6a3d884dbd45e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a086e8328bae124144d6a3d884dbd45e4"></a>
+std::shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">mMoney</a></td></tr>
+<tr class="memdesc:a086e8328bae124144d6a3d884dbd45e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers. <br /></td></tr>
+<tr class="separator:a086e8328bae124144d6a3d884dbd45e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770fd500349985800386ab70bb31d977"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a770fd500349985800386ab70bb31d977"></a>
+std::shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a770fd500349985800386ab70bb31d977">mLivesRemaining</a></td></tr>
+<tr class="memdesc:a770fd500349985800386ab70bb31d977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of enemies that can make it through the level alive before losing. <br /></td></tr>
+<tr class="separator:a770fd500349985800386ab70bb31d977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acefc6983d7850282578d65f059c38fc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acefc6983d7850282578d65f059c38fc5"></a>
+sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#acefc6983d7850282578d65f059c38fc5">mBounds</a></td></tr>
+<tr class="memdesc:acefc6983d7850282578d65f059c38fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens. <br /></td></tr>
+<tr class="separator:acefc6983d7850282578d65f059c38fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a280d436fb42f1f27bc3fb8102cad4e36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a280d436fb42f1f27bc3fb8102cad4e36"></a>
+sf::RenderTexture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">mUnderlayTex</a></td></tr>
+<tr class="memdesc:a280d436fb42f1f27bc3fb8102cad4e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderTexture used for persisting dead bodies without clogging the update. <br /></td></tr>
+<tr class="separator:a280d436fb42f1f27bc3fb8102cad4e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4238351de07de42059e72ac7ca8e3a62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4238351de07de42059e72ac7ca8e3a62"></a>
+sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">mUnderlaySpr</a></td></tr>
+<tr class="memdesc:a4238351de07de42059e72ac7ca8e3a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sprite used to draw mUnderlayTex to the screen. <br /></td></tr>
+<tr class="separator:a4238351de07de42059e72ac7ca8e3a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542f7cd4365d04fd41bdf4ce24d2701f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a542f7cd4365d04fd41bdf4ce24d2701f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mIsLost</b></td></tr>
+<tr class="separator:a542f7cd4365d04fd41bdf4ce24d2701f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa23c0b86e20037263f0a842e55d05d0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa23c0b86e20037263f0a842e55d05d0b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mIsWon</b></td></tr>
+<tr class="separator:aa23c0b86e20037263f0a842e55d05d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabc2bd12a9f2a13af8bb09ac21c84dee"></a>
+sf::Music&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">mBgMusic</a></td></tr>
+<tr class="memdesc:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background music of the level. <br /></td></tr>
+<tr class="separator:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93550186e9c372afd7f3b05d0156a4dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93550186e9c372afd7f3b05d0156a4dd"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">mId</a></td></tr>
+<tr class="memdesc:a93550186e9c372afd7f3b05d0156a4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_level.html" title="Playable level of the game. ">Level</a> id. CURRENTLY UNUSED. <br /></td></tr>
+<tr class="separator:a93550186e9c372afd7f3b05d0156a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad41f5ee9bbe8449fa1450eca5bba3bfa"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">mNextScene</a></td></tr>
+<tr class="memdesc:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scene to go to if player completes this level. <br /></td></tr>
+<tr class="separator:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef73921d8e5fb1f7ee636cf0410249f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef73921d8e5fb1f7ee636cf0410249f5"></a>
+<a class="el" href="classtower_1_1_unit_tower.html">tower::UnitTower</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">testUnitTower</a></td></tr>
+<tr class="memdesc:aef73921d8e5fb1f7ee636cf0410249f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tower that produces player-friendly Minions. <br /></td></tr>
+<tr class="separator:aef73921d8e5fb1f7ee636cf0410249f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a7f531d9f0ed01a8b588e19ef0dbe30"></a>
+std::shared_ptr&lt; std::list&lt; <a class="el" href="class_minion.html">Minion</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">mMinionFlock</a></td></tr>
+<tr class="memdesc:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flock of enemy minions. <br /></td></tr>
+<tr class="separator:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af6827a1d8fabc7499d053fdf85984d0f"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Playable level of the game. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a25ac82a4759777169da1620dc1ecc2c1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Level::Level </td>
           <td>(</td>
-          <td class="paramtype">sf::RenderWindow const *&#160;</td>
-          <td class="paramname"><em>_relWindow</em></td><td>)</td>
+          <td class="paramtype">tinyxml2::XMLElement *&#160;</td>
+          <td class="paramname"><em>root</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">sf::RenderWindow const *&#160;</td>
+          <td class="paramname"><em>_relWindow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; sfg::SFGUI &gt;&#160;</td>
+          <td class="paramname"><em>sfgui</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -144,16 +325,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::draw</b> (sf
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a94114555b2359264be240a9dfaf95254"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::RenderWindow const* Level::relWindow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>for getting mouse position </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_level_8hpp_source.html">Level.hpp</a></li>
-<li>src/Level.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_level.html">Level</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

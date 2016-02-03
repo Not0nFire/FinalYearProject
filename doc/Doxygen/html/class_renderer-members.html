@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_renderer.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,7 +106,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Renderer Member List</div>  </div>
@@ -90,20 +114,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="class_renderer.html">Renderer</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getThread</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>getWindow</b>() const  (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>frameDelay</b> (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getThread</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getWindow</b>() const  (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">mLoopOngoing</a></td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>mMutex</b> (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>mSceneToRender</b> (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">mThread</a></td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>mWindow</b> (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>pollEvent</b>(sf::Event &amp;event) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_renderer.html#a2ba0ddcb6c8e9dfa55597ce954904658">Renderer</a>(I_Scene *sceneToRender, sf::VideoMode mode, std::string const &amp;title, sf::Uint32 style=sf::Style::Titlebar, sf::ContextSettings &amp;settings=sf::ContextSettings())</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setScene</b>(I_Scene *newScene) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">startRenderLoop</a>(const unsigned int framesPerSecond)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1">stopRenderLoop</a>()</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Renderer</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>render</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#a2ba0ddcb6c8e9dfa55597ce954904658">Renderer</a>(I_Scene *sceneToRender, sf::VideoMode mode, std::string const &amp;title, sf::Uint32 style=sf::Style::Titlebar, sf::ContextSettings &amp;settings=sf::ContextSettings())</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>setScene</b>(I_Scene *newScene) (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">startRenderLoop</a>(const unsigned int framesPerSecond)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1">stopRenderLoop</a>()</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Renderer</b>() (defined in <a class="el" href="class_renderer.html">Renderer</a>)</td><td class="entry"><a class="el" href="class_renderer.html">Renderer</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

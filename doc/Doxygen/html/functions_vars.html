@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -74,7 +84,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="functions_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_o"><span>o</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li class="current"><a href="#index_t"><span>t</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -90,29 +122,202 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>M_TICKS_PER_REGEN
+: <a class="el" href="class_hero.html#aec02c414c448ac4fd4fae2edc5204be6">Hero</a>
+</li>
+<li>M_TICKS_PER_SPAWN
+: <a class="el" href="classtower_1_1_unit_tower.html#a5eac8f845ec1c8a754230b00470620eb">tower::UnitTower</a>
+</li>
+<li>mAnimator
+: <a class="el" href="class_actor.html#ac6d8f3c2abd188d3015131711cc8d0c0">Actor</a>
+</li>
 <li>mAttacksPerSecond
 : <a class="el" href="class_pawn.html#a9daa828974fd50635825e438afe781da">Pawn</a>
+, <a class="el" href="classtower_1_1_basic_tower.html#aa07235d8f0608504fa92ecefc08ed8e7">tower::BasicTower</a>
+</li>
+<li>mBackground
+: <a class="el" href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">Level</a>
+</li>
+<li>mBgMusic
+: <a class="el" href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">Level</a>
+</li>
+<li>mBoundingArea
+: <a class="el" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">Camera</a>
+</li>
+<li>mBounds
+: <a class="el" href="class_level.html#acefc6983d7850282578d65f059c38fc5">Level</a>
+</li>
+<li>mCamera
+: <a class="el" href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">Level</a>
+</li>
+<li>mCost
+: <a class="el" href="classtower_1_1_basic_tower.html#aeb16d0e0e098dc3d84fb6de9ec9b5097">tower::BasicTower</a>
+</li>
+<li>mDamage
+: <a class="el" href="classtower_1_1_basic_tower.html#acbfb44cd26496b5369e4ff927e343ead">tower::BasicTower</a>
+</li>
+<li>mDamageType
+: <a class="el" href="classtower_1_1_basic_tower.html#afe234073bd578f0b04e60750b247e753">tower::BasicTower</a>
+</li>
+<li>mDefinitionFolderPath
+: <a class="el" href="class_unit_factory.html#a1c20530baeeb0e2d5d91e8e5bd7f57f7">UnitFactory</a>
+</li>
+<li>mDefinitionMap
+: <a class="el" href="class_unit_factory.html#a45604ebc894241ff783ee56693ebd6b7">UnitFactory</a>
 </li>
 <li>mFaction
 : <a class="el" href="class_pawn.html#ad37825a7c274b2418d2e9d9bdd8afbf1">Pawn</a>
 </li>
+<li>mFileExt
+: <a class="el" href="class_unit_factory.html#aa00c0e58de43bc5ea657904eb4b9aaec">UnitFactory</a>
+</li>
+<li>mFlock
+: <a class="el" href="class_minion.html#a49563882afaac7fb9f15b8a995e09e62">Minion</a>
+</li>
+<li>mHealthRegen
+: <a class="el" href="class_hero.html#a23e8d64d7092d6adf5ef0ee9f6bb0f25">Hero</a>
+</li>
+<li>mId
+: <a class="el" href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">Level</a>
+</li>
+<li>mIsActive
+: <a class="el" href="class_tower_placer.html#ad8549d48788586acaf90e7bcac308cb6">TowerPlacer</a>
+</li>
+<li>mIsValid
+: <a class="el" href="class_tower_placer.html#a36c3d5dd5273484b13fbaeeee6ded350">TowerPlacer</a>
+</li>
+<li>mLivesRemaining
+: <a class="el" href="class_level.html#a770fd500349985800386ab70bb31d977">Level</a>
+</li>
+<li>mLoopOngoing
+: <a class="el" href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">Renderer</a>
+</li>
+<li>mMask
+: <a class="el" href="classcollision_1_1_collidable.html#a93877d403759fddc566cc3bb8728d36c">collision::Collidable</a>
+, <a class="el" href="class_tower_placer.html#a6bf00a7e3123bdc0f8ce67a296f1b071">TowerPlacer</a>
+</li>
+<li>mMinionFlock
+: <a class="el" href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">Level</a>
+</li>
+<li>mMonetaryValue
+: <a class="el" href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">Minion</a>
+</li>
+<li>mMoney
+: <a class="el" href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">Level</a>
+</li>
 <li>mMutex
 : <a class="el" href="class_actor.html#a3515de0782a3532d5af19daaf7d82fe3">Actor</a>
+</li>
+<li>mNearestPathNode
+: <a class="el" href="classtower_1_1_unit_tower.html#a24e0ede3d291407ad70498ab94083676">tower::UnitTower</a>
+</li>
+<li>mNextScene
+: <a class="el" href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">Level</a>
+</li>
+<li>mOverlay
+: <a class="el" href="class_tower_placer.html#a08e390c0b06676690583efdec0923471">TowerPlacer</a>
+</li>
+<li>mPath
+: <a class="el" href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">Level</a>
+</li>
+<li>mProjectile
+: <a class="el" href="classtower_1_1_basic_tower.html#affd99afe8bbcfbe976667d740a08807f">tower::BasicTower</a>
+</li>
+<li>mProjectileSpawnOffset
+: <a class="el" href="classtower_1_1_basic_tower.html#a49118cf51a88cb83606f3fb6188d03f9">tower::BasicTower</a>
+</li>
+<li>mRange
+: <a class="el" href="classtower_1_1_basic_tower.html#a7c8c87af01ee12fc7f2790cb47f180b1">tower::BasicTower</a>
+</li>
+<li>mRenderer
+: <a class="el" href="class_game.html#abeec35f57c547e5715e1796e44a5fd43">Game</a>
+</li>
+<li>mResources
+: <a class="el" href="class_resource_manager.html#aa4a6e3f1a28947576e75067c342f33d8">ResourceManager&lt; T &gt;</a>
+</li>
+<li>mScene
+: <a class="el" href="class_scene_proxy.html#a598026a52282790b47e83262fae922c1">SceneProxy&lt; SceneType &gt;</a>
+</li>
+<li>mScenes
+: <a class="el" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">SceneManager</a>
+</li>
+<li>mScreenSize
+: <a class="el" href="class_camera.html#a45de355addd37526a76efc28ec7a6abe">Camera</a>
+</li>
+<li>mSpawnCallback
+: <a class="el" href="classtower_1_1_unit_tower.html#a1f7556b91ca447dfb19a8e2a51321ba0">tower::UnitTower</a>
+</li>
+<li>mTerrainTree
+: <a class="el" href="class_tower_placer.html#ac10ec86a330c9cee2333b35cea77f0eb">TowerPlacer</a>
+</li>
+<li>mThread
+: <a class="el" href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">Renderer</a>
+</li>
+<li>mTicks
+: <a class="el" href="class_hero.html#a0e147e55fe9f22e2dce13120ccd1b1fb">Hero</a>
+, <a class="el" href="classtower_1_1_unit_tower.html#a5becb5e1b82bac8d552830e093efc11a">tower::UnitTower</a>
 </li>
 <li>mTimeSinceAttack
 : <a class="el" href="class_pawn.html#a6ce596a12f726a288259e20fe8623bcb">Pawn</a>
 </li>
+<li>mTowerContainer
+: <a class="el" href="class_tower_placer.html#aaad3cb52e8bf321c7afc8c3b63e893a6">TowerPlacer</a>
+</li>
+<li>mTowerPlacer
+: <a class="el" href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">Level</a>
+</li>
+<li>mTowers
+: <a class="el" href="class_level.html#a3302029bf928a206f85e5b5c688056d8">Level</a>
+</li>
+<li>mUnderlaySpr
+: <a class="el" href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">Level</a>
+</li>
+<li>mUnderlayTex
+: <a class="el" href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">Level</a>
+</li>
+<li>mUnitDefPath
+: <a class="el" href="classtower_1_1_unit_tower.html#ab914b919cfcc0d8f8cc0b99d125d6352">tower::UnitTower</a>
+</li>
+<li>mXmlPath
+: <a class="el" href="class_scene_proxy.html#a38f77ef0e458528946abf77dd84d750e">SceneProxy&lt; SceneType &gt;</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
 <li>onSceneChange
 : <a class="el" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">SceneManager</a>
 </li>
 </ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>relWindow
+: <a class="el" href="class_level.html#a94114555b2359264be240a9dfaf95254">Level</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>terrainTree
+: <a class="el" href="class_level.html#ac679f35372255300b4c44349ddadb96c">Level</a>
+</li>
+<li>testUnitTower
+: <a class="el" href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">Level</a>
+</li>
+</ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

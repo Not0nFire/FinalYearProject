@@ -1,0 +1,3 @@
+<map id="HUD_Detail::HealthBarFollowing" name="HUD_Detail::HealthBarFollowing">
+<area shape="rect" id="node2" href="$class_h_u_d___detail_1_1_health_bar_static.html" title="Healthbar that tracks a Pawn and stays at a set position on the screen. " alt="" coords="15,5,203,32"/>
+</map>

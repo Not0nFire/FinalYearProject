@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_game.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,15 +106,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_game-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Game Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for Game:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_game__coll__graph.png" border="0" usemap="#_game_coll__map" alt="Collaboration graph"/></div>
+<map name="_game_coll__map" id="_game_coll__map">
+<area shape="rect" id="node2" href="class_renderer.html" title="Manages rendering in it&#39;s own thread. " alt="" coords="5,364,80,391"/>
+<area shape="rect" id="node3" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="61,275,131,301"/>
+<area shape="rect" id="node4" href="class_menu.html" title="Menu implemented using SFGUI " alt="" coords="135,364,190,391"/>
+<area shape="rect" id="node5" href="class_level.html" title="Playable level of the game. " alt="" coords="329,364,380,391"/>
+<area shape="rect" id="node6" href="classcollision_1_1_collision_group.html" title="collision::CollisionGroup" alt="" coords="371,275,533,301"/>
+<area shape="rect" id="node7" href="class_path.html" title="A one&#45;way path of nodes. Uses a recursive structure. " alt="" coords="298,275,347,301"/>
+<area shape="rect" id="node8" href="class_node.html" title="Node" alt="" coords="269,185,321,212"/>
+<area shape="rect" id="node17" href="classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="155,275,274,301"/>
+<area shape="rect" id="node9" href="class_camera.html" title="Follow camera that can target an Actor. " alt="" coords="420,185,487,212"/>
+<area shape="rect" id="node11" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="427,81,480,108"/>
+<area shape="rect" id="node15" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="578,185,633,212"/>
+<area shape="rect" id="node13" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="451,5,584,32"/>
+<area shape="rect" id="node14" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="667,275,717,301"/>
+<area shape="rect" id="node16" href="struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="537,81,673,108"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -100,6 +147,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99fb161fbbe87d25a8b73265a0611e58"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#a99fb161fbbe87d25a8b73265a0611e58">run</a> ()</td></tr>
 <tr class="memdesc:a99fb161fbbe87d25a8b73265a0611e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the game.  <a href="#a99fb161fbbe87d25a8b73265a0611e58">More...</a><br /></td></tr>
 <tr class="separator:a99fb161fbbe87d25a8b73265a0611e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a15b7b8599440f0f2966353335e3b60c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15b7b8599440f0f2966353335e3b60c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>handleEvent</b> (sf::Event &amp;event)</td></tr>
+<tr class="separator:a15b7b8599440f0f2966353335e3b60c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:abeec35f57c547e5715e1796e44a5fd43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abeec35f57c547e5715e1796e44a5fd43"></a>
+<a class="el" href="class_renderer.html">Renderer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#abeec35f57c547e5715e1796e44a5fd43">mRenderer</a></td></tr>
+<tr class="memdesc:abeec35f57c547e5715e1796e44a5fd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Threaded <a class="el" href="class_renderer.html" title="Manages rendering in it&#39;s own thread. ">Renderer</a> with fixed timestep. <br /></td></tr>
+<tr class="separator:abeec35f57c547e5715e1796e44a5fd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11c67e58fef5ee8b3f6654b1dd77ef80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11c67e58fef5ee8b3f6654b1dd77ef80"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mRun</b></td></tr>
+<tr class="separator:a11c67e58fef5ee8b3f6654b1dd77ef80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a471cb171c4609bf0e5f333f0aa947cb4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a471cb171c4609bf0e5f333f0aa947cb4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>mPaused</b></td></tr>
+<tr class="separator:a471cb171c4609bf0e5f333f0aa947cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32e7f00ed58477354528d2a43b73022"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac32e7f00ed58477354528d2a43b73022"></a>
+<a class="el" href="class_level.html">Level</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mLevelOne</b></td></tr>
+<tr class="separator:ac32e7f00ed58477354528d2a43b73022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02377b997992e3bd9aa0bd8337f500da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02377b997992e3bd9aa0bd8337f500da"></a>
+<a class="el" href="class_level.html">Level</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mLevelTwo</b></td></tr>
+<tr class="separator:a02377b997992e3bd9aa0bd8337f500da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d936600946484a2ecc1d33479d3b626"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d936600946484a2ecc1d33479d3b626"></a>
+<a class="el" href="class_menu.html">Menu</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mMenu</b></td></tr>
+<tr class="separator:a9d936600946484a2ecc1d33479d3b626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b36b33c24b4107aa3b9f527fd4d26af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b36b33c24b4107aa3b9f527fd4d26af"></a>
+std::shared_ptr&lt; sfg::SFGUI &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mSFGUI</b></td></tr>
+<tr class="separator:a2b36b33c24b4107aa3b9f527fd4d26af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a99fb161fbbe87d25a8b73265a0611e58"></a>
@@ -121,16 +199,19 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_game_8hpp_source.html">Game.hpp</a></li>
-<li>src/Game.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_game.html">Game</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

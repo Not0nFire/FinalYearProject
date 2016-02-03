@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['level',['Level',['../class_level.html#af6827a1d8fabc7499d053fdf85984d0f',1,'Level']]]
+  ['kill',['kill',['../class_pawn.html#a28ab485f127ce43f33c026300283c546',1,'Pawn']]]
 ];

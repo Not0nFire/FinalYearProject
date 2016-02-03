@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_scene_manager.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,26 +106,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_scene_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SceneManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Singleton class to handle scenes and the navigation between them.  
+ <a href="class_scene_manager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_scene_manager_8hpp_source.html">SceneManager.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for SceneManager:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_scene_manager__coll__graph.png" border="0" usemap="#_scene_manager_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a77bd9095429893110454ccd716a9fff5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a77bd9095429893110454ccd716a9fff5">getCurrentScene</a> () const </td></tr>
 <tr class="separator:a77bd9095429893110454ccd716a9fff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a618fb8cab23a252b98c66a3ef27147ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a618fb8cab23a252b98c66a3ef27147ca">getEditableScene</a> () const </td></tr>
-<tr class="separator:a618fb8cab23a252b98c66a3ef27147ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac81727c53378eab091ff85d195b1c7ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ac81727c53378eab091ff85d195b1c7ec">getEditableScene</a> () const </td></tr>
+<tr class="separator:ac81727c53378eab091ff85d195b1c7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c5918c732cedd929db77c37da2bf3b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a2c5918c732cedd929db77c37da2bf3b5">createScene</a> (std::string const &amp;name, <a class="el" href="class_i___scene.html">I_Scene</a> *derivedSceneObject, bool goToScene=true)</td></tr>
 <tr class="separator:a2c5918c732cedd929db77c37da2bf3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95303770a6b44a29e137605c46b777e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a95303770a6b44a29e137605c46b777e7">updateCurrentScene</a> (sf::Time const &amp;elapsedTime)</td></tr>
@@ -114,14 +148,28 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b597c83770eced37c85eda6a5664c89"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b597c83770eced37c85eda6a5664c89"></a>
+<tr class="memitem:a08e82505e6575e00bc33097678030fa9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08e82505e6575e00bc33097678030fa9"></a>
 static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> ()</td></tr>
-<tr class="separator:a4b597c83770eced37c85eda6a5664c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a08e82505e6575e00bc33097678030fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ae1768cf1a2da5736571da6516d512379"><td class="memItemLeft" align="right" valign="top">signal&lt; void(<a class="el" href="class_i___scene.html">I_Scene</a> *newScene)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">onSceneChange</a></td></tr>
 <tr class="separator:ae1768cf1a2da5736571da6516d512379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ada0204db410e7ebef136c3762e912436"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <a class="el" href="class_i___scene.html">I_Scene</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">mScenes</a></td></tr>
+<tr class="separator:ada0204db410e7ebef136c3762e912436"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace084d26b83a93dbacc7f66d3a942be2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace084d26b83a93dbacc7f66d3a942be2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mCurrentScene</b></td></tr>
+<tr class="separator:ace084d26b83a93dbacc7f66d3a942be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:ab601cece2433e647129431542a9f247b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab601cece2433e647129431542a9f247b"></a>
+static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mInstance</b></td></tr>
+<tr class="separator:ab601cece2433e647129431542a9f247b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Singleton class to handle scenes and the navigation between them. </p>
@@ -199,12 +247,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a618fb8cab23a252b98c66a3ef27147ca"></a>
+<a class="anchor" id="ac81727c53378eab091ff85d195b1c7ec"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_i___scene.html">I_Scene</a> * SceneManager::getEditableScene </td>
+          <td class="memname"><a class="el" href="class_i___scene.html">I_Scene</a>* SceneManager::getEditableScene </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -279,6 +327,27 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ada0204db410e7ebef136c3762e912436"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="class_i___scene.html">I_Scene</a>*&gt; SceneManager::mScenes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A map of all scenes managed by the <a class="el" href="class_scene_manager.html" title="Singleton class to handle scenes and the navigation between them. ">SceneManager</a>. Each scene is identified by its name. </p>
+
+</div>
+</div>
 <a class="anchor" id="ae1768cf1a2da5736571da6516d512379"></a>
 <div class="memitem">
 <div class="memproto">
@@ -292,16 +361,19 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_scene_manager_8hpp_source.html">SceneManager.hpp</a></li>
-<li>src/SceneManager.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_scene_manager.html">SceneManager</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

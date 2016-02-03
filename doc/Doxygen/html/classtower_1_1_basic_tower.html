@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classtower_1_1_basic_tower.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,50 +106,81 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><b>tower</b></li><li class="navelem"><a class="el" href="classtower_1_1_basic_tower.html">BasicTower</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classtower_1_1_basic_tower-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">tower::BasicTower Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Tower that fires a projectile toward a target. Takes account for moving targets.  
+ <a href="classtower_1_1_basic_tower.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_basic_tower_8h_source.html">BasicTower.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for tower::BasicTower:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classtower_1_1_basic_tower.png" usemap="#tower::BasicTower_map" alt=""/>
-  <map id="tower::BasicTower_map" name="tower::BasicTower_map">
-<area href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="Actor" shape="rect" coords="65,56,185,80"/>
-<area href="classcollision_1_1_collidable.html" alt="collision::Collidable" shape="rect" coords="130,0,250,24"/>
+<div class="center"><img src="classtower_1_1_basic_tower__inherit__graph.png" border="0" usemap="#tower_1_1_basic_tower_inherit__map" alt="Inheritance graph"/></div>
+<map name="tower_1_1_basic_tower_inherit__map" id="tower_1_1_basic_tower_inherit__map">
+<area shape="rect" id="node2" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,80,133,107"/>
+<area shape="rect" id="node4" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
 </map>
- </div></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for tower::BasicTower:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtower_1_1_basic_tower__coll__graph.png" border="0" usemap="#tower_1_1_basic_tower_coll__map" alt="Collaboration graph"/></div>
+<map name="tower_1_1_basic_tower_coll__map" id="tower_1_1_basic_tower_coll__map">
+<area shape="rect" id="node2" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,81,133,108"/>
+<area shape="rect" id="node5" href="class_projectile.html" title="Object that follows a pro&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="129,157,205,184"/>
+<area shape="rect" id="node4" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad47cda8c34a98257c5cbd0ba9dfab163"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad47cda8c34a98257c5cbd0ba9dfab163"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BasicTower</b> (sf::Texture &amp;texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType)</td></tr>
-<tr class="separator:ad47cda8c34a98257c5cbd0ba9dfab163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8363905f0305f60ffba028c393e6098"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8363905f0305f60ffba028c393e6098"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (sf::Time const &amp;elapsedTime)</td></tr>
-<tr class="separator:aa8363905f0305f60ffba028c393e6098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a180cb7c32e45fed8e4d4476fd6e2d7ce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a180cb7c32e45fed8e4d4476fd6e2d7ce"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target)</td></tr>
-<tr class="separator:a180cb7c32e45fed8e4d4476fd6e2d7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80cb558b7d52b02708e4661b486311b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80cb558b7d52b02708e4661b486311b6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>acquireTarget</b> (std::vector&lt; <a class="el" href="class_pawn.html">Pawn</a> * &gt; const &amp;possibleTargets)</td></tr>
-<tr class="separator:a80cb558b7d52b02708e4661b486311b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9054f3c731bb3e63ab39872c6287b7fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#a9054f3c731bb3e63ab39872c6287b7fb">BasicTower</a> (sf::Texture &amp;texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, <a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> *projectileCollisionGroup)</td></tr>
+<tr class="memdesc:a9054f3c731bb3e63ab39872c6287b7fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consructs a Basic Tower.  <a href="#a9054f3c731bb3e63ab39872c6287b7fb">More...</a><br /></td></tr>
+<tr class="separator:a9054f3c731bb3e63ab39872c6287b7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52de3defe1dbe1ddfc7c1be0a1265d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae52de3defe1dbe1ddfc7c1be0a1265d3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#ae52de3defe1dbe1ddfc7c1be0a1265d3">update</a> (sf::Time const &amp;elapsedTime)</td></tr>
+<tr class="memdesc:ae52de3defe1dbe1ddfc7c1be0a1265d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the projectile. <br /></td></tr>
+<tr class="separator:ae52de3defe1dbe1ddfc7c1be0a1265d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2219082cf257767cd6a763dda68639f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2219082cf257767cd6a763dda68639f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#aa2219082cf257767cd6a763dda68639f">draw</a> (sf::RenderTarget &amp;target) override</td></tr>
+<tr class="memdesc:aa2219082cf257767cd6a763dda68639f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the tower and its projectile. <br /></td></tr>
+<tr class="separator:aa2219082cf257767cd6a763dda68639f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade6593cde2fee96e6bbbbf5686ad806c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#ade6593cde2fee96e6bbbbf5686ad806c">acquireTarget</a> (std::list&lt; <a class="el" href="class_pawn.html">Pawn</a> * &gt; const &amp;possibleTargets)</td></tr>
+<tr class="memdesc:ade6593cde2fee96e6bbbbf5686ad806c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to fire and the members of possibleTargets. Fires if projectile is not already in the air and a target is within range (Target must also be alive and part of ENEMY faction).  <a href="#ade6593cde2fee96e6bbbbf5686ad806c">More...</a><br /></td></tr>
+<tr class="separator:ade6593cde2fee96e6bbbbf5686ad806c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_actor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_actor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_actor.html">Actor</a></td></tr>
-<tr class="memitem:a4a5f835c6cb76df32d6d7bee8adfa578 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a5f835c6cb76df32d6d7bee8adfa578"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Actor</b> (sf::Texture &amp;texture)</td></tr>
-<tr class="separator:a4a5f835c6cb76df32d6d7bee8adfa578 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afafebe407ca202acc6a717651cf39b50 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#afafebe407ca202acc6a717651cf39b50">Actor</a> (sf::Texture &amp;texture, sf::Shape *collisionMask, sf::Vector2f const &amp;maskOffset)</td></tr>
+<tr class="separator:afafebe407ca202acc6a717651cf39b50 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa40eff34ee7974e042244667fd66e7 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fa40eff34ee7974e042244667fd66e7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Actor</b> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="separator:a4fa40eff34ee7974e042244667fd66e7 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9f64a11f4d05e71a6ea32ed5caa1674"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#ad9f64a11f4d05e71a6ea32ed5caa1674">animate</a> (sf::Time const &amp;elapsedTime)</td></tr>
+<tr class="memdesc:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the animator and applies it to ourself. <br /></td></tr>
+<tr class="separator:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f31093c2bae07e55d9e192a41b88997"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a7f31093c2bae07e55d9e192a41b88997">isPlayingAnimation</a> () const </td></tr>
+<tr class="memdesc:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an animation is currently playing. <br /></td></tr>
+<tr class="separator:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa64bd84ff77dba6d46832821054493c0"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#aa64bd84ff77dba6d46832821054493c0">getPlayingAnimation</a> () const </td></tr>
+<tr class="memdesc:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the playing animation. Undefined behaviour if no animation playing. <br /></td></tr>
+<tr class="separator:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e0c92d65af1b173254d382f9939cc5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a5e0c92d65af1b173254d382f9939cc5b">playAnimation</a> (std::string name, bool loop=false)</td></tr>
+<tr class="memdesc:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins playing an animation by name. <br /></td></tr>
+<tr class="separator:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d3e6e2264a2ab940fd652329d9f92fb inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d3e6e2264a2ab940fd652329d9f92fb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVisible</b> (bool isVisible=true)</td></tr>
 <tr class="separator:a3d3e6e2264a2ab940fd652329d9f92fb inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,16 +194,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>getVisible</b> () con
 <tr class="memitem:aab9ad50a52775297bb3d373f14ba15df inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab9ad50a52775297bb3d373f14ba15df"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Collidable</b> (sf::Shape *mask, sf::Vector2f offset)</td></tr>
 <tr class="separator:aab9ad50a52775297bb3d373f14ba15df inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38bac56d0e39176287f159805c3ef93f inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38bac56d0e39176287f159805c3ef93f"></a>
+<tr class="memitem:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a2f65e5e7c7b45876ffe806782a77dc6c">Collidable</a> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="memdesc:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> from an xml tag. Tag requires pointCoint and type attributes in addition to child tags depending on type specified.  <a href="#a2f65e5e7c7b45876ffe806782a77dc6c">More...</a><br /></td></tr>
+<tr class="separator:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea87a37e77eda447fac75a12ecf414b2 inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea87a37e77eda447fac75a12ecf414b2"></a>
 const sf::Shape *&#160;</td><td class="memItemRight" valign="bottom"><b>getMask</b> () const </td></tr>
-<tr class="separator:a38bac56d0e39176287f159805c3ef93f inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aea87a37e77eda447fac75a12ecf414b2 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59968e2602832ae42750148e1d9a574a inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59968e2602832ae42750148e1d9a574a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMask</b> (sf::Shape *mask, sf::Vector2f offset)</td></tr>
 <tr class="separator:a59968e2602832ae42750148e1d9a574a inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f88bef85869630909cce6d040a6f53a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a1f88bef85869630909cce6d040a6f53a">onCollide</a> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *other, sf::Vector2f const &amp;mtv)</td></tr>
-<tr class="memdesc:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when we collide with something. <br /></td></tr>
-<tr class="separator:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2035032a624f95e8b2934dfe57e1d0af"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a2035032a624f95e8b2934dfe57e1d0af">onCollide</a> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *other, sf::Vector2f const &amp;mtv)</td></tr>
+<tr class="memdesc:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when we collide with something. <br /></td></tr>
+<tr class="separator:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec61f1b090248e26b4ceaed2ea7ad885 inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec61f1b090248e26b4ceaed2ea7ad885"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setDebugColour</b> (sf::Color const &amp;c)</td></tr>
 <tr class="separator:aec61f1b090248e26b4ceaed2ea7ad885 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +224,53 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memdesc:a66173721be9e04f7bd928db63c22d748 inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projects the mask onto an axis. Projects each point of the mask onto an axis and returns the min and max points it covers on that axis.  <a href="#a66173721be9e04f7bd928db63c22d748">More...</a><br /></td></tr>
 <tr class="separator:a66173721be9e04f7bd928db63c22d748 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4f152dc1121af8ab471e59db758d5a98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f152dc1121af8ab471e59db758d5a98"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#a4f152dc1121af8ab471e59db758d5a98">getCost</a> ()</td></tr>
+<tr class="memdesc:a4f152dc1121af8ab471e59db758d5a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the money cost of placing this tower. <br /></td></tr>
+<tr class="separator:a4f152dc1121af8ab471e59db758d5a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a8e79669b6f3548b1ddd8e2630a003ea2"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#a8e79669b6f3548b1ddd8e2630a003ea2">leadTarget</a> (<a class="el" href="class_pawn.html">Pawn</a> *target, float time) const </td></tr>
+<tr class="memdesc:a8e79669b6f3548b1ddd8e2630a003ea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicts where a marching <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> will be after a certain number of seconds.  <a href="#a8e79669b6f3548b1ddd8e2630a003ea2">More...</a><br /></td></tr>
+<tr class="separator:a8e79669b6f3548b1ddd8e2630a003ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7c8c87af01ee12fc7f2790cb47f180b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c8c87af01ee12fc7f2790cb47f180b1"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#a7c8c87af01ee12fc7f2790cb47f180b1">mRange</a></td></tr>
+<tr class="memdesc:a7c8c87af01ee12fc7f2790cb47f180b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radius that the tower can fire within. <br /></td></tr>
+<tr class="separator:a7c8c87af01ee12fc7f2790cb47f180b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa07235d8f0608504fa92ecefc08ed8e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa07235d8f0608504fa92ecefc08ed8e7"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#aa07235d8f0608504fa92ecefc08ed8e7">mAttacksPerSecond</a></td></tr>
+<tr class="memdesc:aa07235d8f0608504fa92ecefc08ed8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Currently unused. <br /></td></tr>
+<tr class="separator:aa07235d8f0608504fa92ecefc08ed8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe234073bd578f0b04e60750b247e753"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe234073bd578f0b04e60750b247e753"></a>
+Damage::Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#afe234073bd578f0b04e60750b247e753">mDamageType</a></td></tr>
+<tr class="memdesc:afe234073bd578f0b04e60750b247e753"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of damage to inflick (PHYSICAL or MAGICAL) <br /></td></tr>
+<tr class="separator:afe234073bd578f0b04e60750b247e753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbfb44cd26496b5369e4ff927e343ead"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbfb44cd26496b5369e4ff927e343ead"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#acbfb44cd26496b5369e4ff927e343ead">mDamage</a></td></tr>
+<tr class="memdesc:acbfb44cd26496b5369e4ff927e343ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">The amount of damage each projectile inflicts. <br /></td></tr>
+<tr class="separator:acbfb44cd26496b5369e4ff927e343ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd99afe8bbcfbe976667d740a08807f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affd99afe8bbcfbe976667d740a08807f"></a>
+<a class="el" href="class_projectile.html">Projectile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#affd99afe8bbcfbe976667d740a08807f">mProjectile</a></td></tr>
+<tr class="memdesc:affd99afe8bbcfbe976667d740a08807f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_projectile.html" title="Object that follows a pro-computed arc toward a target and checks for collision on impact...">Projectile</a> that the tower fires. <br /></td></tr>
+<tr class="separator:affd99afe8bbcfbe976667d740a08807f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49118cf51a88cb83606f3fb6188d03f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49118cf51a88cb83606f3fb6188d03f9"></a>
+sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#a49118cf51a88cb83606f3fb6188d03f9">mProjectileSpawnOffset</a></td></tr>
+<tr class="memdesc:a49118cf51a88cb83606f3fb6188d03f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relative position at which to fire the projectile from. <br /></td></tr>
+<tr class="separator:a49118cf51a88cb83606f3fb6188d03f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aeb16d0e0e098dc3d84fb6de9ec9b5097"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb16d0e0e098dc3d84fb6de9ec9b5097"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtower_1_1_basic_tower.html#aeb16d0e0e098dc3d84fb6de9ec9b5097">mCost</a></td></tr>
+<tr class="memdesc:aeb16d0e0e098dc3d84fb6de9ec9b5097"><td class="mdescLeft">&#160;</td><td class="mdescRight">How much money the tower costs to place. <br /></td></tr>
+<tr class="separator:aeb16d0e0e098dc3d84fb6de9ec9b5097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classcollision_1_1_collidable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcollision_1_1_collidable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcollision_1_1_collidable.html">collision::Collidable</a></td></tr>
@@ -175,21 +281,154 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a189eba290bff18e57ca29a638f807ff0 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a189eba290bff18e57ca29a638f807ff0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>mVisible</b></td></tr>
 <tr class="separator:a189eba290bff18e57ca29a638f807ff0 inherit pro_attribs_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top">boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a3515de0782a3532d5af19daaf7d82fe3">mMutex</a></td></tr>
+<tr class="memitem:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3515de0782a3532d5af19daaf7d82fe3"></a>
+boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a3515de0782a3532d5af19daaf7d82fe3">mMutex</a></td></tr>
+<tr class="memdesc:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not to be confused with the private mutex in Collidable. <br /></td></tr>
 <tr class="separator:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tower that fires a projectile toward a target. Aim does not currently take account for moving targets. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>Tower that fires a projectile toward a target. Takes account for moving targets. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a9054f3c731bb3e63ab39872c6287b7fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tower::BasicTower::BasicTower </td>
+          <td>(</td>
+          <td class="paramtype">sf::Texture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Vector2f&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>attacksPerSecond</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>damage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Damage::Type&#160;</td>
+          <td class="paramname"><em>damageType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> *&#160;</td>
+          <td class="paramname"><em>projectileCollisionGroup</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Consructs a Basic Tower. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Visual representation of the tower. </td></tr>
+    <tr><td class="paramname">position</td><td>Position of the tower in the <a class="el" href="class_level.html" title="Playable level of the game. ">Level</a>. </td></tr>
+    <tr><td class="paramname">range</td><td>Radius around the tower, within which it will fire upon units. </td></tr>
+    <tr><td class="paramname">attacksPerSecond</td><td>CURRENTLY UNUSED </td></tr>
+    <tr><td class="paramname">damage</td><td>Amount of damage each projectile inflicts. </td></tr>
+    <tr><td class="paramname">damageType</td><td>The damageType of each projectile. </td></tr>
+    <tr><td class="paramname">projectileCollisionGroup</td><td>Pointer to a collision group. Projectiles will be checked against this group when they land. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ade6593cde2fee96e6bbbbf5686ad806c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tower::BasicTower::acquireTarget </td>
+          <td>(</td>
+          <td class="paramtype">std::list&lt; <a class="el" href="class_pawn.html">Pawn</a> * &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>possibleTargets</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tries to fire and the members of possibleTargets. Fires if projectile is not already in the air and a target is within range (Target must also be alive and part of ENEMY faction). </p>
+<dl class="section return"><dt>Returns</dt><dd>True if a target was chosen and fired upon. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8e79669b6f3548b1ddd8e2630a003ea2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f tower::BasicTower::leadTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_pawn.html">Pawn</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Predicts where a marching <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> will be after a certain number of seconds. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of where the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> will be if it keeps moving in its current direction. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/Towers/<a class="el" href="_basic_tower_8h_source.html">BasicTower.h</a></li>
-<li>src/BasicTower.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>tower</b></li><li class="navelem"><a class="el" href="classtower_1_1_basic_tower.html">BasicTower</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

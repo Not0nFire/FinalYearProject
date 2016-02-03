@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,10 +73,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_hero.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -81,39 +106,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_hero-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Hero Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> that can move and attack simultaneously and regenerates health.  
+ <a href="class_hero.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_hero_8hpp_source.html">Hero.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Hero:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="class_hero.png" usemap="#Hero_map" alt=""/>
-  <map id="Hero_map" name="Hero_map">
-<area href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="Pawn" shape="rect" coords="65,112,185,136"/>
-<area href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="Actor" shape="rect" coords="65,56,185,80"/>
-<area href="classcollision_1_1_collidable.html" alt="collision::Collidable" shape="rect" coords="130,0,250,24"/>
+<div class="center"><img src="class_hero__inherit__graph.png" border="0" usemap="#_hero_inherit__map" alt="Inheritance graph"/></div>
+<map name="_hero_inherit__map" id="_hero_inherit__map">
+<area shape="rect" id="node2" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="79,155,134,181"/>
+<area shape="rect" id="node3" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,80,133,107"/>
+<area shape="rect" id="node5" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
 </map>
- </div></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Hero:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_hero__coll__graph.png" border="0" usemap="#_hero_coll__map" alt="Collaboration graph"/></div>
+<map name="_hero_coll__map" id="_hero_coll__map">
+<area shape="rect" id="node2" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="167,185,222,212"/>
+<area shape="rect" id="node3" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,81,133,108"/>
+<area shape="rect" id="node5" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+<area shape="rect" id="node6" href="struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="157,81,293,108"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad129609f1a95c795e196007069d43c40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad129609f1a95c795e196007069d43c40"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Hero</b> (sf::Texture &amp;texture)</td></tr>
-<tr class="separator:ad129609f1a95c795e196007069d43c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f9b68a8daecbca5ca949764332c72d7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#a1f9b68a8daecbca5ca949764332c72d7">onCollide</a> (Collidable *other, sf::Vector2f const &amp;mtv) override</td></tr>
-<tr class="memdesc:a1f9b68a8daecbca5ca949764332c72d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> collides with something. Virtual method that is invoked whenver this <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> collides with something. Moves the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> a portion of the minimum translation vector.  <a href="#a1f9b68a8daecbca5ca949764332c72d7">More...</a><br /></td></tr>
-<tr class="separator:a1f9b68a8daecbca5ca949764332c72d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b1007be0f11c6409573fadbb6b27a36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b1007be0f11c6409573fadbb6b27a36"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Hero</b> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="separator:a5b1007be0f11c6409573fadbb6b27a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84db22ca98ee16809c93f543f871891f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84db22ca98ee16809c93f543f871891f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#a84db22ca98ee16809c93f543f871891f">update</a> (sf::Time const &amp;elapsedTime) override</td></tr>
+<tr class="memdesc:a84db22ca98ee16809c93f543f871891f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Heals mHealthRegen amount every M_TICKS_PER_REGEN ticks. <br /></td></tr>
+<tr class="separator:a84db22ca98ee16809c93f543f871891f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa33f73dece9883667b178a784c905cd0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#aa33f73dece9883667b178a784c905cd0">onCollide</a> (Collidable *other, sf::Vector2f const &amp;mtv) override</td></tr>
+<tr class="memdesc:aa33f73dece9883667b178a784c905cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> collides with something. Virtual method that is invoked whenver this <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> collides with something. Moves the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> a portion of the minimum translation vector.  <a href="#aa33f73dece9883667b178a784c905cd0">More...</a><br /></td></tr>
+<tr class="separator:aa33f73dece9883667b178a784c905cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_pawn')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
-<tr class="memitem:a0e5a39bb4a43ba3ce8848b2e9055c5b0 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e5a39bb4a43ba3ce8848b2e9055c5b0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Pawn</b> (sf::Texture &amp;texture, Faction faction)</td></tr>
-<tr class="separator:a0e5a39bb4a43ba3ce8848b2e9055c5b0 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa23725eec3c48824f49853b2dc846932 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#aa23725eec3c48824f49853b2dc846932">Pawn</a> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="memdesc:aa23725eec3c48824f49853b2dc846932 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a pawn from an xml element. Parses members from child xml tags. Requires child &lt;Actor&gt; tag for base class construction.  <a href="#aa23725eec3c48824f49853b2dc846932">More...</a><br /></td></tr>
+<tr class="separator:aa23725eec3c48824f49853b2dc846932 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27c4b05b5e5dc303d5c9a838cc96a7cf inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a27c4b05b5e5dc303d5c9a838cc96a7cf">getDestination</a> () const </td></tr>
 <tr class="separator:a27c4b05b5e5dc303d5c9a838cc96a7cf inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a866b60201664eb6a0c743afa13ee5ccb inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a866b60201664eb6a0c743afa13ee5ccb">setDestination</a> (sf::Vector2f const &amp;destination)</td></tr>
@@ -125,9 +170,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getMovementSpeed</b> (
 <tr class="memitem:a37f3801cb4e6100ab126d438f2abe786 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37f3801cb4e6100ab126d438f2abe786"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMovementSpeed</b> (int newSpeed)</td></tr>
 <tr class="separator:a37f3801cb4e6100ab126d438f2abe786 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36bf19ac850570a5e82142e01d3aab67 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a36bf19ac850570a5e82142e01d3aab67">update</a> (sf::Time const &amp;elapsedTime)</td></tr>
-<tr class="memdesc:a36bf19ac850570a5e82142e01d3aab67 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>. State becomes MARCHING is goal is further than attack range. State becomes ATTACKING if has a target and target is within attack range. Else state become IDLE.  <a href="#a36bf19ac850570a5e82142e01d3aab67">More...</a><br /></td></tr>
-<tr class="separator:a36bf19ac850570a5e82142e01d3aab67 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28ab485f127ce43f33c026300283c546 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28ab485f127ce43f33c026300283c546"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a28ab485f127ce43f33c026300283c546">kill</a> ()</td></tr>
 <tr class="memdesc:a28ab485f127ce43f33c026300283c546 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kills the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> outright. Sets the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>'s health to 0 and the state to DEAD. <br /></td></tr>
@@ -144,24 +186,45 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a197ec1bbce0624316ff8fe0ec49b3d6e inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get stunned. Become stunned for the specified amount of time. Stuns do not stack. If a subsequant stun is applied, the stun with the longer duration is used. i.e. A stun of 1 second cannot cancel out a 5 second stun, nor does it becoe a 6 second stun.  <a href="#a197ec1bbce0624316ff8fe0ec49b3d6e">More...</a><br /></td></tr>
 <tr class="separator:a197ec1bbce0624316ff8fe0ec49b3d6e inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52ef95ca2a7c516325df5546e8131d08 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a52ef95ca2a7c516325df5546e8131d08">beTaunted</a> (<a class="el" href="class_pawn.html">Pawn</a> *taunter)</td></tr>
-<tr class="memdesc:a52ef95ca2a7c516325df5546e8131d08 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Become forced to attack th taunter. Changes combat target to be the taunter. Has no associated duration so subsequqnt taunts will override each other.  <a href="#a52ef95ca2a7c516325df5546e8131d08">More...</a><br /></td></tr>
+<tr class="memdesc:a52ef95ca2a7c516325df5546e8131d08 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Become forced to attack th taunter. Changes combat target to be the taunter. Has no associated duration so subsequent taunts will override each other.  <a href="#a52ef95ca2a7c516325df5546e8131d08">More...</a><br /></td></tr>
 <tr class="separator:a52ef95ca2a7c516325df5546e8131d08 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed61c1cf26754757cd4c5cb12421476b inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#aed61c1cf26754757cd4c5cb12421476b">offerTarget</a> (<a class="el" href="class_pawn.html">Pawn</a> *target)</td></tr>
 <tr class="memdesc:aed61c1cf26754757cd4c5cb12421476b inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offer a potential target to the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>. Offer a target to the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>, who then decides whether to accept it or not.  <a href="#aed61c1cf26754757cd4c5cb12421476b">More...</a><br /></td></tr>
 <tr class="separator:aed61c1cf26754757cd4c5cb12421476b inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c5bda155d7b73b8fe1f63d9aad423dc inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a4c5bda155d7b73b8fe1f63d9aad423dc">targetIsDead</a> () const </td></tr>
 <tr class="separator:a4c5bda155d7b73b8fe1f63d9aad423dc inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15e50004263b9935f2cd3377c6d4f8a8 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a15e50004263b9935f2cd3377c6d4f8a8">getState</a> () const </td></tr>
-<tr class="memdesc:a15e50004263b9935f2cd3377c6d4f8a8 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current state of the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>.  <a href="#a15e50004263b9935f2cd3377c6d4f8a8">More...</a><br /></td></tr>
-<tr class="separator:a15e50004263b9935f2cd3377c6d4f8a8 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f80900d5999f117940c2a4110a848d7 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f80900d5999f117940c2a4110a848d7"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getHealth</b> () const </td></tr>
+<tr class="separator:a6f80900d5999f117940c2a4110a848d7 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4a26fde8785464645f6637347b1d568 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#af4a26fde8785464645f6637347b1d568">getState</a> () const </td></tr>
+<tr class="memdesc:af4a26fde8785464645f6637347b1d568 inherit pub_methods_class_pawn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current state of the <a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a>.  <a href="#af4a26fde8785464645f6637347b1d568">More...</a><br /></td></tr>
+<tr class="separator:af4a26fde8785464645f6637347b1d568 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b6dd19cb4c82719d6a9fcc2d9bbee8b inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a9b6dd19cb4c82719d6a9fcc2d9bbee8b">isDead</a> () const </td></tr>
 <tr class="separator:a9b6dd19cb4c82719d6a9fcc2d9bbee8b inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a574b90f999b689bb42555791b86dc6c8 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">Faction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a574b90f999b689bb42555791b86dc6c8">getFaction</a> () const </td></tr>
-<tr class="separator:a574b90f999b689bb42555791b86dc6c8 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202e827fdd6eb2dca497292d9cfab653 inherit pub_methods_class_pawn"><td class="memItemLeft" align="right" valign="top">Faction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#a202e827fdd6eb2dca497292d9cfab653">getFaction</a> () const </td></tr>
+<tr class="separator:a202e827fdd6eb2dca497292d9cfab653 inherit pub_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_actor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_actor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_actor.html">Actor</a></td></tr>
-<tr class="memitem:a4a5f835c6cb76df32d6d7bee8adfa578 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a5f835c6cb76df32d6d7bee8adfa578"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Actor</b> (sf::Texture &amp;texture)</td></tr>
-<tr class="separator:a4a5f835c6cb76df32d6d7bee8adfa578 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afafebe407ca202acc6a717651cf39b50 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#afafebe407ca202acc6a717651cf39b50">Actor</a> (sf::Texture &amp;texture, sf::Shape *collisionMask, sf::Vector2f const &amp;maskOffset)</td></tr>
+<tr class="separator:afafebe407ca202acc6a717651cf39b50 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa40eff34ee7974e042244667fd66e7 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fa40eff34ee7974e042244667fd66e7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Actor</b> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="separator:a4fa40eff34ee7974e042244667fd66e7 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9f64a11f4d05e71a6ea32ed5caa1674"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#ad9f64a11f4d05e71a6ea32ed5caa1674">animate</a> (sf::Time const &amp;elapsedTime)</td></tr>
+<tr class="memdesc:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the animator and applies it to ourself. <br /></td></tr>
+<tr class="separator:ad9f64a11f4d05e71a6ea32ed5caa1674 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f31093c2bae07e55d9e192a41b88997"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a7f31093c2bae07e55d9e192a41b88997">isPlayingAnimation</a> () const </td></tr>
+<tr class="memdesc:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an animation is currently playing. <br /></td></tr>
+<tr class="separator:a7f31093c2bae07e55d9e192a41b88997 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa64bd84ff77dba6d46832821054493c0"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#aa64bd84ff77dba6d46832821054493c0">getPlayingAnimation</a> () const </td></tr>
+<tr class="memdesc:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the name of the playing animation. Undefined behaviour if no animation playing. <br /></td></tr>
+<tr class="separator:aa64bd84ff77dba6d46832821054493c0 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e0c92d65af1b173254d382f9939cc5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a5e0c92d65af1b173254d382f9939cc5b">playAnimation</a> (std::string name, bool loop=false)</td></tr>
+<tr class="memdesc:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins playing an animation by name. <br /></td></tr>
+<tr class="separator:a5e0c92d65af1b173254d382f9939cc5b inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d3e6e2264a2ab940fd652329d9f92fb inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d3e6e2264a2ab940fd652329d9f92fb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVisible</b> (bool isVisible=true)</td></tr>
 <tr class="separator:a3d3e6e2264a2ab940fd652329d9f92fb inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,20 +234,26 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>toggleVisible</b> ()<
 <tr class="memitem:af41b5a4e7b75abccda84648bb2539bd7 inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af41b5a4e7b75abccda84648bb2539bd7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getVisible</b> () const </td></tr>
 <tr class="separator:af41b5a4e7b75abccda84648bb2539bd7 inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4132ccb993ff4890bbdd2018cc448f inherit pub_methods_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf4132ccb993ff4890bbdd2018cc448f"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target)</td></tr>
+<tr class="separator:acf4132ccb993ff4890bbdd2018cc448f inherit pub_methods_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcollision_1_1_collidable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcollision_1_1_collidable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcollision_1_1_collidable.html">collision::Collidable</a></td></tr>
 <tr class="memitem:aab9ad50a52775297bb3d373f14ba15df inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab9ad50a52775297bb3d373f14ba15df"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Collidable</b> (sf::Shape *mask, sf::Vector2f offset)</td></tr>
 <tr class="separator:aab9ad50a52775297bb3d373f14ba15df inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38bac56d0e39176287f159805c3ef93f inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38bac56d0e39176287f159805c3ef93f"></a>
+<tr class="memitem:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a2f65e5e7c7b45876ffe806782a77dc6c">Collidable</a> (tinyxml2::XMLElement *xml)</td></tr>
+<tr class="memdesc:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> from an xml tag. Tag requires pointCoint and type attributes in addition to child tags depending on type specified.  <a href="#a2f65e5e7c7b45876ffe806782a77dc6c">More...</a><br /></td></tr>
+<tr class="separator:a2f65e5e7c7b45876ffe806782a77dc6c inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea87a37e77eda447fac75a12ecf414b2 inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea87a37e77eda447fac75a12ecf414b2"></a>
 const sf::Shape *&#160;</td><td class="memItemRight" valign="bottom"><b>getMask</b> () const </td></tr>
-<tr class="separator:a38bac56d0e39176287f159805c3ef93f inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aea87a37e77eda447fac75a12ecf414b2 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59968e2602832ae42750148e1d9a574a inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59968e2602832ae42750148e1d9a574a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMask</b> (sf::Shape *mask, sf::Vector2f offset)</td></tr>
 <tr class="separator:a59968e2602832ae42750148e1d9a574a inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f88bef85869630909cce6d040a6f53a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a1f88bef85869630909cce6d040a6f53a">onCollide</a> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *other, sf::Vector2f const &amp;mtv)</td></tr>
-<tr class="memdesc:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when we collide with something. <br /></td></tr>
-<tr class="separator:a1f88bef85869630909cce6d040a6f53a inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2035032a624f95e8b2934dfe57e1d0af"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a2035032a624f95e8b2934dfe57e1d0af">onCollide</a> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *other, sf::Vector2f const &amp;mtv)</td></tr>
+<tr class="memdesc:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when we collide with something. <br /></td></tr>
+<tr class="separator:a2035032a624f95e8b2934dfe57e1d0af inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec61f1b090248e26b4ceaed2ea7ad885 inherit pub_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec61f1b090248e26b4ceaed2ea7ad885"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setDebugColour</b> (sf::Color const &amp;c)</td></tr>
 <tr class="separator:aec61f1b090248e26b4ceaed2ea7ad885 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,33 +271,44 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memdesc:a66173721be9e04f7bd928db63c22d748 inherit pub_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projects the mask onto an axis. Projects each point of the mask onto an axis and returns the min and max points it covers on that axis.  <a href="#a66173721be9e04f7bd928db63c22d748">More...</a><br /></td></tr>
 <tr class="separator:a66173721be9e04f7bd928db63c22d748 inherit pub_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_pawn')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
-<tr class="memitem:a74f1dff8fc508734c15223aaf95f7566 inherit pub_types_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74f1dff8fc508734c15223aaf95f7566"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Faction</b> { <b>PLAYER</b>, 
-<b>ENEMY</b>, 
-<b>NEUTRAL</b>
- }<tr class="separator:a74f1dff8fc508734c15223aaf95f7566 inherit pub_types_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</td></tr>
-<tr class="inherit_header pro_types_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_pawn')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
-<tr class="memitem:af8c8816fa179d6aed5aeb1d14514675c inherit pro_types_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8c8816fa179d6aed5aeb1d14514675c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>State</b> { <br />
-&#160;&#160;<b>IDLE</b>, 
-<b>MARCHING</b>, 
-<b>ATTACKING</b>, 
-<b>STUNNED</b>, 
-<br />
-&#160;&#160;<b>DEAD</b>
-<br />
- }<tr class="separator:af8c8816fa179d6aed5aeb1d14514675c inherit pro_types_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2c4268e6e02a48138f84500011858dbc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c4268e6e02a48138f84500011858dbc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#a2c4268e6e02a48138f84500011858dbc">doAttack</a> (float secondsElapsed) override</td></tr>
+<tr class="memdesc:a2c4268e6e02a48138f84500011858dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override of Pawn::doAttack that allows <a class="el" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. ">Hero</a> to attack and move at the same time. <br /></td></tr>
+<tr class="separator:a2c4268e6e02a48138f84500011858dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_pawn')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
 <tr class="memitem:a2b643e27c2cd87e523e126701854e653 inherit pro_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b643e27c2cd87e523e126701854e653"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>turnToFaceDestination</b> ()</td></tr>
 <tr class="separator:a2b643e27c2cd87e523e126701854e653 inherit pro_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a732102e4a5ee5c012ab59e2365c74e09 inherit pro_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a732102e4a5ee5c012ab59e2365c74e09"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>calculateAnimation</b> ()</td></tr>
+<tr class="separator:a732102e4a5ee5c012ab59e2365c74e09 inherit pro_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23d13258f4da68a7d1d94f5220829351 inherit pro_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23d13258f4da68a7d1d94f5220829351"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>calculateState</b> (sf::Vector2f const &amp;goalDisplacement)</td></tr>
+<tr class="separator:a23d13258f4da68a7d1d94f5220829351 inherit pro_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a051601ea6f309fe3002bd61853dceba5 inherit pro_methods_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a051601ea6f309fe3002bd61853dceba5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>doMarch</b> (sf::Vector2f const &amp;goalDisplacement, float secondsElapsed)</td></tr>
+<tr class="separator:a051601ea6f309fe3002bd61853dceba5 inherit pro_methods_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcollision_1_1_collidable"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcollision_1_1_collidable')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcollision_1_1_collidable.html">collision::Collidable</a></td></tr>
 <tr class="memitem:a715cd89e24e97798727d7cf39b9b8089 inherit pro_methods_classcollision_1_1_collidable"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcollision_1_1_collidable.html#a715cd89e24e97798727d7cf39b9b8089">updateCollidableMask</a> (sf::Vector2f newPosition)</td></tr>
 <tr class="memdesc:a715cd89e24e97798727d7cf39b9b8089 inherit pro_methods_classcollision_1_1_collidable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the position of the mask. Updates the position of the mask to equal newPosition plus the offset.  <a href="#a715cd89e24e97798727d7cf39b9b8089">More...</a><br /></td></tr>
 <tr class="separator:a715cd89e24e97798727d7cf39b9b8089 inherit pro_methods_classcollision_1_1_collidable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a0e147e55fe9f22e2dce13120ccd1b1fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e147e55fe9f22e2dce13120ccd1b1fb"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#a0e147e55fe9f22e2dce13120ccd1b1fb">mTicks</a></td></tr>
+<tr class="memdesc:a0e147e55fe9f22e2dce13120ccd1b1fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter of update ticks. <br /></td></tr>
+<tr class="separator:a0e147e55fe9f22e2dce13120ccd1b1fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec02c414c448ac4fd4fae2edc5204be6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec02c414c448ac4fd4fae2edc5204be6"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#aec02c414c448ac4fd4fae2edc5204be6">M_TICKS_PER_REGEN</a></td></tr>
+<tr class="memdesc:aec02c414c448ac4fd4fae2edc5204be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of ticks before mHealthRegen is applied. <br /></td></tr>
+<tr class="separator:aec02c414c448ac4fd4fae2edc5204be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e8d64d7092d6adf5ef0ee9f6bb0f25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23e8d64d7092d6adf5ef0ee9f6bb0f25"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hero.html#a23e8d64d7092d6adf5ef0ee9f6bb0f25">mHealthRegen</a></td></tr>
+<tr class="memdesc:a23e8d64d7092d6adf5ef0ee9f6bb0f25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount of health to regenerate. <br /></td></tr>
+<tr class="separator:a23e8d64d7092d6adf5ef0ee9f6bb0f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_pawn')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
 <tr class="memitem:ad37825a7c274b2418d2e9d9bdd8afbf1 inherit pro_attribs_class_pawn"><td class="memItemLeft" align="right" valign="top">Faction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pawn.html#ad37825a7c274b2418d2e9d9bdd8afbf1">mFaction</a></td></tr>
 <tr class="separator:ad37825a7c274b2418d2e9d9bdd8afbf1 inherit pro_attribs_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,15 +352,41 @@ sf::Time&#160;</td><td class="memItemRight" valign="bottom"><b>mStunDuration</b>
 <tr class="memitem:ac3011129a1798f170b56d734d23c8edc inherit pro_attribs_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3011129a1798f170b56d734d23c8edc"></a>
 sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>mDestination</b></td></tr>
 <tr class="separator:ac3011129a1798f170b56d734d23c8edc inherit pro_attribs_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aee706ed588eae1576bf330da01490c inherit pro_attribs_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0aee706ed588eae1576bf330da01490c"></a>
+sf::Sound&#160;</td><td class="memItemRight" valign="bottom"><b>mAttackSound</b></td></tr>
+<tr class="separator:a0aee706ed588eae1576bf330da01490c inherit pro_attribs_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_actor"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_actor')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_actor.html">Actor</a></td></tr>
 <tr class="memitem:a189eba290bff18e57ca29a638f807ff0 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a189eba290bff18e57ca29a638f807ff0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>mVisible</b></td></tr>
 <tr class="separator:a189eba290bff18e57ca29a638f807ff0 inherit pro_attribs_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top">boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a3515de0782a3532d5af19daaf7d82fe3">mMutex</a></td></tr>
+<tr class="memitem:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3515de0782a3532d5af19daaf7d82fe3"></a>
+boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actor.html#a3515de0782a3532d5af19daaf7d82fe3">mMutex</a></td></tr>
+<tr class="memdesc:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not to be confused with the private mutex in Collidable. <br /></td></tr>
 <tr class="separator:a3515de0782a3532d5af19daaf7d82fe3 inherit pro_attribs_class_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_pawn"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_pawn')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_pawn.html">Pawn</a></td></tr>
+<tr class="memitem:a74f1dff8fc508734c15223aaf95f7566 inherit pub_types_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74f1dff8fc508734c15223aaf95f7566"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Faction</b> { <b>PLAYER</b>, 
+<b>ENEMY</b>, 
+<b>NEUTRAL</b>
+ }<tr class="separator:a74f1dff8fc508734c15223aaf95f7566 inherit pub_types_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</td></tr>
+<tr class="memitem:af8c8816fa179d6aed5aeb1d14514675c inherit pub_types_class_pawn"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8c8816fa179d6aed5aeb1d14514675c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>State</b> { <br />
+&#160;&#160;<b>IDLE</b>, 
+<b>MARCHING</b>, 
+<b>ATTACKING</b>, 
+<b>STUNNED</b>, 
+<br />
+&#160;&#160;<b>DEAD</b>
+<br />
+ }<tr class="separator:af8c8816fa179d6aed5aeb1d14514675c inherit pub_types_class_pawn"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a1f9b68a8daecbca5ca949764332c72d7"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...">Pawn</a> that can move and attack simultaneously and regenerates health. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aa33f73dece9883667b178a784c905cd0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -288,7 +394,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mVisible</b></td></tr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Hero::onCollide </td>
+          <td class="memname">virtual void Hero::onCollide </td>
           <td>(</td>
           <td class="paramtype">Collidable *&#160;</td>
           <td class="paramname"><em>other</em>, </td>
@@ -321,20 +427,23 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>mVisible</b></td></tr
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_pawn.html#a166813524eb441632550e72d77c2c5a9">Pawn</a>.</p>
+<p>Reimplemented from <a class="el" href="class_pawn.html#a9da4b5dc37b59ba6c62592f4543f801b">Pawn</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_hero_8hpp_source.html">Hero.hpp</a></li>
-<li>src/Hero.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_hero.html">Hero</a></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

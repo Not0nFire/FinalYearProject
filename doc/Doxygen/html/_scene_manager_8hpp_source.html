@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -64,6 +74,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_scene_manager_8hpp_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,11 +103,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">SceneManager.hpp</div>  </div>
@@ -98,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_scene_manager.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scene_manager.html">SceneManager</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::map&lt;std::string, I_Scene*&gt; mScenes;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">   18</a></span>&#160;    std::map&lt;std::string, I_Scene*&gt; <a class="code" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">mScenes</a>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    std::string mCurrentScene;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
@@ -128,16 +148,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">   80</a></span>&#160;    signal&lt;void(I_Scene* newScene)&gt; <a class="code" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">onSceneChange</a>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdef"><b>Definition:</b> Scene.hpp:10</div></div>
-<div class="ttc" id="class_scene_manager_html"><div class="ttname"><a href="class_scene_manager.html">SceneManager</a></div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:12</div></div>
+<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdoc">Interface for scene objects, such as levels and menus. </div><div class="ttdef"><b>Definition:</b> Scene.hpp:11</div></div>
+<div class="ttc" id="class_scene_manager_html"><div class="ttname"><a href="class_scene_manager.html">SceneManager</a></div><div class="ttdoc">Singleton class to handle scenes and the navigation between them. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:12</div></div>
 <div class="ttc" id="namespaceboost_1_1signals2_html"><div class="ttname"><a href="namespaceboost_1_1signals2.html">signals2</a></div></div>
+<div class="ttc" id="class_scene_manager_html_ada0204db410e7ebef136c3762e912436"><div class="ttname"><a href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">SceneManager::mScenes</a></div><div class="ttdeci">std::map&lt; std::string, I_Scene * &gt; mScenes</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:18</div></div>
 <div class="ttc" id="class_scene_manager_html_ae1768cf1a2da5736571da6516d512379"><div class="ttname"><a href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">SceneManager::onSceneChange</a></div><div class="ttdeci">signal&lt; void(I_Scene *newScene)&gt; onSceneChange</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:80</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>SceneManager.hpp</b></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

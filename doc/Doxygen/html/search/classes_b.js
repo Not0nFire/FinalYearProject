@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['scenemanager',['SceneManager',['../class_scene_manager.html',1,'']]],
-  ['squad',['Squad',['../class_squad.html',1,'']]]
+  ['reduction',['Reduction',['../struct_damage_1_1_reduction.html',1,'Damage']]],
+  ['renderer',['Renderer',['../class_renderer.html',1,'']]],
+  ['resourcemanager',['ResourceManager',['../class_resource_manager.html',1,'']]]
 ];

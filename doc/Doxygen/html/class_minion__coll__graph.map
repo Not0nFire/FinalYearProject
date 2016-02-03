@@ -1,0 +1,7 @@
+<map id="Minion" name="Minion">
+<area shape="rect" id="node2" href="$class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="167,185,222,212"/>
+<area shape="rect" id="node3" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,81,133,108"/>
+<area shape="rect" id="node5" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+<area shape="rect" id="node6" href="$struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="157,81,293,108"/>
+<area shape="rect" id="node7" href="$class_node.html" title="Node" alt="" coords="367,185,419,212"/>
+</map>

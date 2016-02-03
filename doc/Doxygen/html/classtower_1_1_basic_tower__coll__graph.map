@@ -1,0 +1,5 @@
+<map id="tower::BasicTower" name="tower::BasicTower">
+<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,81,133,108"/>
+<area shape="rect" id="node5" href="$class_projectile.html" title="Object that follows a pro&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="129,157,205,184"/>
+<area shape="rect" id="node4" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+</map>

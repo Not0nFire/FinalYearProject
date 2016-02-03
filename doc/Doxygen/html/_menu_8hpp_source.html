@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -64,6 +74,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_menu_8hpp_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,11 +103,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Menu.hpp</div>  </div>
@@ -94,70 +114,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;include/SceneManager.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/MenuFunctions.h&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacesf.html">sf</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//Vertical menu class. Does not currently support horizontal arbitrary layouts.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_menu.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_menu.html">Menu</a> : <span class="keyword">public</span> <a class="code" href="class_i___scene.html">I_Scene</a>{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::vector&lt; std::pair&lt;Text, void (*)(String)&gt; &gt; m_items;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">int</span> m_itemSpacing;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/ResourceManager.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;include/MenuFunctions.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;SFGUI/SFGUI.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;SFGUI/Widgets.hpp&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_menu.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_menu.html">Menu</a> : <span class="keyword">public</span> <a class="code" href="class_i___scene.html">I_Scene</a>{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    std::vector&lt; std::pair&lt;Text, void (*)(String)&gt; &gt;::iterator m_selected;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    Font m_font;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">//Vector2i m_position;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    Color m_mainColor, m_hiliteColor;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    sfg::Desktop mDesktop;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    sfg::Box::Ptr mBox;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::shared_ptr&lt;sfg::SFGUI&gt; mSFGUI;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    sf::Music mBgMusic;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    sf::Sprite mBackground;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_menu.html">Menu</a>(std::shared_ptr&lt;sfg::SFGUI&gt; gui, std::string <span class="keyword">const</span> &amp;themePath = <span class="stringliteral">&quot;./res/gui.theme&quot;</span>, sfg::Box::Orientation orientation = sfg::Box::Orientation::VERTICAL, <span class="keywordtype">float</span> spacing = 10.0f);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">//creates a menu with one item</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_menu.html">Menu</a>(String <span class="keyword">const</span> &amp;text, Font <span class="keyword">const</span> &amp;font, <span class="keywordtype">void</span> (*<span class="keyword">function</span>)(String), Vector2f position, Color mainColor = Color::White, Color hiliteColor = Color::Yellow, <span class="keywordtype">int</span> item_Spacing = 10);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">//adds an item to the menu with a custom function which is called when the item is selected</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> addItem(String <span class="keyword">const</span> &amp;text, <span class="keywordtype">void</span> (*<span class="keyword">function</span>)(String));</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_menu.html">Menu</a>* fromXML(<span class="keyword">const</span> <span class="keywordtype">char</span>* path);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">//Make these private when tinyXML is implemented</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> addButton(sf::String <span class="keyword">const</span> &amp;label, std::function&lt;<span class="keywordtype">void</span>()&gt; onClick, sf::Vector2f <span class="keyword">const</span> &amp;minSize = sf::Vector2f());</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> addLabel(sf::String <span class="keyword">const</span> &amp;label, <span class="keywordtype">bool</span> title = <span class="keyword">false</span>, sf::Vector2f <span class="keyword">const</span> &amp;minSize = sf::Vector2f());</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">//std::pair&lt;Text, void (*)(void)&gt; getItemAtIndex(unsigned int const index) const;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> moveUp();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> moveDown();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">//invokes the function pointer of the currently selected item</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> select();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a>(RenderWindow &amp;w);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a>(Time <span class="keyword">const</span> &amp;elapsedTime) { <span class="comment">/* do nothing */</span> }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a>(Event &amp;Event);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">//std::pair&lt; Text, void(*)(String) &gt; getSelected() const;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">//Vector2i getPosition() const;</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    Color getMainColor() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    Color getHiliteColor() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">//void setPosition( Vector2i const &amp;newPos );</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> setMainColor( Color <span class="keyword">const</span> &amp;color );</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> setHiliteColor( Color <span class="keyword">const</span> &amp;color );</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdef"><b>Definition:</b> Scene.hpp:10</div></div>
-<div class="ttc" id="class_menu_html"><div class="ttname"><a href="class_menu.html">Menu</a></div><div class="ttdef"><b>Definition:</b> Menu.hpp:13</div></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a>(sf::RenderWindow &amp;w) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a>(sf::Event &amp;Event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> I_Scene::cleanup() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdoc">Interface for scene objects, such as levels and menus. </div><div class="ttdef"><b>Definition:</b> Scene.hpp:11</div></div>
+<div class="ttc" id="class_menu_html"><div class="ttname"><a href="class_menu.html">Menu</a></div><div class="ttdoc">Menu implemented using SFGUI </div><div class="ttdef"><b>Definition:</b> Menu.hpp:17</div></div>
 <div class="ttc" id="class_i___scene_html_af21a22b1c85f99443cdf64b12ad57c36"><div class="ttname"><a href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a></div><div class="ttdeci">virtual void draw(sf::RenderWindow &amp;w)=0</div></div>
-<div class="ttc" id="namespacesf_html"><div class="ttname"><a href="namespacesf.html">sf</a></div></div>
 <div class="ttc" id="class_i___scene_html_ada171bbf373154e624f87aa8b7b52f84"><div class="ttname"><a href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a></div><div class="ttdeci">virtual void update(sf::Time const &amp;elapsedTime)=0</div></div>
 <div class="ttc" id="class_i___scene_html_a5e7cb2bc39ea754e521d65d0881d4dd4"><div class="ttname"><a href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a></div><div class="ttdeci">virtual bool handleEvent(sf::Event &amp;Event)=0</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>Menu.hpp</b></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>

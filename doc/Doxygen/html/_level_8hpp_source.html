@@ -8,6 +8,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -22,9 +30,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
+   <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
  </tr>
  </tbody>
@@ -38,7 +49,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -64,6 +74,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_level_8hpp_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,11 +103,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Level.hpp</div>  </div>
@@ -94,50 +114,126 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;include/Scene.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/Pawn.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/Minion.hpp&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;include/Hero.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;include/Collision/CollisionGroup.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;include/Towers/BasicTower.h&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_level.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_level.html">Level</a> : <span class="keyword">public</span> <a class="code" href="class_i___scene.html">I_Scene</a>{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_hero.html">Hero</a>* mHero;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::vector&lt;Pawn*&gt; mPawns;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> mCollisionGroup;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sf::RenderWindow <span class="keyword">const</span>* relWindow;  </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classtower_1_1_basic_tower.html">tower::BasicTower</a> mTower;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;include/HUD.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;include/Quadtree.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;include/TerrainInterpreter.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;include/Towers/TowerPlacer.hpp&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;include/Pathing/Path.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;include/Camera.hpp&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;include/UnitFactory.hpp&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;include/TinyXML2/tinyxml2.h&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;include/Towers/UnitTower.hpp&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    boost::mutex mMutex;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    sf::Sprite backgroundTEMP;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="class_level.html#af6827a1d8fabc7499d053fdf85984d0f">Level</a>(sf::RenderWindow <span class="keyword">const</span>* _relWindow);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    ~<a class="code" href="class_level.html">Level</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a>(sf::Event &amp;Event ) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a>(sf::RenderWindow &amp;w) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">//bool loadFromXML(const char *path); //returns true if no errors</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdef"><b>Definition:</b> Scene.hpp:10</div></div>
-<div class="ttc" id="class_hero_html"><div class="ttname"><a href="class_hero.html">Hero</a></div><div class="ttdef"><b>Definition:</b> Hero.hpp:6</div></div>
-<div class="ttc" id="classtower_1_1_basic_tower_html"><div class="ttname"><a href="classtower_1_1_basic_tower.html">tower::BasicTower</a></div><div class="ttdef"><b>Definition:</b> BasicTower.h:15</div></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_level.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_level.html">Level</a> : <span class="keyword">public</span> <a class="code" href="class_i___scene.html">I_Scene</a>{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_hero.html">Hero</a>* mHero;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::list&lt;Pawn*&gt; mPawns;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> mCollisionGroup;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_level.html#a94114555b2359264be240a9dfaf95254">   31</a></span>&#160;    sf::RenderWindow <span class="keyword">const</span>* <a class="code" href="class_level.html#a94114555b2359264be240a9dfaf95254">relWindow</a>;  </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    std::vector&lt;tower::BasicTower*&gt; <a class="code" href="class_level.html#a3302029bf928a206f85e5b5c688056d8">mTowers</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    boost::mutex mMutex;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">   39</a></span>&#160;    sf::Sprite <a class="code" href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">mBackground</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">   42</a></span>&#160;    <a class="code" href="class_camera.html">Camera</a> <a class="code" href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">mCamera</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::unique_ptr&lt;HUD&gt; mHud;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_level.html#ac679f35372255300b4c44349ddadb96c">   47</a></span>&#160;    std::shared_ptr&lt;Quadtree&lt;unsigned char&gt;&gt; <a class="code" href="class_level.html#ac679f35372255300b4c44349ddadb96c">terrainTree</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">   50</a></span>&#160;    std::unique_ptr&lt;TowerPlacer&gt; <a class="code" href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">mTowerPlacer</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">   53</a></span>&#160;    <a class="code" href="class_path.html">Path</a> <a class="code" href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">mPath</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">   56</a></span>&#160;    std::shared_ptr&lt;int&gt; <a class="code" href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">mMoney</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_level.html#a770fd500349985800386ab70bb31d977">   58</a></span>&#160;    std::shared_ptr&lt;int&gt; <a class="code" href="class_level.html#a770fd500349985800386ab70bb31d977">mLivesRemaining</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_level.html#acefc6983d7850282578d65f059c38fc5">   60</a></span>&#160;    sf::FloatRect <a class="code" href="class_level.html#acefc6983d7850282578d65f059c38fc5">mBounds</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">   63</a></span>&#160;    sf::RenderTexture <a class="code" href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">mUnderlayTex</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">   65</a></span>&#160;    sf::Sprite <a class="code" href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">mUnderlaySpr</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> mIsLost, mIsWon;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">   70</a></span>&#160;    sf::Music <a class="code" href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">mBgMusic</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">   73</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">mId</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">   76</a></span>&#160;    <span class="keyword">const</span> std::string <a class="code" href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">mNextScene</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">   79</a></span>&#160;    <a class="code" href="classtower_1_1_unit_tower.html">tower::UnitTower</a> <a class="code" href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">testUnitTower</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">   82</a></span>&#160;    std::shared_ptr&lt;std::list&lt;Minion*&gt;&gt; <a class="code" href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">mMinionFlock</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="class_level.html#a8da64c1bfe5a6ab56e9445184845bc44">compareDepth</a>(<a class="code" href="class_actor.html">Actor</a>* A, <a class="code" href="class_actor.html">Actor</a>* B);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr&lt;sfg::SFGUI&gt; sfgui);</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">    Level(sf::RenderWindow const* _relWindow, std::shared_ptr&lt;sfg::SFGUI&gt; sfgui, const char* xmlPath);*/</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="class_level.html#a25ac82a4759777169da1620dc1ecc2c1">Level</a>(tinyxml2::XMLElement* root, sf::RenderWindow <span class="keyword">const</span>* _relWindow, std::shared_ptr&lt;sfg::SFGUI&gt; sfgui);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    ~<a class="code" href="class_level.html">Level</a>();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a>(sf::Event &amp;Event ) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a>(sf::RenderWindow &amp;w) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> I_Scene::cleanup() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">//signal&lt;void()&gt; onWin, onLose;</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">bool</span> isWon() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">bool</span> isLost() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">int</span> getID() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::string getNextScene() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">//bool loadFromXML(const char *path); //returns true if no errors</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdoc">Interface for scene objects, such as levels and menus. </div><div class="ttdef"><b>Definition:</b> Scene.hpp:11</div></div>
+<div class="ttc" id="class_level_html_a94114555b2359264be240a9dfaf95254"><div class="ttname"><a href="class_level.html#a94114555b2359264be240a9dfaf95254">Level::relWindow</a></div><div class="ttdeci">sf::RenderWindow const * relWindow</div><div class="ttdef"><b>Definition:</b> Level.hpp:31</div></div>
+<div class="ttc" id="class_level_html_a280d436fb42f1f27bc3fb8102cad4e36"><div class="ttname"><a href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">Level::mUnderlayTex</a></div><div class="ttdeci">sf::RenderTexture mUnderlayTex</div><div class="ttdoc">RenderTexture used for persisting dead bodies without clogging the update. </div><div class="ttdef"><b>Definition:</b> Level.hpp:63</div></div>
+<div class="ttc" id="class_level_html_a9a7f531d9f0ed01a8b588e19ef0dbe30"><div class="ttname"><a href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">Level::mMinionFlock</a></div><div class="ttdeci">std::shared_ptr&lt; std::list&lt; Minion * &gt; &gt; mMinionFlock</div><div class="ttdoc">Flock of enemy minions. </div><div class="ttdef"><b>Definition:</b> Level.hpp:82</div></div>
+<div class="ttc" id="class_level_html_a3302029bf928a206f85e5b5c688056d8"><div class="ttname"><a href="class_level.html#a3302029bf928a206f85e5b5c688056d8">Level::mTowers</a></div><div class="ttdeci">std::vector&lt; tower::BasicTower * &gt; mTowers</div><div class="ttdoc">List of ranged towers in the level. </div><div class="ttdef"><b>Definition:</b> Level.hpp:34</div></div>
+<div class="ttc" id="class_hero_html"><div class="ttname"><a href="class_hero.html">Hero</a></div><div class="ttdoc">Pawn that can move and attack simultaneously and regenerates health. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:10</div></div>
+<div class="ttc" id="classtower_1_1_unit_tower_html"><div class="ttname"><a href="classtower_1_1_unit_tower.html">tower::UnitTower</a></div><div class="ttdoc">Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to...</div><div class="ttdef"><b>Definition:</b> UnitTower.hpp:15</div></div>
+<div class="ttc" id="class_level_html_ac679f35372255300b4c44349ddadb96c"><div class="ttname"><a href="class_level.html#ac679f35372255300b4c44349ddadb96c">Level::terrainTree</a></div><div class="ttdeci">std::shared_ptr&lt; Quadtree&lt; unsigned char &gt; &gt; terrainTree</div><div class="ttdoc">Quadtree used to decide where towers can be placed. </div><div class="ttdef"><b>Definition:</b> Level.hpp:47</div></div>
+<div class="ttc" id="class_level_html_a086e8328bae124144d6a3d884dbd45e4"><div class="ttname"><a href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">Level::mMoney</a></div><div class="ttdeci">std::shared_ptr&lt; int &gt; mMoney</div><div class="ttdoc">Amount of money at the player&#39;s disposal. Earned by killing Minions, spent onbuilding towers...</div><div class="ttdef"><b>Definition:</b> Level.hpp:56</div></div>
+<div class="ttc" id="class_level_html_a541fc0f6d6f51ef7a34c2316e0df6a38"><div class="ttname"><a href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">Level::mBackground</a></div><div class="ttdeci">sf::Sprite mBackground</div><div class="ttdoc">Visual backdrop of level. </div><div class="ttdef"><b>Definition:</b> Level.hpp:39</div></div>
+<div class="ttc" id="class_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdoc">Follow camera that can target an Actor. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:10</div></div>
+<div class="ttc" id="class_path_html"><div class="ttname"><a href="class_path.html">Path</a></div><div class="ttdoc">A one-way path of nodes. Uses a recursive structure. </div><div class="ttdef"><b>Definition:</b> Path.hpp:12</div></div>
+<div class="ttc" id="class_level_html_aabc2bd12a9f2a13af8bb09ac21c84dee"><div class="ttname"><a href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">Level::mBgMusic</a></div><div class="ttdeci">sf::Music mBgMusic</div><div class="ttdoc">Background music of the level. </div><div class="ttdef"><b>Definition:</b> Level.hpp:70</div></div>
 <div class="ttc" id="class_i___scene_html_af21a22b1c85f99443cdf64b12ad57c36"><div class="ttname"><a href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene::draw</a></div><div class="ttdeci">virtual void draw(sf::RenderWindow &amp;w)=0</div></div>
-<div class="ttc" id="class_level_html_af6827a1d8fabc7499d053fdf85984d0f"><div class="ttname"><a href="class_level.html#af6827a1d8fabc7499d053fdf85984d0f">Level::Level</a></div><div class="ttdeci">Level(sf::RenderWindow const *_relWindow)</div><div class="ttdef"><b>Definition:</b> Level.cpp:8</div></div>
+<div class="ttc" id="class_level_html_ad41f5ee9bbe8449fa1450eca5bba3bfa"><div class="ttname"><a href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">Level::mNextScene</a></div><div class="ttdeci">const std::string mNextScene</div><div class="ttdoc">Scene to go to if player completes this level. </div><div class="ttdef"><b>Definition:</b> Level.hpp:76</div></div>
+<div class="ttc" id="class_level_html_acc5f363808a956193255d3c7d1e6fd3f"><div class="ttname"><a href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">Level::mTowerPlacer</a></div><div class="ttdeci">std::unique_ptr&lt; TowerPlacer &gt; mTowerPlacer</div><div class="ttdoc">Tool for placing ranged towers. </div><div class="ttdef"><b>Definition:</b> Level.hpp:50</div></div>
+<div class="ttc" id="class_level_html_a770fd500349985800386ab70bb31d977"><div class="ttname"><a href="class_level.html#a770fd500349985800386ab70bb31d977">Level::mLivesRemaining</a></div><div class="ttdeci">std::shared_ptr&lt; int &gt; mLivesRemaining</div><div class="ttdoc">Number of enemies that can make it through the level alive before losing. </div><div class="ttdef"><b>Definition:</b> Level.hpp:58</div></div>
+<div class="ttc" id="class_level_html_a8d5860310a79ad7a24715fed1db2c0da"><div class="ttname"><a href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">Level::mCamera</a></div><div class="ttdeci">Camera mCamera</div><div class="ttdoc">Camera that follows mHero. </div><div class="ttdef"><b>Definition:</b> Level.hpp:42</div></div>
 <div class="ttc" id="classcollision_1_1_collision_group_html"><div class="ttname"><a href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a></div><div class="ttdef"><b>Definition:</b> CollisionGroup.hpp:9</div></div>
-<div class="ttc" id="class_level_html"><div class="ttname"><a href="class_level.html">Level</a></div><div class="ttdef"><b>Definition:</b> Level.hpp:12</div></div>
+<div class="ttc" id="class_actor_html"><div class="ttname"><a href="class_actor.html">Actor</a></div><div class="ttdoc">Class for anything that animates and has a position. Animates and has position and collision...</div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
+<div class="ttc" id="class_level_html_acefc6983d7850282578d65f059c38fc5"><div class="ttname"><a href="class_level.html#acefc6983d7850282578d65f059c38fc5">Level::mBounds</a></div><div class="ttdeci">sf::FloatRect mBounds</div><div class="ttdoc">Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every ...</div><div class="ttdef"><b>Definition:</b> Level.hpp:60</div></div>
+<div class="ttc" id="class_level_html_a8da64c1bfe5a6ab56e9445184845bc44"><div class="ttname"><a href="class_level.html#a8da64c1bfe5a6ab56e9445184845bc44">Level::compareDepth</a></div><div class="ttdeci">static bool compareDepth(Actor *A, Actor *B)</div><div class="ttdoc">Compares the y position of two actors for the purpose of sorting the draw order. </div></div>
+<div class="ttc" id="class_level_html_aef73921d8e5fb1f7ee636cf0410249f5"><div class="ttname"><a href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">Level::testUnitTower</a></div><div class="ttdeci">tower::UnitTower testUnitTower</div><div class="ttdoc">Tower that produces player-friendly Minions. </div><div class="ttdef"><b>Definition:</b> Level.hpp:79</div></div>
+<div class="ttc" id="class_level_html_a4238351de07de42059e72ac7ca8e3a62"><div class="ttname"><a href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">Level::mUnderlaySpr</a></div><div class="ttdeci">sf::Sprite mUnderlaySpr</div><div class="ttdoc">Sprite used to draw mUnderlayTex to the screen. </div><div class="ttdef"><b>Definition:</b> Level.hpp:65</div></div>
+<div class="ttc" id="class_level_html_a25ac82a4759777169da1620dc1ecc2c1"><div class="ttname"><a href="class_level.html#a25ac82a4759777169da1620dc1ecc2c1">Level::Level</a></div><div class="ttdeci">Level(tinyxml2::XMLElement *root, sf::RenderWindow const *_relWindow, std::shared_ptr&lt; sfg::SFGUI &gt; sfgui)</div></div>
+<div class="ttc" id="class_level_html_a93550186e9c372afd7f3b05d0156a4dd"><div class="ttname"><a href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">Level::mId</a></div><div class="ttdeci">const int mId</div><div class="ttdoc">Level id. CURRENTLY UNUSED. </div><div class="ttdef"><b>Definition:</b> Level.hpp:73</div></div>
+<div class="ttc" id="class_level_html"><div class="ttname"><a href="class_level.html">Level</a></div><div class="ttdoc">Playable level of the game. </div><div class="ttdef"><b>Definition:</b> Level.hpp:25</div></div>
+<div class="ttc" id="class_level_html_ad896bc008684f42a671fa3ca3c129f2a"><div class="ttname"><a href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">Level::mPath</a></div><div class="ttdeci">Path mPath</div><div class="ttdoc">Path that Minions will follow. </div><div class="ttdef"><b>Definition:</b> Level.hpp:53</div></div>
 <div class="ttc" id="class_i___scene_html_ada171bbf373154e624f87aa8b7b52f84"><div class="ttname"><a href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene::update</a></div><div class="ttdeci">virtual void update(sf::Time const &amp;elapsedTime)=0</div></div>
 <div class="ttc" id="class_i___scene_html_a5e7cb2bc39ea754e521d65d0881d4dd4"><div class="ttname"><a href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene::handleEvent</a></div><div class="ttdeci">virtual bool handleEvent(sf::Event &amp;Event)=0</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.10
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><b>Level.hpp</b></li>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
+  </ul>
+</div>
 </body>
 </html>
