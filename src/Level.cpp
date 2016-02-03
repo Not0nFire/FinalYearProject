@@ -23,7 +23,8 @@ mIsWon(false),
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>())
+mMinionFlock(std::make_shared<std::list<Minion*>>()),
+testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); })
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -148,13 +149,16 @@ bool Level::handleEvent(sf::Event &event ) {
 
 void Level::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
-	bool allPawnsDead = true;
-	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
+	bool allEnemiesDead = true;
+
+	auto itr = mPawns.begin();
+	while(itr != mPawns.end()) {
 		Pawn* p = *itr;
 		p->update(elapsedTime);
 
 		if (p != mHero && !p->isDead()) {
-			allPawnsDead = false;
+			if (p->getFaction() == Pawn::Faction::ENEMY)
+				allEnemiesDead = false;
 
 			//if out of bounds
 			if (!mBounds.contains(p->getPosition())) {
@@ -175,27 +179,34 @@ void Level::update(sf::Time const &elapsedTime) {
 				}//for
 			}//if target dead
 
+			++itr;
+
 		}//if !dead
 		else
 		{
 			//if dead and not playing an animation...
-			if (!p->isPlayingAnimation() && p!=mHero)
+			if (!p->isPlayingAnimation() && p->isDead())
 			{
 				//draw to underlay and erase
 				mUnderlayTex.draw(*p);
 				mUnderlayTex.display();
-				itr = mPawns.erase(std::find(mPawns.begin(), mPawns.end(), p));
 
 				//award money for enemies that die
 				if(p->getFaction() != Pawn::Faction::PLAYER) {
 					*mMoney += static_cast<Minion*>(p)->getMonetaryValue();
 				}
+
+				itr = mPawns.erase(itr);
+			}
+			else
+			{
+				++itr;
 			}
 
 		}
-	}//for
+	}//while
 
-	mIsWon = allPawnsDead;
+	mIsWon = allEnemiesDead;
 
 	mCollisionGroup.check();
 
@@ -204,6 +215,8 @@ void Level::update(sf::Time const &elapsedTime) {
 		tower->update(elapsedTime);
 		tower->acquireTarget(mPawns);
 	}
+
+	testUnitTower.update(elapsedTime);
 
 	mCamera.update();
 
@@ -238,6 +251,7 @@ void Level::draw(sf::RenderWindow &w) {
 	std::list<Actor*> allActors;
 	allActors.insert(allActors.end(), mPawns.begin(), mPawns.end());
 	allActors.insert(allActors.end(), mTowers.begin(), mTowers.end());
+	allActors.push_back(&testUnitTower);
 	allActors.sort(&compareDepth);
 
 	for (Actor* actor : allActors) {

@@ -7,24 +7,39 @@
   <NextLevel>LevelTwo</NextLevel>
 	<Path>
 		<Node>
-			<X>100</X>
-			<Y>100</Y>
-			<Radius>100</Radius>
-		</Node>
-		<Node>
-			<X>200</X>
-			<Y>200</Y>
+			<X>51</X>
+			<Y>140</Y>
 			<Radius>50</Radius>
 		</Node>
 		<Node>
-			<X>350</X>
-			<Y>250</Y>
+			<X>230</X>
+			<Y>180</Y>
+			<Radius>50</Radius>
+		</Node>
+		<Node>
+			<X>375</X>
+			<Y>280</Y>
 			<Radius>75</Radius>
 		</Node>
     <Node>
-      <X>10000</X>
-      <Y>250</Y>
-      <Radius>200</Radius>
+      <X>585</X>
+      <Y>385</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>680</X>
+      <Y>215</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>885</X>
+      <Y>180</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>1100</X>
+      <Y>400</Y>
+      <Radius>100</Radius>
     </Node>
 	</Path>
 	<Units>

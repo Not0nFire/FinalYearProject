@@ -17,6 +17,7 @@
 #include <SFML/Audio.hpp>
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
+#include <include/Towers/UnitTower.hpp>
 
 class Level : public I_Scene{
 private:
@@ -54,6 +55,8 @@ private:
 	const int mId;
 
 	const std::string mNextScene;
+
+	tower::UnitTower testUnitTower;
 
 	std::shared_ptr<std::list<Minion*>> mMinionFlock;
 

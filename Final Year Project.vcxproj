@@ -128,6 +128,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TowerPlacer.cpp" />
     <ClCompile Include="src\UnitFactory.cpp" />
+    <ClCompile Include="src\UnitTower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
@@ -166,6 +167,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
     <ClInclude Include="include\Towers\TowerPlacer.hpp" />
+    <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />
   </ItemGroup>
   <ItemGroup>

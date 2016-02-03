@@ -33,7 +33,7 @@ bool TowerPlacer::place() {
 	if (mIsActive && mIsValid) {
 		///...put a tower in the container
 		mTowerContainer->push_back(new tower::BasicTower(
-			ResourceManager<sf::Texture>::instance()->get("./res/img/tower.png"),
+			ResourceManager<sf::Texture>::instance()->get("./res/img/tower_s.png"),
 			mMask->getPosition(), 300.0f, 1.0f, 10,
 			Damage::Type::PHYSICAL,
 			towerProjectileCollisionGroup

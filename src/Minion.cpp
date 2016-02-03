@@ -79,12 +79,14 @@ sf::Vector2f Minion::cohesion() const {
 }
 
 void Minion::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
-	sf::Vector2f steer = thor::unitVector(goalDisplacement);
-	sf::Vector2f sep = separation();
-	sf::Vector2f coh = cohesion();
+		sf::Vector2f steer = thor::unitVector(goalDisplacement);
+	if (mFlock) {
+		sf::Vector2f sep = separation();
+		sf::Vector2f coh = cohesion();
 
-	steer += sep;
-	//steer += coh;
+		steer += sep;
+		//steer += coh;
+	}
 
 	Pawn::doMarch(steer, secondsElapsed);
 }
@@ -101,12 +103,14 @@ void Minion::addToFlock(std::shared_ptr<std::list<Minion*>> flock) {
 void Minion::update(sf::Time const& elapsedTime) {
 
 	//Travel along path.
-	if (thor::length(getDestination() - getPosition()) <= 20.f) {
-		Node * nextNode = mPathNode->getNext();
-		if (nextNode) {
-			mPathNode = nextNode;
+	if (mPathNode) {
+		if (thor::length(getDestination() - getPosition()) <= 20.f) {
+			Node * nextNode = mPathNode->getNext();
+			if (nextNode) {
+				mPathNode = nextNode;
+			}
+			setDestination(mPathNode->getPoint());
 		}
-		setDestination(mPathNode->getPoint());
 	}
 
 	Pawn::update(elapsedTime);
