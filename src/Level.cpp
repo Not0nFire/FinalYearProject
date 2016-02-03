@@ -81,7 +81,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		{
 			pawn = factory.produce(type);
 			mHero = static_cast<Hero*>(pawn);
-			mHud->addHealthBarStatic(pawn, sf::Vector2f(10.f, 10.f), sf::Vector2f(200.f, 20.f));
+			mHud->addHealthBarStatic(pawn, sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
 		}
 		else
 		{
@@ -104,7 +104,8 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	}
 
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 60.f, 10.f), sf::Vector2f(30.f, 0.f), mMoney);
+	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
+	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
 

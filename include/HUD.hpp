@@ -66,7 +66,7 @@ public:
 	/// Adds an image at the specified window location.
 	/// \param filePath The location of the image in the filesystem.
 	/// \param location Position of the image on the screen.
-	void addImage(std::string const &filePath, sf::Vector2u location);
+	void addImage(sf::Texture const &tex, sf::Vector2f position);
 
 	/// Adds a repeating texture at the specified window location with width and height.
 	/// \param filePath The location of the image in the filesystem.
@@ -91,6 +91,7 @@ private:
 
 	std::list<HUD_Detail::HealthBarStatic*> mHealthBars;
 	std::list<HUD_Detail::LabelImagePair*> mLabelImagePairs;
+	std::list<sf::Sprite*> mImages;
 
 	sfg::Desktop mDesktop;
 

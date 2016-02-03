@@ -90,12 +90,18 @@ void HUD::update(sf::Time const& elapsedTime) {
 
 void HUD::draw(sf::RenderWindow& window) const {
 	window.setView(window.getDefaultView());
-	mSFGUI->Display(window);
 
 	for (auto lblimg : mLabelImagePairs)
 	{
 		lblimg->draw(window);
 	}
+
+	for (auto img : mImages)
+	{
+		window.draw(*img);
+	}
+
+	mSFGUI->Display(window);
 }
 
 void HUD::addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f const &size) {
@@ -104,6 +110,12 @@ void HUD::addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f cons
 
 void HUD::addHealthBarStatic(Pawn* pawn, sf::Vector2f const &location, sf::Vector2f const &size) {
 	mHealthBars.push_back(new HUD_Detail::HealthBarStatic(pawn, location, size, mDesktop));
+}
+
+void HUD::addImage(sf::Texture const& tex, sf::Vector2f position) {
+	sf::Sprite* spr = new sf::Sprite(tex);
+	spr->setPosition(position);
+	mImages.push_back(spr);
 }
 
 void HUD::show() {
