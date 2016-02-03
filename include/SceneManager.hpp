@@ -7,7 +7,7 @@
 using namespace boost::signals2;
 
 /*!
-Singleton class to handle scenes and the navigation between them.
+\brief Singleton class to handle scenes and the navigation between them.
 */
 class SceneManager {
 private:

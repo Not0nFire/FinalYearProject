@@ -4,6 +4,9 @@
 #include <include/Pawn.hpp>
 #include <include/Pathing/Path.hpp>
 
+/*!
+\brief Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing it.
+*/
 class Minion : public Pawn {
 private:
 	//Variable pointer to const object.

@@ -9,6 +9,7 @@
 
 using namespace boost::signals2;
 
+//! Object that follows a pro-computed arc toward a target and checks for collision on impact.
 class Projectile : public Actor {
 private:
 	Damage::Type mDamageType;

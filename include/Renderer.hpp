@@ -10,7 +10,7 @@
 using namespace boost;
 
 /*!
-Manages rendering in it's own thread.
+\brief Manages rendering in it's own thread.
 */
 class Renderer {
 private:

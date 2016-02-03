@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+//! Parses pixels of an image into bitflags.
 class TerrainInterpreter {
 private:
 	sf::Image mImage;

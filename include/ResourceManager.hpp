@@ -7,7 +7,7 @@
 #include <include/TinyXML2/tinyxml2.h>
 
 /*!
-Simple SFML resource manager.
+\brief Simple SFML resource manager.
 */
 template<typename T>
 class ResourceManager {

@@ -11,6 +11,9 @@
 #include <vector>
 #include <SFML/Audio.hpp>
 
+/*!
+\brief Menu implemented using [SFGUI](http://sfgui.sfml-dev.de/)
+*/
 class Menu : public I_Scene{
 private:
 

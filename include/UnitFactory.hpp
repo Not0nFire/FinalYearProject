@@ -9,6 +9,7 @@
 
 using namespace tinyxml2;
 
+//! Factory for production of Hero and Minions from xml definition files.
 class UnitFactory {
 public:
 	/*!

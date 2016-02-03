@@ -19,6 +19,9 @@
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
 
+/*!
+\brief Playable level of the game.
+*/
 class Level : public I_Scene{
 private:
 

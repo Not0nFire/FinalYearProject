@@ -4,6 +4,7 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 
+//! Simple Quadtree implementation using templates.
 template<class T>
 class Quadtree {
 private:

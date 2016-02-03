@@ -11,6 +11,12 @@
 using namespace boost;
 using namespace signals2;
 
+/*
+\brief The Game itself. The only thing that need be included in _main.cpp_.
+Usage:
+\code	Game game;
+		return game.run();
+*/
 class Game {
 private:
 	//! Threaded Renderer with fixed timestep.
