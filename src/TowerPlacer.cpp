@@ -3,7 +3,7 @@
 const sf::Color TowerPlacer::mValidColor = sf::Color::Green;
 const sf::Color TowerPlacer::mInvalidColor = sf::Color::Red;
 
-TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, collision::CollisionGroup* collisionGroup) :
+TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, std::shared_ptr<ProjectileManager> projectileMgr) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
@@ -18,7 +18,7 @@ mMask([]()
 	return mask;
 }()),
 mTowerContainer(towerContainer),
-towerProjectileCollisionGroup(collisionGroup)
+mProjectileManager(projectileMgr)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
@@ -44,7 +44,7 @@ bool TowerPlacer::place() {
 			ResourceManager<sf::Texture>::instance()->get("./res/img/tower_s.png"),
 			mMask->getPosition(), 300.0f, 1.0f, 10,
 			Damage::Type::PHYSICAL,
-			towerProjectileCollisionGroup
+			mProjectileManager
 			));
 
 		placed = true;

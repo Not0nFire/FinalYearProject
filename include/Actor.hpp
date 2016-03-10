@@ -18,7 +18,7 @@ private:
 	thor::Animator<sf::Sprite, std::string> mAnimator;	//!< Used to animate ourself
 protected:
 	bool mVisible;
-	boost::mutex mMutex;	//!< Not to be confused with the private mutex in Collidable
+	//boost::mutex mMutex;	//!< Not to be confused with the private mutex in Collidable
 public:
 	/*!
 	\param texture Spritesheet to be used for animation

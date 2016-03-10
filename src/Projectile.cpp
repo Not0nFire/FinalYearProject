@@ -6,7 +6,8 @@ Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture
 Actor(texture, new sf::CircleShape(10, 6), sf::Vector2f(0.0f, 0.0f)),
 mDamage(damage),
 mDamageType(damageType),
-mActive(false)
+mActive(false),
+mOnHit([](Projectile* p){ std::cout << "Projectile::mOnHit invoked, but no function set." << std::endl; })
 {
 	setOrigin(40.f, 2.f);
 }
@@ -20,18 +21,6 @@ Projectile::~Projectile() {
 // s = 0.5(u+v)t
 // v^2 = u^2 + 2as
 // s = vt - 0.5at^2
-
-void Projectile::connectOnHit(std::function<void(Projectile*)> func) {
-	onHit.connect(func);
-}
-
-//void Projectile::disconnectOnHit(void(* funcPtr)(Projectile*)) {
-//	onHit.disconnect(funcPtr);
-//}
-
-void Projectile::disconnectAllOnHit() {
-	onHit.disconnect_all_slots();
-}
 
 void Projectile::fire(sf::Vector2f const &from, sf::Vector2f const &to, float flightTimeSeconds) {
 	setPosition(from);
@@ -60,13 +49,17 @@ void Projectile::update(sf::Time const& elapsedTime) {
 		if (mTimeToLive <= 0) {
 			updateCollidableMask(getPosition());
 			mActive = false;
-			onHit(this);
+			mOnHit(this);
 		}
 	}//if (mActive)
 }
 
 bool Projectile::isActive() const {
 	return mActive;
+}
+
+void Projectile::setOnHit(std::function<void(Projectile*)> onHit) {
+	mOnHit = onHit;
 }
 
 int Projectile::getDamage() const {

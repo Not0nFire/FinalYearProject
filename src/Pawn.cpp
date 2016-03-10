@@ -145,7 +145,7 @@ void Pawn::setMovementSpeed(int newSpeed) {
 }
 
 void Pawn::update(sf::Time const &elapsedTime) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+//	boost::lock_guard<boost::mutex> lock(mMutex);
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 

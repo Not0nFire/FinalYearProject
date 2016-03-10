@@ -4,8 +4,29 @@
 
 namespace collision {
 
-	Collidable::Collidable(sf::Shape* mask, sf::Vector2f offset)
-		: mMask(mask), mOffset(offset) {
+	Collidable::Collidable(sf::Shape* mask, sf::Vector2f offset) :
+		mMask(mask),
+		mOffset(offset)
+	{
+		mMask->setFillColor(sf::Color::Magenta);
+	}
+
+	Collidable::Collidable(Collidable const& other) :
+		mOffset(other.mOffset)
+	{
+		//dynamic cast other shape to convex
+		sf::ConvexShape* shape = dynamic_cast<sf::ConvexShape*>(other.mMask);
+		if (shape != nullptr)
+		{
+			//if it works, copy it as convex shape
+			mMask = new sf::ConvexShape(*shape);
+		}
+		else
+		{
+			//if it didnt work, it must be a circle shape, copy it as that
+			mMask = new sf::CircleShape(*(dynamic_cast<sf::CircleShape*>(other.mMask)));
+		}
+
 		mMask->setFillColor(sf::Color::Magenta);
 	}
 

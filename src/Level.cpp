@@ -12,19 +12,21 @@ bool Level::compareDepth(Actor* A, Actor* B) {
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
+mCollisionGroup(new collision::CollisionGroup()),
 relWindow(_relWindow),
-mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
+mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),	//pass sfgui to HUD ctor and make HUD unique
+mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
+mHud(std::make_unique<HUD>(sfgui)),
+mProjectileManager(new ProjectileManager(mCollisionGroup)),
 mPath(root->FirstChildElement("Path")),
-mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
+mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mIsLost(false),
 mIsWon(false),
-mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>()),
-testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); })
+testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); }),
+mMinionFlock(std::make_shared<std::list<Minion*>>())
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -43,7 +45,7 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 	terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
 
 	//begin subdivision of terrain tree using the TerrainInterpreter
-	terrainTree->subdivide([interpreter](Quadtree<unsigned char>* node)
+	terrainTree->subdivide([&interpreter](Quadtree<unsigned char>* node)
 	{
 		sf::IntRect nB = node->getBounds();
 
@@ -62,6 +64,7 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 	});//end terrainTree subdivision lambda
 
 	//----------------------------------------------------------
+
 	UnitFactory factory;
 	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
@@ -95,7 +98,7 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 
 		pawn->setDestination(pos);
 		pawn->setPosition(pos);
-		mCollisionGroup.add(pawn);
+		mCollisionGroup->add(pawn);
 		mPawns.push_back(pawn);
 	}
 
@@ -108,7 +111,7 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, mProjectileManager);
 
 	mCamera.setTarget(mHero);
 
@@ -127,18 +130,24 @@ bool Level::handleEvent(sf::Event &event ) {
 
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
-		if (*mMoney >= tower::BasicTower::getCost() && mTowerPlacer->place()) {
+
+		if (mTowerPlacer->place()) {
+
 			*mMoney -= tower::BasicTower::getCost();
-			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
+			mCollisionGroup->add(*mTowers.rbegin());	//add the tower to collision group
 			handled = true;
+
 		} else {
+
 			assert(relWindow != nullptr);
 			//destination = mouse position in window + camera position
 			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
 			handled = true;
+
 		}
 
-	} else if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
+	}
+	else if (*mMoney >= tower::BasicTower::getCost() && event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
 		mTowerPlacer->activate();
 		handled = true;
 
@@ -208,7 +217,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	mIsWon = allEnemiesDead;
 
-	mCollisionGroup.check();
+	mCollisionGroup->check();
 
 
 	for (auto tower : mTowers) {
@@ -217,6 +226,8 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	testUnitTower.update(elapsedTime);
+
+	mProjectileManager->update(elapsedTime);
 
 	mCamera.update();
 
@@ -258,6 +269,8 @@ void Level::draw(sf::RenderWindow &w) {
 		//actor->debug_draw(w);
 		actor->draw(w);
 	}
+
+	mProjectileManager->draw(w);
 
 	mTowerPlacer->draw(w);
 

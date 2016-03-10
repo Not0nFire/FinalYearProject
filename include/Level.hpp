@@ -27,8 +27,8 @@ private:
 
 	Hero* mHero;
 	std::list<Pawn*> mPawns;
-	collision::CollisionGroup mCollisionGroup;
-	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
+	std::shared_ptr<collision::CollisionGroup> mCollisionGroup;
+	sf::RenderWindow const*const relWindow;	/*!< for getting mouse position */
 
 	//! List of ranged towers in the level
 	std::vector<tower::BasicTower*> mTowers;
@@ -45,6 +45,8 @@ private:
 	
 	//! Quadtree used to decide where towers can be placed.
 	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
+
+	std::shared_ptr<ProjectileManager> mProjectileManager;
 
 	//! Tool for placing ranged towers.
 	std::unique_ptr<TowerPlacer> mTowerPlacer;

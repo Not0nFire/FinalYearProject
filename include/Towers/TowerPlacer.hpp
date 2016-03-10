@@ -11,32 +11,40 @@
 
 #include "BasicTower.h"
 
+#include "include/ProjectileManager.hpp"
+
 typedef Quadtree<unsigned char> TerrainTree;
 
 class TowerPlacer {
 public:
-	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, collision::CollisionGroup* collisionGroup);
-	~TowerPlacer();
+	/*!
+	\brief	Constructs an instance of TowerPlacer.
+	\param	terrainTree	Quadtree used to determine where is valid for tower placement.
+	\param	towerContainer	Container into which newly placed towers should be pushed.
+	\param	projectileMgr	Shared pointer to a ProjectileManager. Created towers will add their projectiles to this.
+	*/
+	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, std::shared_ptr<ProjectileManager> projectileMgr);
+	virtual ~TowerPlacer();
 
 	/*!
-	If location is valid for tower placement,
-	puts a tower into the container.
+	\brief	If location is valid for tower placement,
+			puts a tower into the container.
 	*/
 	bool place();
 
 	/*!
-	Updates position to match mouse and calculates validity.
+	\brief	Updates position to match mouse and calculates validity.
 	*/
 	virtual void update(sf::Vector2i mousePosition);
 
 	/*!
-	Sets the TowerPlacer to be active.
+	\brief	Sets the TowerPlacer to be active.
 	Must be called before update, draw or place do anything.
 	*/
 	void activate();
 
 	/*!
-	Draws the tower overlay to the render target.
+	\brief	Draws the tower overlay to the render target.
 	\remarks If debugging, also draws the collision mask.
 	*/
 	void draw(sf::RenderTarget &renderTarget) const;
@@ -62,12 +70,12 @@ protected:
 	std::vector<tower::BasicTower*> *mTowerContainer;
 
 	/*!
-	Checks if the current location is valid for placement.
+	\brief Checks if the current location is valid for placement.
 	*/
 	virtual void checkValidity();
 
 	/*!
-	Sets the color of the overlay to red or green depending on validity.
+	\brief Sets the color of the overlay to red or green depending on validity.
 	*/
 	void calculateColor();
 
@@ -75,6 +83,6 @@ private:
 	static const sf::Color mValidColor;
 	static const sf::Color mInvalidColor;
 
-	collision::CollisionGroup* towerProjectileCollisionGroup;
+	std::shared_ptr<ProjectileManager> mProjectileManager;
 };
 #endif

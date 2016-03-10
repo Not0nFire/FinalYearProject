@@ -3,32 +3,36 @@
 
 using namespace tower;
 
-const int BasicTower::mCost = 100;
+//Define cost of tower.
+int BasicTower::mCost = 100;
 
-BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup) :
+//Define shape of mask.
+sf::ConvexShape BasicTower::mPlacementMask = [](){
+sf::ConvexShape mask = sf::ConvexShape(4u);
+mask.setPoint(0u, sf::Vector2f(0.f, -25.f));
+mask.setPoint(1u, sf::Vector2f(-55.f, 0.f));
+mask.setPoint(2u, sf::Vector2f(0.f, 25.f));
+mask.setPoint(3u, sf::Vector2f(55.f, 0.f));
+return std::move(mask);
+}();
+
+
+BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f const &position, float range, float attacksPerSecond, int damage, Damage::Type damageType, std::shared_ptr<ProjectileManager> projectileMgr) :
 Actor(texture,
-
-//define points of shape (there HAS to be a better way!)
-[]()
-{
-	sf::ConvexShape* mask = new sf::ConvexShape(4u);
-	mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
-	mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
-	mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
-	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
-	return mask;
-}(),
-
-sf::Vector2f(0.0f, 3.0f)),
+      new sf::ConvexShape(BasicTower::getMask()),
+      sf::Vector2f(0.0f, 3.0f)
+     ),
 mRange(range),
-mAttacksPerSecond(attacksPerSecond),
-mDamage(damage),
+mSecondsPerAttack(1.f / attacksPerSecond),
+mSecondsSinceLastAttack(0.f),
 mDamageType(damageType),
-mProjectile(mDamage,
-			mDamageType,
-			ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png")
-),
-mProjectileSpawnOffset(0.f, -80.f)
+mDamage(damage),
+mProjectilePrototype(mDamage,
+                     mDamageType,
+                     ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png")
+                    ),
+mProjectileSpawnOffset(0.f, -80.f),
+mProjectileManager(projectileMgr)
 {
 	auto bounds = getLocalBounds();
 	setOrigin(bounds.width * .5f, bounds.height * 0.85f);
@@ -36,37 +40,46 @@ mProjectileSpawnOffset(0.f, -80.f)
 	
 	updateCollidableMask(getPosition());
 
-	printf("tower: %f, %f. mask: %f, %f.", getPosition().x, getPosition().y, getMask()->getPosition().x, getMask()->getPosition().y);
-
-	//Tell the projectile to check for collision when it hits
-	mProjectile.connectOnHit(bind(&collision::CollisionGroup::checkAgainst, projectileCollisionGroup, _1));
+	printf("tower: %f, %f. mask: %f, %f.", getPosition().x, getPosition().y, Collidable::getMask()->getPosition().x, Collidable::getMask()->getPosition().y);
 }
 
 BasicTower::~BasicTower() {}
 
 void BasicTower::update(sf::Time const& elapsedTime) {
-	mProjectile.update(elapsedTime);
+	mSecondsSinceLastAttack += elapsedTime.asSeconds();
 }
 
 void BasicTower::draw(sf::RenderTarget& target) {
 	target.draw(*this);
-	if (mProjectile.isActive()) {
-		target.draw(mProjectile);
-		mProjectile.debug_draw(target);
-	}
 }
 
 bool BasicTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 	bool targetAqcuired = false;
-	if (!mProjectile.isActive()) {
+	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
+
 		for (Pawn* p : possibleTargets) {
+
+			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
-				mProjectile.fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, 2.f), 2.f);
+
+				//Construct a new unique projectile from the prototype
+				auto projectile = std::make_unique<Projectile>(mProjectilePrototype);
+
+				//Fire the newly created projectile at the target.
+				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, 1.f), 1.f);
+
+				//Give the projectile to the manager. We lost ownership of it.
+				mProjectileManager->give(std::move(projectile));
+
+				mSecondsSinceLastAttack = 0.f;
 				targetAqcuired = true;
 				break;
+
 			}//if (range)
+
 		}//(pawn*)
-	}//if (active)
+
+	}
 
 	return targetAqcuired;
 }
@@ -75,8 +88,13 @@ int BasicTower::getCost() {
 	return mCost;
 }
 
+sf::ConvexShape BasicTower::getMask() {
+	return mPlacementMask;
+}
+
 sf::Vector2f BasicTower::leadTarget(Pawn* target, float time) const {
-	sf::Vector2f prediction = target->getPosition();
+	auto bounds = target->getGlobalBounds();
+	sf::Vector2f prediction = target->getPosition() + sf::Vector2f(0.f, bounds.height * 0.5f);
 
 	//only lead if target is moving
 	if (target->getState() == Pawn::MARCHING) {

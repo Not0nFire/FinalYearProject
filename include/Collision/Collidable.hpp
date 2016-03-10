@@ -22,6 +22,7 @@ namespace collision {
 
 	public:
 		Collidable(sf::Shape* mask, sf::Vector2f offset);
+		Collidable(Collidable const& other);
 		/*!
 		\brief Constructs a Collidable from an xml tag.
 		Tag requires pointCoint and type attributes in addition to child tags depending on type specified.
