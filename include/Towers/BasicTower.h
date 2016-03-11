@@ -13,6 +13,7 @@
 namespace tower
 {
 	/*!
+	\class BasicTower
 	\brief Tower that fires a projectile toward a target.
 	Takes account for moving targets.
 	*/
@@ -28,7 +29,15 @@ namespace tower
 		\param damageType The damageType of each projectile.
 		\param projectileMgr Shared ptr to a ProjectileManager, into which we will pass any projectiles we fire.
 		*/
-		BasicTower(sf::Texture &texture, sf::Vector2f const &position, float range, float attacksPerSecond, int damage, Damage::Type damageType, std::shared_ptr<ProjectileManager> projectileMgr);
+		BasicTower(
+			sf::Texture &texture,
+			sf::Vector2f const &position,
+			float range,
+			float attacksPerSecond,
+			int damage,
+			Damage::Type damageType,
+			std::shared_ptr<ProjectileManager> projectileMgr
+			);
 		virtual ~BasicTower();
 
 		//! Updates the projectile.
@@ -42,7 +51,7 @@ namespace tower
 		Fires if projectile is not already in the air and a target is within range (Target must also be alive and part of ENEMY faction).
 		\returns True if a target was chosen and fired upon.
 		*/
-		bool acquireTarget(std::list<Pawn*> const &possibleTargets);
+		virtual bool acquireTarget(std::list<Pawn*> const &possibleTargets);
 
 		//! Returns the money cost of placing this tower.
 		static int getCost();

@@ -116,6 +116,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\HUD.cpp" />
     <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\MageTower.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
@@ -168,6 +169,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
+    <ClInclude Include="include\Towers\MageTower.hpp" />
     <ClInclude Include="include\Towers\TowerPlacer.hpp" />
     <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />
