@@ -45,7 +45,7 @@ void Projectile::update(sf::Time const& elapsedTime) {
 		setRotation(thor::toDegree(atan2f(mVelocity.y, mVelocity.x)));
 		mTimeToLive -= elapsedSeconds;
 
-		//if we've reached our target (allowing for a little innaccuracy)
+		//if we've reached our target
 		if (mTimeToLive <= 0) {
 			updateCollidableMask(getPosition());
 			mActive = false;

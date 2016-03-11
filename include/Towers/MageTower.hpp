@@ -28,6 +28,8 @@ namespace tower {
 			std::shared_ptr<ProjectileManager> projectileManager
 			);
 		virtual ~MageTower();
+
+		bool acquireTarget(std::list<Pawn*> const& possibleTargets) override;
 	protected:
 
 	};

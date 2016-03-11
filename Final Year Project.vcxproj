@@ -151,6 +151,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />
+    <ClInclude Include="include\FancyProjectile.hpp" />
     <ClInclude Include="include\Pathing\Node.hpp" />
     <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
