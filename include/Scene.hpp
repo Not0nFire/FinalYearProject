@@ -139,7 +139,7 @@ void SceneProxy<SceneType>::loadNow() {
 	if (result != XML_NO_ERROR)
 		throw result;	//throw an error if one occured
 
-	XMLElement* root = doc.FirstChildElement("Scene");	//root node
+	XMLElement* root = doc.FirstChildElement();	//root node
 
 	//construct the scene
 	mScene = std::make_unique<SceneType>(root);

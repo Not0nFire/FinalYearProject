@@ -22,7 +22,7 @@ private:
 	//! Threaded Renderer with fixed timestep.
 	Renderer mRenderer;
 
-	bool mRun, mPaused;
+	static bool mRun, mPaused;
 
 	void handleEvent(sf::Event &event);
 
@@ -44,5 +44,7 @@ public:
 	\returns EXIT_SUCCESS (0)
 	*/
 	int run();
+
+	static void close();
 };
 #endif

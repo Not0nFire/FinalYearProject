@@ -100,6 +100,10 @@ int Game::run() {
 	return EXIT_SUCCESS;
 }
 
+void Game::close() {
+	mRun = false;
+}
+
 void Game::handleEvent(sf::Event& event) {
 
 	if (SceneManager::instance()->passEventToCurrentScene(event)) {
