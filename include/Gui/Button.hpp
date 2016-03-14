@@ -15,24 +15,29 @@ namespace gui
 	class Button {
 	public:
 		Button(int x, int y, const tinyxml2::XMLElement* xmlButtonDefinition );
-		~Button();
+		virtual ~Button();
 
 		void update(sf::Vector2i const& mousePos);
 		bool checkClick() const;
 
 		void draw(sf::RenderTarget &target) const;
 
-	private:
+		void enable();
+		void disable();
+
+	protected:
 		enum State {
 			NORMAL,
-			HOVER
+			HOVER,
+			DISABLED
 		} mState;
 
-		sf::Sprite mSprite;
-		sf::Sound mOnHoverSound;
-		sf::IntRect mNormalSrcRect, mHoverSrcRect;
-
 		void setState(State newState);
+
+		sf::Sprite mSprite;
+
+		sf::Sound mOnHoverSound;
+		sf::IntRect mNormalSrcRect, mHoverSrcRect, mDisabledSrcRect;
 	};
 }
 #endif

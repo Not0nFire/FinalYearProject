@@ -20,9 +20,11 @@ mSprite()
 
 	mNormalSrcRect.width = width;
 	mHoverSrcRect.width = width;
+	mDisabledSrcRect.width = width;
 
 	mNormalSrcRect.height = height;
 	mHoverSrcRect.height = height;
+	mNormalSrcRect.height = height;
 
 	//get the position of the normal state subimage
 	auto normalImagePos = xmlButtonDefinition->FirstChildElement("NormalImage");
@@ -34,24 +36,40 @@ mSprite()
 	mHoverSrcRect.left = atoi(normalImagePos->Attribute("x"));
 	mHoverSrcRect.top = atoi(hoverImagePos->Attribute("y"));
 
+	auto disabledImagePos = xmlButtonDefinition->FirstChildElement("DisabledImage");
+	mDisabledSrcRect.left = atoi(disabledImagePos->Attribute("x"));
+	mDisabledSrcRect.top = atoi(disabledImagePos->Attribute("y"));
+
 	mSprite.setPosition(x, y);
-	mSprite.setTextureRect(mNormalSrcRect);
-	mState = NORMAL;
+	setState(NORMAL);
 }
 
 Button::~Button() {}
 
 void Button::update(sf::Vector2i const& mousePos) {
-	//if the sprite bounds contain the mouse coordinates...
-	if (mSprite.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-		setState(HOVER);
-	} else {
-		setState(NORMAL);
+	if (mState != DISABLED) {
+		//if the sprite bounds contain the mouse coordinates...
+		if (mSprite.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+			setState(HOVER);
+		}
+		else {
+			setState(NORMAL);
+		}
 	}
 }
 
 bool Button::checkClick() const {
 	return mState == HOVER;
+}
+
+void Button::enable() {
+	if (mState == DISABLED) {
+		setState(NORMAL);
+	}
+}
+
+void Button::disable() {
+	setState(DISABLED);
 }
 
 void Button::draw(sf::RenderTarget& target) const {
@@ -62,12 +80,23 @@ void Button::setState(State newState) {
 	if (mState != newState) {
 		mState = newState;
 
-		if (mState == NORMAL) {
-			mSprite.setTextureRect(mNormalSrcRect);
-		}
-		else {	//mState == HOVER
-			mSprite.setTextureRect(mHoverSrcRect);
-			mOnHoverSound.play();
-		}
-	}
+		switch (mState) {
+
+			case NORMAL:
+				mSprite.setTextureRect(mNormalSrcRect);
+				break;
+
+			case HOVER:
+				mSprite.setTextureRect(mHoverSrcRect);
+				mOnHoverSound.play();
+				break;
+
+			case DISABLED:
+				mSprite.setTextureRect(mDisabledSrcRect);
+				break;
+
+			default:
+				break;
+		}//end switch
+	}//end if
 }
