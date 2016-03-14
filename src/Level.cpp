@@ -11,8 +11,7 @@ bool Level::compareDepth(Actor* A, Actor* B) {
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
-Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
-relWindow(_relWindow),
+Level::Level(tinyxml2::XMLElement* root, std::shared_ptr<sfg::SFGUI> sfgui) :
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
 mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
 mPath(root->FirstChildElement("Path")),
@@ -20,7 +19,7 @@ mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
 mIsLost(false),
 mIsWon(false),
-mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
+mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
 mMinionFlock(std::make_shared<std::list<Minion*>>()),
@@ -104,8 +103,8 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 		p->offerTarget(mHero);
 	}
 
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
+	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
+	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
@@ -122,26 +121,27 @@ Level::~Level() {
 	}
 }
 
-bool Level::handleEvent(sf::Event &event ) {
+bool Level::handleEvent(sf::Event &evnt ) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
 
 	bool handled = false;
-	if (event.type == sf::Event::EventType::MouseButtonPressed) {
+	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
 		if (*mMoney >= tower::BasicTower::getCost() && mTowerPlacer->place()) {
 			*mMoney -= tower::BasicTower::getCost();
 			mCollisionGroup.add(*mTowers.rbegin());	//add the tower to collision group
 			handled = true;
 		} else {
-			assert(relWindow != nullptr);
 			//destination = mouse position in window + camera position
-			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
+			mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
 			handled = true;
 		}
 
-	} else if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
+	} else if (evnt.type == sf::Event::EventType::KeyPressed && evnt.key.code == sf::Keyboard::T) {
 		mTowerPlacer->activate();
 		handled = true;
 
+	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
+		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 	}
 
 	return handled;
@@ -225,8 +225,6 @@ void Level::update(sf::Time const &elapsedTime) {
 	}
 
 	mHud->update(elapsedTime);
-
-	mTowerPlacer->update(sf::Mouse::getPosition(*relWindow) + sf::Vector2i(mCamera.getDisplacement()));
 
 	//if (mIsLost)
 	//{

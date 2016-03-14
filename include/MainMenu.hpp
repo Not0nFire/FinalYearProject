@@ -28,13 +28,11 @@ public:
 	void update(sf::Time const& elapsedTime) override;
 
 	//! Draws background and buttons.
-	void draw(sf::RenderWindow& w) override;
+	void draw(sf::RenderWindow &w) override;
 
 	//! Stops the background music.
 	void cleanup() override;
 private:
-	//! Mouse position is got relative to this window.
-	std::weak_ptr<sf::RenderWindow> mWindow;
 
 	//! Background sprite
 	sf::Sprite mBackground;
@@ -42,7 +40,7 @@ private:
 	//! Background music that will play in this scene
 	sf::Music mMusic;
 
-	gui::Button mStartButton, mQuitButton;
+	std::unique_ptr<gui::Button> mStartButton, mQuitButton;
 };
 #include "SceneManager.hpp"
 #endif

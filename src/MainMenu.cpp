@@ -16,14 +16,14 @@ MainMenu::MainMenu(tinyxml2::XMLElement* root) {
 	mMusic.setLoop(true);
 	
 	auto startBtnXml = root->FirstChildElement("StartButton");
-	mStartButton = gui::Button(
+	mStartButton = std::make_unique<gui::Button>(
 		atoi(startBtnXml->Attribute("x")),
 		atoi(startBtnXml->Attribute("y")),
 		startBtnXml
 	);
 
 	auto quitBtnXml = root->FirstChildElement("QuitButton");
-	mQuitButton = gui::Button(
+	mQuitButton = std::make_unique<gui::Button>(
 		atoi(quitBtnXml->Attribute("x")),
 		atoi(quitBtnXml->Attribute("y")),
 		quitBtnXml
@@ -32,16 +32,18 @@ MainMenu::MainMenu(tinyxml2::XMLElement* root) {
 
 MainMenu::~MainMenu() {}
 
-bool MainMenu::handleEvent(sf::Event& Event) {
+bool MainMenu::handleEvent(sf::Event& evnt) {
 	bool handled = false;
 
-	switch (Event.type) {
+	switch (evnt.type) {
+		default:
+			break;
 		case sf::Event::MouseButtonPressed:
 			handled = true;
-			if (mStartButton.checkClick()) {
+			if (mStartButton->checkClick()) {
 				//start the game
 				SceneManager::instance()->navigateToScene("LevelOne");
-			} else if (mQuitButton.checkClick()) {
+			} else if (mQuitButton->checkClick()) {
 				//quit the game
 				Game::close();
 			}
@@ -49,30 +51,26 @@ bool MainMenu::handleEvent(sf::Event& Event) {
 		case sf::Event::MouseButtonReleased:
 			break;
 		case sf::Event::MouseMoved:
-			//if weak_ptr holds a window...
-			if (auto window = mWindow.lock()) {
-				//...update the buttons with relative mouse position
-				auto mousePos = sf::Mouse::getPosition(*window);
-				mStartButton.update(mousePos);
-				mQuitButton.update(mousePos);
-				handled = true;
-			}
-			break;
-		default:
+			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
+			mStartButton->update(mousePos);
+			mQuitButton->update(mousePos);
+			handled = true;
 			break;
 	}
 
 	return handled;
 }
 
-void MainMenu::update(sf::Time const& elapsedTime) {}
-
-void MainMenu::draw(sf::RenderWindow& w) {
-	if (mWindow.expired()) {
-		//mWindow = w;	!!!all scenes will need to be changed to use weak ptrs!!!
+void MainMenu::update(sf::Time const& elapsedTime) {
+	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.play();
 	}
+}
 
-	mStartButton.draw(w);
+void MainMenu::draw(sf::RenderWindow &w) {
+	w.draw(mBackground);
+	mStartButton->draw(w);
+	mQuitButton->draw(w);
 }
 
 void MainMenu::cleanup() {

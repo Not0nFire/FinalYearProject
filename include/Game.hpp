@@ -4,7 +4,7 @@
 #include <include/ResourceManager.hpp>
 #include <include/Renderer.hpp>
 #include <include/Level.hpp>
-#include <include/Menu.hpp>
+#include <include/MainMenu.hpp>
 #include <include/SceneManager.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 
@@ -27,7 +27,6 @@ private:
 	void handleEvent(sf::Event &event);
 
 	Level *mLevelOne, *mLevelTwo;
-	Menu* mMenu;
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
 

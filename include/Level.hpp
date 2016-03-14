@@ -28,7 +28,7 @@ private:
 	Hero* mHero;
 	std::list<Pawn*> mPawns;
 	collision::CollisionGroup mCollisionGroup;
-	sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
+	//sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
 
 	//! List of ranged towers in the level
 	std::vector<tower::BasicTower*> mTowers;
@@ -90,7 +90,7 @@ public:
 	*/
 	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
-	Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	Level(tinyxml2::XMLElement* root, std::shared_ptr<sfg::SFGUI> sfgui);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;
