@@ -66,6 +66,8 @@ public:
 	*/
 	void draw(sf::RenderWindow &w);
 
+	void cleanup();
+
 	/*
 	\brief Calls handleEvent on the scene object.
 	Constructs the scene if it does not already exist.
@@ -125,6 +127,12 @@ void SceneProxy<SceneType>::draw(sf::RenderWindow& w) {
 	}
 
 	mScene->draw(w);
+}
+
+template <class SceneType>
+void SceneProxy<SceneType>::cleanup() {
+	//assumes mScene has been created
+	mScene->cleanup();
 }
 
 template <class SceneType>

@@ -3,6 +3,8 @@
 
 #include "include/Scene.hpp"
 #include "Gui/Button.hpp"
+#include "SceneManager.hpp"
+#include "Level.hpp"
 #include <SFML/Audio/Music.hpp>
 
 class LevelSelect : public I_Scene {
@@ -21,7 +23,8 @@ private:
 	//! Background music for this scene
 	sf::Music mMusic;
 
-	std::list<std::unique_ptr<gui::Button>> mLevelButtons;
+	//! List of buttons and their associated level's xml files
+	std::list<std::pair<std::unique_ptr<gui::Button>, std::string>> mLevelButtons;
 	std::unique_ptr<gui::Button> mBackButton;
 };
 #endif

@@ -15,7 +15,7 @@ private:
 	A map of all scenes managed by the SceneManager.
 	Each scene is identified by its name.
 	*/
-	std::map<std::string, I_Scene*> mScenes;
+	std::map<std::string, std::unique_ptr<SceneProxy<I_Scene>>> mScenes;
 
 	std::string mCurrentScene;
 
@@ -39,7 +39,7 @@ public:
 	Use getCurrentScene() in place of this method wherever possible.
 	\returns A pointer to the current scene.
 	*/
-	I_Scene * getEditableScene() const;
+	//I_Scene * getEditableScene() const;
 
 	/*!
 	Adds a scene to the map under the specified name.
@@ -47,7 +47,8 @@ public:
 	\param derivedSceneObject The scene to be added.
 	\param goToScene True if the new scene should become the current scene (i.e. navigated to immediately)
 	*/
-	void createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene = true);
+	template <class SceneType>
+	void createScene(std::string const &name, std::string const& xmlPath, bool goToScene = true);
 
 	/*!
 	Calls the current scene's update method.
@@ -79,4 +80,13 @@ public:
 	*/
 	signal<void(I_Scene* newScene)> onSceneChange;
 };
+
+template <class SceneType>
+void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene) {
+
+	mScenes[name] = std::make_unique<SceneProxy<SceneType>>(xmlPath);
+	if (goToScene) {
+		mCurrentScene = name;
+	}
+}
 #endif

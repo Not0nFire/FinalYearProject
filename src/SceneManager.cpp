@@ -7,9 +7,9 @@ SceneManager::SceneManager() {
 }
 
 SceneManager::~SceneManager() {
-	for (std::pair<std::string, I_Scene*> sceneEntry : mScenes) {
-		delete sceneEntry.second;
-	}
+	//for (std::pair<std::string, I_Scene*> sceneEntry : mScenes) {
+	//	delete sceneEntry.second;
+	//}
 }
 
 SceneManager* SceneManager::instance() {
@@ -24,9 +24,9 @@ std::string SceneManager::getCurrentScene() const {
 	return mCurrentScene;
 }
 
-I_Scene * SceneManager::getEditableScene() const {
-	return mScenes.at(mCurrentScene);
-}
+//I_Scene * SceneManager::getEditableScene() const {
+//	return mScenes.at(mCurrentScene);
+//}
 
 //calls the current scene's update method
 void SceneManager::updateCurrentScene( sf::Time const &elapsedTime) {
@@ -50,16 +50,8 @@ bool SceneManager::navigateToScene(std::string const &path ) {
 		mScenes[mCurrentScene]->cleanup();
 		mCurrentScene = path;
 		success = true;
-		onSceneChange(mScenes[mCurrentScene]);
+		onSceneChange(mScenes[mCurrentScene]->getScene());
 	}
 
 	return success;
-}
-
-void SceneManager::createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene) {
-
-	mScenes[name] = derivedSceneObject;
-	if (goToScene) {
-		mCurrentScene = name;
-	}
 }

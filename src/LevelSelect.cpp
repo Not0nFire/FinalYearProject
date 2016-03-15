@@ -29,13 +29,20 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 			lvlBtnXml = lvlBtnXml->NextSiblingElement("Button")
 		) {
 
+		//Each list entry is a button and a path to where its xml level definition is.
+		//We use move because we can't copy a unique_ptr.
+		//We use make_pair to contruct our <button,string> entry
+		//We use make_unique to construct or unique button pointer.
 		mLevelButtons.push_back(
 			std::move(
-				std::make_unique<gui::Button>(
-					atoi(lvlBtnXml->Attribute("x")),
-					atoi(lvlBtnXml->Attribute("y")),
-					lvlBtnXml
-				)//end make_unique
+				std::make_pair(
+					std::make_unique<gui::Button>(
+						atoi(lvlBtnXml->Attribute("x")),
+						atoi(lvlBtnXml->Attribute("y")),
+						lvlBtnXml
+					),//end make_unique
+					lvlBtnXml->Attribute("path")
+				)//end make_pair
 			)//end move
 		);//end emplace_back
 	}//end for
@@ -50,12 +57,12 @@ bool LevelSelect::handleEvent(sf::Event& evnt) {
 		case sf::Event::MouseButtonPressed:
 			handled = true;
 			if (mBackButton->checkClick()) {
-				printf("bck btn clck\n");
+				SceneManager::instance()->navigateToScene("MainMenu");
 				break;
 			}
 			for (auto itr = mLevelButtons.begin(); itr != mLevelButtons.end(); ++itr) {
-				if (itr->get()->checkClick()) {
-					printf("lvl btn clck\n");
+				if (itr->first->checkClick()) {
+					SceneManager::instance()->createScene<Level>("test_level", "./res/xml/levelOne.lvl");
 					break;
 				}
 			}
@@ -65,7 +72,7 @@ bool LevelSelect::handleEvent(sf::Event& evnt) {
 			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
 			mBackButton->update(mousePos);
 			for (auto itr = mLevelButtons.begin(); itr != mLevelButtons.end(); ++itr) {
-				itr->get()->update(mousePos);
+				itr->first->update(mousePos);
 			}
 			break;
 	}
@@ -83,7 +90,7 @@ void LevelSelect::draw(sf::RenderWindow& w) {
 	w.draw(mBackground);
 	mBackButton->draw(w);
 	for (auto itr = mLevelButtons.begin(); itr != mLevelButtons.end(); ++itr) {
-		itr->get()->draw(w);
+		itr->first->draw(w);
 	}
 }
 

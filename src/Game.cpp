@@ -17,19 +17,19 @@ Game::Game() :
 	if (result != tinyxml2::XML_NO_ERROR)
 		throw result;	//throw an error if one occured
 
-	tinyxml2::XMLElement* root = doc.FirstChildElement("Level");
-	mLevelOne = new Level(root, mSFGUI);
-	SceneManager::instance()->createScene("LevelOne", mLevelOne);
+	tinyxml2::XMLElement* root;// = doc.FirstChildElement("Level");
+	//mLevelOne = new Level(root, mSFGUI);
+	//SceneManager::instance()->createScene("LevelOne", mLevelOne);
 	//mLevelOne->onLose.connect([this](){ mRun = false; });
 	//mLevelOne->onWin.connect([](){ SceneManager::instance()->navigateToScene("LevelTwo"); });
 
 
-	result = doc.LoadFile("./res/xml/levelTwo.lvl");
-	if (result != tinyxml2::XML_NO_ERROR)
-		throw result;	//throw an error if one occured
-	root = doc.FirstChildElement("Level");
-	mLevelTwo = new Level(root, mSFGUI);
-	SceneManager::instance()->createScene("LevelTwo", mLevelTwo);
+	//result = doc.LoadFile("./res/xml/levelTwo.lvl");
+	//if (result != tinyxml2::XML_NO_ERROR)
+	//	throw result;	//throw an error if one occured
+	//root = doc.FirstChildElement("Level");
+	//mLevelTwo = new Level(root, mSFGUI);
+	//SceneManager::instance()->createScene("LevelTwo", mLevelTwo);
 	//mLevelTwo->onLose.connect([this](){ mRun = false; });
 	//mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
 
@@ -38,9 +38,9 @@ Game::Game() :
 	if (result != tinyxml2::XML_NO_ERROR)
 		throw result;	//throw an error if one occured
 
-	LevelSelect* levelSelect = new LevelSelect(doc.FirstChildElement("LevelSelect"));
+	//LevelSelect* levelSelect = new LevelSelect(doc.FirstChildElement("LevelSelect"));
 
-	SceneManager::instance()->createScene("LevelSelect", levelSelect);
+	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene");
 
 
 	//create main menu scene
@@ -48,10 +48,9 @@ Game::Game() :
 	if (result != tinyxml2::XML_NO_ERROR)
 		throw result;	//throw an error if one occured
 
-	MainMenu* mainMenu = new MainMenu(doc.FirstChildElement("MainMenu"));
+	//MainMenu* mainMenu = new MainMenu(doc.FirstChildElement("MainMenu"));
 
-	SceneManager::instance()->createScene("Menu", mainMenu);
-	mRenderer.setScene(mainMenu);
+	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene");
 
 	//Tell the renderer to draw the correct scene whenever the scene changes
 	SceneManager::instance()->onSceneChange.connect( bind(&Renderer::setScene, &mRenderer, _1) );
@@ -89,7 +88,7 @@ int Game::run() {
 		SceneManager::instance()->updateCurrentScene(elapsedTime);
 
 		//Go to new scene if level is won/lost
-		Level* lvl = dynamic_cast<Level*>(SceneManager::instance()->getEditableScene());
+		/*Level* lvl = dynamic_cast<Level*>(SceneManager::instance()->getEditableScene());
 		if (lvl)
 		{
 			if (lvl->isLost())
@@ -100,7 +99,7 @@ int Game::run() {
 			{
 				SceneManager::instance()->navigateToScene(lvl->getNextScene());
 			}
-		}
+		}*/
 
 	}//while mRun
 
