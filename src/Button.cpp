@@ -24,7 +24,7 @@ mSprite()
 
 	mNormalSrcRect.height = height;
 	mHoverSrcRect.height = height;
-	mNormalSrcRect.height = height;
+	mDisabledSrcRect.height = height;
 
 	//get the position of the normal state subimage
 	auto normalImagePos = xmlButtonDefinition->FirstChildElement("NormalImage");

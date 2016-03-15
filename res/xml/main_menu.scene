@@ -7,6 +7,7 @@
 		<Dimensions width="400" height="91"/>
 		<NormalImage x="0" y="91"/>
 		<HoverImage x="0" y="0"/>
+    <DisabledImage x="0" y="182"/>
 	</StartButton>
   <QuitButton x="100" y="500">
     <Texture path="./res/img/exit_button.png"/>
@@ -14,5 +15,6 @@
     <Dimensions width="400" height="91"/>
     <NormalImage x="0" y="91"/>
     <HoverImage x="0" y="0"/>
+    <DisabledImage x="0" y="182"/>
   </QuitButton>
 </MainMenu>

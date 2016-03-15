@@ -42,7 +42,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 			handled = true;
 			if (mStartButton->checkClick()) {
 				//start the game
-				SceneManager::instance()->navigateToScene("LevelOne");
+				SceneManager::instance()->navigateToScene("LevelSelect");
 			} else if (mQuitButton->checkClick()) {
 				//quit the game
 				Game::close();

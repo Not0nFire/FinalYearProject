@@ -117,6 +117,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\HUD.cpp" />
     <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\LevelSelect.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Menu.cpp" />

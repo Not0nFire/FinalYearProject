@@ -33,6 +33,16 @@ Game::Game() :
 	//mLevelTwo->onLose.connect([this](){ mRun = false; });
 	//mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
 
+	//create level select scene
+	result = doc.LoadFile("./res/xml/level_select.scene");
+	if (result != tinyxml2::XML_NO_ERROR)
+		throw result;	//throw an error if one occured
+
+	LevelSelect* levelSelect = new LevelSelect(doc.FirstChildElement("LevelSelect"));
+
+	SceneManager::instance()->createScene("LevelSelect", levelSelect);
+
+
 	//create main menu scene
 	result = doc.LoadFile("./res/xml/main_menu.scene");
 	if (result != tinyxml2::XML_NO_ERROR)
