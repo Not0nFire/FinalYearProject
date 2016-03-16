@@ -6,6 +6,7 @@
 #include <boost/thread.hpp>
 #include <chrono>
 #include "Scene.hpp"
+#include "Cursor.h"
 
 using namespace boost;
 

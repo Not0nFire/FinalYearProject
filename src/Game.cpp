@@ -9,6 +9,7 @@ Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mSFGUI(new sfg::SFGUI())
 {
+	Cursor::setTexture("./res/img/cursor.png");
 
 	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene", false);
 
@@ -79,6 +80,11 @@ void Game::close() {
 }
 
 void Game::handleEvent(sf::Event& event) {
+
+	if (event.type == sf::Event::EventType::MouseMoved) {
+		//update cursor
+		Cursor::setPosition(event.mouseMove.x, event.mouseMove.y);
+	}
 
 	if (SceneManager::instance()->passEventToCurrentScene(event)) {
 		return; //event is already handled

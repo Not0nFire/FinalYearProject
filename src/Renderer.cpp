@@ -32,21 +32,29 @@ void Renderer::render() {
 	mWindow.setActive(true);
 	mWindow.resetGLStates();	//required for sfgui (text displays as blocks without this line)
 
+	mWindow.setMouseCursorVisible(false);
+
+	auto originalView = mWindow.getView();
+
 	while (mLoopOngoing) {
 
 		//fixed timestep
 		if (clock.now() - lastFrameTime >= frameDelay) {
 			lastFrameTime = clock.now();
 
-			mMutex.lock();	//Block until ownership can be obtained
+			
 
 			mWindow.clear();
 
+			mMutex.lock();	//Block until ownership can be obtained
 			mSceneToRender->draw(mWindow);
+			mMutex.unlock();	//Release the mutex
+
+			mWindow.setView(originalView);
+			Cursor::draw(mWindow);
 
 			mWindow.display();
-
-			mMutex.unlock();	//Release the mutex
+			
 		}
 
 	}//end while(mLoop)
