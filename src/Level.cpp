@@ -11,19 +11,19 @@ bool Level::compareDepth(Actor* A, Actor* B) {
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
-Level::Level(tinyxml2::XMLElement* root, std::shared_ptr<sfg::SFGUI> sfgui) :
+Level::Level(tinyxml2::XMLElement* root) :
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
+//mHud(std::make_unique<HUD>(sfgui)),	//pass sfgui to HUD ctor and make HUD unique
+mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
 mPath(root->FirstChildElement("Path")),
-mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
+mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mIsLost(false),
 mIsWon(false),
-mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>()),
-testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); })
+testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); }),
+mMinionFlock(std::make_shared<std::list<Minion*>>())
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -81,7 +81,7 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 		{
 			pawn = factory.produce(type);
 			mHero = static_cast<Hero*>(pawn);
-			mHud->addHealthBarStatic(pawn, sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			//mHud->addHealthBarStatic(pawn, sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
 		}
 		else
 		{
@@ -103,9 +103,9 @@ testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPa
 		p->offerTarget(mHero);
 	}
 
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
-	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
+	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
+	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
+	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, &mCollisionGroup);
 
@@ -122,7 +122,7 @@ Level::~Level() {
 }
 
 bool Level::handleEvent(sf::Event &evnt ) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+	//boost::lock_guard<boost::mutex> lock(mMutex);
 
 	bool handled = false;
 	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
@@ -148,7 +148,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+	//boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns.begin();
@@ -224,7 +224,7 @@ void Level::update(sf::Time const &elapsedTime) {
 		mBgMusic.play();
 	}
 
-	mHud->update(elapsedTime);
+	//mHud->update(elapsedTime);
 
 	//if (mIsLost)
 	//{
@@ -237,7 +237,7 @@ void Level::update(sf::Time const &elapsedTime) {
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+	//boost::lock_guard<boost::mutex> lock(mMutex);
 	
 	w.setView(mCamera);
 
@@ -259,7 +259,7 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer->draw(w);
 
-	mHud->draw(w);
+	//mHud->draw(w);
 }
 
 bool Level::isWon() const {
@@ -271,7 +271,7 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
-	mHud->hide();
+	//mHud->hide();
 	mBgMusic.stop();
 }
 

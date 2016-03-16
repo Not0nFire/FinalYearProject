@@ -42,9 +42,16 @@ mSprite()
 
 	mSprite.setPosition(x, y);
 	setState(NORMAL);
+
+	auto name = xmlButtonDefinition->Attribute("name");
+	if (nullptr != name)
+	{
+		mName = name;
+	}
 }
 
-Button::~Button() {}
+Button::~Button() {
+}
 
 void Button::update(sf::Vector2i const& mousePos) {
 	if (mState != DISABLED) {
@@ -70,6 +77,10 @@ void Button::enable() {
 
 void Button::disable() {
 	setState(DISABLED);
+}
+
+std::string const& Button::getName() const {
+	return mName;
 }
 
 void Button::draw(sf::RenderTarget& target) const {

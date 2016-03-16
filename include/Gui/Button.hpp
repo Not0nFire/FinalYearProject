@@ -25,6 +25,8 @@ namespace gui
 		void enable();
 		void disable();
 
+		std::string const& getName() const;
+
 	protected:
 		enum State {
 			NORMAL,
@@ -38,6 +40,8 @@ namespace gui
 
 		sf::Sound mOnHoverSound;
 		sf::IntRect mNormalSrcRect, mHoverSrcRect, mDisabledSrcRect;
+
+		std::string mName;
 	};
 }
 #endif

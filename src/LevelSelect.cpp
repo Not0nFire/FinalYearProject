@@ -62,7 +62,7 @@ bool LevelSelect::handleEvent(sf::Event& evnt) {
 			}
 			for (auto itr = mLevelButtons.begin(); itr != mLevelButtons.end(); ++itr) {
 				if (itr->first->checkClick()) {
-					SceneManager::instance()->createScene<Level>("test_level", "./res/xml/levelOne.lvl");
+					SceneManager::instance()->createScene<Level>(itr->first->getName(), itr->second);
 					break;
 				}
 			}
