@@ -44,7 +44,7 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 					lvlBtnXml->Attribute("path")
 				)//end make_pair
 			)//end move
-		);//end emplace_back
+		);//end push_back
 	}//end for
 }
 

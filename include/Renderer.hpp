@@ -19,7 +19,7 @@ private:
 	atomic<bool> mLoopOngoing;	/*!< True if want to keep rendering, false if we want rendering to stop. */
 	std::chrono::milliseconds frameDelay;
 
-	I_Scene* mSceneToRender;
+	SceneProxy* mSceneToRender;
 
 	thread mThread;	/*!< Thread that rendering takes place on. */
 
@@ -31,7 +31,7 @@ public:
 	/*!
 	Creates a render window and sets the scene to be rendered.
 	*/
-	Renderer(I_Scene* sceneToRender,
+	Renderer(SceneProxy* sceneToRender,
 			sf::VideoMode mode,	//RenderWindow ctor arguments
 			std::string const &title,
 			sf::Uint32 style = sf::Style::Titlebar,
@@ -55,7 +55,7 @@ public:
 	boost::thread& getThread();
 	const sf::RenderWindow& getWindow() const;
 
-	void setScene(I_Scene* newScene);
+	void setScene(SceneProxy* newScene);
 
 	bool pollEvent(sf::Event &event);
 };

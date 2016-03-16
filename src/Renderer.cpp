@@ -1,6 +1,6 @@
 #include <include/Renderer.hpp>
 
-Renderer::Renderer(I_Scene* _sceneToRender, sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
+Renderer::Renderer(SceneProxy* _sceneToRender, sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
 	: mWindow(mode, title, style, settings), mSceneToRender(_sceneToRender) {
 
 	mWindow.setActive(false);
@@ -62,7 +62,7 @@ const sf::RenderWindow& Renderer::getWindow() const {
 	return mWindow;
 }
 
-void Renderer::setScene(I_Scene* newScene) {
+void Renderer::setScene(SceneProxy* newScene) {
 	make_lock_guard<boost::mutex>(mMutex);
 	mSceneToRender = newScene;
 }

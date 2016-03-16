@@ -9,51 +9,15 @@ Game::Game() :
 	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
 	mSFGUI(new sfg::SFGUI())
 {
-	//create level scene
-	//mLevel = new Level(&mRenderer.getWindow(), mSFGUI);
-
-	tinyxml2::XMLDocument doc;
-	tinyxml2::XMLError result = doc.LoadFile("./res/xml/levelOne.lvl");	//try to load the xml from file
-	if (result != tinyxml2::XML_NO_ERROR)
-		throw result;	//throw an error if one occured
-
-	tinyxml2::XMLElement* root;// = doc.FirstChildElement("Level");
-	//mLevelOne = new Level(root, mSFGUI);
-	//SceneManager::instance()->createScene("LevelOne", mLevelOne);
-	//mLevelOne->onLose.connect([this](){ mRun = false; });
-	//mLevelOne->onWin.connect([](){ SceneManager::instance()->navigateToScene("LevelTwo"); });
-
-
-	//result = doc.LoadFile("./res/xml/levelTwo.lvl");
-	//if (result != tinyxml2::XML_NO_ERROR)
-	//	throw result;	//throw an error if one occured
-	//root = doc.FirstChildElement("Level");
-	//mLevelTwo = new Level(root, mSFGUI);
-	//SceneManager::instance()->createScene("LevelTwo", mLevelTwo);
-	//mLevelTwo->onLose.connect([this](){ mRun = false; });
-	//mLevelTwo->onWin.connect([](){ SceneManager::instance()->navigateToScene("Menu"); });
-
-	//create level select scene
-	result = doc.LoadFile("./res/xml/level_select.scene");
-	if (result != tinyxml2::XML_NO_ERROR)
-		throw result;	//throw an error if one occured
-
-	//LevelSelect* levelSelect = new LevelSelect(doc.FirstChildElement("LevelSelect"));
 
 	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene");
 
-
-	//create main menu scene
-	result = doc.LoadFile("./res/xml/main_menu.scene");
-	if (result != tinyxml2::XML_NO_ERROR)
-		throw result;	//throw an error if one occured
-
-	//MainMenu* mainMenu = new MainMenu(doc.FirstChildElement("MainMenu"));
+	//Tell the renderer to draw the correct scene whenever the scene changes
+	SceneManager::instance()->onSceneChange.connect(bind(&Renderer::setScene, &mRenderer, _1));
 
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene");
 
-	//Tell the renderer to draw the correct scene whenever the scene changes
-	SceneManager::instance()->onSceneChange.connect( bind(&Renderer::setScene, &mRenderer, _1) );
+	
 }
 
 Game::~Game() {

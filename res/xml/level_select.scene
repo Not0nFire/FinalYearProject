@@ -10,7 +10,7 @@
     <DisabledImage x="0" y="182"/>
   </BackButton>
   <LevelButtons>
-    <Button x="300" y="200">
+    <Button x="300" y="200" path="./res/xml/levelOne.lvl">
       <Texture path="./res/img/start_button.png"/>
       <HoverSound path="./res/sfx/menu_selection.ogg"/>
       <Dimensions width="400" height="91"/>
@@ -18,15 +18,7 @@
       <HoverImage x="0" y="0"/>
       <DisabledImage x="0" y="182"/>
     </Button>
-    <Button x="200" y="300">
-      <Texture path="./res/img/start_button.png"/>
-      <HoverSound path="./res/sfx/menu_selection.ogg"/>
-      <Dimensions width="400" height="91"/>
-      <NormalImage x="0" y="91"/>
-      <HoverImage x="0" y="0"/>
-      <DisabledImage x="0" y="182"/>
-    </Button>
-    <Button x="250" y="400">
+    <Button x="200" y="300" path="./res/xml/levelTwo.lvl">
       <Texture path="./res/img/start_button.png"/>
       <HoverSound path="./res/sfx/menu_selection.ogg"/>
       <Dimensions width="400" height="91"/>
