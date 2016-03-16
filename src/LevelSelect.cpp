@@ -46,6 +46,9 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 			)//end move
 		);//end push_back
 	}//end for
+
+	//test to see if disable works
+	mLevelButtons.rbegin()->first->disable();
 }
 
 LevelSelect::~LevelSelect() {
