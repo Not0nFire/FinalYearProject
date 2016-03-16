@@ -58,8 +58,10 @@ bool SceneManager::navigateToScene(std::string const &path ) {
 	bool success = false;
 
 	if ( mScenes.find(path) != mScenes.end() ) {
-
-		mCleanupThread = std::thread(&SceneProxy::cleanup, mScenes[mCurrentScene]);
+		//cleanup old scene in seperate thread to avoid double locking the SceneProxy mutex in this thread
+		if (!mCurrentScene.empty()) {
+			mCleanupThread = std::thread(&SceneProxy::cleanup, mScenes[mCurrentScene]);
+		}
 		mCurrentScene = path;
 		success = true;
 		onSceneChange(mScenes[mCurrentScene]);

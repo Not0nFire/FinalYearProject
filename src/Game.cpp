@@ -10,12 +10,12 @@ Game::Game() :
 	mSFGUI(new sfg::SFGUI())
 {
 
-	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene");
+	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene", false);
 
 	//Tell the renderer to draw the correct scene whenever the scene changes
 	SceneManager::instance()->onSceneChange.connect(bind(&Renderer::setScene, &mRenderer, _1));
 
-	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene");
+	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 
 	
 }

@@ -96,8 +96,7 @@ void SceneManager::createScene(std::string const& name, std::string const& xmlPa
 
 	mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
 	if (goToScene) {
-		mCurrentScene = name;
-		onSceneChange(mScenes[mCurrentScene]);
+		navigateToScene(name);
 	}
 }
 #endif
