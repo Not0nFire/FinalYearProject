@@ -3,6 +3,10 @@
 
 #include "Projectile.h"
 #include <Thor/Particles.hpp>
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+#include <math.h>
 
 /*!
 \class FancyProjectile
@@ -25,7 +29,7 @@ public:
 	but the projectile then turns around, homing in on its target.
 	\param from The starting location.
 	\param to The destination location.
-	\param How long the projectile will take to reach it's destination.
+	\param Ignored by this projectile type.
 	*/
 	void fire(sf::Vector2f const& from, sf::Vector2f const& to, float flightTimeSeconds) override;
 	
@@ -38,9 +42,14 @@ public:
 
 private:
 	//!	Connection to a thor::ParticleSystem. Upon destruction, mEmitter will be disconnected.
-	thor::ScopedConnection mConnection;
+	//thor::ScopedConnection mConnection;
 
 	//! Emitter used to make particles.
-	thor::UniversalEmitter mEmitter;
+	//thor::UniversalEmitter mEmitter;
+
+	const float mSpeed;
+
+	//! How much the projectile can turn (in radians) each update.
+	const float mTurnSpeed;
 };
 #endif

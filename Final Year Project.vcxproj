@@ -112,6 +112,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
     <ClCompile Include="src\Damage.cpp" />
+    <ClCompile Include="src\FancyProjectile.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\HUD.cpp" />

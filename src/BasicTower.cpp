@@ -59,14 +59,18 @@ bool BasicTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 
 		for (Pawn* p : possibleTargets) {
 
+			float distance = thor::length(p->getPosition() - this->getPosition());
+
 			//If p is not dead, and p is in range, and p is an enemy
-			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
+			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
 				//Construct a new unique projectile from the prototype
-				auto projectile = std::make_unique<Projectile>(mProjectilePrototype);
+				auto projectile = std::make_unique<FancyProjectile>(mProjectilePrototype);
+
+				float ttl = distance / mRange;
 
 				//Fire the newly created projectile at the target.
-				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, 1.f), 1.f);
+				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, ttl), ttl);
 
 				//Give the projectile to the manager. We lost ownership of it.
 				mProjectileManager->give(std::move(projectile));

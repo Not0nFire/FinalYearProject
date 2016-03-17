@@ -15,6 +15,7 @@ private:
 	Damage::Type mDamageType;
 	int mDamage;
 
+protected:
 	bool mActive;
 
 	static const sf::Vector2f G;

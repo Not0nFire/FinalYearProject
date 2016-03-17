@@ -9,6 +9,7 @@
 
 #include "include/ProjectileManager.hpp"
 
+#include "include/FancyProjectile.hpp"
 
 namespace tower
 {
@@ -74,7 +75,7 @@ namespace tower
 		int mDamage;
 
 		//! Projectile from which new (fired) projectiles will be copied from.
-		Projectile mProjectilePrototype;
+		FancyProjectile mProjectilePrototype;
 
 		//! Relative position at which to fire the projectile from.
 		sf::Vector2f mProjectileSpawnOffset;
