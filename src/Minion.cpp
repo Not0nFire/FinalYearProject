@@ -24,7 +24,7 @@ sf::Vector2f Minion::separation() const {
 		++itr)
 	{
 		Minion* flockMember = *itr;
-		if (this != flockMember) {
+		if (this != flockMember && flockMember->getFaction() == this->getFaction()) {
 			sf::Vector2f diff = this->getPosition() - flockMember->getPosition();
 			float distance = thor::length(diff);
 			if (distance < desiredSeparation)
