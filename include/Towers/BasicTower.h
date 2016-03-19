@@ -3,7 +3,7 @@
 
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
-#include <include/Projectile.h>
+#include <include/ArcProjectile.h>
 #include <include/Pawn.hpp>
 #include <include/Collision/CollisionGroup.hpp>
 
@@ -73,9 +73,6 @@ namespace tower
 
 		//! The amount of damage each projectile inflicts.
 		int mDamage;
-
-		//! Projectile from which new (fired) projectiles will be copied from.
-		FancyProjectile mProjectilePrototype;
 
 		//! Relative position at which to fire the projectile from.
 		sf::Vector2f mProjectileSpawnOffset;

@@ -20,7 +20,7 @@ bool MageTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
 				//Construct a new unique projectile from the prototype
-				auto projectile = std::make_unique<Projectile>(mProjectilePrototype);
+				auto projectile = std::make_unique<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
 
 				//Fire the newly created projectile at the target.
 				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, 1.f), 1.f);

@@ -27,10 +27,6 @@ mSecondsPerAttack(1.f / attacksPerSecond),
 mSecondsSinceLastAttack(0.f),
 mDamageType(damageType),
 mDamage(damage),
-mProjectilePrototype(mDamage,
-                     mDamageType,
-                     ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png")
-                    ),
 mProjectileSpawnOffset(0.f, -80.f),
 mProjectileManager(projectileMgr)
 {
@@ -57,15 +53,16 @@ bool BasicTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 	bool targetAqcuired = false;
 	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
 
-		for (Pawn* p : possibleTargets) {
+		for (auto p : possibleTargets) {
 
 			float distance = thor::length(p->getPosition() - this->getPosition());
 
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
-				//Construct a new unique projectile from the prototype
-				auto projectile = std::make_unique<FancyProjectile>(mProjectilePrototype);
+				auto projectile = std::make_unique<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+
+				projectile->setTarget(p);
 
 				float ttl = distance / mRange;
 

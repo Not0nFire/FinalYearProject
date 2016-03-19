@@ -40,6 +40,8 @@ public:
 	*/
 	void update(sf::Time const& elapsedTime) override;
 
+	void setTarget(Pawn* newTarget);
+
 private:
 	//!	Connection to a thor::ParticleSystem. Upon destruction, mEmitter will be disconnected.
 	//thor::ScopedConnection mConnection;
@@ -51,5 +53,8 @@ private:
 
 	//! How much the projectile can turn (in radians) each update.
 	const float mTurnSpeed;
+
+	Pawn* mTarget;
+	sf::Vector2f mTargetPosition;
 };
 #endif

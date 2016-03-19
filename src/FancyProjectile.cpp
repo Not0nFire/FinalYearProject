@@ -3,7 +3,7 @@
 FancyProjectile::FancyProjectile(int damage, Damage::Type damageType, sf::Texture& texture) :
 Projectile(damage, damageType, texture),
 mSpeed(100.f),
-mTurnSpeed(3.f)
+mTurnSpeed(rand() % 40 + 80)
 {
 	auto bounds = getLocalBounds();
 	setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
@@ -15,9 +15,9 @@ FancyProjectile::~FancyProjectile() {
 
 void FancyProjectile::fire(sf::Vector2f const& from, sf::Vector2f const& to, float flightTimeSeconds) {
 	setPosition(from);
-	mTarget = to;
+
 	auto displacement = to - from;
-	auto direction = (thor::unitVector(displacement));
+	auto direction = -(thor::unitVector(displacement));
 
 	mVelocity = direction * mSpeed;
 	setRotation(thor::toDegree(atan2f(direction.x, direction.y)));
@@ -26,67 +26,66 @@ void FancyProjectile::fire(sf::Vector2f const& from, sf::Vector2f const& to, flo
 	mActive = true;
 }
 
+template <typename T>
+inline T perpDot(const sf::Vector2<T>& A, const sf::Vector2<T>& B)
+{
+	return (A.x * B.y) - (A.y * B.x);
+}
+
 void FancyProjectile::update(sf::Time const& elapsedTime) {
 	if (mActive) {
 		using thor::unitVector;
 		using thor::dotProduct;
-		using thor::toDegree;
 		using thor::toRadian;
 
-		auto displacement = getPosition() - mTarget;
+		if (nullptr != mTarget && mTarget->isDead()) {
+			mTarget = nullptr;
+		} else {
+			mTargetPosition = mTarget->getPosition();
+		}
+
+		auto displacement = mTargetPosition - getPosition();
 		auto distance = thor::length(displacement);
 		auto elapsedSeconds = elapsedTime.asSeconds();
 		mTimeToLive -= elapsedSeconds;
-		if (distance < 1.f || mTimeToLive <= 0.f) {
+
+		if (distance < 10.f || mTimeToLive <= 0.f) {
 			updateCollidableMask(getPosition());
 			mActive = false;
 			mOnHit(this);
 		}
 		else {
 
-			
-
 			//auto currentDirection = unitVector(mVelocity);
-			auto desiredDirection = unitVector(mTarget - getPosition());
+			auto desiredDirection = unitVector(displacement);
+			auto currentDirection = unitVector(mVelocity);
 
-			auto desiredAngle = acosf(dotProduct(sf::Vector2f(1.f, 0.f), desiredDirection));
-			auto currentAngle = toRadian(getRotation());
+			float perpDotProd = perpDot(currentDirection, desiredDirection);
 
-			if (currentAngle != desiredAngle) {
-				auto deltaAngle = desiredAngle - currentAngle;
-
-				// Just set current to be the desired angle if using turn speed would overshoot.
-				if (abs(deltaAngle) < mTurnSpeed * elapsedSeconds) {
-					currentAngle = desiredAngle;
+			if (perpDotProd > 0.f) {
+				rotate(mTurnSpeed * elapsedSeconds);
+			}
+			else if (perpDotProd < 0.f) {
+				rotate(-mTurnSpeed * elapsedSeconds);
+			} 
+			else {	// perpDotProduct is 0 and we are either facing directly at or away from our target
+				if (dotProduct(currentDirection, desiredDirection) < 0.f) {	//if dotProduct is negative we are facing away from target
+					rotate(mTurnSpeed * elapsedSeconds);
 				}
-				else {
+			}
 
-					// Keep it in range from -180 to 180 to make the most efficient turns.
-					if (deltaAngle > M_PI) {
-						deltaAngle -= M_PI_2;
-					}
-					else if (deltaAngle < -M_PI) {
-						deltaAngle += M_PI_2;
-					}
+			float rotationRadians = toRadian(getRotation());
+			mVelocity.x = cosf(rotationRadians);
+			mVelocity.y = sinf(rotationRadians);
 
-					if (deltaAngle > 0.f) {
-						//turn clockwise
-						currentAngle += mTurnSpeed * elapsedSeconds;
-					}
-					else {
-						//turn counterclockwise
-						currentAngle -= mTurnSpeed * elapsedSeconds;
-					}
+			mVelocity = unitVector(mVelocity) * mSpeed;
 
-				}
-
-				mVelocity.x = cosf(currentAngle);
-				mVelocity.y = sinf(currentAngle);
-				mVelocity *= mSpeed * elapsedSeconds;
-				setRotation(toDegree(currentAngle));
-			}//end if(current != desired)
-
-			move(mVelocity);
+			move(mVelocity * elapsedSeconds);
 		}
 	}//end if(active)
+}
+
+void FancyProjectile::setTarget(Pawn* newTarget) {
+	mTargetPosition = newTarget->getPosition();
+	mTarget = newTarget;
 }
