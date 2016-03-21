@@ -136,6 +136,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
+    <ClInclude Include="include\ArcProjectile.h" />
     <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />

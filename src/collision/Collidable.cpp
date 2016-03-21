@@ -82,7 +82,7 @@ namespace collision {
 		delete mMask;
 	}
 
-	void Collidable::updateCollidableMask(sf::Vector2f newPosition) {
+	void Collidable::updateCollidableMask(sf::Vector2f const& newPosition) {
 		mMask->setPosition(newPosition + mOffset);
 	}
 

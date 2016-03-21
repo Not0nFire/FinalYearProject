@@ -1,13 +1,14 @@
 #include <include/Projectile.h>
 
 Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture) :
-Actor(texture, new sf::CircleShape(10, 6), sf::Vector2f(0.0f, 0.0f)),
+Actor(texture, new sf::CircleShape(10, 5), sf::Vector2f(-5.0f, -5.0f)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false),
 mOnHit([](Projectile* p){ std::cout << "Projectile::mOnHit invoked, but no function set." << std::endl; })
 {
-	setOrigin(40.f, 2.f);
+	auto bounds = getLocalBounds();
+	setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
 }
 
 Projectile::~Projectile() {
@@ -34,7 +35,7 @@ void Projectile::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 	Pawn* pawn = dynamic_cast<Pawn*>(other);
 	if (pawn && pawn->getFaction() == Pawn::Faction::ENEMY) {
 		pawn->takeDamage(mDamage, mDamageType);
-		printf("Projectile Hit!\n");
+		printf("Projectile Hit! %p\n", other);
 		mActive = false;
 	}
 }

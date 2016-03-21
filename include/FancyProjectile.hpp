@@ -3,6 +3,7 @@
 
 #include "Projectile.h"
 #include <Thor/Particles.hpp>
+#include <Thor/Math.hpp>
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
@@ -42,12 +43,14 @@ public:
 
 	void setTarget(Pawn* newTarget);
 
+	void attachToParticleSystem(thor::ParticleSystem &system);
+
 private:
 	//!	Connection to a thor::ParticleSystem. Upon destruction, mEmitter will be disconnected.
-	//thor::ScopedConnection mConnection;
+	thor::ScopedConnection mConnection;
 
 	//! Emitter used to make particles.
-	//thor::UniversalEmitter mEmitter;
+	thor::UniversalEmitter mEmitter;
 
 	const float mSpeed;
 

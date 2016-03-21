@@ -24,7 +24,7 @@ namespace collision {
 		);
 	}//cullNullMembers()
 
-	bool CollisionGroup::checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) {
+	bool CollisionGroup::checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) const {
 		if (first == second) {
 			return false;	//don't check the same object against itself
 		}
@@ -42,7 +42,7 @@ namespace collision {
 		float overlap = FLT_MAX;
 		sf::Vector2f mtv;	//minimum translation vector
 
-		for (sf::Vector2f axis : axies)
+		for (sf::Vector2f& axis : axies)
 		{
 			//Project both shapes onto this axis
 			sf::Vector2f A = first->projectOntoAxis(axis);

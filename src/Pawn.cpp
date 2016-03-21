@@ -298,7 +298,7 @@ void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
 	Projectile* projectile = dynamic_cast<Projectile*>(other);
 	if (projectile) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
-		std::cout << "\nTower hit" << std::endl;
+		printf("Projectile hit me! %p\n", other);
 	} else {
 		Pawn* pawn = dynamic_cast<Pawn*>(other);
 		if (pawn)

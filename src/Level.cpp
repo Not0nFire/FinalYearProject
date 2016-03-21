@@ -17,7 +17,7 @@ relWindow(_relWindow),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),	//pass sfgui to HUD ctor and make HUD unique
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mHud(std::make_unique<HUD>(sfgui)),
-mProjectileManager(new ProjectileManager(mCollisionGroup)),
+mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(root->FirstChildElement("Path")),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
 mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
@@ -266,7 +266,7 @@ void Level::draw(sf::RenderWindow &w) {
 	allActors.sort(&compareDepth);
 
 	for (Actor* actor : allActors) {
-		//actor->debug_draw(w);
+		actor->debug_draw(w);
 		actor->draw(w);
 	}
 

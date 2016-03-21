@@ -41,7 +41,7 @@
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="5" type="Circle">
-        <Offset x="0" y="25"/>
+        <Offset x="0" y="20"/>
         <Radius>25.f</Radius>
       </Collidable>
     </Actor>

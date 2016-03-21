@@ -15,7 +15,7 @@ namespace collision {
 
 		//Checks first against second using SAT, setting minTranslation to be the seperating force and returning true if collision occurred.
 		//In the case that no collision occurrs, minTranslation is untouched.
-		bool checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation);
+		bool checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) const;
 
 	public:
 		CollisionGroup();

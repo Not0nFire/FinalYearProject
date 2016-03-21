@@ -60,7 +60,7 @@ bool BasicTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
-				auto projectile = std::make_unique<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+				auto projectile = std::make_unique<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/magic_projectile.png"));
 
 				projectile->setTarget(p);
 

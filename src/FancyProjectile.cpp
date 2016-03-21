@@ -7,6 +7,12 @@ mTurnSpeed(rand() % 40 + 80)
 {
 	auto bounds = getLocalBounds();
 	setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
+
+	mEmitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(0.1f), sf::seconds(1.f)));
+	mEmitter.setEmissionRate(50.f);
+	mEmitter.setParticleRotation(thor::Distributions::uniform(0.f, 360.f));
+	mEmitter.setParticleRotationSpeed(thor::Distributions::uniform(0.1f, 1.f));
+	mEmitter.setParticleVelocity(thor::Distributions::deflect(sf::Vector2f(10.f, 0.f), 360.f));
 }
 
 FancyProjectile::~FancyProjectile() {
@@ -38,10 +44,13 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 		using thor::dotProduct;
 		using thor::toRadian;
 
-		if (nullptr != mTarget && mTarget->isDead()) {
-			mTarget = nullptr;
-		} else {
-			mTargetPosition = mTarget->getPosition();
+		if (nullptr != mTarget){
+			if (mTarget->isDead()) {
+				mTarget = nullptr;
+			}
+			else {
+				mTargetPosition = mTarget->getMask()->getPosition();
+			}
 		}
 
 		auto displacement = mTargetPosition - getPosition();
@@ -49,9 +58,11 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 		auto elapsedSeconds = elapsedTime.asSeconds();
 		mTimeToLive -= elapsedSeconds;
 
-		if (distance < 10.f || mTimeToLive <= 0.f) {
+		if (distance < 5.f || mTimeToLive <= 0.f) {
+			if (mTimeToLive <= 0.f) {
+				mActive = false;
+			}
 			updateCollidableMask(getPosition());
-			mActive = false;
 			mOnHit(this);
 		}
 		else {
@@ -81,11 +92,19 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 			mVelocity = unitVector(mVelocity) * mSpeed;
 
 			move(mVelocity * elapsedSeconds);
+			mEmitter.setParticlePosition(getPosition());
 		}
+		
 	}//end if(active)
 }
 
 void FancyProjectile::setTarget(Pawn* newTarget) {
 	mTargetPosition = newTarget->getPosition();
 	mTarget = newTarget;
+}
+
+void FancyProjectile::attachToParticleSystem(thor::ParticleSystem& system) {
+	assert(!mConnection.isConnected());
+
+	mConnection = thor::ScopedConnection(system.addEmitter(thor::refEmitter(mEmitter)));
 }

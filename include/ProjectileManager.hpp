@@ -4,8 +4,10 @@
 #include <memory>
 #include <list>
 #include <SFML/Graphics.hpp>
+#include <Thor/Particles.hpp>
 
 class Projectile;
+class FancyProjectile;
 namespace collision { class CollisionGroup; }
 
 using std::unique_ptr;
@@ -20,8 +22,9 @@ public:
 	/*!
 	\brief Constructs an instance of ProjectileManager.
 	\param projectileCollisionGroup The collision group against which projectiles will be checked upon impact.
+	\param particleTexture Texture used by particles emiited from FancyProjectiles.
 	*/
-	ProjectileManager(std::shared_ptr<collision::CollisionGroup> projectileCollisionGroup);
+	ProjectileManager(std::shared_ptr<collision::CollisionGroup> projectileCollisionGroup, sf::Texture const& particleTexture);
 	~ProjectileManager();
 
 	/*!
@@ -47,5 +50,10 @@ private:
 
 	//! Group that projectiles will be checked against upon impact.
 	std::shared_ptr<collision::CollisionGroup> mCollisionGroup;
+
+	thor::ParticleSystem mParticleSystem;
 };
+#include "include/Projectile.h"
+#include "include/FancyProjectile.hpp"
+#include "include/Collision/CollisionGroup.hpp"
 #endif

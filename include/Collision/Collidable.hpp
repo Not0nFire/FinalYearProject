@@ -18,7 +18,7 @@ namespace collision {
 		Updates the position of the mask to equal newPosition plus the offset.
 		\param The new position of the mask, before offset is taken into account.
 		*/
-		void updateCollidableMask(sf::Vector2f newPosition);
+		void updateCollidableMask(sf::Vector2f const& newPosition);
 
 	public:
 		Collidable(sf::Shape* mask, sf::Vector2f offset);
