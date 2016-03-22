@@ -25,13 +25,13 @@
 class Level : public I_Scene{
 private:
 
-	Hero* mHero;
-	std::list<Pawn*> mPawns;
+	std::shared_ptr<Pawn> mHero;
+	std::list<std::shared_ptr<Pawn>> mPawns;
 	std::shared_ptr<collision::CollisionGroup> mCollisionGroup;
 	sf::RenderWindow const*const relWindow;	/*!< for getting mouse position */
 
 	//! List of ranged towers in the level
-	std::vector<tower::BasicTower*> mTowers;
+	std::vector<tower::Tower*> mTowers;
 
 	boost::mutex mMutex;
 
@@ -76,9 +76,6 @@ private:
 
 	//! Scene to go to if player completes this level.
 	const std::string mNextScene;
-
-	//! Tower that produces player-friendly Minions.
-	tower::UnitTower testUnitTower;
 
 	//! Flock of enemy minions.
 	std::shared_ptr<std::list<Minion*>> mMinionFlock;

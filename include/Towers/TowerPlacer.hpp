@@ -28,17 +28,16 @@ public:
 	/*!
 	\brief	Constructs an instance of TowerPlacer.
 	\param	terrainTree	Quadtree used to determine where is valid for tower placement.
-	\param	towerContainer	Container into which newly placed towers should be pushed.
 	\param	projectileMgr	Shared pointer to a ProjectileManager. Created towers will add their projectiles to this.
 	*/
-	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, std::shared_ptr<ProjectileManager> projectileMgr);
+	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::shared_ptr<ProjectileManager> projectileMgr);
 	virtual ~TowerPlacer();
 
 	/*!
 	\brief	If location is valid for tower placement,
 			puts a tower into the container.
 	*/
-	bool place();
+	tower::Tower* place();
 
 	/*!
 	\brief	Updates position to match mouse and calculates validity.
@@ -77,9 +76,6 @@ protected:
 	//! Shape used to test for validity with the terrain tree.
 	sf::Shape* mMask;
 
-	//! The (ptr to) container of tower pointers, into which we will put new towers.
-	std::vector<tower::BasicTower*> *mTowerContainer;
-
 	/*!
 	\brief Checks if the current location is valid for placement.
 	*/
@@ -93,6 +89,10 @@ protected:
 private:
 	static const sf::Color mValidColor;
 	static const sf::Color mInvalidColor;
+
+	static const std::string mArrowTowerDefPath;
+	static const std::string mMagicTowerDefPath;
+	static const std::string mUnitTowerDefPath;
 
 	std::shared_ptr<ProjectileManager> mProjectileManager;
 };

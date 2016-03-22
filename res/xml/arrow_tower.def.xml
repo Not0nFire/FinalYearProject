@@ -1,0 +1,21 @@
+<Tower>
+  <AttacksPerSecond>1.f</AttacksPerSecond>
+  <Cost>100</Cost>
+  <Range>200</Range>
+  <Damage>5</Damage>
+  <DamageType>PHYSICAL</DamageType>
+  <ProjectileSpawnOffset x="0" y="0"/>
+
+  <Actor>
+    <Texture>./res/img/tower_s.png</Texture>"
+    <Origin x="25.f" y="75.f"/>
+
+    <Collidable pointCount="4" type="Convex">
+      <Offset x="0" y="0"/>
+      <Point index="0" x="0" y="-25"/>
+      <Point index="1" x="-55" y="0"/>
+      <Point index="2" x="0" y="25"/>
+      <Point index="3" x="55" y="0"/>
+    </Collidable>
+  </Actor>
+</Tower>

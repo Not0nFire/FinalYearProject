@@ -3,7 +3,11 @@
 const sf::Color TowerPlacer::mValidColor = sf::Color::Green;
 const sf::Color TowerPlacer::mInvalidColor = sf::Color::Red;
 
-TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::vector<tower::BasicTower*> *towerContainer, std::shared_ptr<ProjectileManager> projectileMgr) :
+const std::string TowerPlacer::mArrowTowerDefPath = "./res/xml/arrow_tower.def.xml";
+const std::string TowerPlacer::mMagicTowerDefPath = "./res/xml/mage_tower.def.xml";
+const std::string TowerPlacer::mUnitTowerDefPath = "./res/xml/unit_tower.def.xml";
+
+TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::shared_ptr<ProjectileManager> projectileMgr) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
@@ -17,7 +21,6 @@ mMask([]()
 	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
 	return mask;
 }()),
-mTowerContainer(towerContainer),
 mProjectileManager(projectileMgr)
 {
 	mMask->setFillColor(sf::Color::Yellow);
@@ -34,47 +37,53 @@ TowerPlacer::~TowerPlacer() {
 	delete mMask;
 }
 
-bool TowerPlacer::place() {
-	bool placed = false;
+tower::Tower* TowerPlacer::place() {
+	tower::Tower* placed = nullptr;
 
 	//If tower placement is valid...
 	if (mIsActive && mIsValid) {
-		///...put a tower in the container
-		tower::BasicTower* newTower;
 
-		switch (mTowerType) {
+		tinyxml2::XMLDocument doc;
+		tinyxml2::XMLError result;
+		if (mTowerType == ARROW) {
 
-			case ARROW:
-				newTower = new tower::BasicTower(
-					ResourceManager<sf::Texture>::instance()->get("./res/img/tower_s.png"),
-					mMask->getPosition(), 300.0f, 1.0f, 10,
-					Damage::Type::PHYSICAL,
-					mProjectileManager
-					);
-				break;
+			result = doc.LoadFile(mArrowTowerDefPath.c_str());
+			if (result != tinyxml2::XML_NO_ERROR) {
+				throw result;
+			}
 
-			case MAGIC:
-				newTower = new tower::MageTower(
-					ResourceManager<sf::Texture>::instance()->get("./res/img/tower_m.png"),
-					mMask->getPosition(), 300.0f, 1.0f, 10,
-					mProjectileManager
-					);
-				break;
-			case UNIT:
-				//newTower = new tower::UnitTower(
-				//	ResourceManager<sf::Texture>::instance()->get("./res/img/tower_sb.png"),
-				//	mMask->getPosition(), 300.0f, 1.0f, 10,
-				//
-				//	);
-				break;
-			default:
-				std::cerr << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
-				break;
+			auto arrowTower = new tower::ProjectileTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			arrowTower->setProjectileManager(mProjectileManager);
+			placed = arrowTower;
 		}
 
-		mTowerContainer->push_back(newTower);
+		else if (mTowerType == MAGIC) {
 
-		placed = true;
+			result = doc.LoadFile(mMagicTowerDefPath.c_str());
+			if (result != tinyxml2::XML_NO_ERROR) {
+				throw result;
+			}
+			auto mageTower = new tower::MageTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			mageTower->setProjectileManager(mProjectileManager);
+			placed = mageTower;
+		}
+
+		else if (mTowerType == UNIT) {
+
+			result = doc.LoadFile(mArrowTowerDefPath.c_str());
+			if (result != tinyxml2::XML_NO_ERROR) {
+				throw result;
+			}
+
+			auto unitTower = new tower::UnitTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			//unitTower->setPath();
+			//unitTower->setSpawnCallback();
+			placed = unitTower;
+		}
+		else {
+			std::cerr << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
+		}
+
 		mIsActive = false;
 	}
 

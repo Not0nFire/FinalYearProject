@@ -25,7 +25,6 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-testUnitTower(GET_TEXTURE("./res/img/tower_sb.png"), sf::Vector2f(470, 180), mPath, "././res/xml/basic_ally.def", [this](Minion* m){mPawns.push_back(m); }),
 mMinionFlock(std::make_shared<std::list<Minion*>>())
 {
 	
@@ -80,61 +79,68 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		std::string type = enemyElement->Attribute("type");
 
 
-		Pawn * pawn;
+		std::shared_ptr<Pawn> pawn;
 		if (type == "hero")
 		{
 			pawn = factory.produce(type);
-			mHero = static_cast<Hero*>(pawn);
-			mHud->addHealthBarStatic(pawn, sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			mHero = pawn;
+			mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
 		}
 		else
 		{
 			pawn = factory.produce(type);
 			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
-			Minion* minion = static_cast<Minion*>(pawn);
+			Minion* minion = static_cast<Minion*>(pawn.get());
 			minion->setPath(mPath.begin());
 			minion->addToFlock(mMinionFlock);
 		}
 
 		pawn->setDestination(pos);
 		pawn->setPosition(pos);
-		mCollisionGroup->add(pawn);
+		mCollisionGroup->add(pawn.get());
 		mPawns.push_back(pawn);
 	}
 
-	for (Pawn* p : mPawns)
+	for (auto p : mPawns)
 	{
-		p->offerTarget(mHero);
+		p->offerTarget(mHero.get());
 	}
 
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, &mTowers, mProjectileManager);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager);
 
-	mCamera.setTarget(mHero);
+	mCamera.setTarget(mHero.get());
 
 	mUnderlayTex.create(imageSize.x, imageSize.y);
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
 }
 
 Level::~Level() {
-	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
+	for (auto itr = mTowers.begin(); itr != mTowers.end(); ++itr) {
 		delete *itr;
 	}
 }
 
 bool Level::handleEvent(sf::Event &event ) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
-
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
 
-		if (mTowerPlacer->place()) {
+		tower::Tower* tower = mTowerPlacer->place();
+		boost::lock_guard<boost::mutex> lock(mMutex);
+		if (nullptr != tower) {
 
-			*mMoney -= tower::BasicTower::getCost();
-			mCollisionGroup->add(*mTowers.rbegin());	//add the tower to collision group
+			if (*mMoney >= tower->getCost()) {
+				*mMoney -= tower->getCost();
+				mTowers.push_back(tower);
+				mCollisionGroup->add(tower);	//add the tower to collision group
+			} else {
+				std::cout << "Not enough money to place tower!" << std::endl;
+				//not enough money for tower
+				delete tower;
+			}
 			handled = true;
 
 		} else {
@@ -147,7 +153,7 @@ bool Level::handleEvent(sf::Event &event ) {
 		}
 
 	}
-	else if (*mMoney >= tower::BasicTower::getCost() && event.type == sf::Event::EventType::KeyPressed) {
+	else if (event.type == sf::Event::EventType::KeyPressed) {
 		switch (event.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
@@ -174,8 +180,9 @@ void Level::update(sf::Time const &elapsedTime) {
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns.begin();
-	while(itr != mPawns.end()) {
-		Pawn* p = *itr;
+	auto end = mPawns.end();
+	while (itr != end) {
+		auto p = *itr;
 		p->update(elapsedTime);
 
 		if (p != mHero && !p->isDead()) {
@@ -191,11 +198,12 @@ void Level::update(sf::Time const &elapsedTime) {
 				if (--(*mLivesRemaining) <= 0) {
 					mIsLost = true;
 				}
+
 			}//if out of bounds
 
 			else if (p->targetIsDead()) {
-				for (Pawn* other : mPawns) {
-					if (p->offerTarget(other)) {
+				for (auto other : mPawns) {
+					if (p->offerTarget(other.get())) {
 						break;
 					}//if
 				}//for
@@ -215,7 +223,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 				//award money for enemies that die
 				if(p->getFaction() != Pawn::Faction::PLAYER) {
-					*mMoney += static_cast<Minion*>(p)->getMonetaryValue();
+					*mMoney += static_cast<Minion*>(p.get())->getMonetaryValue();
 				}
 
 				itr = mPawns.erase(itr);
@@ -235,10 +243,8 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	for (auto tower : mTowers) {
 		tower->update(elapsedTime);
-		tower->acquireTarget(mPawns);
+		tower->shoot(mPawns);
 	}
-
-	testUnitTower.update(elapsedTime);
 
 	mProjectileManager->update(elapsedTime);
 
@@ -251,6 +257,14 @@ void Level::update(sf::Time const &elapsedTime) {
 	mHud->update(elapsedTime);
 
 	mTowerPlacer->update(sf::Mouse::getPosition(*relWindow) + sf::Vector2i(mCamera.getDisplacement()));
+
+	end = mPawns.end();
+	//Get rid of any dead pawns.
+	itr = remove_if(mPawns.begin(), end, bind(&Pawn::isDead, std::placeholders::_1));
+	if (itr != end) {
+		//erase dead pawns
+		mPawns.erase(itr, end);
+	}
 
 	//if (mIsLost)
 	//{
@@ -273,9 +287,12 @@ void Level::draw(sf::RenderWindow &w) {
 
 	//Perhaps this list should be a class member?
 	std::list<Actor*> allActors;
-	allActors.insert(allActors.end(), mPawns.begin(), mPawns.end());
-	allActors.insert(allActors.end(), mTowers.begin(), mTowers.end());
-	allActors.push_back(&testUnitTower);
+	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
+		allActors.push_back(itr->get());
+	}
+	for (auto itr = mTowers.begin(); itr != mTowers.end(); ++itr) {
+		allActors.push_back(*itr);
+	}
 	allActors.sort(&compareDepth);
 
 	for (Actor* actor : allActors) {
@@ -299,6 +316,7 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
+	boost::lock_guard<boost::mutex> lock(mMutex);
 	mHud->hide();
 	mBgMusic.stop();
 }

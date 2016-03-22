@@ -33,7 +33,7 @@ public:
 	void animate(sf::Time const &elapsedTime);
 	bool isPlayingAnimation() const;	//!< Returns true if an animation is currently playing.
 	std::string getPlayingAnimation() const;	//!< Gets the name of the playing animation. Undefined behaviour if no animation playing.
-	void playAnimation(std::string name, bool loop = false);	//!< Begins playing an animation by name.
+	void playAnimation(std::string const &name, bool loop = false);	//!< Begins playing an animation by name.
 
 	void setVisible(bool isVisible = true);
 	bool toggleVisible();

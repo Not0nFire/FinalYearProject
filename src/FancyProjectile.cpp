@@ -28,7 +28,7 @@ void FancyProjectile::fire(sf::Vector2f const& from, sf::Vector2f const& to, flo
 	mVelocity = direction * mSpeed;
 	setRotation(thor::toDegree(atan2f(direction.x, direction.y)));
 
-	mTimeToLive = 5.f;
+	mTimeToLive = flightTimeSeconds;
 	mActive = true;
 }
 

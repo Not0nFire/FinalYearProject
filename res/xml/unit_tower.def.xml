@@ -1,0 +1,19 @@
+<Tower>
+  <AttacksPerSecond>1.f</AttacksPerSecond>
+  <Cost>80</Cost>
+  <MaxUnits>3</MaxUnits>
+  <UnitDefinition path="./res/xml/basic_ally.def"/>
+
+  <Actor>
+    <Texture>./res/img/tower_sb.png</Texture>"
+    <Origin x="25.f" y="75.f"/>
+
+    <Collidable pointCount="4" type="Convex">
+      <Offset x="0" y="0"/>
+      <Point index="0" x="0" y="-25"/>
+      <Point index="1" x="-55" y="0"/>
+      <Point index="2" x="0" y="25"/>
+      <Point index="3" x="55" y="0"/>
+    </Collidable>
+  </Actor>
+</Tower>

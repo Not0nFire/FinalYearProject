@@ -2,19 +2,19 @@
 
 using namespace tower;
 
-MageTower::MageTower(sf::Texture& texture, sf::Vector2f const& position, float range, float attacksPerSecond, int damage, std::shared_ptr<ProjectileManager> projectileManager) :
-BasicTower(texture, position, range, attacksPerSecond, damage, Damage::Type::MAGICAL, projectileManager)
+MageTower::MageTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef) :
+ProjectileTower(position, xmlDef)
 {
 }
 
 MageTower::~MageTower() {
 }
 
-bool MageTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
+bool MageTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTargets) {
 	bool targetAqcuired = false;
 	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
 
-		for (Pawn* p : possibleTargets) {
+		for (auto p : possibleTargets) {
 
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
@@ -23,9 +23,9 @@ bool MageTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
 				auto projectile = std::make_unique<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/magic_projectile.png"));
 
 				//Fire the newly created projectile at the target.
-				projectile->fire(getPosition() + mProjectileSpawnOffset, p->getPosition(), 1.f);
+				projectile->fire(getPosition() + mProjectileSpawnOffset, p->getPosition(), 5.f);
 
-				projectile->setTarget(p);
+				projectile->setTarget(p.get());
 
 				//Give the projectile to the manager. We lost ownership of it.
 				mProjectileManager->give(std::move(projectile));
