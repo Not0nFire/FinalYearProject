@@ -96,7 +96,7 @@ namespace collision {
 		mOffset = offset;
 	}
 
-	void Collidable::onCollide(Collidable* other, sf::Vector2f const &mtv) {
+	void Collidable::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv) {
 		mMask->setFillColor(sf::Color::Red);
 	}
 

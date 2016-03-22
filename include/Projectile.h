@@ -22,9 +22,9 @@ public:
 
 	bool isActive() const;
 
-	void setOnHit(std::function<void(Projectile*)> onHit);
+	bool impactOccured() const;
 
-	virtual void onCollide(Collidable* other, sf::Vector2f const& mtv) override;
+	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) override;
 
 	int getDamage() const;
 
@@ -35,7 +35,7 @@ protected:
 	sf::Vector2f mVelocity;
 	float mTimeToLive;
 
-	std::function<void(Projectile*)> mOnHit;
+	bool mImpactOccurred;
 
 private:
 	const Damage::Type mDamageType;

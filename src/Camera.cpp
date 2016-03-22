@@ -9,22 +9,22 @@ mBoundingArea(boundingArea)
 	_ASSERT(screenSize.y < boundingArea.y);
 }
 
-Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, Actor * target) :
+Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
 View(sf::Vector2f(screenSize.x / 2, screenSize.y / 2), sf::Vector2f(screenSize)),
+mTarget(target),
 mScreenSize(screenSize),
-mBoundingArea(boundingArea),
-mTarget(target)
+mBoundingArea(boundingArea)
 {
 	_ASSERT(screenSize.x < boundingArea.x);
 	_ASSERT(screenSize.y < boundingArea.y);
 }
 
-void Camera::setTarget(Actor* target)
+void Camera::setTarget(std::shared_ptr<Actor> target)
 {
 	mTarget = target;
 }
 
-Actor * Camera::getTarget() const {
+std::shared_ptr<Actor> Camera::getTarget() const {
 	return mTarget;
 }
 

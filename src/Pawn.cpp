@@ -107,7 +107,7 @@ void Pawn::doAttack(float secondsElapsed) {
 		//Check if it's time to attack.
 		if (mTimeSinceAttack >= 1 / mAttacksPerSecond) {
 			//Deal damage to our target
-			mCombatTarget->takeDamage(mAttackDamage, mDamageType, this);
+			mCombatTarget->takeDamage(mAttackDamage, mDamageType);
 			mTimeSinceAttack = 0.0f;
 			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
@@ -211,7 +211,7 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 	return isDead;
 }
 
-bool Pawn::takeDamage(int amount, Damage::Type type, Pawn* sender) {
+bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const &sender) {
 	if (mCombatTarget == nullptr) {
 		mCombatTarget = sender;
 	} else if (thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
@@ -237,11 +237,11 @@ void Pawn::stun(sf::Time duration) {
 	mState = State::STUNNED;
 }
 
-void Pawn::beTaunted(Pawn* taunter) {
+void Pawn::beTaunted(std::shared_ptr<Pawn> const &taunter) {
 		mCombatTarget = taunter;
 }
 
-bool Pawn::offerTarget(Pawn* target) {
+bool Pawn::offerTarget(std::shared_ptr<Pawn> const &target) {
 	bool acceptedTarget = true;
 
 	if (target->getFaction() == this->getFaction()) {
@@ -253,7 +253,7 @@ bool Pawn::offerTarget(Pawn* target) {
 	else if (target->isDead()) {
 		acceptedTarget = false;
 	}
-	else if (target == this) {
+	else if (target.get() == this) {
 		//std::cout << "Offered self as target..." << std::endl;
 		acceptedTarget = false;
 	}
@@ -294,21 +294,18 @@ Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
 }
 
-void Pawn::onCollide(Collidable* other, sf::Vector2f const& mtv) {
-	Projectile* projectile = dynamic_cast<Projectile*>(other);
+void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {
+	auto projectile = std::dynamic_pointer_cast<Projectile, Collidable>(other);
 	if (projectile) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
-		printf("Projectile hit me! %p\n", other);
+		printf("Projectile hit me! %p\n", other.get());
 	} else {
-		Pawn* pawn = dynamic_cast<Pawn*>(other);
+		auto pawn = std::dynamic_pointer_cast<Pawn, Collidable>(other);
 		if (pawn)
 		{
-			move(mtv);
 			offerTarget(pawn);
 		}
-		else {
-			move(mtv);
-		}
+		move(mtv);
 	}
 }
 

@@ -31,7 +31,7 @@ private:
 	sf::RenderWindow const*const relWindow;	/*!< for getting mouse position */
 
 	//! List of ranged towers in the level
-	std::vector<tower::Tower*> mTowers;
+	std::vector<std::shared_ptr<tower::Tower>> mTowers;
 
 	boost::mutex mMutex;
 
@@ -81,7 +81,7 @@ private:
 	std::shared_ptr<std::list<Minion*>> mMinionFlock;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
-	static bool compareDepth(Actor* A, Actor* B);
+	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
 	
 public:
 	/*!

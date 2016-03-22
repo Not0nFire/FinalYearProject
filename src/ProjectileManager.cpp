@@ -11,18 +11,16 @@ ProjectileManager::~ProjectileManager() {
 	//empty dtor body
 }
 
-void ProjectileManager::give(unique_ptr<Projectile>&& projectilePtr) {
-	//Set the onHit function of the projectile to check against the collision group
-	projectilePtr->setOnHit(bind(&collision::CollisionGroup::checkAgainst, mCollisionGroup.get(), std::placeholders::_1));
+void ProjectileManager::give(std::shared_ptr<Projectile> const &projectilePtr) {
 
 	//If it's a fancy projectile, attach it to the particle system.
-	FancyProjectile* fancy = dynamic_cast<FancyProjectile*>(projectilePtr.get());
+	auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectilePtr);
 	if (fancy) {
 		fancy->attachToParticleSystem(mParticleSystem);
 	}
 
 	//Move projectile pointer into collection
-	mProjectiles.push_back(std::move(projectilePtr));
+	mProjectiles.push_back(projectilePtr);
 }
 
 void ProjectileManager::update(sf::Time const& elapsedTime) {
@@ -37,12 +35,16 @@ void ProjectileManager::update(sf::Time const& elapsedTime) {
 		if (projectile->isActive())
 		{
 			projectile->update(elapsedTime);
+			if (projectile->impactOccured()) {
+				auto collidable = std::static_pointer_cast<collision::Collidable, Projectile>(projectile);
+				mCollisionGroup->checkAgainst(collidable);
+			}
 			++itr;
 		}
 		else
 		{
 			//make an explosion when a magic projectile is erased
-			auto fancy = dynamic_cast<FancyProjectile*>(projectile.get());
+			auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectile);
 			if (nullptr != fancy) {
 				thor::UniversalEmitter emitter;
 				emitter.setEmissionRate(100.f);
@@ -65,7 +67,7 @@ void ProjectileManager::draw(sf::RenderTarget& w) {
 	w.draw(mParticleSystem);
 
 	//Draw all projectiles
-	for (unique_ptr<Projectile>& projectile : mProjectiles)
+	for (auto& projectile : mProjectiles)
 	{
 		projectile->draw(w);
 		projectile->debug_draw(w);

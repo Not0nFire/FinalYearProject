@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <include/TinyXML2/tinyxml2.h>
+#include <memory>
 
 namespace collision {
 
@@ -39,7 +40,7 @@ namespace collision {
 		/*!
 		\brief Called when we collide with something.
 		*/
-		virtual void onCollide(Collidable* other, sf::Vector2f const &mtv);
+		virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv);
 
 		/*void addOnCollide(void(*func)(Collidable*));
 		void removeOnCollide(void(*func)(Collidable*));

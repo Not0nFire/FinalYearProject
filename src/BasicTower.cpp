@@ -41,7 +41,7 @@ bool ProjectileTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTarg
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
-				auto projectile = std::make_unique<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+				auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
 
 				float ttl = distance / mRange;
 
@@ -49,7 +49,7 @@ bool ProjectileTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTarg
 				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p.get(), ttl), ttl);
 
 				//Give the projectile to the manager. We lost ownership of it.
-				mProjectileManager->give(std::move(projectile));
+				mProjectileManager->give(projectile);
 
 				mSecondsSinceLastAttack = 0.f;
 				targetAqcuired = true;

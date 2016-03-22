@@ -37,7 +37,7 @@ public:
 	\brief	If location is valid for tower placement,
 			puts a tower into the container.
 	*/
-	tower::Tower* place();
+	std::shared_ptr<tower::Tower> place();
 
 	/*!
 	\brief	Updates position to match mouse and calculates validity.

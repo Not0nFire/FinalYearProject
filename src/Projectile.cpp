@@ -5,7 +5,7 @@ Actor(texture, new sf::CircleShape(10, 5), sf::Vector2f(-5.0f, -5.0f)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false),
-mOnHit([](Projectile* p){ std::cout << "Projectile::mOnHit invoked, but no function set." << std::endl; })
+mImpactOccurred(false)
 {
 	auto bounds = getLocalBounds();
 	setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
@@ -19,8 +19,8 @@ bool Projectile::isActive() const {
 	return mActive;
 }
 
-void Projectile::setOnHit(std::function<void(Projectile*)> onHit) {
-	mOnHit = onHit;
+bool Projectile::impactOccured() const {
+	return mImpactOccurred;
 }
 
 int Projectile::getDamage() const {
@@ -31,11 +31,11 @@ Damage::Type Projectile::getDamageType() const {
 	return mDamageType;
 }
 
-void Projectile::onCollide(Collidable* other, sf::Vector2f const& mtv) {
-	Pawn* pawn = dynamic_cast<Pawn*>(other);
+void Projectile::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {
+	auto pawn = std::dynamic_pointer_cast<Pawn, Collidable>(other);
 	if (pawn && pawn->getFaction() == Pawn::Faction::ENEMY) {
 		pawn->takeDamage(mDamage, mDamageType);
-		printf("Projectile Hit! %p\n", other);
+		printf("Projectile Hit! %p\n", other.get());
 		mActive = false;
 	}
 }

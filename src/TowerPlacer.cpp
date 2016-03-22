@@ -37,8 +37,8 @@ TowerPlacer::~TowerPlacer() {
 	delete mMask;
 }
 
-tower::Tower* TowerPlacer::place() {
-	tower::Tower* placed = nullptr;
+std::shared_ptr<tower::Tower> TowerPlacer::place() {
+	std::shared_ptr<tower::Tower> placed = nullptr;
 
 	//If tower placement is valid...
 	if (mIsActive && mIsValid) {
@@ -52,7 +52,7 @@ tower::Tower* TowerPlacer::place() {
 				throw result;
 			}
 
-			auto arrowTower = new tower::ProjectileTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			auto arrowTower = std::make_shared<tower::ProjectileTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
 			arrowTower->setProjectileManager(mProjectileManager);
 			placed = arrowTower;
 		}
@@ -63,7 +63,7 @@ tower::Tower* TowerPlacer::place() {
 			if (result != tinyxml2::XML_NO_ERROR) {
 				throw result;
 			}
-			auto mageTower = new tower::MageTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			auto mageTower = std::make_shared<tower::MageTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
 			mageTower->setProjectileManager(mProjectileManager);
 			placed = mageTower;
 		}
@@ -75,7 +75,7 @@ tower::Tower* TowerPlacer::place() {
 				throw result;
 			}
 
-			auto unitTower = new tower::UnitTower(mMask->getPosition(), doc.FirstChildElement("Tower"));
+			auto unitTower = std::make_shared<tower::UnitTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
 			//unitTower->setPath();
 			//unitTower->setSpawnCallback();
 			placed = unitTower;

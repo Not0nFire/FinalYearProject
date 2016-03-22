@@ -6,7 +6,7 @@
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 #define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
-bool Level::compareDepth(Actor* A, Actor* B) {
+bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B) {
 	return A->getPosition().y < B->getPosition().y;
 }
 
@@ -90,20 +90,20 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		{
 			pawn = factory.produce(type);
 			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
-			Minion* minion = static_cast<Minion*>(pawn.get());
+			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
 			minion->setPath(mPath.begin());
 			minion->addToFlock(mMinionFlock);
 		}
 
 		pawn->setDestination(pos);
 		pawn->setPosition(pos);
-		mCollisionGroup->add(pawn.get());
+		mCollisionGroup->add(std::static_pointer_cast<collision::Collidable, Pawn>(pawn));
 		mPawns.push_back(pawn);
 	}
 
 	for (auto p : mPawns)
 	{
-		p->offerTarget(mHero.get());
+		p->offerTarget(mHero);
 	}
 
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
@@ -112,23 +112,20 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager);
 
-	mCamera.setTarget(mHero.get());
+	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
 	mUnderlayTex.create(imageSize.x, imageSize.y);
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
 }
 
 Level::~Level() {
-	for (auto itr = mTowers.begin(); itr != mTowers.end(); ++itr) {
-		delete *itr;
-	}
 }
 
 bool Level::handleEvent(sf::Event &event ) {
 	bool handled = false;
 	if (event.type == sf::Event::EventType::MouseButtonPressed) {
 
-		tower::Tower* tower = mTowerPlacer->place();
+		auto tower = mTowerPlacer->place();
 		boost::lock_guard<boost::mutex> lock(mMutex);
 		if (nullptr != tower) {
 
@@ -139,7 +136,6 @@ bool Level::handleEvent(sf::Event &event ) {
 			} else {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
-				delete tower;
 			}
 			handled = true;
 
@@ -192,8 +188,8 @@ void Level::update(sf::Time const &elapsedTime) {
 			//if out of bounds
 			if (!mBounds.contains(p->getPosition())) {
 
-				//TODO: delete/erase pawn
 				p->kill();
+				mCollisionGroup->remove(p);
 
 				if (--(*mLivesRemaining) <= 0) {
 					mIsLost = true;
@@ -203,7 +199,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 			else if (p->targetIsDead()) {
 				for (auto other : mPawns) {
-					if (p->offerTarget(other.get())) {
+					if (p->offerTarget(other)) {
 						break;
 					}//if
 				}//for
@@ -223,7 +219,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 				//award money for enemies that die
 				if(p->getFaction() != Pawn::Faction::PLAYER) {
-					*mMoney += static_cast<Minion*>(p.get())->getMonetaryValue();
+					*mMoney += std::static_pointer_cast<Minion, Pawn>(p)->getMonetaryValue();
 				}
 
 				itr = mPawns.erase(itr);
@@ -258,14 +254,6 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	mTowerPlacer->update(sf::Mouse::getPosition(*relWindow) + sf::Vector2i(mCamera.getDisplacement()));
 
-	end = mPawns.end();
-	//Get rid of any dead pawns.
-	itr = remove_if(mPawns.begin(), end, bind(&Pawn::isDead, std::placeholders::_1));
-	if (itr != end) {
-		//erase dead pawns
-		mPawns.erase(itr, end);
-	}
-
 	//if (mIsLost)
 	//{
 	//	onLose();
@@ -286,16 +274,16 @@ void Level::draw(sf::RenderWindow &w) {
 	w.draw(mUnderlaySpr);
 
 	//Perhaps this list should be a class member?
-	std::list<Actor*> allActors;
+	std::list<std::shared_ptr<Actor>> allActors;
 	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
-		allActors.push_back(itr->get());
+		allActors.push_back(std::static_pointer_cast<Actor, Pawn>(*itr));
 	}
 	for (auto itr = mTowers.begin(); itr != mTowers.end(); ++itr) {
-		allActors.push_back(*itr);
+		allActors.push_back(std::static_pointer_cast<Actor, tower::Tower>(*itr));
 	}
 	allActors.sort(&compareDepth);
 
-	for (Actor* actor : allActors) {
+	for (auto &actor : allActors) {
 		actor->debug_draw(w);
 		actor->draw(w);
 	}

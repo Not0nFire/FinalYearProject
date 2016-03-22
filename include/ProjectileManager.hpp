@@ -32,7 +32,7 @@ public:
 	\param projectilePtr Move referenced unique pointer to a projectile.
 	\remarks The manager gains ownership of the projectile.
 	*/
-	void give(unique_ptr<Projectile>&& projectilePtr);
+	void give(std::shared_ptr<Projectile> const &projectilePtr);
 
 	/*!
 	\brief Calls update on all managed projectiles.
@@ -46,7 +46,7 @@ public:
 
 private:
 	//! The collection of projectiles to be managed.
-	std::list<unique_ptr<Projectile>> mProjectiles;
+	std::list<std::shared_ptr<Projectile>> mProjectiles;
 
 	//! Group that projectiles will be checked against upon impact.
 	std::shared_ptr<collision::CollisionGroup> mCollisionGroup;
