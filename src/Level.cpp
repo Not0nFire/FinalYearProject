@@ -147,10 +147,23 @@ bool Level::handleEvent(sf::Event &event ) {
 		}
 
 	}
-	else if (*mMoney >= tower::BasicTower::getCost() && event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::T) {
-		mTowerPlacer->activate();
-		handled = true;
-
+	else if (*mMoney >= tower::BasicTower::getCost() && event.type == sf::Event::EventType::KeyPressed) {
+		switch (event.key.code) {
+		case sf::Keyboard::T:
+			mTowerPlacer->activate(TowerPlacer::ARROW);
+			handled = true;
+			break;
+		case sf::Keyboard::Y:
+			mTowerPlacer->activate(TowerPlacer::MAGIC);
+			handled = true;
+			break;
+		case sf::Keyboard::U:
+			mTowerPlacer->activate(TowerPlacer::UNIT);
+			handled = true;
+			break;
+		default:
+			break;
+		}
 	}
 
 	return handled;

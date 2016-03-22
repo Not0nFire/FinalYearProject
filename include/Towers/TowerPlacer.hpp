@@ -10,6 +10,8 @@
 #include <include/TerrainInterpreter.h>
 
 #include "BasicTower.h"
+#include "MageTower.hpp"
+#include "UnitTower.hpp"
 
 #include "include/ProjectileManager.hpp"
 
@@ -17,6 +19,12 @@ typedef Quadtree<unsigned char> TerrainTree;
 
 class TowerPlacer {
 public:
+	enum TowerType {
+		ARROW,
+		MAGIC,
+		UNIT
+	};
+
 	/*!
 	\brief	Constructs an instance of TowerPlacer.
 	\param	terrainTree	Quadtree used to determine where is valid for tower placement.
@@ -40,8 +48,9 @@ public:
 	/*!
 	\brief	Sets the TowerPlacer to be active.
 	Must be called before update, draw or place do anything.
+	\param type The type of tower to be placed.
 	*/
-	void activate();
+	void activate(TowerType type);
 
 	/*!
 	\brief	Draws the tower overlay to the render target.
@@ -50,6 +59,8 @@ public:
 	void draw(sf::RenderTarget &renderTarget) const;
 
 protected:
+	//! The type of tower that will be placed
+	TowerType mTowerType;
 
 	//! If this is false, calls to methods other than activate() will do nothing.
 	bool mIsActive;

@@ -40,12 +40,39 @@ bool TowerPlacer::place() {
 	//If tower placement is valid...
 	if (mIsActive && mIsValid) {
 		///...put a tower in the container
-		mTowerContainer->push_back(new tower::BasicTower(
-			ResourceManager<sf::Texture>::instance()->get("./res/img/tower_s.png"),
-			mMask->getPosition(), 300.0f, 1.0f, 10,
-			Damage::Type::PHYSICAL,
-			mProjectileManager
-			));
+		tower::BasicTower* newTower;
+
+		switch (mTowerType) {
+
+			case ARROW:
+				newTower = new tower::BasicTower(
+					ResourceManager<sf::Texture>::instance()->get("./res/img/tower_s.png"),
+					mMask->getPosition(), 300.0f, 1.0f, 10,
+					Damage::Type::PHYSICAL,
+					mProjectileManager
+					);
+				break;
+
+			case MAGIC:
+				newTower = new tower::MageTower(
+					ResourceManager<sf::Texture>::instance()->get("./res/img/tower_m.png"),
+					mMask->getPosition(), 300.0f, 1.0f, 10,
+					mProjectileManager
+					);
+				break;
+			case UNIT:
+				//newTower = new tower::UnitTower(
+				//	ResourceManager<sf::Texture>::instance()->get("./res/img/tower_sb.png"),
+				//	mMask->getPosition(), 300.0f, 1.0f, 10,
+				//
+				//	);
+				break;
+			default:
+				std::cerr << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
+				break;
+		}
+
+		mTowerContainer->push_back(newTower);
 
 		placed = true;
 		mIsActive = false;
@@ -63,8 +90,9 @@ void TowerPlacer::update(sf::Vector2i mousePosition) {
 	}
 }
 
-void TowerPlacer::activate() {
+void TowerPlacer::activate(TowerType type) {
 	mIsActive = true;
+	mTowerType = type;
 }
 
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {

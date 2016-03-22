@@ -11,7 +11,7 @@ mTurnSpeed(rand() % 40 + 80)
 	mEmitter.setParticleLifetime(thor::Distributions::uniform(sf::seconds(0.1f), sf::seconds(1.f)));
 	mEmitter.setEmissionRate(50.f);
 	mEmitter.setParticleRotation(thor::Distributions::uniform(0.f, 360.f));
-	mEmitter.setParticleRotationSpeed(thor::Distributions::uniform(0.1f, 1.f));
+	mEmitter.setParticleRotationSpeed(thor::Distributions::uniform(1.f, 10.f));
 	mEmitter.setParticleVelocity(thor::Distributions::deflect(sf::Vector2f(10.f, 0.f), 360.f));
 }
 

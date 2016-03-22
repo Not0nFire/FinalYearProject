@@ -3,13 +3,11 @@
 
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
-#include <include/ArcProjectile.h>
 #include <include/Pawn.hpp>
 #include <include/Collision/CollisionGroup.hpp>
-
+#include <include/ResourceManager.hpp>
 #include "include/ProjectileManager.hpp"
-
-#include "include/FancyProjectile.hpp"
+#include <include/ArcProjectile.h>
 
 namespace tower
 {
