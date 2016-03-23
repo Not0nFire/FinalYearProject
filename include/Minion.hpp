@@ -9,8 +9,7 @@
 */
 class Minion : public Pawn {
 private:
-	//Variable pointer to const object.
-	const Node* mPathNode;
+	std::weak_ptr<const Node> mPathNode;
 
 	//! Pointer to flock of Minions.
 	std::shared_ptr<std::list<Minion*>> mFlock;
@@ -32,9 +31,9 @@ public:
 
 	/*!
 	\brief Sets the path that the Minion will follow.
-	\param pathNode Variable pointer to const Node object.
+	\param pathNode First node in that path that we should follow.
 	*/
-	void setPath(const Node* pathNode);
+	void setPath(std::shared_ptr<const Node> &pathNode);
 
 	//! Adds ourself to the flock and stores a shared pointer to the flock.
 	void addToFlock(std::shared_ptr<std::list<Minion*>> flock);

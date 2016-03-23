@@ -16,7 +16,7 @@ void Renderer::startRenderLoop(const unsigned int framesPerSecond) {
 	//Calculate delay (in milliseconds) from frames per second
 	frameDelay = std::chrono::milliseconds(1000 / framesPerSecond);
 
-	mThread = thread( bind(&Renderer::render, this) );
+	mThread = std::thread( std::bind(&Renderer::render, this) );
 	//render();
 }
 
@@ -54,7 +54,7 @@ void Renderer::render() {
 	mWindow.close();
 }
 
-thread& Renderer::getThread() {
+std::thread& Renderer::getThread() {
 	return mThread;
 }
 
@@ -63,12 +63,12 @@ const sf::RenderWindow& Renderer::getWindow() const {
 }
 
 void Renderer::setScene(I_Scene* newScene) {
-	make_lock_guard<boost::mutex>(mMutex);
+	std::lock_guard<std::mutex> lock(mMutex);
 	mSceneToRender = newScene;
 }
 
 
 bool Renderer::pollEvent(sf::Event& event) {
-	make_lock_guard<boost::mutex>(mMutex);
+	std::lock_guard<std::mutex> lock(mMutex);
 	return mWindow.pollEvent(event);
 }

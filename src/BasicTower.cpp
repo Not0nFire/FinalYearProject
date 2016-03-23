@@ -1,82 +1,76 @@
 #include <include/Towers/BasicTower.h>
-#include <include/ResourceManager.hpp>
 
 using namespace tower;
 
-const int BasicTower::mCost = 100;
 
-BasicTower::BasicTower(sf::Texture &texture, sf::Vector2f position, float range, float attacksPerSecond, int damage, Damage::Type damageType, collision::CollisionGroup* projectileCollisionGroup) :
-Actor(texture,
-
-//define points of shape (there HAS to be a better way!)
-[]()
+ProjectileTower::ProjectileTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef) :
+Tower(position, xmlDef)
 {
-	sf::ConvexShape* mask = new sf::ConvexShape(4u);
-	mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
-	mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
-	mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
-	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
-	return mask;
-}(),
-
-sf::Vector2f(0.0f, 3.0f)),
-mRange(range),
-mAttacksPerSecond(attacksPerSecond),
-mDamage(damage),
-mDamageType(damageType),
-mProjectile(mDamage,
-			mDamageType,
-			ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png")
-),
-mProjectileSpawnOffset(0.f, -80.f)
-{
-	auto bounds = getLocalBounds();
-	setOrigin(bounds.width * .5f, bounds.height * 0.85f);
-	setPosition(position);
+	mRange = atof(xmlDef->FirstChildElement("Range")->GetText());
+	mDamage = atof(xmlDef->FirstChildElement("Damage")->GetText());
 	
-	updateCollidableMask(getPosition());
+	std::string damageTypeStr = xmlDef->FirstChildElement("DamageType")->GetText();
 
-	printf("tower: %f, %f. mask: %f, %f.", getPosition().x, getPosition().y, getMask()->getPosition().x, getMask()->getPosition().y);
-
-	//Tell the projectile to check for collision when it hits
-	mProjectile.connectOnHit(bind(&collision::CollisionGroup::checkAgainst, projectileCollisionGroup, _1));
-}
-
-BasicTower::~BasicTower() {}
-
-void BasicTower::update(sf::Time const& elapsedTime) {
-	mProjectile.update(elapsedTime);
-}
-
-void BasicTower::draw(sf::RenderTarget& target) {
-	target.draw(*this);
-	if (mProjectile.isActive()) {
-		target.draw(mProjectile);
-		mProjectile.debug_draw(target);
+	if (damageTypeStr == "PHYSICAL") {
+		mDamageType = Damage::Type::PHYSICAL;
+	} else if (damageTypeStr == "MAGICAL") {
+		mDamageType = Damage::Type::MAGICAL;
+	} else {
+		throw "Invalid DamageType in tower definition";
 	}
+
+	auto spawnOffset = xmlDef->FirstChildElement("ProjectileSpawnOffset");
+	mProjectileSpawnOffset = sf::Vector2f(
+		atof(spawnOffset->Attribute("x")),
+		atof(spawnOffset->Attribute("y"))
+	);
 }
 
-bool BasicTower::acquireTarget(std::list<Pawn*> const& possibleTargets) {
+ProjectileTower::~ProjectileTower() {
+	//empty dtor body
+}
+
+bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& possibleTargets) {
 	bool targetAqcuired = false;
-	if (!mProjectile.isActive()) {
-		for (Pawn* p : possibleTargets) {
-			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
-				mProjectile.fire(getPosition() + mProjectileSpawnOffset, leadTarget(p, 2.f), 2.f);
+	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
+
+		for (auto &p : *possibleTargets) {
+
+			float distance = thor::length(p->getPosition() - this->getPosition());
+
+			//If p is not dead, and p is in range, and p is an enemy
+			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
+
+				auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+
+				float ttl = distance / mRange;
+
+				//Fire the newly created projectile at the target.
+				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p.get(), ttl), ttl);
+
+				//Give the projectile to the manager. We lost ownership of it.
+				mProjectileManager->give(projectile);
+
+				mSecondsSinceLastAttack = 0.f;
 				targetAqcuired = true;
 				break;
+
 			}//if (range)
+
 		}//(pawn*)
-	}//if (active)
+
+	}
 
 	return targetAqcuired;
 }
 
-int BasicTower::getCost() {
-	return mCost;
+void ProjectileTower::setProjectileManager(std::shared_ptr<ProjectileManager> projectileMgr) {
+	mProjectileManager = projectileMgr;
 }
 
-sf::Vector2f BasicTower::leadTarget(Pawn* target, float time) const {
-	sf::Vector2f prediction = target->getPosition();
+sf::Vector2f ProjectileTower::leadTarget(Pawn* target, float time) const {
+	auto bounds = target->getGlobalBounds();
+	sf::Vector2f prediction = target->getPosition() + sf::Vector2f(0.f, bounds.height * 0.5f);
 
 	//only lead if target is moving
 	if (target->getState() == Pawn::MARCHING) {

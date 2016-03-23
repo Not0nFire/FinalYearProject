@@ -4,6 +4,7 @@
 #include <include/TinyXML2/tinyxml2.h>
 
 #include "Node.hpp"
+#include <memory>
 
 /*!
 \brief A one-way path of nodes.
@@ -17,17 +18,17 @@ public:
 	/*!
 	Constructs a path from xml.
 	*/
-	explicit Path(const tinyxml2::XMLElement* const xml);
+	explicit Path(tinyxml2::XMLElement* xml);
 
 	~Path();
 
 	//! Returns the next node in the path after current.
-	static Node* getNext(Node* current);
+	static std::shared_ptr<Node> getNext(std::shared_ptr<Node> current);
 
 	//! Returns the starting node of the path.
-	Node* begin() const;
+	std::shared_ptr<Node> begin() const;
 
 private:
-	Node* mRoot;
+	std::shared_ptr<Node> mRoot;
 };
 #endif

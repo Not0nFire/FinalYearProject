@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <include/TinyXML2/tinyxml2.h>
+#include <memory>
 
 namespace collision {
 
@@ -18,10 +19,11 @@ namespace collision {
 		Updates the position of the mask to equal newPosition plus the offset.
 		\param The new position of the mask, before offset is taken into account.
 		*/
-		void updateCollidableMask(sf::Vector2f newPosition);
+		void updateCollidableMask(sf::Vector2f const& newPosition);
 
 	public:
 		Collidable(sf::Shape* mask, sf::Vector2f offset);
+		Collidable(Collidable const& other);
 		/*!
 		\brief Constructs a Collidable from an xml tag.
 		Tag requires pointCoint and type attributes in addition to child tags depending on type specified.
@@ -38,7 +40,7 @@ namespace collision {
 		/*!
 		\brief Called when we collide with something.
 		*/
-		virtual void onCollide(Collidable* other, sf::Vector2f const &mtv);
+		virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv);
 
 		/*void addOnCollide(void(*func)(Collidable*));
 		void removeOnCollide(void(*func)(Collidable*));

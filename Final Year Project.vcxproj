@@ -75,7 +75,7 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -107,15 +107,18 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\Actor.cpp" />
+    <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
     <ClCompile Include="src\Damage.cpp" />
+    <ClCompile Include="src\FancyProjectile.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\HUD.cpp" />
     <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\MageTower.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
@@ -123,9 +126,11 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Pathing\Path.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\ProjectileManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
+    <ClCompile Include="src\Tower.cpp" />
     <ClCompile Include="src\TowerPlacer.cpp" />
     <ClCompile Include="src\UnitFactory.cpp" />
     <ClCompile Include="src\UnitTower.cpp" />
@@ -133,6 +138,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
+    <ClInclude Include="include\ArcProjectile.h" />
     <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />
@@ -149,11 +155,13 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />
+    <ClInclude Include="include\FancyProjectile.hpp" />
     <ClInclude Include="include\Pathing\Node.hpp" />
     <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
     <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\ProjectileManager.hpp" />
     <ClInclude Include="include\Quadtree.hpp" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\Renderer.hpp" />
@@ -166,6 +174,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
+    <ClInclude Include="include\Towers\MageTower.hpp" />
+    <ClInclude Include="include\Towers\Tower.h" />
     <ClInclude Include="include\Towers\TowerPlacer.hpp" />
     <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />

@@ -9,7 +9,12 @@ mMonetaryValue(atoi(xml->FirstChildElement("MoneyValue")->GetText()))
 
 Minion::~Minion() {
 	//remove ourselves from the flock
-	mFlock->erase(std::find(mFlock->begin(), mFlock->end(), this));
+	if (mFlock) {
+		auto itr = find(mFlock->begin(), mFlock->end(), this);
+		if (itr != mFlock->end()) {
+			mFlock->erase(itr);
+		}
+	}
 }
 
 sf::Vector2f Minion::separation() const {
@@ -91,7 +96,7 @@ void Minion::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed)
 	Pawn::doMarch(steer, secondsElapsed);
 }
 
-void Minion::setPath(const Node* pathNode) {
+void Minion::setPath(std::shared_ptr<const Node> &pathNode) {
 	mPathNode = pathNode;
 }
 
@@ -103,13 +108,13 @@ void Minion::addToFlock(std::shared_ptr<std::list<Minion*>> flock) {
 void Minion::update(sf::Time const& elapsedTime) {
 
 	//Travel along path.
-	if (mPathNode) {
+	if (auto node = mPathNode.lock()) {
 		if (thor::length(getDestination() - getPosition()) <= 20.f) {
-			Node * nextNode = mPathNode->getNext();
+			auto nextNode = node->getNext();
 			if (nextNode) {
 				mPathNode = nextNode;
+				setDestination(nextNode->getPoint());
 			}
-			setDestination(mPathNode->getPoint());
 		}
 	}
 
