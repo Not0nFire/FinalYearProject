@@ -35,6 +35,7 @@ void ArcProjectile::update(sf::Time const& elapsedTime) {
 		if (mTimeToLive <= 0) {
 			updateCollidableMask(getPosition());
 			mImpactOccurred = true;
+			mActive = false;
 		}
 	}//if (mActive)
 }
