@@ -8,6 +8,7 @@
 #include <include/LevelSelect.hpp>
 #include <include/SceneManager.hpp>
 #include <include/TinyXML2/tinyxml2.h>
+#include "PlayerProfile.hpp"
 
 using namespace boost;
 using namespace signals2;
@@ -30,6 +31,8 @@ private:
 	Level *mLevelOne, *mLevelTwo;
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
+
+	std::unique_ptr<PlayerProfile> mPlayerProfile;
 
 public:
 	/*!

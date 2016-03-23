@@ -126,6 +126,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Pathing\Node.cpp" />
     <ClCompile Include="src\Pathing\Path.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
+    <ClCompile Include="src\PlayerProfile.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
@@ -161,6 +162,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
+    <ClInclude Include="include\PlayerProfile.hpp" />
+    <ClInclude Include="include\ProfileSelectScene.hpp" />
     <ClInclude Include="include\Projectile.h" />
     <ClInclude Include="include\Quadtree.hpp" />
     <ClInclude Include="include\Renderer.h" />

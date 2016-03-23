@@ -18,7 +18,7 @@ Game::Game() :
 
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 
-	
+	mPlayerProfile = std::make_unique<PlayerProfile>("res/saves/profile.sav");
 }
 
 Game::~Game() {
