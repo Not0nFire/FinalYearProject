@@ -17,7 +17,7 @@ namespace tower
 
 		virtual void update(sf::Time const &elapsedTime);
 
-		virtual bool shoot(std::list<std::shared_ptr<Pawn>> const &targetList) = 0;
+		virtual bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const &targetList) = 0;
 
 		virtual int getCost() const;
 	protected:

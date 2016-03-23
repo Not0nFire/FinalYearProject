@@ -30,11 +30,11 @@ ProjectileTower::~ProjectileTower() {
 	//empty dtor body
 }
 
-bool ProjectileTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTargets) {
+bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& possibleTargets) {
 	bool targetAqcuired = false;
 	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
 
-		for (auto p : possibleTargets) {
+		for (auto &p : *possibleTargets) {
 
 			float distance = thor::length(p->getPosition() - this->getPosition());
 

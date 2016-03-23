@@ -41,7 +41,7 @@ public:
 	*/
 	void update(sf::Time const& elapsedTime) override;
 
-	void setTarget(Pawn* newTarget);
+	void setTarget(std::shared_ptr<Pawn> const &newTarget);
 
 	void attachToParticleSystem(thor::ParticleSystem &system);
 
@@ -57,7 +57,7 @@ private:
 	//! How much the projectile can turn (in radians) each update.
 	const float mTurnSpeed;
 
-	Pawn* mTarget;
+	std::shared_ptr<Pawn> mTarget;
 	sf::Vector2f mTargetPosition;
 };
 #endif

@@ -1,8 +1,8 @@
 <Tower>
-  <AttacksPerSecond>1.f</AttacksPerSecond>
+  <AttacksPerSecond>0.25f</AttacksPerSecond>
   <Cost>80</Cost>
   <MaxUnits>3</MaxUnits>
-  <UnitDefinition path="./res/xml/basic_ally.def"/>
+  <UnitDefinition path="././res/xml/basic_ally.def"/>
 
   <Actor>
     <Texture>./res/img/tower_sb.png</Texture>"

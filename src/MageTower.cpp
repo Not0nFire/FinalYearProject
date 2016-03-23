@@ -10,11 +10,11 @@ ProjectileTower(position, xmlDef)
 MageTower::~MageTower() {
 }
 
-bool MageTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTargets) {
+bool MageTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& possibleTargets) {
 	bool targetAqcuired = false;
 	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
 
-		for (auto p : possibleTargets) {
+		for (auto &p : *possibleTargets) {
 
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && thor::length(p->getPosition() - this->getPosition()) <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
@@ -25,7 +25,7 @@ bool MageTower::shoot(std::list<std::shared_ptr<Pawn>> const& possibleTargets) {
 				//Fire the newly created projectile at the target.
 				projectile->fire(getPosition() + mProjectileSpawnOffset, p->getPosition(), 5.f);
 
-				projectile->setTarget(p.get());
+				projectile->setTarget(p);
 
 				//Give the projectile to the manager. We lost ownership of it.
 				mProjectileManager->give(projectile);

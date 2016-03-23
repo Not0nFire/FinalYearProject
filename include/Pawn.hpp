@@ -8,8 +8,6 @@
 #include <include/Projectile.h>
 #include <SFML/Audio.hpp>
 
-using namespace boost::signals2;
-
 /*!
 \brief Base class for all units in the game. If it walks and attacks, it's a Pawn.
 Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0.

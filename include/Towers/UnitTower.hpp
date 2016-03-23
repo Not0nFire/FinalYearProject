@@ -27,29 +27,29 @@ namespace tower {
 		*/
 		void update(sf::Time const &elapsedTime) override;
 
-		bool shoot(std::list<std::shared_ptr<Pawn>> const& targetList) override;
+		bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& targetList) override;
 
-		void setPath(Path const& path);
-
-		void setSpawnCallback(std::function<void(Minion*)> const &callback);
+		void setPath(std::shared_ptr<Path> const &path);
+		void setFlock(std::shared_ptr<std::list<Minion*>> const &flock);
 
 	protected:
 		//! Path to xml file containing Minion definition.
 		std::string mUnitDefPath;
 
-		//! Function to be called when a unit is spawned. Used for adding units to list in Level.
-		std::function<void(Minion*)> mSpawnCallback;
+		std::shared_ptr<std::list<std::shared_ptr<Pawn>>> mUnitList;
 
-		std::vector<Minion*> mSpawnedUnits;
+		std::vector<std::shared_ptr<Pawn>> mSpawnedUnits;
 
 		/*!
 		\brief Creates a new Minion from xml definition.
-		\returns A pointer to a newly created Minion.
+		\returns A shared pointer to a newly created Minion, casted up to Pawn.
 		*/
-		virtual Minion* spawnUnit();
+		virtual std::shared_ptr<Pawn> spawnUnit();
 
 		//! Pointer to nearest path node. This is where spawned units are sent.
-		Node* mNearestPathNode;
+		std::weak_ptr<Node> mNearestPathNode;
+
+		std::weak_ptr<std::list<Minion*>> mFlock;
 	};
 }
 #endif

@@ -10,8 +10,6 @@ class Projectile;
 class FancyProjectile;
 namespace collision { class CollisionGroup; }
 
-using std::unique_ptr;
-
 /*!
 \class ProjectileManager
 \brief Updates a collection of projectiles.

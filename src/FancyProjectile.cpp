@@ -98,7 +98,7 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 	}//end if(active)
 }
 
-void FancyProjectile::setTarget(Pawn* newTarget) {
+void FancyProjectile::setTarget(std::shared_ptr<Pawn> const &newTarget) {
 	mTargetPosition = newTarget->getPosition();
 	mTarget = newTarget;
 }

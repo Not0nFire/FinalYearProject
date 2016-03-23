@@ -17,6 +17,8 @@
 
 typedef Quadtree<unsigned char> TerrainTree;
 
+using std::shared_ptr;
+
 class TowerPlacer {
 public:
 	enum TowerType {
@@ -29,15 +31,17 @@ public:
 	\brief	Constructs an instance of TowerPlacer.
 	\param	terrainTree	Quadtree used to determine where is valid for tower placement.
 	\param	projectileMgr	Shared pointer to a ProjectileManager. Created towers will add their projectiles to this.
+	\param	path Path onto which UnitTowers will send their spawned units.
+	\param	flock Flock into which UnitTowers will add their spawned units.
 	*/
-	TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::shared_ptr<ProjectileManager> projectileMgr);
+	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock);
 	virtual ~TowerPlacer();
 
 	/*!
 	\brief	If location is valid for tower placement,
 			puts a tower into the container.
 	*/
-	std::shared_ptr<tower::Tower> place();
+	shared_ptr<tower::Tower> place();
 
 	/*!
 	\brief	Updates position to match mouse and calculates validity.
@@ -68,7 +72,7 @@ protected:
 	bool mIsValid;
 
 	//! The Quadtree<unsigned char> that will be used to check points against terrain for validity.
-	std::shared_ptr<TerrainTree> mTerrainTree;
+	shared_ptr<TerrainTree> mTerrainTree;
 
 	//! A ghost tower that show where the tower would be placed and colored to show validity.
 	sf::Sprite mOverlay;
@@ -94,6 +98,8 @@ private:
 	static const std::string mMagicTowerDefPath;
 	static const std::string mUnitTowerDefPath;
 
-	std::shared_ptr<ProjectileManager> mProjectileManager;
+	shared_ptr<ProjectileManager> mProjectileManager;
+	shared_ptr<Path> mPath;
+	shared_ptr<std::list<Minion*>> mFlock;
 };
 #endif

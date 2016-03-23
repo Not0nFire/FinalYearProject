@@ -16,7 +16,7 @@ namespace tower {
 		MageTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef);
 		virtual ~MageTower();
 
-		bool shoot(std::list<std::shared_ptr<Pawn>> const& possibleTargets) override;
+		bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& possibleTargets) override;
 	protected:
 
 	};

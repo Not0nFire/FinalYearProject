@@ -30,7 +30,7 @@ namespace tower
 		\brief Tries to fire at the members of possibleTargets.
 		\returns True if a target was chosen and fired upon.
 		*/
-		virtual bool shoot(std::list<std::shared_ptr<Pawn>> const &possibleTargets) override;
+		virtual bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const &possibleTargets) override;
 
 		void setProjectileManager(std::shared_ptr<ProjectileManager> projectileMgr);
 		

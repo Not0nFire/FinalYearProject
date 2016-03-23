@@ -7,21 +7,22 @@ const std::string TowerPlacer::mArrowTowerDefPath = "./res/xml/arrow_tower.def.x
 const std::string TowerPlacer::mMagicTowerDefPath = "./res/xml/mage_tower.def.xml";
 const std::string TowerPlacer::mUnitTowerDefPath = "./res/xml/unit_tower.def.xml";
 
-TowerPlacer::TowerPlacer(std::shared_ptr<TerrainTree> terrainTree, std::shared_ptr<ProjectileManager> projectileMgr) :
+TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
 mOverlay(ResourceManager<sf::Texture>::instance()->get("./res/img/tower_ghost_s.png")),
 mMask([]()
-{
-	sf::ConvexShape* mask = new sf::ConvexShape(4u);
-	mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
-	mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
-	mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
-	mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
-	return mask;
-}()),
-mProjectileManager(projectileMgr)
+      {
+	      sf::ConvexShape* mask = new sf::ConvexShape(4u);
+	      mask->setPoint(0u, sf::Vector2f(0.f, -25.f));
+	      mask->setPoint(1u, sf::Vector2f(-55.f, 0.f));
+	      mask->setPoint(2u, sf::Vector2f(0.f, 25.f));
+	      mask->setPoint(3u, sf::Vector2f(55.f, 0.f));
+	      return mask;
+      }()),
+mProjectileManager(projectileMgr),
+mPath(path)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
@@ -37,8 +38,8 @@ TowerPlacer::~TowerPlacer() {
 	delete mMask;
 }
 
-std::shared_ptr<tower::Tower> TowerPlacer::place() {
-	std::shared_ptr<tower::Tower> placed = nullptr;
+shared_ptr<tower::Tower> TowerPlacer::place() {
+	shared_ptr<tower::Tower> placed = nullptr;
 
 	//If tower placement is valid...
 	if (mIsActive && mIsValid) {
@@ -70,14 +71,13 @@ std::shared_ptr<tower::Tower> TowerPlacer::place() {
 
 		else if (mTowerType == UNIT) {
 
-			result = doc.LoadFile(mArrowTowerDefPath.c_str());
+			result = doc.LoadFile(mUnitTowerDefPath.c_str());
 			if (result != tinyxml2::XML_NO_ERROR) {
 				throw result;
 			}
 
 			auto unitTower = std::make_shared<tower::UnitTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
-			//unitTower->setPath();
-			//unitTower->setSpawnCallback();
+			unitTower->setPath(mPath);
 			placed = unitTower;
 		}
 		else {

@@ -12,13 +12,14 @@ bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor>
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
+mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
-relWindow(_relWindow),
-mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),	//pass sfgui to HUD ctor and make HUD unique
+relWindow(_relWindow),	//pass sfgui to HUD ctor and make HUD unique
+mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
 mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
 mHud(std::make_unique<HUD>(sfgui)),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
-mPath(root->FirstChildElement("Path")),
+mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
 mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
 mIsLost(false),
@@ -29,7 +30,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
-	mBgMusic.setVolume(atoi(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music> as an integer
+	mBgMusic.setVolume(atof(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music>
 	mBgMusic.setLoop(true);
 
 	//instantiate the interpreter with the image path from the xml node
@@ -91,17 +92,18 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 			pawn = factory.produce(type);
 			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
-			minion->setPath(mPath.begin());
+			auto constNode = std::const_pointer_cast<const Node>(mPath->begin());
+			minion->setPath(constNode);
 			minion->addToFlock(mMinionFlock);
 		}
 
 		pawn->setDestination(pos);
 		pawn->setPosition(pos);
 		mCollisionGroup->add(std::static_pointer_cast<collision::Collidable, Pawn>(pawn));
-		mPawns.push_back(pawn);
+		mPawns->push_back(pawn);
 	}
 
-	for (auto p : mPawns)
+	for (auto& p : *mPawns)
 	{
 		p->offerTarget(mHero);
 	}
@@ -110,7 +112,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
@@ -175,8 +177,8 @@ void Level::update(sf::Time const &elapsedTime) {
 	boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allEnemiesDead = true;
 
-	auto itr = mPawns.begin();
-	auto end = mPawns.end();
+	auto itr = mPawns->begin();
+	auto end = mPawns->end();
 	while (itr != end) {
 		auto p = *itr;
 		p->update(elapsedTime);
@@ -198,7 +200,7 @@ void Level::update(sf::Time const &elapsedTime) {
 			}//if out of bounds
 
 			else if (p->targetIsDead()) {
-				for (auto other : mPawns) {
+				for (auto &other : *mPawns) {
 					if (p->offerTarget(other)) {
 						break;
 					}//if
@@ -222,7 +224,7 @@ void Level::update(sf::Time const &elapsedTime) {
 					*mMoney += std::static_pointer_cast<Minion, Pawn>(p)->getMonetaryValue();
 				}
 
-				itr = mPawns.erase(itr);
+				itr = mPawns->erase(itr);
 			}
 			else
 			{
@@ -274,8 +276,8 @@ void Level::draw(sf::RenderWindow &w) {
 	w.draw(mUnderlaySpr);
 
 	//Perhaps this list should be a class member?
-	std::list<std::shared_ptr<Actor>> allActors;
-	for (auto itr = mPawns.begin(); itr != mPawns.end(); ++itr) {
+	std::list<shared_ptr<Actor>> allActors;
+	for (auto itr = mPawns->begin(); itr != mPawns->end(); ++itr) {
 		allActors.push_back(std::static_pointer_cast<Actor, Pawn>(*itr));
 	}
 	for (auto itr = mTowers.begin(); itr != mTowers.end(); ++itr) {

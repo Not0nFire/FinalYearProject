@@ -8,7 +8,6 @@ mRadius(radius)
 }
 
 Node::~Node() {
-	delete mNext;
 }
 
 sf::Vector2f Node::getCentre() const {
@@ -24,11 +23,11 @@ sf::Vector2f Node::getPoint() const {
 	return sf::Vector2f(x, y);
 }
 
-Node* Node::getNext() const {
+std::shared_ptr<Node> Node::getNext() const {
 	return mNext;
 }
 
-Node* Node::append(Node* newNode) {
+std::shared_ptr<Node> Node::append(std::shared_ptr<Node> newNode) {
 
 	if (mNext) {
 		mNext->append(newNode);
