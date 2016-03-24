@@ -21,13 +21,26 @@ public:
 
 	/*!
 	\brief Find out if the player has unlocked a level.
-	\param levelPath Path to level xml definition.
+	\param levelPath Path to level xml definition. (Not opened, just used as a key)
 	\returns True if the player has unlocked the level, false otherwise.
 	*/
 	bool hasUnlockedLevel(std::string const &levelPath);
 
+	/*!
+	\brief Unlocks a level for this profile.
+	\param levelPath Path to level xml definition. (Not opened, just used as a key)
+	*/
+	void unlockLevel(std::string const &levelPath);
+
 	//! Returns the name of the player.
 	std::string const& getName() const;
+
+	/*!
+	\brief Saves the profile to its file.
+	\returns True if saving was successful.
+	*/
+	bool save() const;
+
 private:
 	//! Every level path contained in the set is considered unlocked for this profile.
 	std::set<std::string> mUnlockedLevelPaths;
@@ -35,10 +48,14 @@ private:
 	//! Name of the player.
 	std::string mName;
 
+	const std::string mPath;
+
 	/*!
 	\brief Creates a new profile file with the first level unlocked.
 	zparam path Path to where the file should be created, including file name and extension.
 	*/
 	static void createProfileFile(std::string const& path);
+
+	static void printError(std::string const &preMsg, errno_t error);
 };
 #endif

@@ -19,6 +19,12 @@ Game::Game() :
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 
 	mPlayerProfile = std::make_unique<PlayerProfile>("res/saves/profile.sav");
+
+	mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
+
+	_ASSERT(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
+
+	mPlayerProfile->save();
 }
 
 Game::~Game() {
