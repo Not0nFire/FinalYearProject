@@ -3,6 +3,8 @@
 bool Game::mRun = false;
 bool Game::mPaused = false;
 
+std::unique_ptr<PlayerProfile> Game::mPlayerProfile = nullptr;
+
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 
 Game::Game() :
@@ -22,9 +24,9 @@ Game::Game() :
 
 	mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
 
-	_ASSERT(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
+	assert(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
 
-	mPlayerProfile->save();
+	assert(mPlayerProfile->save());
 }
 
 Game::~Game() {
@@ -83,6 +85,10 @@ int Game::run() {
 
 void Game::close() {
 	mRun = false;
+}
+
+PlayerProfile& Game::getPlayerProfile() {
+	return *mPlayerProfile;
 }
 
 void Game::handleEvent(sf::Event& event) {

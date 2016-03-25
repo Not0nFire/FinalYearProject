@@ -32,7 +32,7 @@ private:
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
 
-	std::unique_ptr<PlayerProfile> mPlayerProfile;
+	static std::unique_ptr<PlayerProfile> mPlayerProfile;
 
 public:
 	/*!
@@ -49,5 +49,12 @@ public:
 	int run();
 
 	static void close();
+
+	/*!
+	\brief Gets the active player's profile.
+	The calling class does not obtain ownership.
+	\returns A reference to the player's profile. Ownership is not given.
+	*/
+	static PlayerProfile& getPlayerProfile();
 };
 #endif

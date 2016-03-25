@@ -47,8 +47,7 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 		);//end push_back
 	}//end for
 
-	//test to see if disable works
-	mLevelButtons.rbegin()->first->disable();
+	disableLockedLevels();
 }
 
 LevelSelect::~LevelSelect() {
@@ -99,4 +98,16 @@ void LevelSelect::draw(sf::RenderWindow& w) {
 
 void LevelSelect::cleanup() {
 	mMusic.stop();
+}
+
+void LevelSelect::disableLockedLevels() {
+	PlayerProfile& profileRef = Game::getPlayerProfile();
+
+	for (auto &entry : mLevelButtons) {
+		//If the profile has not unlocked the level...
+		if (!profileRef.hasUnlockedLevel(entry.second)) {
+			//...disable the button.
+			entry.first->disable();
+		}
+	}
 }

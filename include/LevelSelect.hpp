@@ -7,6 +7,8 @@
 #include "Level.hpp"
 #include <SFML/Audio/Music.hpp>
 
+class Game;
+
 class LevelSelect : public I_Scene {
 public:
 	LevelSelect(tinyxml2::XMLElement* xml);
@@ -26,5 +28,9 @@ private:
 	//! List of buttons and their associated level's xml files
 	std::list<std::pair<std::unique_ptr<gui::Button>, std::string>> mLevelButtons;
 	std::unique_ptr<gui::Button> mBackButton;
+
+	//! Disables buttons whos corresponding level has not been unlocked by the current player's profile.
+	void disableLockedLevels();
 };
+#include "Game.hpp"
 #endif
