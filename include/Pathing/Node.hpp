@@ -2,6 +2,7 @@
 #define _PATH_NODE_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Node {
 public:
@@ -17,15 +18,15 @@ public:
 	sf::Vector2f getPoint() const;
 
 	//! Returns the next node in the path.
-	Node* getNext() const;
+	std::shared_ptr<Node> getNext() const;
 
 	//! Recursively appends a node to the path. (i.e. If this node already has a next, it falls through to that node...)
 	//! \returns The node that was appended.
-	Node* append(Node* newNode);
+	std::shared_ptr<Node> append(std::shared_ptr<Node> newNode);
 
 private:
 	sf::Vector2f mPosition;
 	float mRadius;
-	Node* mNext;
+	std::shared_ptr<Node> mNext;
 };
 #endif

@@ -2,13 +2,14 @@
 #define _RENDERER_H
 
 #include <include/Actor.hpp>
-#include <boost/atomic.hpp>
-#include <boost/thread.hpp>
+#include <atomic>
+#include <mutex>
 #include <chrono>
+#include <thread>
+#include <functional>
 #include "Scene.hpp"
 #include "Cursor.h"
 
-using namespace boost;
 
 /*!
 \brief Manages rendering in it's own thread.
@@ -17,14 +18,14 @@ class Renderer {
 private:
 	sf::RenderWindow mWindow;
 
-	atomic<bool> mLoopOngoing;	/*!< True if want to keep rendering, false if we want rendering to stop. */
+	std::atomic<bool> mLoopOngoing;	/*!< True if want to keep rendering, false if we want rendering to stop. */
 	std::chrono::milliseconds frameDelay;
 
 	SceneProxy* mSceneToRender;
 
-	thread mThread;	/*!< Thread that rendering takes place on. */
+	std::thread mThread;	/*!< Thread that rendering takes place on. */
 
-	boost::mutex mMutex;
+	std::mutex mMutex;
 
 	void render();
 
@@ -53,7 +54,7 @@ public:
 	*/
 	void stopRenderLoop();
 
-	boost::thread& getThread();
+	std::thread& getThread();
 	const sf::RenderWindow& getWindow() const;
 
 	void setScene(SceneProxy* newScene);

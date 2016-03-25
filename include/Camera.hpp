@@ -11,10 +11,10 @@ class Camera : public sf::View
 {
 public:
 	Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea);
-	Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, Actor* target);
+	Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target);
 
-	void setTarget(Actor* target);
-	Actor* getTarget() const;
+	void setTarget(std::shared_ptr<Actor> target);
+	std::shared_ptr<Actor> getTarget() const;
 	void clearTarget();
 
 	/*!
@@ -30,7 +30,7 @@ public:
 	*/
 	void update();
 private:
-	Actor* mTarget;
+	std::shared_ptr<Actor> mTarget;
 	sf::Vector2f mScreenSize; //!< Keep a record of the screen size for resets
 	sf::Vector2f mBoundingArea;	//!< Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position
 

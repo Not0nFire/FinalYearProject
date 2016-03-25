@@ -8,8 +8,6 @@
 #include <include/Projectile.h>
 #include <SFML/Audio.hpp>
 
-using namespace boost::signals2;
-
 /*!
 \brief Base class for all units in the game. If it walks and attacks, it's a Pawn.
 Walks toward a destination, attacks any hostile pawns it encounters. Dies when health reaches 0.
@@ -47,7 +45,7 @@ protected:
 	int mAttackDamage;
 	float mAttacksPerSecond; /*!< \remarks 1.0f == 1 attack per second */
 	float mTimeSinceAttack;	/*!< \remarks 1.0f == 1 second */
-	Pawn* mCombatTarget;
+	std::shared_ptr<Pawn> mCombatTarget;
 
 	sf::Time mStunDuration;
 
@@ -141,7 +139,7 @@ public:
 	\param type The type of damage to take.
 	\param sender The dealer of damage, the disher of pain.
 	*/
-	bool takeDamage(int amount, Damage::Type type, Pawn* sender);
+	bool takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const &sender);
 
 	/*!
 	\brief Heals for the specified amount.
@@ -164,7 +162,7 @@ public:
 	Changes combat target to be the taunter. Has no associated duration so subsequent taunts will override each other.
 	\param taunter The new target for this Pawn.
 	*/
-	void beTaunted(Pawn* taunter);
+	void beTaunted(std::shared_ptr<Pawn> const &taunter);
 
 	/*!
 	\brief Offer a potential target to the Pawn.
@@ -173,7 +171,7 @@ public:
 	\param target A possible combat target.
 	\returns True if the target was accepted.
 	*/
-	bool offerTarget(Pawn* target);	//temporary until chairscript (target acquisition) (returns true if target accepted)
+	bool offerTarget(std::shared_ptr<Pawn> const &target);	//temporary until chairscript (target acquisition) (returns true if target accepted)
 
 	/*!
 	Checks if the Pawn's combat target is dead.
@@ -212,6 +210,6 @@ public:
 	\param other The object we collided with.
 	\param mtv The Minimum Translation Vector for the collision.
 	*/
-	virtual void onCollide(Collidable* other, sf::Vector2f const &mtv) override;
+	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv) override;
 };
 #endif

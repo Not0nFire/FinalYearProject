@@ -60,7 +60,7 @@ void Actor::animate(sf::Time const &elapsedTime) {
 //bool Actor::addAnimation(std::string name, thor::FrameAnimation &anim, sf::Time const &duration) {
 //	mAnimator.addAnimation(name, anim, duration);
 //}
-void Actor::playAnimation(std::string name, bool loop) {
+void Actor::playAnimation(std::string const &name, bool loop) {
 	mAnimator.playAnimation(name, loop);
 }
 //void Actor::stopAnimation() {

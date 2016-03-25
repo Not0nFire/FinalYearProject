@@ -24,7 +24,7 @@ public:
 	\param name Name of file containing definition, without the file extension.
 	\remarks Valid units are Hero and Minion; The root node of the file needs to match one of these.
 	*/
-	Pawn* produce(std::string const &name);
+	std::shared_ptr<Pawn> produce(std::string const &name);
 
 private:
 	//! Map of file paths to currently open xml documents.

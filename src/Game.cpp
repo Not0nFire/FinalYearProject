@@ -22,11 +22,11 @@ Game::Game() :
 
 	mPlayerProfile = std::make_unique<PlayerProfile>("res/saves/profile.sav");
 
-	mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
-
-	assert(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
-
-	assert(mPlayerProfile->save());
+	//mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
+	//
+	//assert(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
+	//
+	//assert(mPlayerProfile->save());
 }
 
 Game::~Game() {

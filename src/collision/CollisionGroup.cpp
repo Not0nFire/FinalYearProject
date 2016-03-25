@@ -11,20 +11,7 @@ namespace collision {
 		
 	}
 
-	//Postcondition: mMembers contains no null pointers.
-	void CollisionGroup::cullNullMembers() {
-		auto end = mMembers.end();
-
-		//Erase-Remove idiom.
-		mMembers.erase( std::remove_if(
-										mMembers.begin(),	//Go from the beginning...
-										end,				//...to the end...
-										[](Collidable* ptr){ return ptr == nullptr; }	//...in search of null pointers.
-						), end
-		);
-	}//cullNullMembers()
-
-	bool CollisionGroup::checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) {
+	bool CollisionGroup::checkPair(std::shared_ptr<Collidable> const &first, std::shared_ptr<Collidable> const &second, sf::Vector2f &minTranslation) const {
 		if (first == second) {
 			return false;	//don't check the same object against itself
 		}
@@ -42,7 +29,7 @@ namespace collision {
 		float overlap = FLT_MAX;
 		sf::Vector2f mtv;	//minimum translation vector
 
-		for (sf::Vector2f axis : axies)
+		for (sf::Vector2f& axis : axies)
 		{
 			//Project both shapes onto this axis
 			sf::Vector2f A = first->projectOntoAxis(axis);
@@ -86,11 +73,11 @@ namespace collision {
 	}
 
 	void CollisionGroup::check() {
-		cullNullMembers();
+
 		sf::Vector2f mtv;	//minimum translation vector
-		for (Collidable* first : mMembers)
+		for (auto &first : mMembers)
 		{
-			for (Collidable* second : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
+			for (auto &second : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
 			{
 				if (checkPair(first, second, mtv))
 				{
@@ -101,17 +88,17 @@ namespace collision {
 		}//for first
 	}
 
-	void CollisionGroup::add(Collidable* entry) {
+	void CollisionGroup::add(std::shared_ptr<Collidable> const &entry) {
 		mMembers.push_back(entry);
 	}
 
-	void CollisionGroup::remove(Collidable* entry) {
+	void CollisionGroup::remove(std::shared_ptr<Collidable> const &entry) {
 		mMembers.erase( std::remove(mMembers.begin(), mMembers.end(), entry) );
 	}
 
-	void CollisionGroup::checkAgainst(Collidable* other) {
+	void CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
 		sf::Vector2f mtv;
-		for (Collidable* member : mMembers)
+		for (auto &member : mMembers)
 		{
 			if (checkPair(other, member, mtv))
 			{

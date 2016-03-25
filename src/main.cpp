@@ -16,6 +16,7 @@
 #pragma comment(lib, "sfml-audio.lib")
 #pragma comment(lib, "sfgui.lib")
 #pragma comment(lib, "thor.lib")
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	//get rid of console window for release build
 #endif
 
 

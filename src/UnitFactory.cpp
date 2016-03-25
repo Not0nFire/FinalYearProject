@@ -13,7 +13,7 @@ UnitFactory::~UnitFactory() {
 	}
 }
 
-Pawn* UnitFactory::produce(std::string const& name) {
+std::shared_ptr<Pawn> UnitFactory::produce(std::string const& name) {
 	//If definition hasn't been loaded yet
 	if (!mDefinitionMap.count(name)) {
 		loadDefinition(name);
@@ -22,13 +22,13 @@ Pawn* UnitFactory::produce(std::string const& name) {
 	XMLElement* root = mDefinitionMap.at(name)->FirstChildElement();
 	std::string rootName = root->Name();
 
-	Pawn* unit = nullptr;
+	std::shared_ptr<Pawn> unit;
 
 	//Create unit as specified in xml
 	if (rootName == "Minion") {
-		unit = new Minion(root);
+		unit = std::make_shared<Minion>(root);
 	} else if (rootName == "Hero") {
-		unit = new Hero(root);
+		unit = std::make_shared<Hero>(root);
 	} else {
 		throw "Invalid root tag";
 	}

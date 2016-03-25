@@ -19,21 +19,22 @@
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
 
+using std::shared_ptr;
+
 /*!
 \brief Playable level of the game.
 */
 class Level : public I_Scene{
 private:
 
-	Hero* mHero;
-	std::list<Pawn*> mPawns;
-	collision::CollisionGroup mCollisionGroup;
-	//sf::RenderWindow const* relWindow;	/*!< for getting mouse position */
+	shared_ptr<Pawn> mHero;
+	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
+	shared_ptr<collision::CollisionGroup> mCollisionGroup;
 
 	//! List of ranged towers in the level
-	std::vector<tower::BasicTower*> mTowers;
+	std::vector<shared_ptr<tower::Tower>> mTowers;
 
-	//boost::mutex mMutex;
+	std::mutex mMutex;
 
 	//! Visual backdrop of level
 	sf::Sprite mBackground;
@@ -44,18 +45,20 @@ private:
 	//std::unique_ptr<HUD> mHud;
 	
 	//! Quadtree used to decide where towers can be placed.
-	std::shared_ptr<Quadtree<unsigned char>> terrainTree;
+	shared_ptr<Quadtree<unsigned char>> terrainTree;
+
+	shared_ptr<ProjectileManager> mProjectileManager;
 
 	//! Tool for placing ranged towers.
 	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	//! Path that Minions will follow.
-	Path mPath;
+	shared_ptr<Path> mPath;
 
 	//! Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers.
-	std::shared_ptr<int> mMoney;
+	shared_ptr<int> mMoney;
 	//! Number of enemies that can make it through the level alive before losing.
-	std::shared_ptr<int> mLivesRemaining;
+	shared_ptr<int> mLivesRemaining;
 	//! Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens.
 	sf::FloatRect mBounds;
 
@@ -75,14 +78,11 @@ private:
 	//! Scene to go to if player completes this level.
 	const std::string mNextScene;
 
-	//! Tower that produces player-friendly Minions.
-	tower::UnitTower testUnitTower;
-
 	//! Flock of enemy minions.
-	std::shared_ptr<std::list<Minion*>> mMinionFlock;
+	shared_ptr<std::list<Minion*>> mMinionFlock;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
-	static bool compareDepth(Actor* A, Actor* B);
+	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
 	
 public:
 	/*!
