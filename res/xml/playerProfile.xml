@@ -1,0 +1,5 @@
+<Profile name="example">
+  <Progress>
+    <UnlockedLevel path="./res/xml/levelOne.lvl"/>
+  </Progress>
+</Profile>

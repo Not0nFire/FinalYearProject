@@ -11,13 +11,12 @@ bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor>
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
-Level::Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui) :
+
+Level::Level(tinyxml2::XMLElement* root) :
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
-relWindow(_relWindow),	//pass sfgui to HUD ctor and make HUD unique
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(_relWindow->getSize(), sf::Vector2f(1200.f, 800.f)),
-mHud(std::make_unique<HUD>(sfgui)),
+mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -84,8 +83,9 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		if (type == "hero")
 		{
 			pawn = factory.produce(type);
+
 			mHero = pawn;
-			mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			//mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
 		}
 		else
 		{
@@ -108,9 +108,9 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 		p->offerTarget(mHero);
 	}
 
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x - 80.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(relWindow->getSize().x * 0.5f - 200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
-	mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
+	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
+	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
+	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
 
@@ -123,12 +123,12 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 Level::~Level() {
 }
 
-bool Level::handleEvent(sf::Event &event ) {
+bool Level::handleEvent(sf::Event &evnt ) {
 	bool handled = false;
-	if (event.type == sf::Event::EventType::MouseButtonPressed) {
+	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
 
 		auto tower = mTowerPlacer->place();
-		boost::lock_guard<boost::mutex> lock(mMutex);
+		std::lock_guard<std::mutex> lock(mMutex);
 		if (nullptr != tower) {
 
 			if (*mMoney >= tower->getCost()) {
@@ -142,17 +142,16 @@ bool Level::handleEvent(sf::Event &event ) {
 			handled = true;
 
 		} else {
-
-			assert(relWindow != nullptr);
 			//destination = mouse position in window + camera position
-			mHero->setDestination(sf::Vector2f(sf::Mouse::getPosition(*relWindow)) + mCamera.getDisplacement());
+			mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
 			handled = true;
-
 		}
+	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
+		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 
 	}
-	else if (event.type == sf::Event::EventType::KeyPressed) {
-		switch (event.key.code) {
+	else if (evnt.type == sf::Event::EventType::KeyPressed) {
+		switch (evnt.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
 			handled = true;
@@ -174,7 +173,7 @@ bool Level::handleEvent(sf::Event &event ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+	//boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns->begin();
@@ -252,9 +251,7 @@ void Level::update(sf::Time const &elapsedTime) {
 		mBgMusic.play();
 	}
 
-	mHud->update(elapsedTime);
-
-	mTowerPlacer->update(sf::Mouse::getPosition(*relWindow) + sf::Vector2i(mCamera.getDisplacement()));
+	//mHud->update(elapsedTime);
 
 	//if (mIsLost)
 	//{
@@ -267,7 +264,7 @@ void Level::update(sf::Time const &elapsedTime) {
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
-	boost::lock_guard<boost::mutex> lock(mMutex);
+	std::lock_guard<std::mutex> lock(mMutex);
 	
 	w.setView(mCamera);
 
@@ -294,7 +291,7 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer->draw(w);
 
-	mHud->draw(w);
+	//mHud->draw(w);
 }
 
 bool Level::isWon() const {
@@ -306,8 +303,8 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
-	boost::lock_guard<boost::mutex> lock(mMutex);
-	mHud->hide();
+	std::lock_guard<std::mutex> lock(mMutex);
+	//mHud->hide();
 	mBgMusic.stop();
 }
 

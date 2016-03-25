@@ -1,0 +1,7 @@
+<Button>
+  <Texture path="./res/img/start_button.png"/>
+  <HoverSound path="./res/sfx/menu_selection.ogg"/>
+  <Dimensions width="400" height="91"/>
+  <NormalImage x="0" y="91"/>
+  <HoverImage x="0" y="0"/>
+</Button>

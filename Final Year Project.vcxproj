@@ -109,25 +109,31 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
+    <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
+    <ClCompile Include="src\Cursor.cpp" />
     <ClCompile Include="src\Damage.cpp" />
     <ClCompile Include="src\FancyProjectile.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hero.cpp" />
     <ClCompile Include="src\HUD.cpp" />
     <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\LevelSelect.cpp" />
     <ClCompile Include="src\MageTower.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
     <ClCompile Include="src\Pathing\Node.cpp" />
     <ClCompile Include="src\Pathing\Path.cpp" />
     <ClCompile Include="src\Pawn.cpp" />
+    <ClCompile Include="src\PlayerProfile.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\ProjectileManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\Tower.cpp" />
@@ -143,14 +149,17 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />
     <ClInclude Include="include\Collision\CollisionGroup.hpp" />
+    <ClInclude Include="include\Cursor.h" />
     <ClInclude Include="include\Damage.h" />
     <ClInclude Include="include\Damage.hpp" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Gui\Button.hpp" />
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
     <ClInclude Include="include\HUD.hpp" />
     <ClInclude Include="include\Level.hpp" />
+    <ClInclude Include="include\LevelSelect.hpp" />
     <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
@@ -160,6 +169,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Pathing\Path.hpp" />
     <ClInclude Include="include\Pawn.h" />
     <ClInclude Include="include\Pawn.hpp" />
+    <ClInclude Include="include\PlayerProfile.hpp" />
+    <ClInclude Include="include\ProfileSelectScene.hpp" />
     <ClInclude Include="include\Projectile.h" />
     <ClInclude Include="include\ProjectileManager.hpp" />
     <ClInclude Include="include\Quadtree.hpp" />
@@ -179,6 +190,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Towers\TowerPlacer.hpp" />
     <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />
+    <ClInclude Include="include\MainMenu.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />

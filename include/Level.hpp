@@ -26,15 +26,15 @@ using std::shared_ptr;
 */
 class Level : public I_Scene{
 private:
+
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
 	shared_ptr<collision::CollisionGroup> mCollisionGroup;
-	sf::RenderWindow const*const relWindow;	/*!< for getting mouse position */
 
 	//! List of ranged towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
-	boost::mutex mMutex;
+	std::mutex mMutex;
 
 	//! Visual backdrop of level
 	sf::Sprite mBackground;
@@ -42,7 +42,7 @@ private:
 	//! Camera that follows mHero.
 	Camera mCamera;
 
-	std::unique_ptr<HUD> mHud;
+	//std::unique_ptr<HUD> mHud;
 	
 	//! Quadtree used to decide where towers can be placed.
 	shared_ptr<Quadtree<unsigned char>> terrainTree;
@@ -90,7 +90,7 @@ public:
 	*/
 	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
-	Level(tinyxml2::XMLElement* root, sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
+	Level(tinyxml2::XMLElement* root);
 	~Level();
 	
 	bool I_Scene::handleEvent(sf::Event &Event ) override;

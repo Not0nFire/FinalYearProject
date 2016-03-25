@@ -4,6 +4,7 @@
 #include <include/Scene.hpp>
 #include <boost/signals2.hpp>
 #include <map>
+#include <thread>
 using namespace boost::signals2;
 
 /*!
@@ -15,11 +16,20 @@ private:
 	A map of all scenes managed by the SceneManager.
 	Each scene is identified by its name.
 	*/
-	std::map<std::string, I_Scene*> mScenes;
+	std::map<std::string, SceneProxy*> mScenes;
 
 	std::string mCurrentScene;
 
 	static SceneManager *mInstance;
+
+	/*!
+	\brief Thread used solely for calling cleanup() on old scene when changing to a new scene.
+	This allows scenes to call navigate on the SceneManager from inside a scene, without deadlocking or throwing system_errors
+	from trying to lock a mutex while it is currently owned by the same thread.
+	*/
+	std::thread mCleanupThread;
+
+	void joinCleanupThread();
 
 	SceneManager();
 
@@ -39,7 +49,7 @@ public:
 	Use getCurrentScene() in place of this method wherever possible.
 	\returns A pointer to the current scene.
 	*/
-	I_Scene * getEditableScene() const;
+	//I_Scene * getEditableScene() const;
 
 	/*!
 	Adds a scene to the map under the specified name.
@@ -47,7 +57,8 @@ public:
 	\param derivedSceneObject The scene to be added.
 	\param goToScene True if the new scene should become the current scene (i.e. navigated to immediately)
 	*/
-	void createScene(std::string const &name, I_Scene* derivedSceneObject, bool goToScene = true);
+	template <class SceneType>
+	void createScene(std::string const &name, std::string const& xmlPath, bool goToScene = true);
 
 	/*!
 	Calls the current scene's update method.
@@ -77,6 +88,15 @@ public:
 	Signal that is invoked whenever the scene changes.
 	The scene pointer passed is the new current scene.
 	*/
-	signal<void(I_Scene* newScene)> onSceneChange;
+	signal<void(SceneProxy* newScene)> onSceneChange;
 };
+
+template <class SceneType>
+void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene) {
+
+	mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
+	if (goToScene) {
+		navigateToScene(name);
+	}
+}
 #endif

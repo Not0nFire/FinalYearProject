@@ -4,6 +4,8 @@
 #include <memory>
 #include <include/TinyXML2/tinyxml2.h>
 #include <SFML\Graphics.hpp>
+#include <functional>
+#include <mutex>
 
 /*!
 \brief Interface for scene objects, such as levels and menus.
@@ -36,14 +38,9 @@ public:
 \brief Proxy for holding scenes. Implements lazy loading.
 Scene is only constructed when a method is called on it; It can be constructed prematurely by calling loadNow().
 */
-template <class SceneType>
+//template <class SceneType>
 class SceneProxy {
 public:
-	/*
-	\brief Constructs a SceneProxy. Stores the xmlPath. Scene is NOT constructed here.
-	\param xmlPath Path to xml file that will be used to load scene. Root node of file should be <Scene>.
-	*/
-	SceneProxy(const char * xmlPath);
 	~SceneProxy();
 
 	/*
@@ -66,6 +63,8 @@ public:
 	*/
 	void draw(sf::RenderWindow &w);
 
+	void cleanup();
+
 	/*
 	\brief Calls handleEvent on the scene object.
 	Constructs the scene if it does not already exist.
@@ -75,79 +74,48 @@ public:
 	void loadNow();
 
 	//! Gets a pointer to the contained scene.
-	SceneType* getScene() const;
+	I_Scene* getScene();
+
+	/*!
+	\brief Constructs a SceneProxy, whose contained scene can be constructed by the file specified by xmlPath.
+	Creates a lambda function that constructs a new instance of SceneType using the xmlPath, this function is then
+	called later on when the scene needs to be constructed.
+	\param xmlPath Path to the xml file used to create the scene.
+	*/
+	template<class SceneType>
+	static SceneProxy* create(std::string const& xmlPath);
 
 private:
+	SceneProxy(std::function<I_Scene*()> const& sceneCreationFunc);
+
 	//! Actual scene object owned by proxy
-	std::unique_ptr<I_Scene> mScene;
+	I_Scene* mScene;
 
 	//! The location of the xml file used to create the scene when needed
-	const char * mXmlPath;
+	//std::string mXmlPath;
+
+	std::function<I_Scene*()> mCreatSceneFunc;
+
+	std::mutex mMutex;
 };
 
 template <class SceneType>
-SceneProxy<SceneType>::SceneProxy(const char* xmlPath) :
-mXmlPath(xmlPath)
-{
-	//empty ctor body
-}
+SceneProxy* SceneProxy::create(std::string const& xmlPath) {
+	return new SceneProxy(
+		[xmlPath] //capture string by copy
+		() //lambda expression takes no arguments
+		{
+			tinyxml2::XMLDocument doc;
 
-template <class SceneType>
-SceneProxy<SceneType>::~SceneProxy() {
-	//unique pointer to scene goes out of scope here, so scene will be deleted
-}
+			tinyxml2::XMLError result = doc.LoadFile(xmlPath.c_str());	//try to load the xml from file
+			if (result != tinyxml2::XML_NO_ERROR)
+				throw result;	//throw an error if one occured
 
-template <class SceneType>
-bool SceneProxy<SceneType>::handleEvent(sf::Event& sfEvent) {
-	if (mScene == nullptr)
-	{
-		loadNow();
-	}
+			tinyxml2::XMLElement* root = doc.FirstChildElement();	//root node
 
-	return mScene->handleEvent(sfEvent);
-}
-
-template <class SceneType>
-void SceneProxy<SceneType>::update(sf::Time const& elapsedTime) {
-	if (mScene == nullptr)
-	{
-		loadNow();
-	}
-
-	mScene->update(elapsedTime);
-}
-
-template <class SceneType>
-void SceneProxy<SceneType>::draw(sf::RenderWindow& w) {
-	if (mScene == nullptr)
-	{
-		loadNow();
-	}
-
-	mScene->draw(w);
-}
-
-template <class SceneType>
-void SceneProxy<SceneType>::loadNow() {
-	_ASSERT(mScene == nullptr);
-
-	using namespace tinyxml2;
-
-	XMLDocument doc;
-
-	XMLError result = doc.LoadFile(mXmlPath);	//try to load the xml from file
-	if (result != XML_NO_ERROR)
-		throw result;	//throw an error if one occured
-
-	XMLElement* root = doc.FirstChildElement("Scene");	//root node
-
-	//construct the scene
-	mScene = std::make_unique<SceneType>(root);
-}
-
-template <class SceneType>
-SceneType* SceneProxy<SceneType>::getScene() const {
-	return mScene.get();
+			return new SceneType(root);
+		}//end lambda
+	);//end return()
 }
 #endif
 

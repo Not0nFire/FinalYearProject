@@ -4,9 +4,11 @@
 #include <include/ResourceManager.hpp>
 #include <include/Renderer.hpp>
 #include <include/Level.hpp>
-#include <include/Menu.hpp>
+#include <include/MainMenu.hpp>
+#include <include/LevelSelect.hpp>
 #include <include/SceneManager.hpp>
 #include <include/TinyXML2/tinyxml2.h>
+#include "PlayerProfile.hpp"
 
 /*
 \brief The Game itself. The only thing that need be included in _main.cpp_.
@@ -19,14 +21,15 @@ private:
 	//! Threaded Renderer with fixed timestep.
 	Renderer mRenderer;
 
-	bool mRun, mPaused;
+	static bool mRun, mPaused;
 
 	void handleEvent(sf::Event &event);
 
 	Level *mLevelOne, *mLevelTwo;
-	Menu* mMenu;
 
 	std::shared_ptr<sfg::SFGUI> mSFGUI;
+
+	static std::unique_ptr<PlayerProfile> mPlayerProfile;
 
 public:
 	/*!
@@ -41,5 +44,14 @@ public:
 	\returns EXIT_SUCCESS (0)
 	*/
 	int run();
+
+	static void close();
+
+	/*!
+	\brief Gets the active player's profile.
+	The calling class does not obtain ownership.
+	\returns A reference to the player's profile. Ownership is not given.
+	*/
+	static PlayerProfile& getPlayerProfile();
 };
 #endif

@@ -1,6 +1,6 @@
 #include <include/Renderer.hpp>
 
-Renderer::Renderer(I_Scene* _sceneToRender, sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
+Renderer::Renderer(SceneProxy* _sceneToRender, sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
 	: mWindow(mode, title, style, settings), mSceneToRender(_sceneToRender) {
 
 	mWindow.setActive(false);
@@ -32,21 +32,27 @@ void Renderer::render() {
 	mWindow.setActive(true);
 	mWindow.resetGLStates();	//required for sfgui (text displays as blocks without this line)
 
+	mWindow.setMouseCursorVisible(false);
+
+	auto originalView = mWindow.getView();
+
 	while (mLoopOngoing) {
 
 		//fixed timestep
 		if (clock.now() - lastFrameTime >= frameDelay) {
 			lastFrameTime = clock.now();
 
-			mMutex.lock();	//Block until ownership can be obtained
-
 			mWindow.clear();
 
+			mMutex.lock();	//Block until ownership can be obtained
 			mSceneToRender->draw(mWindow);
+			mMutex.unlock();	//Release the mutex
+
+			mWindow.setView(originalView);
+			Cursor::draw(mWindow);
 
 			mWindow.display();
-
-			mMutex.unlock();	//Release the mutex
+			
 		}
 
 	}//end while(mLoop)
@@ -62,7 +68,7 @@ const sf::RenderWindow& Renderer::getWindow() const {
 	return mWindow;
 }
 
-void Renderer::setScene(I_Scene* newScene) {
+void Renderer::setScene(SceneProxy* newScene) {
 	std::lock_guard<std::mutex> lock(mMutex);
 	mSceneToRender = newScene;
 }
