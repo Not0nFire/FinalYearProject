@@ -106,6 +106,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp" />
+    <ClCompile Include="src\Abilities\Ability.cpp" />
+    <ClCompile Include="src\Abilities\MagicMissile.cpp" />
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
@@ -142,6 +144,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\UnitTower.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Abilities\MagicMissileAbility.hpp" />
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
     <ClInclude Include="include\ArcProjectile.h" />
@@ -158,6 +161,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
     <ClInclude Include="include\HUD.hpp" />
+    <ClInclude Include="include\Abilities\Ability.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\LevelSelect.hpp" />
     <ClInclude Include="include\Menu.hpp" />

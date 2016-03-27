@@ -1,0 +1,42 @@
+<Ability>
+  <!-- User-friendly name of the ability -->
+  <Name>Magic Missile</Name>
+  
+  <!-- User-friendly ability descrition -->
+  <Description>
+    Fires magic missiles that seek out foes.
+  </Description>
+  
+  <!-- How much damage the non-upgraded ability does per missile -->
+  <BaseDamagePerMissile>5</BaseDamagePerMissile>
+  
+  <!-- How much the damage of each missile increases with each upgrade -->
+  <UpgradeDamageBoost>2</UpgradeDamageBoost>
+  
+  <!-- The type of damage the missiles do -->
+  <DamageType>MAGICAL</DamageType>
+  
+  <!-- The amount of missiles the non-upgraded ability produces -->
+  <BaseNumberOfMissiles>5</BaseNumberOfMissiles>
+  
+  <!-- How many extra missiles to produce, per level of upgrade -->
+  <UpgradeMissileNumberBoost>2</UpgradeMissileNumberBoost>
+  
+  <!-- How long, in seconds, to stun the user while they cast the ability -->
+  <CastDuration>1</CastDuration>
+
+  <!-- The actor used to display the casting animations -->
+  <Actor>
+    <Texture>./path/to/ability_texture</Texture>
+    <!-- The casting animation, played on ability execution -->
+    <Animation path="./path/to/animation.anim">
+      <Name>Cast</Name>
+      <Duration>1</Duration>
+    </Animation>
+
+    <!-- Unused, but required by actor -->
+    <Collidable pointCount="3" type="Circle">
+      <Radius>1</Radius>
+    </Collidable>
+  </Actor>
+</Ability>
