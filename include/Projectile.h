@@ -30,15 +30,12 @@ public:
 
 	Damage::Type getDamageType() const;
 
-	bool wasFired() const;
-
 protected:
 	bool mActive;
 	sf::Vector2f mVelocity;
 	float mTimeToLive;
 
 	bool mImpactOccurred;
-	bool mWasFired;
 
 private:
 	const Damage::Type mDamageType;

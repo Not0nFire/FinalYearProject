@@ -27,11 +27,11 @@
 
   <!-- The actor used to display the casting animations -->
   <Actor>
-    <Texture>./path/to/ability_texture</Texture>
+    <Texture>././res/img/hero.png</Texture>
     <!-- The casting animation, played on ability execution -->
-    <Animation path="./path/to/animation.anim">
+    <Animation path="././res/xml/hero_death.anim">
       <Name>Cast</Name>
-      <Duration>1</Duration>
+      <Duration>1.f</Duration>
     </Animation>
 
     <!-- Unused, but required by actor -->

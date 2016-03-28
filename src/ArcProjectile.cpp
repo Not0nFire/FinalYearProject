@@ -12,7 +12,6 @@ ArcProjectile::~ArcProjectile() {
 }
 
 void ArcProjectile::fire(sf::Vector2f const &from, sf::Vector2f const &to, float flightTimeSeconds) {
-	mWasFired = true;
 	setPosition(from);
 
 	//	S = ut + 0.5at^2

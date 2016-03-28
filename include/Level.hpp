@@ -20,6 +20,7 @@
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
 #include <include/ResourceManager.hpp>
+#include <include/Abilities/MagicMissileAbility.hpp>
 
 using std::shared_ptr;
 
@@ -28,6 +29,7 @@ using std::shared_ptr;
 */
 class Level : public I_Scene{
 private:
+	Ability* mTestAbility;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;

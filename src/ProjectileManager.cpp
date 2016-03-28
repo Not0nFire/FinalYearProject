@@ -14,7 +14,7 @@ ProjectileManager::~ProjectileManager() {
 void ProjectileManager::give(std::shared_ptr<Projectile> const &projectilePtr) {
 
 	//If the projectile has not been fired and we have a handler for this circumstance...
-	if (!projectilePtr->wasFired() && mUnfiredProjectileHandler)
+	if (!projectilePtr->isActive() && mUnfiredProjectileHandler)
 	{
 		mUnfiredProjectileHandler(projectilePtr);
 	}

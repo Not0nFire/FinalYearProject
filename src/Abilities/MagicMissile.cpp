@@ -30,7 +30,8 @@ void MagicMisile::execute(Pawn* user) {
 	activate();
 
 	//Stun the user for the duration of the cast time.
-	user->stun(sf::seconds(M_CAST_DURATION));
+	auto stun = sf::seconds(M_CAST_DURATION);
+	user->stun(stun);
 
 	//Set the casting graphics to the user's position and lay the casting animation.
 	mCastGraphics.setPosition(user->getPosition());
@@ -50,20 +51,26 @@ void MagicMisile::doUpdateLogic(float deltaSeconds) {
 		mTimeSinceMissileSpawn = 0.f;
 
 		//We don't set the target or fire the projectile here, so the ProjectileManager will fire it when it receives the projectile.
-		spawnProjectile(std::make_shared<FancyProjectile>(
+		auto missile = (std::make_shared<FancyProjectile>(
 			M_MISSILE_DAMAGE,
 			mDamageType,
 			ResourceManager<sf::Texture>::instance()->get("./res/img/magic_projectile.png")
 			));
-	}
 
-	if (mMissilesSpawned == M_NUM_MISSILES)
-	{
-		//Deactivate the ability if we have spawned the correct number of missiles.
-		deactivate();
+		missile->setPosition(mCastGraphics.getPosition());
+
+		spawnProjectile(missile);
+
+		if (++mMissilesSpawned == M_NUM_MISSILES)
+		{
+			//Deactivate the ability if we have spawned the correct number of missiles.
+			deactivate();
+		}
 	}
 }
 
 void MagicMisile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(mCastGraphics, states);
+	if (isActive()) {
+		target.draw(mCastGraphics, states);
+	}
 }

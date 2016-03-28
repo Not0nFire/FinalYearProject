@@ -15,7 +15,8 @@ mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
 mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mCombatTarget(nullptr)
+mCombatTarget(nullptr),
+mStunDuration(sf::seconds(0.f))
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
@@ -74,7 +75,7 @@ void Pawn::calculateAnimation() {
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 	//don't bother updating state if dead
-	if (mState != State::DEAD) {
+	if (mState != State::DEAD && mState != State::STUNNED) {
 
 		//attack if in range
 		if (mCombatTarget != nullptr &&
@@ -164,6 +165,11 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
+		mTimeStunned += elapsedTime;
+		if (mTimeStunned >= mStunDuration)
+		{
+			mState = IDLE;
+		}
 		break;
 	case DEAD:
 		setDebugColour(sf::Color::White);
@@ -230,11 +236,14 @@ void Pawn::heal(int healAmount) {
 		mHealth = M_MAX_HEALTH;
 	}
 }
-void Pawn::stun(sf::Time duration) {
+void Pawn::stun(sf::Time const& duration) {
 	//apply new time if it is higher than current (don't let stuns cancel each other out!)
-	mStunDuration =
-		duration > mStunDuration ? duration : mStunDuration;
-	mState = State::STUNNED;
+	bool applyStun = duration > (mStunDuration - mTimeStunned);
+	if (applyStun) {
+		mStunDuration = duration;
+		mTimeStunned = sf::seconds(0.f);
+		mState = STUNNED;
+	}
 }
 
 void Pawn::beTaunted(std::shared_ptr<Pawn> const &taunter) {

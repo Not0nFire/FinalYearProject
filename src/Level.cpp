@@ -9,7 +9,7 @@ bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor>
 }
 
 void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
-	assert(!projectile->wasFired());
+	assert(!projectile->isActive());
 
 	auto const& projectilePos = projectile->getPosition();
 	auto& pawnList = *mPawns;
@@ -31,7 +31,7 @@ void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
 	}
 
 	if (target) {
-		projectile->fire(projectilePos, target->getPosition(), 1.f);
+		projectile->fire(projectilePos, target->getPosition(), 5.f);
 		auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectile);
 		if (fancy)
 		{
@@ -150,6 +150,13 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
 
 	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
+
+	//:Testing MagicMissile ability
+	XMLDocument doc;
+	doc.LoadFile("./res/xml/MagicMissileAbility.xml");
+	mTestAbility = new abilities::MagicMisile(doc.FirstChildElement("Ability"));
+	mTestAbility->setPawnList(mPawns);
+	mTestAbility->setProjectileManager(mProjectileManager);
 }
 
 Level::~Level() {
@@ -196,6 +203,9 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+		//:Execute test ability
+		case sf::Keyboard::M:
+			mTestAbility->execute(mHero.get());
 		default:
 			break;
 		}
@@ -205,6 +215,9 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
+	//:Update test ability
+	mTestAbility->update(elapsedTime);
+
 	//boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allEnemiesDead = true;
 
@@ -318,6 +331,8 @@ void Level::draw(sf::RenderWindow &w) {
 		actor->debug_draw(w);
 		actor->draw(w);
 	}
+	//:Draw test ability
+	w.draw(*mTestAbility);
 
 	mProjectileManager->draw(w);
 
