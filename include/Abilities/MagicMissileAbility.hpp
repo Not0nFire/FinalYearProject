@@ -37,7 +37,7 @@ namespace abilities {
 		const unsigned int M_NUM_MISSILES;
 
 		//! The type of damage the missiles will deal.
-		const Damage::Type M_DAMAGE_TYPE;
+		Damage::Type mDamageType;
 
 		//! The amount of damage each missile will deal.
 		const float M_MISSILE_DAMAGE;
@@ -45,8 +45,13 @@ namespace abilities {
 		//! How long the ability takes to complete.
 		const float M_CAST_DURATION;
 
-		//! How long the ability has been active for, in seconds.
-		float mTimeTaken;
+		//! How many missiles have been spawned so far since execute().
+		unsigned int mMissilesSpawned;
+
+		//Time between missile spawns.
+		float mMissileSpawnInterval;
+		//Time since a missile was last since.
+		float mTimeSinceMissileSpawn;
 
 		Actor mCastGraphics;
 	};

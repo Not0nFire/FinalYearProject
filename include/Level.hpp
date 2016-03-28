@@ -1,7 +1,8 @@
-#ifndef _LEVEL_
-#define _LEVEL_
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
 
 #include <vector>
+#include <list>
 #include <SFML/Graphics.hpp>
 #include <include/Scene.hpp>
 #include <include/Minion.hpp>
@@ -18,6 +19,7 @@
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/ResourceManager.hpp>
 
 using std::shared_ptr;
 
@@ -82,7 +84,14 @@ private:
 	shared_ptr<std::list<Minion*>> mMinionFlock;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
-	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
+	static bool compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B);
+
+	/*!
+	\brief Used to handle unfired projectile that are given to the projectile manager.
+	Fires the projectile at the nearest enemy pawn.
+	\param projectile The projectile to fire. Must be unfired.
+	*/
+	void autofireProjectile(shared_ptr<Projectile> const& projectile) const;
 	
 public:
 	/*!

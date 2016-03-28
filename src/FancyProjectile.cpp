@@ -20,6 +20,7 @@ FancyProjectile::~FancyProjectile() {
 }
 
 void FancyProjectile::fire(sf::Vector2f const& from, sf::Vector2f const& to, float flightTimeSeconds) {
+	mWasFired = true;
 	setPosition(from);
 
 	auto displacement = to - from;

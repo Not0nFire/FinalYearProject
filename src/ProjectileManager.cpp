@@ -13,6 +13,12 @@ ProjectileManager::~ProjectileManager() {
 
 void ProjectileManager::give(std::shared_ptr<Projectile> const &projectilePtr) {
 
+	//If the projectile has not been fired and we have a handler for this circumstance...
+	if (!projectilePtr->wasFired() && mUnfiredProjectileHandler)
+	{
+		mUnfiredProjectileHandler(projectilePtr);
+	}
+
 	//If it's a fancy projectile, attach it to the particle system.
 	auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectilePtr);
 	if (fancy) {
@@ -72,4 +78,8 @@ void ProjectileManager::draw(sf::RenderTarget& w) {
 		projectile->draw(w);
 		projectile->debug_draw(w);
 	}
+}
+
+void ProjectileManager::setUnfiredProjectileHandler(std::function<void(std::shared_ptr<Projectile> const&)> const& handler) {
+	mUnfiredProjectileHandler = handler;
 }

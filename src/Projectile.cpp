@@ -5,7 +5,8 @@ Actor(texture, new sf::CircleShape(10, 5), sf::Vector2f(-5.0f, -5.0f)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false),
-mImpactOccurred(false)
+mImpactOccurred(false),
+mWasFired(false)
 {
 	auto bounds = getLocalBounds();
 	setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
@@ -29,6 +30,10 @@ int Projectile::getDamage() const {
 
 Damage::Type Projectile::getDamageType() const {
 	return mDamageType;
+}
+
+bool Projectile::wasFired() const {
+	return mWasFired;
 }
 
 void Projectile::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {

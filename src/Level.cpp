@@ -1,6 +1,4 @@
 #include <include/Level.hpp>
-#include <include/Hero.hpp>
-#include <include/ResourceManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -8,6 +6,38 @@
 
 bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B) {
 	return A->getPosition().y < B->getPosition().y;
+}
+
+void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
+	assert(!projectile->wasFired());
+
+	auto const& projectilePos = projectile->getPosition();
+	auto& pawnList = *mPawns;
+	auto nearestPawnDistance = std::numeric_limits<float>::max();
+	shared_ptr<Pawn> target;
+	
+	//Find the nearest pawn
+	for (auto const& pawn : pawnList)
+	{
+		if (pawn->getFaction() == Pawn::Faction::ENEMY) {
+			auto distance = thor::length(pawn->getPosition() - projectilePos);
+
+			if (distance < nearestPawnDistance)
+			{
+				nearestPawnDistance = distance;
+				target = pawn;
+			}
+		}
+	}
+
+	if (target) {
+		projectile->fire(projectilePos, target->getPosition(), 1.f);
+		auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectile);
+		if (fancy)
+		{
+			fancy->setTarget(target);
+		}
+	}
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
@@ -118,6 +148,8 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 
 	mUnderlayTex.create(imageSize.x, imageSize.y);
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
+
+	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
 }
 
 Level::~Level() {
