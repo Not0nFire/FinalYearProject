@@ -126,6 +126,9 @@
     <ClCompile Include="src\Abilities\MagicMissile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Abilities\RaiseDead.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h">
@@ -279,6 +282,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Abilities\MagicMissileAbility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Abilities\RaiseDead.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
