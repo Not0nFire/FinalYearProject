@@ -1,7 +1,7 @@
 #include "include/FancyProjectile.hpp"
 
-FancyProjectile::FancyProjectile(int damage, Damage::Type damageType, sf::Texture& texture) :
-Projectile(damage, damageType, texture),
+FancyProjectile::FancyProjectile(int damage, Damage::Type damageType, sf::Texture& texture, int impactRadius) :
+Projectile(damage, damageType, texture, impactRadius),
 mSpeed(100.f),
 mTurnSpeed(rand() % 40 + 80)
 {

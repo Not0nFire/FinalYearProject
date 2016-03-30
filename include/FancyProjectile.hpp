@@ -21,7 +21,7 @@ public:
 	\param damageType The type of damage in inflict, PHYSICAL or MAGICAL.
 	\param texture Visual representation of the projectile.
 	*/
-	FancyProjectile(int damage, Damage::Type damageType, sf::Texture& texture);
+	FancyProjectile(int damage, Damage::Type damageType, sf::Texture& texture, int impactRadius = 10);
 	virtual ~FancyProjectile();
 
 	/*!

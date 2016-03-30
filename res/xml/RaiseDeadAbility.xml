@@ -8,7 +8,10 @@
   </Description>
 
   <!-- How long, in seconds, to stun the user while they cast the ability -->
-  <CastDuration>2</CastDuration>
+  <CastTime>2</CastTime>
+
+  <!-- The number of seconds that must be waited before the ability can be used again -->
+  <Cooldown>8</Cooldown>
 
   <!-- How far away from the user to spawn the units -->
   <SpawnDistance>50</SpawnDistance>
@@ -19,53 +22,68 @@
   <!-- Each upgrade to the ability will increase the number of units spawned by this much -->
   <UpgradeUnitNumberBoost>1</UpgradeUnitNumberBoost>
 
-<!-- The minion definition that the ability will use to spawn its units -->
-<Minion>
-  <MoneyValue>0</MoneyValue>
-  <Pawn>
-    <Faction>PLAYER</Faction>
-    <Health>50</Health>
-    <Armour>0.0</Armour>
-    <MagicResist>0.25</MagicResist>
-    <DamageType>PHYSICAL</DamageType>
-    <AttackRange>60</AttackRange>
-    <AttackDamage>5</AttackDamage>
-    <AttacksPerSecond>1</AttacksPerSecond>
-    <MovementSpeed>30</MovementSpeed>
+  <!-- The actor used to display the casting animations -->
+  <Actor>
+    <Texture>././res/img/hero.png</Texture>
+    <!-- The casting animation, played on ability execution -->
+    <Animation path="././res/xml/hero_death.anim">
+      <Name>Cast</Name>
+      <Duration>1.f</Duration>
+    </Animation>
 
-    <AttackSound>./res/sfx/hit01.ogg</AttackSound>
+    <!-- Unused, but required by actor -->
+    <Collidable pointCount="3" type="Circle">
+      <Radius>1</Radius>
+    </Collidable>
+  </Actor>
 
-    <Actor>
-      <!-- Texture path, this will be the texture's key in the ResourceManager -->
-      <Texture>././res/img/ally.png</Texture>
-      <Animation path="././res/xml/hero_run.anim">
-        <Name>walk</Name>
-        <Duration>3.f</Duration>
-      </Animation>
-      <Animation path="././res/xml/hero_idle.anim">
-        <Name>idle</Name>
-        <Duration>1.5f</Duration>
-      </Animation>
-      <Animation path="././res/xml/hero_attack.anim">
-        <Name>attack</Name>
-        <Duration>1.f</Duration>
-      </Animation>
-      <Animation path="././res/xml/hero_death.anim">
-        <Name>death</Name>
-        <Duration>1.f</Duration>
-      </Animation>
-	  <Animation path="././res/xml/hero_death.anim">
-        <Name>Spawn</Name>
-        <Duration>1.f</Duration>
-      </Animation>
+  <!-- The minion definition that the ability will use to spawn its units -->
+  <Minion>
+    <MoneyValue>0</MoneyValue>
+    <Pawn>
+      <Faction>PLAYER</Faction>
+      <Health>50</Health>
+      <Armour>0.0</Armour>
+      <MagicResist>0.25</MagicResist>
+      <DamageType>PHYSICAL</DamageType>
+      <AttackRange>60</AttackRange>
+      <AttackDamage>5</AttackDamage>
+      <AttacksPerSecond>1</AttacksPerSecond>
+      <MovementSpeed>30</MovementSpeed>
 
-      <Origin x="25.f" y="25.f"/>
+      <AttackSound>./res/sfx/hit01.ogg</AttackSound>
 
-      <Collidable pointCount="5" type="Circle">
-        <Offset x="0" y="20"/>
-        <Radius>25.f</Radius>
-      </Collidable>
-    </Actor>
-  </Pawn>
-</Minion>
+      <Actor>
+        <!-- Texture path, this will be the texture's key in the ResourceManager -->
+        <Texture>././res/img/ally.png</Texture>
+        <Animation path="././res/xml/hero_run.anim">
+          <Name>walk</Name>
+          <Duration>3.f</Duration>
+        </Animation>
+        <Animation path="././res/xml/hero_idle.anim">
+          <Name>idle</Name>
+          <Duration>1.5f</Duration>
+        </Animation>
+        <Animation path="././res/xml/hero_attack.anim">
+          <Name>attack</Name>
+          <Duration>1.f</Duration>
+        </Animation>
+        <Animation path="././res/xml/hero_death.anim">
+          <Name>death</Name>
+          <Duration>1.f</Duration>
+        </Animation>
+	    <Animation path="././res/xml/hero_death.anim">
+          <Name>Spawn</Name>
+          <Duration>1.f</Duration>
+        </Animation>
+
+        <Origin x="25.f" y="25.f"/>
+
+        <Collidable pointCount="5" type="Circle">
+          <Offset x="0" y="20"/>
+          <Radius>25.f</Radius>
+        </Collidable>
+      </Actor>
+    </Pawn>
+  </Minion>
 </Ability>

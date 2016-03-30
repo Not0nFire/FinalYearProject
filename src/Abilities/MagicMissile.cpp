@@ -5,10 +5,9 @@ using namespace abilities;
 #define GET_XML_VALUE(elementName) xml->FirstChildElement(elementName)->GetText()
 MagicMisile::MagicMisile(tinyxml2::XMLElement* xml) :
 Ability(xml),
-mCastGraphics(xml->FirstChildElement("Actor")),
-M_CAST_DURATION(atof(GET_XML_VALUE("CastDuration"))),
 M_NUM_MISSILES(atoi(GET_XML_VALUE("BaseNumberOfMissiles"))),
-M_MISSILE_DAMAGE(atoi(GET_XML_VALUE("BaseDamagePerMissile")))
+M_MISSILE_DAMAGE(atoi(GET_XML_VALUE("BaseDamagePerMissile"))),
+mCastGraphics(xml->FirstChildElement("Actor"))
 {
 	std::string dmgType = GET_XML_VALUE("DamageType");
 
@@ -25,26 +24,22 @@ M_MISSILE_DAMAGE(atoi(GET_XML_VALUE("BaseDamagePerMissile")))
 MagicMisile::~MagicMisile() {
 }
 
-void MagicMisile::execute(Pawn* user) {
+void MagicMisile::doExecuteLogic(Pawn* user) {
 	//Activate the ability, without doing this, the ability won't be updated or drawn.
 	activate();
-
-	//Stun the user for the duration of the cast time.
-	auto stun = sf::seconds(M_CAST_DURATION);
-	user->stun(stun);
 
 	//Set the casting graphics to the user's position and lay the casting animation.
 	mCastGraphics.setPosition(user->getPosition());
 	mCastGraphics.playAnimation("Cast");
 
 	mMissilesSpawned = 0u;
-	mMissileSpawnInterval = M_CAST_DURATION / M_NUM_MISSILES;
+	mMissileSpawnInterval = getCastDuration().asSeconds() / M_NUM_MISSILES;
 	mTimeSinceMissileSpawn = mMissileSpawnInterval;
 }
 
-void MagicMisile::doUpdateLogic(float deltaSeconds) {
-	mCastGraphics.animate(sf::seconds(deltaSeconds));
-	mTimeSinceMissileSpawn += deltaSeconds;
+void MagicMisile::doUpdateLogic(sf::Time const& deltaTime) {
+	mCastGraphics.animate(deltaTime);
+	mTimeSinceMissileSpawn += deltaTime.asSeconds();
 
 	if (mTimeSinceMissileSpawn >= mMissileSpawnInterval)
 	{
@@ -54,7 +49,8 @@ void MagicMisile::doUpdateLogic(float deltaSeconds) {
 		auto missile = (std::make_shared<FancyProjectile>(
 			M_MISSILE_DAMAGE,
 			mDamageType,
-			ResourceManager<sf::Texture>::instance()->get("./res/img/magic_projectile.png")
+			ResourceManager<sf::Texture>::instance()->get("./res/img/magic_missile.png"),
+			25
 			));
 
 		missile->setPosition(mCastGraphics.getPosition());

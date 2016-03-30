@@ -1,8 +1,12 @@
 #include <include/Abilities/Ability.hpp>
 
 Ability::Ability(tinyxml2::XMLElement* xml) :
-mDescription(xml->FirstChildElement("Description")->GetText()),
-mName(xml->FirstChildElement("Name")->GetText())
+mIsActive(false),
+M_DESCRIPTION(xml->FirstChildElement("Description")->GetText()),
+M_NAME(xml->FirstChildElement("Name")->GetText()),
+M_CAST_TIME(sf::seconds(atof(xml->FirstChildElement("CastTime")->GetText()))),
+M_COOLDOWN(atof(xml->FirstChildElement("Cooldown")->GetText())),
+mSecondsSinceCast(M_COOLDOWN)
 {
 	_ASSERT(xml->Name() == std::string("Ability"));
 }
@@ -10,19 +14,38 @@ mName(xml->FirstChildElement("Name")->GetText())
 Ability::~Ability() {
 }
 
+void Ability::execute(Pawn* user) {
+	if (canCast()) {
+		user->stun(M_CAST_TIME);	//Stun the user for the duration of the cast time.
+		doExecuteLogic(user);	//Do ability-specific execution logic.
+		activate();
+	}
+}
+
 void Ability::update(sf::Time const& elapsedTime) {
-	if (mIsActive)
+	if (isActive())
 	{
-		doUpdateLogic(elapsedTime.asSeconds());
+		doUpdateLogic(elapsedTime);
+	}
+	else {
+		mSecondsSinceCast += elapsedTime.asSeconds();
 	}
 }
 
 const std::string& Ability::getDescription() const{
-	return mDescription;
+	return M_DESCRIPTION;
 }
 
 const std::string& Ability::getName() const {
-	return mName;
+	return M_NAME;
+}
+
+bool Ability::canCast() const {
+	return !mIsActive && mSecondsSinceCast >= M_COOLDOWN;
+}
+
+float Ability::getRemainingCooldown() const {
+	return M_COOLDOWN - mSecondsSinceCast;
 }
 
 void Ability::setPawnList(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& list) {
@@ -39,6 +62,11 @@ void Ability::activate() {
 
 void Ability::deactivate() {
 	mIsActive = false;
+	mSecondsSinceCast = 0.f;	//Cooldown starts when the ability finishes casting
+}
+
+sf::Time const& Ability::getCastDuration() const {
+	return M_CAST_TIME;
 }
 
 bool Ability::isActive() const {

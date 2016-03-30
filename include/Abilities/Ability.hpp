@@ -27,11 +27,13 @@ public:
 	virtual ~Ability();
 
 	/*!
-	\brief 
+	\brief Calls doExecuteLogic() if ability has fully cooled since last use.
 	\param user Raw pointer to user of ability. Can be null.
 	\remarks The raw Pawn pointer is not intended to be stored.
+	\see doUpdateLogic()
+	\see M_COOLDOWN
 	*/
-	virtual void execute(Pawn* user) = 0;
+	virtual void execute(Pawn* user);
 
 	/*!
 	\brief Checks if ability is active and does update logic if it is.
@@ -51,6 +53,10 @@ public:
 	*/
 	const std::string& getName() const;
 
+	bool canCast() const;
+
+	float getRemainingCooldown() const;
+
 	/*!
 	\brief Sets the pawn list to be used when the Ability wishes to add Pawns to the game.
 	\param list Shared pointer to a list of shared pawns.
@@ -67,17 +73,25 @@ protected:
 	void activate();
 	void deactivate();
 
+	sf::Time const& getCastDuration() const;
+
 	/*!
 	\brief Gets whether the ability has been activated or not.
 	\returns True if the ability has been actived (execute() has been called).
 	*/
 	bool isActive() const;
+
+	/*!
+	\brief
+	\param user Pointer to the pawn that used the ability.
+	*/
+	virtual void doExecuteLogic(Pawn* user) = 0;
 	
 	/*!
 	\brief Does everything necessary to update the ability.
 	Only called if the ability is active.
 	*/
-	virtual void doUpdateLogic(float deltaSeconds) = 0;
+	virtual void doUpdateLogic(sf::Time const& deltaTime) = 0;
 
 	//! Draws the ability to the render target.
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
@@ -99,10 +113,19 @@ private:
 	bool mIsActive;
 
 	//! User-friendly description of ability.
-	const std::string mDescription;
+	const std::string M_DESCRIPTION;
 
 	//! User-friendly name of ability.
-	const std::string mName;
+	const std::string M_NAME;
+
+	//! Time it takes to use the ability.
+	const sf::Time M_CAST_TIME;
+
+	//! How many seconds must pass before the ability can be used subsequently.
+	const float M_COOLDOWN;
+
+	//! The number of seconds since the ability was last deactivated.
+	float mSecondsSinceCast;
 
 	std::shared_ptr<std::list<std::shared_ptr<Pawn>>> mPawnList;
 	std::shared_ptr<ProjectileManager> mProjectileManager;

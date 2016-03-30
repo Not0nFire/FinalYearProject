@@ -10,13 +10,14 @@ namespace abilities
 	public:
 		RaiseDead(tinyxml2::XMLElement* xml);
 		virtual ~RaiseDead();
-		void execute(Pawn* user) override;
 	protected:
-		void doUpdateLogic(float deltaSeconds) override;
+		void doExecuteLogic(Pawn* user) override;
+		void doUpdateLogic(sf::Time const& deltaTime) override;
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	private:
 		Minion mUnitPrototype;
 		std::vector<sf::Vector2f const> mSpawnPoints;
+		Actor mCastGraphics;
 	};
 }
 #endif

@@ -23,7 +23,10 @@
   <UpgradeMissileNumberBoost>2</UpgradeMissileNumberBoost>
   
   <!-- How long, in seconds, to stun the user while they cast the ability -->
-  <CastDuration>1</CastDuration>
+  <CastTime>1</CastTime>
+
+  <!-- The number of seconds that must be waited before the ability can be used again -->
+  <Cooldown>1</Cooldown>
 
   <!-- The actor used to display the casting animations -->
   <Actor>

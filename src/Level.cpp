@@ -153,8 +153,8 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 
 	//:Testing MagicMissile ability
 	XMLDocument doc;
-	doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
-	mTestAbility = new abilities::RaiseDead(doc.FirstChildElement("Ability"));
+	doc.LoadFile("./res/xml/MagicMissileAbility.xml");
+	mTestAbility = new abilities::MagicMisile(doc.FirstChildElement("Ability"));
 	mTestAbility->setPawnList(mPawns);
 	mTestAbility->setProjectileManager(mProjectileManager);
 }

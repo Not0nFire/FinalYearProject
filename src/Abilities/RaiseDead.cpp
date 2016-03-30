@@ -4,6 +4,7 @@ using namespace abilities;
 
 RaiseDead::RaiseDead(tinyxml2::XMLElement* xml) :
 Ability(xml),
+mCastGraphics(xml->FirstChildElement("Actor")),
 mUnitPrototype(xml->FirstChildElement("Minion"))
 {
 	auto spawnDistance = atoi(xml->FirstChildElement("SpawnDistance")->GetText());
@@ -26,11 +27,12 @@ mUnitPrototype(xml->FirstChildElement("Minion"))
 
 RaiseDead::~RaiseDead() {}
 
-void RaiseDead::execute(Pawn* user) {
+void RaiseDead::doExecuteLogic(Pawn* user) {
 	const auto& userPosition = user->getPosition();
 
-	//Just stop the user from moving momentarily.
-	user->setDestination(userPosition);
+	//Set the casting graphics to the user's position and lay the casting animation.
+	mCastGraphics.setPosition(user->getPosition());
+	mCastGraphics.playAnimation("Cast");
 
 	//Spawn units around the user.
 	for (auto const& spawnPoint : mSpawnPoints) {
@@ -45,8 +47,14 @@ void RaiseDead::execute(Pawn* user) {
 	}
 }
 
-void RaiseDead::doUpdateLogic(float deltaSeconds) {
-	deactivate();
+void RaiseDead::doUpdateLogic(sf::Time const& deltaTime) {
+	//Deactivaate when mCastGraphics finishes its animation.
+	if (mCastGraphics.isPlayingAnimation()) {
+		mCastGraphics.animate(deltaTime);
+	}
+	else {
+		deactivate();
+	}
 }
 
 void RaiseDead::draw(sf::RenderTarget& target, sf::RenderStates states) const {}
