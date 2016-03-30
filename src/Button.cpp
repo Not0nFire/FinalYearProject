@@ -83,7 +83,7 @@ std::string const& Button::getName() const {
 	return mName;
 }
 
-void Button::draw(sf::RenderTarget& target) const {
+void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(mSprite);
 }
 

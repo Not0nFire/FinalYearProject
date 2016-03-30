@@ -25,9 +25,6 @@ MagicMisile::~MagicMisile() {
 }
 
 void MagicMisile::doExecuteLogic(Pawn* user) {
-	//Activate the ability, without doing this, the ability won't be updated or drawn.
-	activate();
-
 	//Set the casting graphics to the user's position and lay the casting animation.
 	mCastGraphics.setPosition(user->getPosition());
 	mCastGraphics.playAnimation("Cast");

@@ -23,10 +23,20 @@
   <UpgradeMissileNumberBoost>2</UpgradeMissileNumberBoost>
   
   <!-- How long, in seconds, to stun the user while they cast the ability -->
-  <CastTime>1</CastTime>
+  <CastTime>2</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
-  <Cooldown>1</Cooldown>
+  <Cooldown>5</Cooldown>
+
+  <!-- The clickable button definition for this ability-->
+  <Button>
+    <Texture path="./res/img/magic_missile_icon_2.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="127" height="127"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="128"/>
+    <DisabledImage x="0" y="256"/>
+  </Button>
 
   <!-- The actor used to display the casting animations -->
   <Actor>

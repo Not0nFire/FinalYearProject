@@ -151,12 +151,18 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 
 	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
 
-	//:Testing MagicMissile ability
+	//Create abilities and their buttons.
 	XMLDocument doc;
 	doc.LoadFile("./res/xml/MagicMissileAbility.xml");
-	mTestAbility = new abilities::MagicMisile(doc.FirstChildElement("Ability"));
-	mTestAbility->setPawnList(mPawns);
-	mTestAbility->setProjectileManager(mProjectileManager);
+	auto abilityRoot = doc.FirstChildElement("Ability");
+
+	mAbilityList.push_back(make_pair(
+		gui::Button(100, 450, abilityRoot->FirstChildElement("Button")),
+		std::make_unique<abilities::MagicMisile>(abilityRoot)
+		));
+
+	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
+	mAbilityList.rbegin()->second->setPawnList(mPawns);
 }
 
 Level::~Level() {
@@ -174,20 +180,39 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				*mMoney -= tower->getCost();
 				mTowers.push_back(tower);
 				mCollisionGroup->add(tower);	//add the tower to collision group
-			} else {
+			}
+			else {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
 			}
 			handled = true;
 
 		} else {
-			//destination = mouse position in window + camera position
-			mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
-			handled = true;
+
+			bool buttonClicked = false;
+			for (auto& pair : mAbilityList) {
+				//.first is the button
+				//.second is the ability (unique_ptr)
+				if (pair.first.checkClick()) {	//if the button was clicked...
+					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
+					buttonClicked = true;
+				}
+			}
+
+			if (!buttonClicked) {
+				//destination = mouse position in window + camera position
+				mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
+				handled = true;
+			}
 		}
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
 		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 
+		for (auto& pair : mAbilityList) {
+			//.first is the button
+			//.second is the ability (unique_ptr)
+			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
+		}
 	}
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
@@ -203,9 +228,6 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
-		//:Execute test ability
-		case sf::Keyboard::M:
-			mTestAbility->execute(mHero.get());
 		default:
 			break;
 		}
@@ -215,10 +237,17 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
-	//:Update test ability
-	mTestAbility->update(elapsedTime);
+	for (auto& pair : mAbilityList) {
+		//.first is the button
+		//.second is the ability (unique_ptr)
+		pair.second->update(elapsedTime);
+		if (pair.second->canCast()) {
+			pair.first.enable();
+		} else {
+			pair.first.disable();
+		}
+	}
 
-	//boost::lock_guard<boost::mutex> lock(mMutex);
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns->begin();
@@ -331,12 +360,20 @@ void Level::draw(sf::RenderWindow &w) {
 		actor->debug_draw(w);
 		actor->draw(w);
 	}
-	//:Draw test ability
-	w.draw(*mTestAbility);
+
+	for (auto& pair : mAbilityList) {
+		w.draw(*pair.second);	//draw the ability
+	}
 
 	mProjectileManager->draw(w);
 
 	mTowerPlacer->draw(w);
+
+	w.setView(w.getDefaultView());	//reset the view before we draw hud items
+
+	for (auto& pair : mAbilityList) {
+		w.draw(pair.first);	//draw the button
+	}
 
 	//mHud->draw(w);
 }

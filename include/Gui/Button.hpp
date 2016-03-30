@@ -12,7 +12,7 @@ namespace gui
 	\class Button
 	\brief Clickable sprite.
 	*/
-	class Button {
+	class Button : public sf::Drawable {
 	public:
 		Button(int x, int y, const tinyxml2::XMLElement* xmlButtonDefinition );
 		virtual ~Button();
@@ -20,14 +20,14 @@ namespace gui
 		void update(sf::Vector2i const& mousePos);
 		bool checkClick() const;
 
-		void draw(sf::RenderTarget &target) const;
-
 		void enable();
 		void disable();
 
 		std::string const& getName() const;
 
 	protected:
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
 		enum State {
 			NORMAL,
 			HOVER,

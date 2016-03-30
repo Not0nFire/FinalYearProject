@@ -90,9 +90,9 @@ void LevelSelect::update(sf::Time const& elapsedTime) {
 
 void LevelSelect::draw(sf::RenderWindow& w) {
 	w.draw(mBackground);
-	mBackButton->draw(w);
+	w.draw(*mBackButton);
 	for (auto itr = mLevelButtons.begin(); itr != mLevelButtons.end(); ++itr) {
-		itr->first->draw(w);
+		w.draw(*(itr->first));
 	}
 }
 
