@@ -86,4 +86,15 @@
       </Actor>
     </Pawn>
   </Minion>
+
+  <!-- The clickable button definition for this ability-->
+  <Button>
+    <Texture path="./res/img/raise_dead_icon_2.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="255" height="255"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="256"/>
+    <DisabledImage x="0" y="512"/>
+    <Scale x="0.25" y="0.25"/>
+  </Button>
 </Ability>

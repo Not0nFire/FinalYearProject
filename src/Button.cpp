@@ -40,6 +40,15 @@ mSprite()
 	mDisabledSrcRect.left = atoi(disabledImagePos->Attribute("x"));
 	mDisabledSrcRect.top = atoi(disabledImagePos->Attribute("y"));
 
+	//Parse the optional <Scale> tag and apply it to our sprite
+	auto scale = xmlButtonDefinition->FirstChildElement("Scale");
+	if (nullptr != scale) {
+		float scaleX = atof(scale->Attribute("x"));
+		float scaleY = atof(scale->Attribute("y"));
+
+		mSprite.setScale(scaleX, scaleY);
+	}
+
 	mSprite.setPosition(x, y);
 	setState(NORMAL);
 

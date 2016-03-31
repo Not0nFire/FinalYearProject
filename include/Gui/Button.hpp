@@ -20,7 +20,7 @@ namespace gui
 		void update(sf::Vector2i const& mousePos);
 		bool checkClick() const;
 
-		void enable();
+		void enable();	
 		void disable();
 
 		std::string const& getName() const;

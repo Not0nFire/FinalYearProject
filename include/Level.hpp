@@ -97,6 +97,11 @@ private:
 	\param projectile The projectile to fire. Must be unfired.
 	*/
 	void autofireProjectile(shared_ptr<Projectile> const& projectile) const;
+
+	/*!
+	\brief Initializes abilities and their buttons.
+	*/
+	void setupAbilities();
 	
 public:
 	/*!

@@ -40,6 +40,39 @@ void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
 	}
 }
 
+void Level::setupAbilities() {
+	//Create magic missile ability
+	XMLDocument doc;
+	auto result = doc.LoadFile("./res/xml/MagicMissileAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	auto abilityRoot = doc.FirstChildElement("Ability");
+
+	mAbilityList.push_back(make_pair(
+		gui::Button(100, 450, abilityRoot->FirstChildElement("Button")),
+		std::make_unique<abilities::MagicMisile>(abilityRoot)
+		));
+
+	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
+	mAbilityList.rbegin()->second->setPawnList(mPawns);
+
+	//Create raise dead ability
+	result = doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+
+	mAbilityList.push_back(make_pair(
+		gui::Button(164, 450, abilityRoot->FirstChildElement("Button")),
+		std::make_unique<abilities::RaiseDead>(abilityRoot)
+		));
+
+	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
+	mAbilityList.rbegin()->second->setPawnList(mPawns);
+}
+
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(tinyxml2::XMLElement* root) :
@@ -151,18 +184,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 
 	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
 
-	//Create abilities and their buttons.
-	XMLDocument doc;
-	doc.LoadFile("./res/xml/MagicMissileAbility.xml");
-	auto abilityRoot = doc.FirstChildElement("Ability");
-
-	mAbilityList.push_back(make_pair(
-		gui::Button(100, 450, abilityRoot->FirstChildElement("Button")),
-		std::make_unique<abilities::MagicMisile>(abilityRoot)
-		));
-
-	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
-	mAbilityList.rbegin()->second->setPawnList(mPawns);
+	setupAbilities();
 }
 
 Level::~Level() {

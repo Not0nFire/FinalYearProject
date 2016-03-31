@@ -36,6 +36,7 @@
     <NormalImage x="0" y="0"/>
     <HoverImage x="0" y="128"/>
     <DisabledImage x="0" y="256"/>
+    <Scale x="0.5" y="0.5"/>
   </Button>
 
   <!-- The actor used to display the casting animations -->
