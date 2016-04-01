@@ -1,5 +1,5 @@
-#ifndef _LEVEL_
-#define _LEVEL_
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -15,9 +15,9 @@
 #include <include/Pathing/Path.hpp>
 #include <include/Camera.hpp>
 #include <SFML/Audio.hpp>
-#include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/WaveController.hpp>
 
 using std::shared_ptr;
 
@@ -31,7 +31,7 @@ private:
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
 	shared_ptr<collision::CollisionGroup> mCollisionGroup;
 
-	//! List of ranged towers in the level
+	//! List of towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
 	std::mutex mMutex;
@@ -49,13 +49,13 @@ private:
 
 	shared_ptr<ProjectileManager> mProjectileManager;
 
-	//! Tool for placing ranged towers.
+	//! Tool for placing towers.
 	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	//! Path that Minions will follow.
 	shared_ptr<Path> mPath;
 
-	//! Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers.
+	//! Amount of money at the player's disposal. Earned by killing Minions, spent on building towers.
 	shared_ptr<int> mMoney;
 	//! Number of enemies that can make it through the level alive before losing.
 	shared_ptr<int> mLivesRemaining;
@@ -81,15 +81,15 @@ private:
 	//! Flock of enemy minions.
 	shared_ptr<std::list<Minion*>> mMinionFlock;
 
+	//! Controller for spawning groups of units units after delays
+	WaveController mWaveController;
+
 	//! Compares the y position of two actors for the purpose of sorting the draw order
 	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
+
+	void spawnMinion(shared_ptr<Minion> const& unit) const;
 	
 public:
-	/*!
-	\param _relWindow RenderWindow to be used for getting relative mouse position.
-	*/
-	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
-	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
 	Level(tinyxml2::XMLElement* root);
 	~Level();
 	

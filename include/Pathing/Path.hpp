@@ -26,7 +26,7 @@ public:
 	static std::shared_ptr<Node> getNext(std::shared_ptr<Node> current);
 
 	//! Returns the starting node of the path.
-	std::shared_ptr<Node> begin() const;
+	std::shared_ptr<const Node> begin() const;
 
 private:
 	std::shared_ptr<Node> mRoot;

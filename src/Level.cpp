@@ -10,6 +10,26 @@ bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor>
 	return A->getPosition().y < B->getPosition().y;
 }
 
+void Level::spawnMinion(shared_ptr<Minion> const& unit) const {
+	//add the minion to the flock
+	unit->addToFlock(mMinionFlock);
+
+	//set the minion's path
+	auto node = mPath->begin();
+	unit->setPath(node);
+
+	//set the position of the minion
+	auto spawnPos = node->getPoint();
+	unit->setPosition(spawnPos);
+	unit->setDestination(spawnPos);
+
+	//add the minion to the collision group
+	mCollisionGroup->add(unit);
+
+	//add the minion to the list
+	mPawns->push_back(unit);
+}
+
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(tinyxml2::XMLElement* root) :
@@ -25,7 +45,8 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>())
+mMinionFlock(std::make_shared<std::list<Minion*>>()),
+mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1))
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -92,7 +113,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 			pawn = factory.produce(type);
 			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
-			auto constNode = std::const_pointer_cast<const Node>(mPath->begin());
+			auto constNode = mPath->begin();
 			minion->setPath(constNode);
 			minion->addToFlock(mMinionFlock);
 		}
@@ -174,6 +195,9 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 void Level::update(sf::Time const &elapsedTime) {
 	//boost::lock_guard<boost::mutex> lock(mMutex);
+
+	mWaveController.update(elapsedTime);
+
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns->begin();

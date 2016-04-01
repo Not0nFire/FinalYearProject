@@ -5,7 +5,7 @@
 #include <boost/signals2.hpp>
 #include <map>
 #include <thread>
-using namespace boost::signals2;
+//using namespace boost::signals2;
 
 /*!
 \brief Singleton class to handle scenes and the navigation between them.
@@ -88,7 +88,7 @@ public:
 	Signal that is invoked whenever the scene changes.
 	The scene pointer passed is the new current scene.
 	*/
-	signal<void(SceneProxy* newScene)> onSceneChange;
+	boost::signals2::signal<void(SceneProxy* newScene)> onSceneChange;
 };
 
 template <class SceneType>
