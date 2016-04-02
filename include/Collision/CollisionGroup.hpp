@@ -24,7 +24,7 @@ namespace collision {
 		void add(std::shared_ptr<Collidable> const &entry);
 		void remove(std::shared_ptr<Collidable> const &entry);
 
-		void checkAgainst(std::shared_ptr<Collidable> &other);
+		bool checkAgainst(std::shared_ptr<Collidable> &other);
 	};
 }
 #endif

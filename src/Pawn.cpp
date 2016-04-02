@@ -24,6 +24,7 @@ mCombatTarget(nullptr)
 	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(GET_ELEMENT("AttackSound")));
 
 	playAnimation("idle", true);
+	animate(sf::seconds(0.f));
 }
 
 Pawn::~Pawn() {
@@ -35,14 +36,14 @@ Pawn::~Pawn() {
 //	return mDecayTime > sf::Time::Zero;
 //}
 
-void Pawn::turnToFaceDestination() {
-	sf::Vector2f scale = getScale();
-	float posX = getPosition().x;
-	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : mDestination.x;	//face target if attacking
+void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
+	const sf::Vector2f& scale = getScale();
+	const sf::Vector2f& pos = getPosition();
+	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : dir.x;	//face target if attacking
 
 	//mirror the sprite, making it face the right way
-	if ((faceThis < posX && scale.x > 0) ||
-		faceThis > posX && scale.x < 0)
+	if ((faceThis < pos.x && scale.x > 0) ||
+		faceThis > pos.x && scale.x < 0)
 	{
 		setScale(scale.x * -1, scale.y);
 	}
@@ -63,7 +64,10 @@ void Pawn::calculateAnimation() {
 		if (isPlayingAnimation() && getPlayingAnimation() != "attack")
 			playAnimation("attack", true);
 		break;
-	case STUNNED: break;
+	case STUNNED:
+		if (isPlayingAnimation() && getPlayingAnimation() != "idle")
+			playAnimation("idle", false);
+		break;
 	case DEAD:
 		if (isPlayingAnimation() && getPlayingAnimation() != "death")
 			playAnimation("death", false);
@@ -86,7 +90,7 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 		}
 
 		//proceed toward goal
-		else if (thor::length(goalDisplacement) > 5) {
+		else if (mSecondsToWait <= 0.f && thor::length(goalDisplacement) > 5) {
 			mState = State::MARCHING;
 
 		}
@@ -145,7 +149,13 @@ void Pawn::setMovementSpeed(int newSpeed) {
 }
 
 void Pawn::update(sf::Time const &elapsedTime) {
-//	boost::lock_guard<boost::mutex> lock(mMutex);
+
+	//Decrease the time to wait. While this is above zero
+	if (mSecondsToWait > 0) {
+		mSecondsToWait -= elapsedTime.asSeconds();
+	}
+
+	turnToFaceDirection(mDestination);
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 
@@ -172,8 +182,6 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		setDebugColour(sf::Color::Magenta);
 		break;
 	}
-
-	turnToFaceDestination();
 
 	calculateAnimation();
 
@@ -278,6 +286,13 @@ bool Pawn::targetIsDead() const {
 	return isDead;
 }
 
+void Pawn::wait(float seconds) {
+	//Don't let a shorter wait time cancel out the current one
+	if (seconds > mSecondsToWait) {
+		mSecondsToWait = seconds;
+	}
+}
+
 int Pawn::getHealth() const {
 	return mHealth;
 }
@@ -298,7 +313,7 @@ void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv
 	auto projectile = std::dynamic_pointer_cast<Projectile, Collidable>(other);
 	if (projectile) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
-		printf("Projectile hit me! %p\n", other.get());
+		//printf("Projectile hit me! %p\n", other.get());
 	} else {
 		auto pawn = std::dynamic_pointer_cast<Pawn, Collidable>(other);
 		if (pawn)

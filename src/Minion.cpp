@@ -63,7 +63,7 @@ sf::Vector2f Minion::cohesion() const {
 		Minion* flockMember = *itr;
 		if (this != flockMember) {
 			//Is the flockmember close enough to us?
-			sf::Vector2f diff = this->getPosition() - flockMember->getPosition();
+			sf::Vector2f diff = flockMember->getPosition() - this->getPosition();
 			float distance = thor::length(diff);
 			if (distance < neighbourDist)
 			{
@@ -84,15 +84,15 @@ sf::Vector2f Minion::cohesion() const {
 }
 
 void Minion::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
-		sf::Vector2f steer = thor::unitVector(goalDisplacement);
+	sf::Vector2f steer = thor::unitVector(goalDisplacement);
 	if (mFlock) {
 		sf::Vector2f sep = separation();
 		sf::Vector2f coh = cohesion();
 
-		steer += sep;
-		//steer += coh;
+		steer += sep * 2.0f;
+		steer += coh * 0.02f;
 	}
-
+	
 	Pawn::doMarch(steer, secondsElapsed);
 }
 

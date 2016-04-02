@@ -13,7 +13,9 @@
 #include "MageTower.hpp"
 #include "UnitTower.hpp"
 
-#include "include/ProjectileManager.hpp"
+#include <include/ProjectileManager.hpp>
+
+#include <include/Collision/CollisionGroup.hpp>
 
 typedef Quadtree<unsigned char> TerrainTree;
 
@@ -61,6 +63,8 @@ public:
 	*/
 	void draw(sf::RenderTarget &renderTarget) const;
 
+	bool isActive() const;
+
 protected:
 	//! The type of tower that will be placed
 	TowerType mTowerType;
@@ -101,5 +105,8 @@ private:
 	shared_ptr<ProjectileManager> mProjectileManager;
 	shared_ptr<Path> mPath;
 	shared_ptr<std::list<Minion*>> mFlock;
+
+	//! Used to prevent the player from placing towers on top of each other.
+	collision::CollisionGroup mTowerCollisionGroup;
 };
 #endif

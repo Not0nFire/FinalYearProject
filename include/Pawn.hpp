@@ -53,6 +53,8 @@ protected:
 
 	sf::Sound mAttackSound;
 
+	float mSecondsToWait;
+
 	//sf::Time mDecayTime;
 	//bool mDecayed;
 #pragma endregion
@@ -60,7 +62,7 @@ protected:
 #pragma region Methods
 
 	//bool decay(sf::Time const &elapsedTime);
-	void turnToFaceDestination();
+	void turnToFaceDirection(sf::Vector2f const& dir);
 
 	virtual void calculateAnimation();
 
@@ -178,6 +180,12 @@ public:
 	\returns True if target is dead.
 	*/
 	bool targetIsDead() const;
+
+	/*!
+	\brief Disallows the pawn to march for the specified time.
+	\param second The number of second to wait.
+	*/
+	void wait(float seconds);
 
 	/*
 	Returns the current health of the pawn.

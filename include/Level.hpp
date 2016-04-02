@@ -88,6 +88,11 @@ private:
 	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
 
 	void spawnMinion(shared_ptr<Minion> const& unit) const;
+
+	void tryPlaceTower();
+	bool updatePawns(sf::Time const& elapsedTime);
+	void updateTowers(sf::Time const& elapsedTime);
+	void ensureMusicPlaying();
 	
 public:
 	Level(tinyxml2::XMLElement* root);

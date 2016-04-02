@@ -96,15 +96,19 @@ namespace collision {
 		mMembers.erase( std::remove(mMembers.begin(), mMembers.end(), entry) );
 	}
 
-	void CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
+	bool CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
 		sf::Vector2f mtv;
+		bool collisionOccured = false;
 		for (auto &member : mMembers)
 		{
-			if (checkPair(other, member, mtv))
+			collisionOccured = checkPair(other, member, mtv);
+				if (collisionOccured)
 			{
 				member->onCollide(other, mtv);
 				other->onCollide(member, -mtv);
 			}
 		}
+
+		return collisionOccured;
 	}
 }
