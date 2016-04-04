@@ -72,7 +72,7 @@ namespace tower {
 		mNearestPathNode = nearestNode;
 	}
 
-	void UnitTower::setFlock(std::shared_ptr<std::list<Minion*>> const& flock) {
+	void UnitTower::setFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const& flock) {
 		mFlock = flock;
 	}
 
@@ -87,6 +87,8 @@ namespace tower {
 
 		auto unit = std::make_shared<Minion>(doc.FirstChildElement("Minion"));
 		unit->setPosition(getPosition());
+
+		unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
 
 		if (auto node = mNearestPathNode.lock()) {
 			unit->setDestination(node->getPoint());

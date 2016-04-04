@@ -40,9 +40,10 @@ bool Level::updatePawns(sf::Time const& elapsedTime) {
 			if (p->getFaction() == Pawn::Faction::ENEMY)
 				allEnemiesDead = false;
 
-			//if out of bounds
-			if (!mBounds.contains(p->getPosition())) {
-
+			auto minion = std::dynamic_pointer_cast<Minion, Pawn>(p);
+			//if reached end of path
+			if (nullptr != minion && minion->reachedEndOfPath()) {
+				printf("!\n");
 				p->kill();
 				mCollisionGroup->remove(p);
 
@@ -50,7 +51,7 @@ bool Level::updatePawns(sf::Time const& elapsedTime) {
 					mIsLost = true;
 				}
 
-			}//if out of bounds
+			}//if reached end of path
 
 			else if (p->targetIsDead()) {
 				for (auto &other : *mPawns) {
@@ -103,9 +104,25 @@ void Level::ensureMusicPlaying() {
 	}
 }
 
+void Level::cleanPawnFlock() const {
+	auto end = mFlock->end();
+	auto itr = std::remove_if(
+		mFlock->begin(),
+		end,
+		[](std::weak_ptr<Pawn> const& minion) { return minion.expired(); }	//remove if it has expired
+	);
+
+	if (itr != end) {
+		mFlock->erase(itr, end);
+	}
+}
+
 void Level::spawnMinion(shared_ptr<Minion> const& unit) const {
+	//give the minion a smart pointer to itself
+	unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
+
 	//add the minion to the flock
-	unit->addToFlock(mMinionFlock);
+	unit->addToFlock(mFlock);
 
 	//set the minion's path
 	auto node = mPath->begin();
@@ -138,7 +155,7 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>()),
+mFlock(std::make_shared<std::list<std::weak_ptr<Pawn>>>()),
 mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1))
 {
 	
@@ -200,6 +217,7 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 
 			mHero = pawn;
 			//mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			mFlock->push_back(pawn);	//Add the hero to the flock. The hero doesn't do any flock logic but this allows minions to account for him.
 		}
 		else
 		{
@@ -208,7 +226,7 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
 			auto constNode = mPath->begin();
 			minion->setPath(constNode);
-			minion->addToFlock(mMinionFlock);
+			minion->addToFlock(mFlock);
 		}
 
 		pawn->setDestination(pos);
@@ -226,7 +244,7 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mFlock);
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
@@ -298,6 +316,8 @@ void Level::update(sf::Time const &elapsedTime) {
 	updateTowers(elapsedTime);
 
 	mProjectileManager->update(elapsedTime);
+
+	cleanPawnFlock();
 
 	mCamera.update();
 

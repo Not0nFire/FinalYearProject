@@ -1,5 +1,6 @@
 <Minion name="basic_ally">
   <MoneyValue>0</MoneyValue>
+  <PathingWeights destination="1" separation="2" cohesion="0.5" enemy_seek="5"/>
   <Pawn>
     <Faction>PLAYER</Faction>
     <Health>100</Health>

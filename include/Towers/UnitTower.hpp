@@ -1,5 +1,5 @@
-#ifndef _UNIT_TOWER_H
-#define _UNIT_TOWER_H
+#ifndef UNIT_TOWER_H
+#define UNIT_TOWER_H
 
 #include "Tower.h"
 #include <include/Pathing/Path.hpp>
@@ -30,7 +30,7 @@ namespace tower {
 		bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& targetList) override;
 
 		void setPath(std::shared_ptr<Path> const &path);
-		void setFlock(std::shared_ptr<std::list<Minion*>> const &flock);
+		void setFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const &flock);
 
 	protected:
 		//! Path to xml file containing Minion definition.
@@ -49,7 +49,7 @@ namespace tower {
 		//! Pointer to nearest path node. This is where spawned units are sent.
 		std::weak_ptr<Node> mNearestPathNode;
 
-		std::weak_ptr<std::list<Minion*>> mFlock;
+		std::weak_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
 	};
 }
 #endif

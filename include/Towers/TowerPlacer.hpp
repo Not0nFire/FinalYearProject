@@ -1,5 +1,5 @@
-#ifndef _TOWER_PLACER_H
-#define _TOWER_PLACER_H
+#ifndef TOWER_PLACER_H
+#define TOWER_PLACER_H
 
 #include <memory>
 
@@ -36,7 +36,7 @@ public:
 	\param	path Path onto which UnitTowers will send their spawned units.
 	\param	flock Flock into which UnitTowers will add their spawned units.
 	*/
-	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock);
+	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<std::weak_ptr<Pawn>>> const &flock);
 	virtual ~TowerPlacer();
 
 	/*!
@@ -104,7 +104,7 @@ private:
 
 	shared_ptr<ProjectileManager> mProjectileManager;
 	shared_ptr<Path> mPath;
-	shared_ptr<std::list<Minion*>> mFlock;
+	shared_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
 
 	//! Used to prevent the player from placing towers on top of each other.
 	collision::CollisionGroup mTowerCollisionGroup;

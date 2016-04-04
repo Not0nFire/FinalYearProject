@@ -7,7 +7,7 @@ const std::string TowerPlacer::mArrowTowerDefPath = "./res/xml/arrow_tower.def.x
 const std::string TowerPlacer::mMagicTowerDefPath = "./res/xml/mage_tower.def.xml";
 const std::string TowerPlacer::mUnitTowerDefPath = "./res/xml/unit_tower.def.xml";
 
-TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock) :
+TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<std::weak_ptr<Pawn>>> const &flock) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),

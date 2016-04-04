@@ -31,6 +31,11 @@ Pawn::~Pawn() {
 
 }
 
+void Pawn::makeSelfAware(std::shared_ptr<Pawn> const& smartThis) {
+	assert(smartThis.get() == this);
+	self = smartThis;
+}
+
 //bool Pawn::decay(sf::Time const &elapsedTime) {
 //	mDecayTime -= elapsedTime;
 //	return mDecayTime > sf::Time::Zero;
@@ -104,6 +109,8 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 void Pawn::doAttack(float secondsElapsed) {
 	_ASSERT(mState == State::ATTACKING);
 
+	turnToFaceDirection(mCombatTarget->getPosition());
+
 	//Check if we have a target
 	if (mCombatTarget) {
 		mTimeSinceAttack += secondsElapsed;
@@ -111,7 +118,7 @@ void Pawn::doAttack(float secondsElapsed) {
 		//Check if it's time to attack.
 		if (mTimeSinceAttack >= 1 / mAttacksPerSecond) {
 			//Deal damage to our target
-			mCombatTarget->takeDamage(mAttackDamage, mDamageType);
+			mCombatTarget->takeDamage(mAttackDamage, mDamageType, self.lock());
 			mTimeSinceAttack = 0.0f;
 			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
@@ -154,8 +161,6 @@ void Pawn::update(sf::Time const &elapsedTime) {
 	if (mSecondsToWait > 0) {
 		mSecondsToWait -= elapsedTime.asSeconds();
 	}
-
-	turnToFaceDirection(mDestination);
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 

@@ -36,7 +36,7 @@ bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> co
 
 		for (auto &p : *possibleTargets) {
 
-			float distance = thor::length(p->getPosition() - this->getPosition());
+			float distance = thor::length(p->getPosition() - (this->getPosition()+mProjectileSpawnOffset));
 
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {

@@ -79,7 +79,7 @@ private:
 	const std::string mNextScene;
 
 	//! Flock of enemy minions.
-	shared_ptr<std::list<Minion*>> mMinionFlock;
+	shared_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
 
 	//! Controller for spawning groups of units units after delays
 	WaveController mWaveController;
@@ -91,8 +91,12 @@ private:
 
 	void tryPlaceTower();
 	bool updatePawns(sf::Time const& elapsedTime);
+	//! Calls update and shoot on all towers.
 	void updateTowers(sf::Time const& elapsedTime);
+	//! Plays the background music if it is not playing.
 	void ensureMusicPlaying();
+	//! Removes expired weak_ptrs from the list.
+	void cleanPawnFlock() const;
 	
 public:
 	Level(tinyxml2::XMLElement* root);

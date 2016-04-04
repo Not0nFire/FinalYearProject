@@ -93,7 +93,7 @@ namespace collision {
 	}
 
 	void CollisionGroup::remove(std::shared_ptr<Collidable> const &entry) {
-		mMembers.erase( std::remove(mMembers.begin(), mMembers.end(), entry) );
+		mMembers.erase(std::remove(mMembers.begin(), mMembers.end(), entry));
 	}
 
 	bool CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {

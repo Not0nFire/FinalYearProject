@@ -55,6 +55,8 @@ protected:
 
 	float mSecondsToWait;
 
+	std::weak_ptr<Pawn> self;
+
 	//sf::Time mDecayTime;
 	//bool mDecayed;
 #pragma endregion
@@ -89,6 +91,8 @@ public:
 	*/
 	Pawn(tinyxml2::XMLElement* xml);
 	virtual ~Pawn();
+
+	void makeSelfAware(std::shared_ptr<Pawn> const& smartThis);
 
 	/*!
 	Gets the Pawn's destination.

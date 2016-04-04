@@ -1,7 +1,7 @@
 <Tower>
   <AttacksPerSecond>1.f</AttacksPerSecond>
   <Cost>100</Cost>
-  <Range>120</Range>
+  <Range>150</Range>
   <Damage>10</Damage>
   <DamageType>MAGICAL</DamageType>
   <ProjectileSpawnOffset x="0" y="-100"/>

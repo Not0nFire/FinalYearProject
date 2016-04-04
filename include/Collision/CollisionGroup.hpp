@@ -3,6 +3,7 @@
 
 #include "Collidable.hpp"
 #include <memory>
+#include <exception>
 //#include "CollisionInfo.hpp"
 
 namespace collision {
