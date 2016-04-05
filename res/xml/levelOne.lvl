@@ -6,6 +6,12 @@
   <StartingMoney>300</StartingMoney>
   <NextLevel>LevelTwo</NextLevel>
 	<Path>
+    <Node>
+      <!-- start the path off to the right, so that units walk in instead of suddenly appearing on screen -->
+      <X>-100</X>
+      <Y>140</Y>
+      <Radius>100</Radius>
+    </Node>
 		<Node>
 			<X>51</X>
 			<Y>140</Y>
@@ -37,7 +43,7 @@
       <Radius>100</Radius>
     </Node>
     <Node>
-      <X>1100</X>
+      <X>1300</X>
       <Y>400</Y>
       <Radius>100</Radius>
     </Node>
