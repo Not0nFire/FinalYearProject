@@ -25,7 +25,8 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>())
+mMinionFlock(std::make_shared<std::list<Minion*>>()),
+mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"))
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -214,6 +215,8 @@ void Level::update(sf::Time const &elapsedTime) {
 			//if dead and not playing an animation...
 			if (!p->isPlayingAnimation() && p->isDead())
 			{
+				mBloodSystem.addSpurt(p->getPosition());
+
 				//draw to underlay and erase
 				mUnderlayTex.draw(*p);
 				mUnderlayTex.display();
@@ -250,6 +253,8 @@ void Level::update(sf::Time const &elapsedTime) {
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
 		mBgMusic.play();
 	}
+
+	mBloodSystem.update(elapsedTime);
 
 	//mHud->update(elapsedTime);
 
@@ -288,6 +293,8 @@ void Level::draw(sf::RenderWindow &w) {
 	}
 
 	mProjectileManager->draw(w);
+
+	w.draw(mBloodSystem);
 
 	mTowerPlacer->draw(w);
 

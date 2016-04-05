@@ -18,6 +18,7 @@
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/BloodSystem.hpp>
 
 using std::shared_ptr;
 
@@ -80,6 +81,8 @@ private:
 
 	//! Flock of enemy minions.
 	shared_ptr<std::list<Minion*>> mMinionFlock;
+
+	BloodSystem mBloodSystem;
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
 	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
