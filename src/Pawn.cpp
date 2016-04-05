@@ -15,7 +15,8 @@ mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
 mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mCombatTarget(nullptr)
+mCombatTarget(nullptr),
+mTurnHistory(0x00)
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
@@ -46,12 +47,23 @@ void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
 	const sf::Vector2f& pos = getPosition();
 	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : dir.x;	//face target if attacking
 
+	//Shift bits left by 1. This gets rid of the oldest result.
+	mTurnHistory <<= 1;
+
 	//mirror the sprite, making it face the right way
 	if ((faceThis < pos.x && scale.x > 0) ||
 		faceThis > pos.x && scale.x < 0)
 	{
 		setScale(scale.x * -1, scale.y);
+
+		mTurnHistory |= 0x01;	//Set bit to 1 (true) if turn occured. Bit starts off at zero.
 	}
+
+	if (countBits(mTurnHistory) == 8)
+	{
+		wait(0.5f);
+	}
+
 }
 
 void Pawn::calculateAnimation() {
@@ -139,6 +151,23 @@ void Pawn::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
 			thor::unitVector(goalDisplacement) * static_cast<float>(mMovementSpeed) * secondsElapsed
 			);
 	}
+}
+
+void Pawn::stopWaiting() {
+	mSecondsToWait = 0.f;
+}
+
+unsigned Pawn::countBits(unsigned char flags) {
+	//Count the number of times we've changed direction
+	auto count = 0u;
+
+	for (; flags != 0u; flags >>= 1) {
+		if (flags & 0x01) {
+			++count;
+		}
+	}
+
+	return count;
 }
 
 sf::Vector2f Pawn::getDestination() const {
@@ -312,6 +341,10 @@ bool Pawn::isDead() const {
 
 Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
+}
+
+std::shared_ptr<Pawn> const& Pawn::getCombatTarget() const {
+	return mCombatTarget;
 }
 
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {

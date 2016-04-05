@@ -47,7 +47,7 @@ namespace tower {
 		virtual std::shared_ptr<Pawn> spawnUnit();
 
 		//! Pointer to nearest path node. This is where spawned units are sent.
-		std::weak_ptr<Node> mNearestPathNode;
+		std::weak_ptr<const Node> mNearestPathNode;
 
 		std::weak_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
 	};

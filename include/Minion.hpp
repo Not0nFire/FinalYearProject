@@ -10,6 +10,7 @@
 class Minion : public Pawn {
 private:
 	std::weak_ptr<const Node> mPathNode;
+	sf::Vector2f mPathWaypoint;
 
 	//! Shared pointer to flock.
 	std::shared_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
@@ -28,6 +29,7 @@ private:
 	const float M_SEPARATION_WEIGHT;
 	const float M_COHESION_WEIGHT;
 	const float M_SEEK_WEIGHT;
+	
 
 protected:
 	//! Calls separation() to steer away from local flockmates and then invokes Pawn::doMarch()
@@ -43,7 +45,8 @@ public:
 	\brief Sets the path that the Minion will follow.
 	\param pathNode First node in that path that we should follow.
 	*/
-	void setPath(std::shared_ptr<const Node> &pathNode);
+	void setPath(std::shared_ptr<const Node> const& pathNode);
+	void clearPath();
 
 	//! Adds ourself to the flock and stores a shared pointer to the flock.
 	void addToFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const& flock);

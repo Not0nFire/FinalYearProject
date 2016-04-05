@@ -7,6 +7,7 @@
 #include <Thor/Vectors.hpp>
 #include <include/Projectile.h>
 #include <SFML/Audio.hpp>
+#include <queue>
 
 /*!
 \brief Base class for all units in the game. If it walks and attacks, it's a Pawn.
@@ -27,62 +28,7 @@ public:
 		STUNNED,
 		DEAD
 	};
-protected:
-#pragma region Fields
-	Faction mFaction; /*!< The faction that the Pawn belongs to */
-	State mState;
 
-	int mHealth;
-	const int M_MAX_HEALTH;
-	Damage::Reduction mArmour;
-	Damage::Reduction mMagicResist;
-	Damage::Type mDamageType;
-	float mAttackRange;
-
-
-	int mMovementSpeed;
-
-	int mAttackDamage;
-	float mAttacksPerSecond; /*!< \remarks 1.0f == 1 attack per second */
-	float mTimeSinceAttack;	/*!< \remarks 1.0f == 1 second */
-	std::shared_ptr<Pawn> mCombatTarget;
-
-	sf::Time mStunDuration;
-
-	sf::Vector2f mDestination;
-
-	sf::Sound mAttackSound;
-
-	float mSecondsToWait;
-
-	std::weak_ptr<Pawn> self;
-
-	//sf::Time mDecayTime;
-	//bool mDecayed;
-#pragma endregion
-
-#pragma region Methods
-
-	//bool decay(sf::Time const &elapsedTime);
-	void turnToFaceDirection(sf::Vector2f const& dir);
-
-	virtual void calculateAnimation();
-
-	virtual void calculateState(sf::Vector2f const &goalDisplacement);
-
-	virtual void doAttack(float secondsElapsed);
-
-	virtual void doMarch(sf::Vector2f const &goalDisplacement, float secondsElapsed);
-
-#pragma endregion
-
-#pragma region Signals
-	//signal<void(Pawn&)> onDecayed;
-
-	//signal<void(Pawn&)> onStateChanged;
-#pragma endregion
-
-public:
 	/*!
 	\brief Constructs a pawn from an xml element.
 	Parses members from child xml tags.
@@ -105,7 +51,7 @@ public:
 	\param destination The Pawn's new destination.
 	*/
 	void setDestination(sf::Vector2f const &destination);
-	
+
 	int getMovementSpeed() const;
 	void setMovementSpeed(int newSpeed);
 
@@ -203,7 +149,7 @@ public:
 	State getState() const;
 
 	/*!
-	Gets whether the Pawn is dead or not. 
+	Gets whether the Pawn is dead or not.
 	Does not take into account health, only checks current state.
 	\returns True if the Pawn is dead.
 	*/
@@ -215,6 +161,8 @@ public:
 	*/
 	Faction getFaction() const;
 
+	std::shared_ptr<Pawn> const& getCombatTarget() const;
+
 	/*!
 	\brief Called whenever the Pawn collides with something.
 	Virtual method that is invoked whenver this Pawn collides with something.
@@ -223,5 +171,67 @@ public:
 	\param mtv The Minimum Translation Vector for the collision.
 	*/
 	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv) override;
+
+protected:
+#pragma region Fields
+	Faction mFaction; /*!< The faction that the Pawn belongs to */
+	State mState;
+
+	int mHealth;
+	const int M_MAX_HEALTH;
+	Damage::Reduction mArmour;
+	Damage::Reduction mMagicResist;
+	Damage::Type mDamageType;
+	float mAttackRange;
+
+
+	int mMovementSpeed;
+
+	int mAttackDamage;
+	float mAttacksPerSecond; /*!< \remarks 1.0f == 1 attack per second */
+	float mTimeSinceAttack;	/*!< \remarks 1.0f == 1 second */
+	std::shared_ptr<Pawn> mCombatTarget;
+
+	sf::Time mStunDuration;
+
+	sf::Vector2f mDestination;
+
+	sf::Sound mAttackSound;
+
+	std::weak_ptr<Pawn> self;
+
+	//sf::Time mDecayTime;
+	//bool mDecayed;
+#pragma endregion
+
+#pragma region Methods
+
+	//bool decay(sf::Time const &elapsedTime);
+	void turnToFaceDirection(sf::Vector2f const& dir);
+
+	virtual void calculateAnimation();
+
+	virtual void calculateState(sf::Vector2f const &goalDisplacement);
+
+	virtual void doAttack(float secondsElapsed);
+
+	virtual void doMarch(sf::Vector2f const &goalDisplacement, float secondsElapsed);
+
+	void stopWaiting();
+
+#pragma endregion
+
+private:
+	float mSecondsToWait;
+
+	/*!
+	\brief Bitfield.
+	A bit is 1 (true) if the sprite was flipped that update, or 0 (false) if it was not.
+	Every time turnToFaceDirection() is called, each bit is shifted to the left and the result is put in.
+	We use this field to check if the Pawn is rapidly flipping back and forth, and tell it to wait if it is.
+	*/
+	unsigned char mTurnHistory;
+
+	static unsigned int countBits(unsigned char flags);
 };
 #endif

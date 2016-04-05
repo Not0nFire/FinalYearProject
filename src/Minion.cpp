@@ -109,7 +109,9 @@ void Minion::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed)
 }
 
 sf::Vector2f Minion::seekEnemy() {
-	static float range = 100;
+	static float range = 120.f;
+
+	sf::Vector2f result = sf::Vector2f();
 
 	//if combat target is null, dead or far away: find a new target
 	if (nullptr == mCombatTarget || mCombatTarget->isDead() || thor::length(mCombatTarget->getPosition() - getPosition()) > range) {
@@ -120,23 +122,53 @@ sf::Vector2f Minion::seekEnemy() {
 		{
 			//Find a nearby enemy
 			if (auto flockMember = itr->lock()) {
-				if (flockMember->getFaction() != getFaction() && thor::length(flockMember->getPosition() - getPosition()) <= range) {
-					beTaunted(flockMember);
-					mState = MARCHING;
-					return thor::unitVector(flockMember->getPosition() - getPosition());
-				}
-			}
-		}
-	} else {
+				if (flockMember != self.lock()) {
+					auto displacement = flockMember->getPosition() - getPosition();
+					if (thor::length(displacement) <= range) {
+
+						stopWaiting();	//cancel out any remaining wait time
+
+						//if the member is the same faction as us...
+						if (flockMember->getFaction() == getFaction())
+						{
+							auto target = flockMember->getCombatTarget();
+							if (nullptr != target) {
+								//flockmember is an ally. Attack their target.
+								beTaunted(flockMember->getCombatTarget());
+								displacement = mCombatTarget->getPosition() - getPosition();
+								setDestination(mCombatTarget->getPosition());
+								mState = MARCHING;
+								result = thor::unitVector(displacement);
+							}
+						}
+						else //member is an enemy
+						{
+							//flockmember is an enemy. Attack them.
+							beTaunted(flockMember);
+							setDestination(mCombatTarget->getPosition());
+							mState = MARCHING;
+							result = thor::unitVector(displacement);
+						}
+					}//end if (length(displacement) <= range)
+				}//end if (flockmember != self)
+			}//end if (flockmember = itr->lock)
+		}//end for (itr)
+	}//end if (mCombatTarget)
+	else {
 		//return the direction to the our target
-		return thor::unitVector(mCombatTarget->getPosition() - getPosition());
+		result = thor::unitVector(mCombatTarget->getPosition() - getPosition());
 	}
 
-	return sf::Vector2f();
+	return result;
 }
 
-void Minion::setPath(std::shared_ptr<const Node> &pathNode) {
+void Minion::setPath(std::shared_ptr<const Node> const& pathNode) {
 	mPathNode = pathNode;
+	mPathWaypoint = pathNode->getPoint();
+}
+
+void Minion::clearPath() {
+	mPathNode.reset();
 }
 
 void Minion::addToFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const& flock) {
@@ -147,16 +179,25 @@ void Minion::addToFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const& f
 
 void Minion::update(sf::Time const& elapsedTime) {
 
-	//Travel along path.
-	if (auto node = mPathNode.lock()) {
-		if (thor::length(getDestination() - getPosition()) <= 20.f) {
-			auto nextNode = node->getNext();
-			if (nextNode) {
-				mPathNode = nextNode;
-				setDestination(nextNode->getPoint());
-			} else {
-				mReachedEndOfPath = true;
+	if (thor::length(getDestination() - getPosition()) <= 40.f) {
+		//If the destination we've reached is the one given to us by the path...
+		if (getDestination() == mPathWaypoint) {
+			//Travel along path.
+			if (auto node = mPathNode.lock()) {
+				auto nextNode = node->getNext();
+				if (nextNode) {
+					mPathNode = nextNode;
+					mPathWaypoint = nextNode->getPoint();
+				}
+				else {
+					mReachedEndOfPath = true;
+				}
 			}
+		}// end if (destination == path waypoint)
+
+		//if waypoint is a non-zero location
+		if (mPathWaypoint != sf::Vector2f()) {
+			setDestination(mPathWaypoint);
 		}
 	}
 
@@ -164,13 +205,8 @@ void Minion::update(sf::Time const& elapsedTime) {
 
 	//If we're standing around idle
 	if (mState == IDLE) {
-		//Find a nearby enemy position (relative to ours)
-		sf::Vector2f enemyDisplacement = seekEnemy();
-
-		if (thor::length(enemyDisplacement) > 0) {
-			//Set our destination to reach the enemy
-			setDestination(getPosition() + enemyDisplacement);
-		}
+		//Keep an eye out for enemies we can attack
+		seekEnemy();
 	}
 }
 

@@ -90,8 +90,12 @@ namespace tower {
 
 		unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
 
-		if (auto node = mNearestPathNode.lock()) {
+		if (auto const node = mNearestPathNode.lock()) {
 			unit->setDestination(node->getPoint());
+			//Set the path so that the unit has a waypoint to return to after wandering to fight enemies,
+			//but clear it again so that the unit doesn't follow the path.
+			unit->setPath(node);
+			unit->clearPath();
 		}
 
 		if (auto flock = mFlock.lock()) {

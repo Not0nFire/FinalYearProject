@@ -1,6 +1,6 @@
 <Minion name="basic_enemy">
   <MoneyValue>25</MoneyValue>
-  <PathingWeights destination="1.2" separation="2" cohesion="0.3" enemy_seek="0.8"/>
+  <PathingWeights destination="1.2" separation="3" cohesion="0.3" enemy_seek="0.8"/>
   <Pawn>
     <Faction>ENEMY</Faction>
     <Health>100</Health>
