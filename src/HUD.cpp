@@ -1,6 +1,6 @@
 #include <include/HUD.hpp>
 
-namespace hud_detail
+namespace gui
 {
 	HudItem::HudItem() : mRemovalFlag(false) {
 		//empty ctor body
@@ -40,6 +40,9 @@ namespace hud_detail
 		if (auto pawn = mTracked.lock()) {
 			mBar.setScale(pawn->getHealth() / M_MAX_HEALTH, 1.f);
 		}
+		else {
+			flagForRemoval();	//if pawn does not exist anymore
+		}
 	}
 
 	void HealthBarStatic::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -61,6 +64,8 @@ namespace hud_detail
 		if (auto pawn = mTracked.lock()) {
 			mBar.setPosition(pawn->getPosition() + M_OFFSET);
 		}
+
+		HealthBarStatic::update(deltaSeconds);
 	}
 	//////////////////////////
 	//	HealthBar - end		//
@@ -113,40 +118,49 @@ Hud::Hud() {}
 Hud::~Hud() {}
 
 void Hud::addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, sf::Texture* texture, bool stationary) {
-	std::unique_ptr<hud_detail::HudItem> item;
+	std::unique_ptr<gui::HudItem> item;
 
 	if (stationary) {
 		//Create a stationary healthbar
-		item = std::make_unique<hud_detail::HealthBarStatic>(pawnToTrack, texture, offsetOrPosition, size);
+		item = std::make_unique<gui::HealthBarStatic>(pawnToTrack, texture, offsetOrPosition, size);
 	}
 	else {
 		//Create a healthbar that follows the pawn it tracks
-		item = std::make_unique<hud_detail::HealthBar>(pawnToTrack, texture, offsetOrPosition, size);
+		item = std::make_unique<gui::HealthBar>(pawnToTrack, texture, offsetOrPosition, size);
 	}
 
 	mItems.push_back(move(item));
 }
 
 void Hud::addLifeTracker(std::shared_ptr<int> const& livesToTrack, sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale, sf::Vector2f const& spacing) {
-	std::unique_ptr<hud_detail::HudItem> item;
+	std::unique_ptr<gui::HudItem> item;
 
-	item = std::make_unique<hud_detail::LifeTracker>(livesToTrack, texture, position, scale, spacing);
+	item = std::make_unique<gui::LifeTracker>(livesToTrack, texture, position, scale, spacing);
 
 	mItems.push_back(move(item));
 }
 
 void Hud::addImage(sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale) {
-	std::unique_ptr<hud_detail::HudItem> item;
+	std::unique_ptr<gui::HudItem> item;
 
-	item = std::make_unique<hud_detail::Image>(texture, position, scale);
+	item = std::make_unique<gui::Image>(texture, position, scale);
 
 	mItems.push_back(move(item));
 }
 
 void Hud::update(float deltaSeconds) {
 	
-	for (auto const& itemPtr : mItems) {
-		itemPtr->update(deltaSeconds);
+	auto itr = mItems.begin();
+	while ( itr != mItems.end()) {
+		auto item = itr->get();
+
+		item->update(deltaSeconds);
+
+		if (item->isFlaggedForRemoval()) {
+			itr = mItems.erase(itr);
+		} else {
+			++itr;
+		}
 	}
 }
 
