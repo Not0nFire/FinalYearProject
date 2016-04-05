@@ -124,7 +124,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\MageTower.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
     <ClCompile Include="src\Pathing\Node.cpp" />
     <ClCompile Include="src\Pathing\Path.cpp" />
@@ -160,7 +159,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\HUD.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\LevelSelect.hpp" />
-    <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />

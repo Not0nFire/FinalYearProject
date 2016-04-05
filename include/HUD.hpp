@@ -21,20 +21,19 @@ namespace hud_detail
 	//! Statically positioned bar that tracks a Pawn's health.
 	class HealthBarStatic : public HudItem {
 	public:
-		HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& position, sf::Vector2f const& size);
+		HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Texture* texture, sf::Vector2f const& position, sf::Vector2f const& size);
 		virtual void update(float deltaSeconds) override;
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		sf::RectangleShape mBar;
 		std::weak_ptr<Pawn> mTracked;
 		const float M_MAX_HEALTH;
-		const float M_ORIGINAL_WIDTH;
 	};
 
 	//! Healthbar that follows a Pawn's position.
 	class HealthBar : public HealthBarStatic {
 	public:
-		HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offset, sf::Vector2f const& size);
+		HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Texture* texture, sf::Vector2f const& offset, sf::Vector2f const& size);
 		void update(float deltaSeconds) override;
 	private:
 		const sf::Vector2f M_OFFSET;
@@ -68,7 +67,7 @@ public:
 	Hud();
 	~Hud();
 
-	void addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, bool stationary = false);
+	void addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, sf::Texture* texture = nullptr, bool stationary = false);
 
 	void addLifeTracker(std::shared_ptr<int> const& livesToTrack, sf::Texture &texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f }, sf::Vector2f const& spacing = { 0.f, 0.f });
 

@@ -21,14 +21,19 @@ namespace hud_detail
 	//////////////////////////////
 	//	HealthBarStatic - start	//
 	//////////////////////////////
-	HealthBarStatic::HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& position, sf::Vector2f const& size) :
+	HealthBarStatic::HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Texture* texture, sf::Vector2f const& position, sf::Vector2f const& size) :
 		mBar(size),
 		mTracked(pawnToTrack),
-		M_MAX_HEALTH(pawnToTrack->getHealth()),
-		M_ORIGINAL_WIDTH(size.x)
+		M_MAX_HEALTH(pawnToTrack->getHealth())
 	{
-		mBar.setFillColor(sf::Color::Red);
+		if (nullptr != texture) {
+			mBar.setTexture(texture);
+		}
+		else {
+			mBar.setFillColor(sf::Color::Red);
+		}
 		mBar.setPosition(position);
+
 	}
 
 	void HealthBarStatic::update(float deltaSeconds) {
@@ -47,8 +52,8 @@ namespace hud_detail
 	//////////////////////////
 	//	HealthBar - start	//
 	//////////////////////////
-	HealthBar::HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offset, sf::Vector2f const& size) :
-		HealthBarStatic(pawnToTrack, pawnToTrack->getPosition(), size),
+	HealthBar::HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Texture* texture, sf::Vector2f const& offset, sf::Vector2f const& size) :
+		HealthBarStatic(pawnToTrack, texture, pawnToTrack->getPosition(), size),
 		M_OFFSET(offset)
 	{}
 
@@ -62,12 +67,12 @@ namespace hud_detail
 	//////////////////////////
 
 	//////////////////////////
-	//	HealthBar - start	//
+	//	LifeTracker - start	//
 	//////////////////////////
 	LifeTracker::LifeTracker(std::shared_ptr<int> lives, sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale, sf::Vector2f const& spacing) :
 		mSprite(texture),
-		mLives(lives),
-		M_SPACING(spacing)
+		M_SPACING(spacing),
+		mLives(lives)
 	{
 		mSprite.setScale(scale);
 		mSprite.setPosition(position);
@@ -82,7 +87,7 @@ namespace hud_detail
 		}
 	}
 	//////////////////////////
-	//	HealthBar - end		//
+	//	LifeTracker - end	//
 	//////////////////////////
 
 	//////////////////////////
@@ -107,16 +112,16 @@ Hud::Hud() {}
 
 Hud::~Hud() {}
 
-void Hud::addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, bool stationary) {
+void Hud::addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, sf::Texture* texture, bool stationary) {
 	std::unique_ptr<hud_detail::HudItem> item;
 
 	if (stationary) {
 		//Create a stationary healthbar
-		item = std::make_unique<hud_detail::HealthBarStatic>(pawnToTrack, offsetOrPosition, size);
+		item = std::make_unique<hud_detail::HealthBarStatic>(pawnToTrack, texture, offsetOrPosition, size);
 	}
 	else {
 		//Create a healthbar that follows the pawn it tracks
-		item = std::make_unique<hud_detail::HealthBar>(pawnToTrack, offsetOrPosition, size);
+		item = std::make_unique<hud_detail::HealthBar>(pawnToTrack, texture, offsetOrPosition, size);
 	}
 
 	mItems.push_back(move(item));

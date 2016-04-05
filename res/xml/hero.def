@@ -1,5 +1,6 @@
 <Hero name="hero">
-  <HealthRegen rate="100">1</HealthRegen>
+  <!-- Amount of health to regenerate at a time. Rate refers to how many times per second that the regen is applied. -->
+  <HealthRegen rate="10">1</HealthRegen>
   <Pawn>
     <Faction>PLAYER</Faction>
     <Health>100</Health>

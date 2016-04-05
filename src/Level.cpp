@@ -90,7 +90,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 			pawn = factory.produce(type);
 
 			mHero = pawn;
-			mHud.addHealthBar(mHero, sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f), true);
+			mHud.addHealthBar(mHero,sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f), &GET_TEXTURE("./res/img/hp_red.png"),true);
 		}
 		else
 		{
