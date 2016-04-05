@@ -1,107 +1,88 @@
-#ifndef _HUD_H
-#define _HUD_H
+#ifndef HUD_HPP
+#define HUD_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Pawn.hpp"
 
-#include <include/Pawn.hpp>
-
-#include <SFGUI/SFGUI.hpp>
-#include <SFGUI/Widgets.hpp>
-
-namespace HUD_Detail
+namespace hud_detail
 {
-	//! Healthbar that tracks a Pawn and stays at a set position on the screen.
-	class HealthBarStatic {
+	//! Interface for all HUD items.
+	class HudItem : public sf::Drawable {
+	public:
+		HudItem();
+		virtual void update(float deltaSeconds);
+		bool isFlaggedForRemoval() const;
 	protected:
-		Pawn* mPawnToTrack;
-		sfg::ProgressBar::Ptr mBar;
+		void flagForRemoval();
+	private:
+		bool mRemovalFlag;
+	};
+
+	//! Statically positioned bar that tracks a Pawn's health.
+	class HealthBarStatic : public HudItem {
+	public:
+		HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& position, sf::Vector2f const& size);
+		virtual void update(float deltaSeconds) override;
+	protected:
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		sf::RectangleShape mBar;
+		std::weak_ptr<Pawn> mTracked;
 		const float M_MAX_HEALTH;
-
-	public:
-		HealthBarStatic(Pawn* pwn, sf::Vector2f const &location, sf::Vector2f const &size, sfg::Desktop &desktop);
-
-		virtual void update();
-
-		void hide();
-		void show();
+		const float M_ORIGINAL_WIDTH;
 	};
 
-	//! Healthbar that follows the position of the Pawn that is tracks.
-	class HealthBarFollowing : public HealthBarStatic{
+	//! Healthbar that follows a Pawn's position.
+	class HealthBar : public HealthBarStatic {
+	public:
+		HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offset, sf::Vector2f const& size);
+		void update(float deltaSeconds) override;
+	private:
+		const sf::Vector2f M_OFFSET;
+	};
+
+	//! Draws a line of images, one for each life (or whatever other int it may be told to track).
+	class LifeTracker : public HudItem {
+	public:
+		LifeTracker(std::shared_ptr<int> lives, sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f }, sf::Vector2f const& spacing = {0.f, 0.f});
 	protected:
-		sf::Vector2f mOffset;
-	public:
-		HealthBarFollowing(Pawn* pwn, sf::Vector2f const &offset, sf::Vector2f const &size, sfg::Desktop &desktop);
-
-		virtual void update() override;
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	private:
+		sf::Sprite mSprite;
+		const sf::Vector2f M_SPACING;
+		std::shared_ptr<int> mLives;
 	};
 
-	class LabelImagePair {
+	//! Draws a sprite.
+	class Image : public HudItem {
+	public:
+		Image(sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f });
 	protected:
-		sf::Sprite mImage;
-		sf::Text mText;
-		std::shared_ptr<int> mValueToTrack;
-	public:
-		LabelImagePair(std::shared_ptr<int> valueToTrack, sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f offset, bool imageFirst = true);
-		virtual void update();
-		virtual void draw(sf::RenderWindow &w);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	private:
+		sf::Sprite mSprite;
 	};
-}
+}//end namespace hud_detail
 
-class HUD {
+class Hud : public sf::Drawable {
 public:
-	HUD(std::shared_ptr<sfg::SFGUI> sfgui);	//Construct from xml when tinyXML implemented [hardcoded for now]
-	~HUD();
+	Hud();
+	~Hud();
 
-	//! Updates the HUD. Elapsed time is required to update sfg::Desktop.
-	void update(sf::Time const &elapsedTime);
+	void addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, bool stationary = false);
 
-	//! Draws all HUD elements to the specified window.
-	void draw(sf::RenderWindow &window) const;
+	void addLifeTracker(std::shared_ptr<int> const& livesToTrack, sf::Texture &texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f }, sf::Vector2f const& spacing = { 0.f, 0.f });
 
-	//! Adds a health bar that follows a pawn.
-	void addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f const &size = sf::Vector2f(50.f, 5.f));
+	void addImage(sf::Texture &texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f });
 
-	//! Adds a bar that tracks a pawns health.
-	void addHealthBarStatic(Pawn* pawn, sf::Vector2f const &location, sf::Vector2f const &size);
+	//! Updates all hud items.
+	void update(float deltaSeconds);
 
-	/// Adds an image at the specified window location.
-	/// \param filePath The location of the image in the filesystem.
-	/// \param location Position of the image on the screen.
-	void addImage(sf::Texture const &tex, sf::Vector2f position);
-
-	/// Adds a repeating texture at the specified window location with width and height.
-	/// \param filePath The location of the image in the filesystem.
-	/// \param location The position of the image on the screen.
-	/// \param widthAndHeight The width and height of the image to be displayed on the screen.
-	void addImageArray(std::string const &filePath, sf::Vector2u location, sf::Vector2u widthAndHeight);
-
-	//! Adds an image with label that tracks a value (e.g. coin image and amount of money)
-	template<typename ValueType>
-	void addImageWithLabel(sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f const &offset, std::shared_ptr<ValueType> labelValue);
-
-	void show();
-	void hide();
-	bool isShown() const;
-
+protected:
+	//! Draws all hud items.
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 private:
-	//! HUD cannot be copy constructed
-	HUD(HUD const &other) = delete;
-
-	std::shared_ptr<sfg::SFGUI> mSFGUI;
-	std::list<sfg::Widget::Ptr> mWidgets;
-
-	std::list<HUD_Detail::HealthBarStatic*> mHealthBars;
-	std::list<HUD_Detail::LabelImagePair*> mLabelImagePairs;
-	std::list<sf::Sprite*> mImages;
-
-	sfg::Desktop mDesktop;
-
-	bool mIsShown;
+	//! Container of hud item pointers.
+	std::list<std::unique_ptr<hud_detail::HudItem>> mItems;
 };
 
-template <typename ValueType>
-void HUD::addImageWithLabel(sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const &position, sf::Vector2f const &offset, std::shared_ptr<ValueType> labelValue) {
-	mLabelImagePairs.push_back(new HUD_Detail::LabelImagePair(labelValue, tex, fnt, position, offset));
-}
 #endif

@@ -8,8 +8,7 @@ std::unique_ptr<PlayerProfile> Game::mPlayerProfile = nullptr;
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 
 Game::Game() :
-	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
-	mSFGUI(new sfg::SFGUI())
+	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]")
 {
 	Cursor::setTexture("./res/img/cursor.png");
 

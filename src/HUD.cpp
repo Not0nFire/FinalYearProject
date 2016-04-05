@@ -1,147 +1,152 @@
 #include <include/HUD.hpp>
 
-namespace HUD_Detail {
-	HealthBarStatic::HealthBarStatic(Pawn* pwn, sf::Vector2f const &location, sf::Vector2f const &size, sfg::Desktop &desktop) :
-		mPawnToTrack(pwn),
-		mBar(sfg::ProgressBar::Create()),
-		M_MAX_HEALTH(mPawnToTrack->getHealth())
-	{
-		mBar->SetPosition(location);
-		mBar->SetRequisition(size);
-		mBar->SetFraction(1.f);
-		mBar->SetId("health");
-		desktop.Add(mBar);
-	}
-
-	void HealthBarStatic::update() {
-		mBar->SetFraction(mPawnToTrack->getHealth() / M_MAX_HEALTH);
-	}
-
-	void HealthBarStatic::hide() {
-		mBar->Show(false);
-	}
-
-	void HealthBarStatic::show() {
-		mBar->Show(true);
-	}
-
-	HealthBarFollowing::HealthBarFollowing(Pawn* pwn, sf::Vector2f const& offset, sf::Vector2f const& size, sfg::Desktop& desktop) :
-		HealthBarStatic(pwn, pwn->getPosition() + offset, size, desktop),
-		mOffset(offset)
-	{
-	}
-
-	void HealthBarFollowing::update() {
-		HealthBarStatic::update();
-		mBar->SetPosition(mPawnToTrack->getPosition() + mOffset);
-	}
-
-	LabelImagePair::LabelImagePair(std::shared_ptr<int> valueToTrack, sf::Texture const & tex, sf::Font const &fnt, sf::Vector2f const& position, sf::Vector2f offset, bool imageFirst) :
-		mValueToTrack(valueToTrack)
-	{
-		mImage.setTexture(tex);
-		mText.setFont(fnt);
-		if (imageFirst)
-		{
-			mImage.setPosition(position);
-			mText.setPosition(position + offset);
-		}
-		else
-		{
-			mText.setPosition(position);
-			mImage.setPosition(position + offset);
-		}
-	}
-
-	void LabelImagePair::update() {
-		mText.setString(std::to_string(*mValueToTrack));
-	}
-
-	void LabelImagePair::draw(sf::RenderWindow & w) {
-		w.draw(mImage);
-		w.draw(mText);
-	}
-}//end namespace HUD_Detail
-
-HUD::HUD(std::shared_ptr<sfg::SFGUI> sfgui) :
-mSFGUI(sfgui),
-mWidgets(),
-mDesktop(),
-mIsShown(true)
+namespace hud_detail
 {
+	HudItem::HudItem() : mRemovalFlag(false) {
+		//empty ctor body
+	}
+
+	void HudItem::update(float deltaSeconds) {
+		//do nothing
+	}
+
+	bool HudItem::isFlaggedForRemoval() const {
+		return mRemovalFlag;
+	}
+
+	void HudItem::flagForRemoval() {
+		mRemovalFlag = true;
+	}
+
+	//////////////////////////////
+	//	HealthBarStatic - start	//
+	//////////////////////////////
+	HealthBarStatic::HealthBarStatic(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& position, sf::Vector2f const& size) :
+		mBar(size),
+		mTracked(pawnToTrack),
+		M_MAX_HEALTH(pawnToTrack->getHealth()),
+		M_ORIGINAL_WIDTH(size.x)
+	{
+		mBar.setFillColor(sf::Color::Red);
+		mBar.setPosition(position);
+	}
+
+	void HealthBarStatic::update(float deltaSeconds) {
+		if (auto pawn = mTracked.lock()) {
+			mBar.setScale(pawn->getHealth() / M_MAX_HEALTH, 1.f);
+		}
+	}
+
+	void HealthBarStatic::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+		target.draw(mBar, states);
+	}
+	//////////////////////////////
+	//	HealthBarStatic - end	//
+	//////////////////////////////
+
+	//////////////////////////
+	//	HealthBar - start	//
+	//////////////////////////
+	HealthBar::HealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offset, sf::Vector2f const& size) :
+		HealthBarStatic(pawnToTrack, pawnToTrack->getPosition(), size),
+		M_OFFSET(offset)
+	{}
+
+	void HealthBar::update(float deltaSeconds) {
+		if (auto pawn = mTracked.lock()) {
+			mBar.setPosition(pawn->getPosition() + M_OFFSET);
+		}
+	}
+	//////////////////////////
+	//	HealthBar - end		//
+	//////////////////////////
+
+	//////////////////////////
+	//	HealthBar - start	//
+	//////////////////////////
+	LifeTracker::LifeTracker(std::shared_ptr<int> lives, sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale, sf::Vector2f const& spacing) :
+		mSprite(texture),
+		mLives(lives),
+		M_SPACING(spacing)
+	{
+		mSprite.setScale(scale);
+		mSprite.setPosition(position);
+	}
+
+	void LifeTracker::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+		const auto lives = *mLives;
+		sf::Sprite temp = mSprite;
+		for (auto i = 0; i < lives; ++i) {
+			target.draw(temp, states);
+			temp.move(M_SPACING);
+		}
+	}
+	//////////////////////////
+	//	HealthBar - end		//
+	//////////////////////////
+
+	//////////////////////////
+	//	Image -	start		//
+	//////////////////////////
+	Image::Image(sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale) :
+		mSprite(texture)
+	{
+		mSprite.setPosition(position);
+		mSprite.setScale(scale);
+	}
+
+	void Image::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+		target.draw(mSprite, states);
+	}
+	//////////////////////////
+	//	Image - end			//
+	//////////////////////////
 }
 
-HUD::~HUD() {
+Hud::Hud() {}
+
+Hud::~Hud() {}
+
+void Hud::addHealthBar(std::shared_ptr<Pawn> const& pawnToTrack, sf::Vector2f const& offsetOrPosition, sf::Vector2f const& size, bool stationary) {
+	std::unique_ptr<hud_detail::HudItem> item;
+
+	if (stationary) {
+		//Create a stationary healthbar
+		item = std::make_unique<hud_detail::HealthBarStatic>(pawnToTrack, offsetOrPosition, size);
+	}
+	else {
+		//Create a healthbar that follows the pawn it tracks
+		item = std::make_unique<hud_detail::HealthBar>(pawnToTrack, offsetOrPosition, size);
+	}
+
+	mItems.push_back(move(item));
+}
+
+void Hud::addLifeTracker(std::shared_ptr<int> const& livesToTrack, sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale, sf::Vector2f const& spacing) {
+	std::unique_ptr<hud_detail::HudItem> item;
+
+	item = std::make_unique<hud_detail::LifeTracker>(livesToTrack, texture, position, scale, spacing);
+
+	mItems.push_back(move(item));
+}
+
+void Hud::addImage(sf::Texture& texture, sf::Vector2f const& position, sf::Vector2f const& scale) {
+	std::unique_ptr<hud_detail::HudItem> item;
+
+	item = std::make_unique<hud_detail::Image>(texture, position, scale);
+
+	mItems.push_back(move(item));
+}
+
+void Hud::update(float deltaSeconds) {
 	
+	for (auto const& itemPtr : mItems) {
+		itemPtr->update(deltaSeconds);
+	}
 }
 
-void HUD::update(sf::Time const& elapsedTime) {
-	for(auto healthBar : mHealthBars) {
-		healthBar->update();
+void Hud::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	for (auto const& itemPtr : mItems) {
+		target.draw(*itemPtr, states);
 	}
-
-	for (auto lblimg : mLabelImagePairs)
-	{
-		lblimg->update();
-	}
-
-	mDesktop.Update(elapsedTime.asSeconds());
-}
-
-void HUD::draw(sf::RenderWindow& window) const {
-	window.setView(window.getDefaultView());
-
-	for (auto lblimg : mLabelImagePairs)
-	{
-		lblimg->draw(window);
-	}
-
-	for (auto img : mImages)
-	{
-		window.draw(*img);
-	}
-
-	mSFGUI->Display(window);
-}
-
-void HUD::addHealthBar(Pawn* pawn, sf::Vector2f const &offset, sf::Vector2f const &size) {
-	mHealthBars.push_back(new HUD_Detail::HealthBarFollowing(pawn, offset, size, mDesktop));
-}
-
-void HUD::addHealthBarStatic(Pawn* pawn, sf::Vector2f const &location, sf::Vector2f const &size) {
-	mHealthBars.push_back(new HUD_Detail::HealthBarStatic(pawn, location, size, mDesktop));
-}
-
-void HUD::addImage(sf::Texture const& tex, sf::Vector2f position) {
-	sf::Sprite* spr = new sf::Sprite(tex);
-	spr->setPosition(position);
-	mImages.push_back(spr);
-}
-
-void HUD::show() {
-	for (auto w : mWidgets) {
-		w->Show(true);
-	}
-
-	for (auto hb : mHealthBars) {
-		hb->show();
-	}
-
-	mIsShown = true;
-}
-
-void HUD::hide() {
-	for (auto w : mWidgets) {
-		w->Show(false);
-	}
-
-	for (auto hb : mHealthBars) {
-		hb->hide();
-	}
-
-	mIsShown = false;
-}
-
-bool HUD::isShown() const {
-	return mIsShown;
 }
