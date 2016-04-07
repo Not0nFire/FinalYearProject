@@ -65,7 +65,8 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	//----------------------------------------------------------
 
 	mHud.addLifeTracker(mLivesRemaining, GET_TEXTURE("./res/img/heart.png"), { 500.f, 10.f }, { 1.f, 1.f }, { 30.f, 0.f });	//(lives, texture, position, scale, spacing)
-	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
+	mHud.addImage(GET_TEXTURE("./res/img/coin.png"), { 380.f, 10.f });
+	mHud.addNumberTracker(mMoney, { 400.f, 10.f }, GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"));
 	mHud.addImage(GET_TEXTURE("./res/img/portrait.png"), { 0.f, 0.f });
 
 

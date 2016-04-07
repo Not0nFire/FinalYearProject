@@ -66,6 +66,18 @@ namespace gui
 	private:
 		sf::Sprite mSprite;
 	};
+
+	//! Outputs a number from a shared pointer as text
+	class NumberTracker : public HudItem {
+	public:
+		NumberTracker(std::shared_ptr<int> const& numberToTrack, sf::Vector2f const& position, sf::Font const& font, unsigned int characterSize = 30u, sf::Vector2f const& scale = { 1.f, 1.f });
+		void update(float deltaSeconds) override;
+	protected:
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	private:
+		std::shared_ptr<int> const& mNumber;
+		sf::Text mText;
+	};
 }//end namespace hud_detail
 
 class Hud : public sf::Drawable {
@@ -97,9 +109,19 @@ public:
 	\brief Adds an image to the hud.
 	\param texture Texture to be drawn.
 	\param position Upper left corner of image to be drawn.
-	zparam scale Absolute scale of the image, where {1, 1} is original texture size.
+	\param scale Absolute scale of the image, where {1, 1} is original texture size.
 	*/
 	void addImage(sf::Texture &texture, sf::Vector2f const& position, sf::Vector2f const& scale = { 1.f, 1.f });
+
+	/*!
+	\brief Adds a number to the hud.
+	\param number Shared number to be displayed
+	\param position Location of number of screen (upper left corner).
+	\param font The font to use for the text.
+	\param charSize The character size of the text.
+	\param scale How much the scale the text by.
+	*/
+	void addNumberTracker(std::shared_ptr<int> const& number, sf::Vector2f const& position, sf::Font const& font, unsigned int charSize = 30u, sf::Vector2f const& scale = { 1.f, 1.f });
 
 	//! Updates all hud items.
 	void update(float deltaSeconds);

@@ -111,6 +111,28 @@ namespace gui
 	//////////////////////////
 	//	Image - end			//
 	//////////////////////////
+
+	//////////////////////////////////
+	//	NumberTracker - start		//
+	//////////////////////////////////
+	NumberTracker::NumberTracker(std::shared_ptr<int> const& numberToTrack, sf::Vector2f const& position, sf::Font const& font, unsigned characterSize, sf::Vector2f const& scale) :
+		mNumber(numberToTrack),
+		mText("", font, characterSize)
+	{
+		mText.setPosition(position);
+		mText.setScale(scale);
+	}
+
+	void NumberTracker::update(float deltaSeconds) {
+		mText.setString(std::to_string(*mNumber));
+	}
+
+	void NumberTracker::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+		target.draw(mText, states);
+	}
+	//////////////////////////////////
+	//	NumberTracker - end		//
+	//////////////////////////////////
 }
 
 Hud::Hud() {}
@@ -144,6 +166,14 @@ void Hud::addImage(sf::Texture& texture, sf::Vector2f const& position, sf::Vecto
 	std::unique_ptr<gui::HudItem> item;
 
 	item = std::make_unique<gui::Image>(texture, position, scale);
+
+	mItems.push_back(move(item));
+}
+
+void Hud::addNumberTracker(std::shared_ptr<int> const& number, sf::Vector2f const& position, sf::Font const& font, unsigned charSize, sf::Vector2f const& scale) {
+	std::unique_ptr<gui::HudItem> item;
+
+	item = std::make_unique<gui::NumberTracker>(number, position, font, charSize, scale);
 
 	mItems.push_back(move(item));
 }
