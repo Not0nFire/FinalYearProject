@@ -18,6 +18,7 @@
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/HUD.hpp>
 
 using std::shared_ptr;
 
@@ -42,7 +43,7 @@ private:
 	//! Camera that follows mHero.
 	Camera mCamera;
 
-	//std::unique_ptr<HUD> mHud;
+	Hud mHud;
 	
 	//! Quadtree used to decide where towers can be placed.
 	shared_ptr<Quadtree<unsigned char>> terrainTree;
