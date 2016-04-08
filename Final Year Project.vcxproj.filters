@@ -123,10 +123,13 @@
     <ClCompile Include="src\Abilities\Ability.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Abilities\MagicMissile.cpp">
+    <ClCompile Include="src\Abilities\HealAbility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Abilities\RaiseDead.cpp">
+    <ClCompile Include="src\Abilities\MagicMissileability.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Abilities\RaiseDeadAbility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,7 +287,10 @@
     <ClInclude Include="include\Abilities\MagicMissileAbility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Abilities\RaiseDead.hpp">
+    <ClInclude Include="include\Abilities\HealAbility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Abilities\RaiseDeadAbility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

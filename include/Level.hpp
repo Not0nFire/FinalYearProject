@@ -21,7 +21,8 @@
 #include <include/Towers/UnitTower.hpp>
 #include <include/ResourceManager.hpp>
 #include <include/Abilities/MagicMissileAbility.hpp>
-#include <include/Abilities/RaiseDead.hpp>
+#include <include/Abilities/RaiseDeadAbility.hpp>
+#include <include/Abilities/HealAbility.hpp>
 #include <include/Gui/Button.hpp>
 
 using std::shared_ptr;

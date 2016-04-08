@@ -107,8 +107,9 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <ClCompile Include="include\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\Abilities\Ability.cpp" />
-    <ClCompile Include="src\Abilities\MagicMissile.cpp" />
-    <ClCompile Include="src\Abilities\RaiseDead.cpp" />
+    <ClCompile Include="src\Abilities\HealAbility.cpp" />
+    <ClCompile Include="src\Abilities\MagicMissileability.cpp" />
+    <ClCompile Include="src\Abilities\RaiseDeadAbility.cpp" />
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
@@ -145,8 +146,9 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\UnitTower.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Abilities\HealAbility.hpp" />
     <ClInclude Include="include\Abilities\MagicMissileAbility.hpp" />
-    <ClInclude Include="include\Abilities\RaiseDead.hpp" />
+    <ClInclude Include="include\Abilities\RaiseDeadAbility.hpp" />
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
     <ClInclude Include="include\ArcProjectile.h" />

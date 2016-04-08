@@ -71,6 +71,18 @@ void Level::setupAbilities() {
 
 	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
 	mAbilityList.rbegin()->second->setPawnList(mPawns);
+
+	//Create heal ability
+	result = doc.LoadFile("./res/xml/HealAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+
+	mAbilityList.push_back(make_pair(
+		gui::Button(228, 450, abilityRoot->FirstChildElement("Button")),
+		std::make_unique<abilities::Heal>(abilityRoot)
+		));
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
