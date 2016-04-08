@@ -8,7 +8,7 @@
 
 class BloodSystem : public sf::Drawable {
 public:
-	explicit BloodSystem(sf::Texture &texture);
+	explicit BloodSystem(sf::Texture &texture, std::function<void(Drawable const&)> underlayDrawCallback);
 	~BloodSystem();
 
 	void addSpurt(sf::Vector2f const& position);
@@ -23,9 +23,7 @@ private:
 
 	static const thor::Distribution<sf::Vector2f> mRandomDirection;
 
-	bool persistantTextureUpdated;
-	sf::RenderTexture mPersistantBloodTexture;
-	sf::Sprite mPersistantBloodSprite;
+	std::function<void(Drawable const&)> mPersistDraw;
 	sf::Sprite mPersistantParticle;
 	void persistParticle(thor::Particle const& particle);
 };

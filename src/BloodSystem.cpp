@@ -8,9 +8,10 @@ inline int rangedRandom(int min, int max) {
 	return rand() % (max + 1 - min) + min;
 }
 
-BloodSystem::BloodSystem(sf::Texture& texture) :
+BloodSystem::BloodSystem(sf::Texture& texture, std::function<void(Drawable const&)> underlayDrawCallback) :
 mSpurtSystem(),
-mPersistantParticle(texture)
+mPersistantParticle(texture),
+mPersistDraw(underlayDrawCallback)
 {
 	mSpurtSystem.setTexture(texture);
 
@@ -23,7 +24,7 @@ mPersistantParticle(texture)
 		particle.velocity.y += gravity * time.asSeconds();
 
 		//If we think particle will be removed by next update...
-		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(60, 140))
+		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(50, 150))
 		{
 			//...make the particle persist
 			persistParticle(particle);
@@ -33,9 +34,6 @@ mPersistantParticle(texture)
 	});
 
 	//mSpurtSystem.addAffector(thor::AnimationAffector(thor::FadeAnimation(0.f, 0.25f)));
-
-	mPersistantBloodTexture.create(1000u, 1000u);
-	mPersistantBloodSprite.setTexture(mPersistantBloodTexture.getTexture());
 }
 
 BloodSystem::~BloodSystem() {}
@@ -57,20 +55,15 @@ void BloodSystem::addSpurt(sf::Vector2f const& position, sf::Vector2f const& dir
 
 void BloodSystem::update(sf::Time const& time) {
 	mSpurtSystem.update(time);
-	if (persistantTextureUpdated) {
-		mPersistantBloodTexture.display();
-		persistantTextureUpdated = false;
-	}
 }
 
 void BloodSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(mPersistantBloodSprite, states);
 	target.draw(mSpurtSystem, states);
 }
 
 void BloodSystem::persistParticle(thor::Particle const& particle) {
 	mPersistantParticle.setPosition(particle.position);
 	mPersistantParticle.setColor(particle.color);
-	mPersistantBloodTexture.draw(mPersistantParticle);
-	persistantTextureUpdated = true;
+	
+	mPersistDraw(mPersistantParticle);
 }

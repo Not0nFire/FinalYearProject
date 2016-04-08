@@ -63,10 +63,14 @@ private:
 	//! Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens.
 	sf::FloatRect mBounds;
 
-	//! RenderTexture used for persisting dead bodies without clogging the update.
+	//! RenderTexture used for persisting dead bodies and blood without clogging the update.
 	sf::RenderTexture mUnderlayTex;
+
 	//! Sprite used to draw mUnderlayTex to the screen.
 	sf::Sprite mUnderlaySpr;
+
+	//! Draws an object to the underlay texture.
+	void drawToUnderlay(sf::Drawable const& drawable);
 
 	bool mIsLost, mIsWon;
 
@@ -84,8 +88,10 @@ private:
 
 	BloodSystem mBloodSystem;
 
+	void onPawnDeath(Pawn* pawn);
+
 	//! Compares the y position of two actors for the purpose of sorting the draw order
-	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
+	static bool compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B);
 	
 public:
 	/*!
@@ -93,13 +99,13 @@ public:
 	*/
 	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
 	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
-	Level(tinyxml2::XMLElement* root);
+	Level(XMLElement* root);
 	~Level();
 	
-	bool I_Scene::handleEvent(sf::Event &Event ) override;
-	void I_Scene::update(sf::Time const &elapsedTime) override;
-	void I_Scene::draw(sf::RenderWindow &w) override;
-	void I_Scene::cleanup() override;
+	bool handleEvent(sf::Event &Event ) override;
+	void update(sf::Time const &elapsedTime) override;
+	void draw(sf::RenderWindow &w) override;
+	void cleanup() override;
 
 	//signal<void()> onWin, onLose;
 	bool isWon() const;
