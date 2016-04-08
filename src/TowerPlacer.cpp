@@ -7,7 +7,7 @@ const std::string TowerPlacer::mArrowTowerDefPath = "./res/xml/arrow_tower.def.x
 const std::string TowerPlacer::mMagicTowerDefPath = "./res/xml/mage_tower.def.xml";
 const std::string TowerPlacer::mUnitTowerDefPath = "./res/xml/unit_tower.def.xml";
 
-TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock) :
+TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, std::function<void(shared_ptr<Minion>)> const &unitSpawnCallback) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
@@ -22,7 +22,8 @@ mMask([]()
 	      return mask;
       }()),
 mProjectileManager(projectileMgr),
-mPath(path)
+mPath(path),
+mUnitSpawnCallback(unitSpawnCallback)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
@@ -78,10 +79,11 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 
 			auto unitTower = std::make_shared<tower::UnitTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
 			unitTower->setPath(mPath);
+			unitTower->setSpawnCallback(mUnitSpawnCallback);
 			placed = unitTower;
 		}
 		else {
-			std::cerr << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
+			std::cout << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
 		}
 
 		mIsActive = false;

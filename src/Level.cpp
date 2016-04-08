@@ -41,6 +41,8 @@ void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
 }
 
 void Level::setupAbilities() {
+	auto spawnCallback = bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true);
+
 	//Create magic missile ability
 	XMLDocument doc;
 	auto result = doc.LoadFile("./res/xml/MagicMissileAbility.xml");
@@ -54,8 +56,11 @@ void Level::setupAbilities() {
 		std::make_unique<abilities::MagicMisile>(abilityRoot)
 		));
 
-	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
-	mAbilityList.rbegin()->second->setPawnList(mPawns);
+	auto ability = mAbilityList.rbegin()->second.get();
+
+	ability->setProjectileManager(mProjectileManager);
+	ability->setPawnList(mPawns);
+	//ability.setSpawnCallback(spawnCallback);
 
 	//Create raise dead ability
 	result = doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
@@ -69,8 +74,11 @@ void Level::setupAbilities() {
 		std::make_unique<abilities::RaiseDead>(abilityRoot)
 		));
 
-	mAbilityList.rbegin()->second->setProjectileManager(mProjectileManager);
-	mAbilityList.rbegin()->second->setPawnList(mPawns);
+	ability = mAbilityList.rbegin()->second.get();
+
+	ability->setProjectileManager(mProjectileManager);
+	ability->setPawnList(mPawns);
+	ability->setSpawnCallback(spawnCallback);
 
 	//Create heal ability
 	result = doc.LoadFile("./res/xml/HealAbility.xml");
@@ -83,6 +91,30 @@ void Level::setupAbilities() {
 		gui::Button(228, 450, abilityRoot->FirstChildElement("Button")),
 		std::make_unique<abilities::Heal>(abilityRoot)
 		));
+}
+
+void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
+	
+	if (setPath) {
+		//Set path and position
+		auto node = std::const_pointer_cast<const Node>(mPath->begin());
+		auto spawnPos = node->getPoint();
+
+		unit->setPath(node);
+
+		unit->setPosition(spawnPos);
+		unit->setDestination(spawnPos);
+	}
+
+	if (addFlock) {
+		unit->addToFlock(mMinionFlock);
+	}
+
+	if (addCollision) {
+		mCollisionGroup->add(unit);
+	}
+
+	mPawns->push_back(unit);
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
@@ -187,7 +219,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
 	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true));
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 

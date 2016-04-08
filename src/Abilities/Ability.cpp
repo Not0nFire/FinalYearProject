@@ -48,8 +48,12 @@ float Ability::getRemainingCooldown() const {
 	return M_COOLDOWN - mSecondsSinceCast;
 }
 
-void Ability::setPawnList(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& list) {
+void Ability::setPawnList(std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> const& list) {
 	mPawnList = list;
+}
+
+void Ability::setSpawnCallback(std::function<void(std::shared_ptr<Minion>)> const& callback) {
+	mSpawnUnitCallback = callback;
 }
 
 void Ability::setProjectileManager(std::shared_ptr<ProjectileManager> const& manager) {
@@ -73,8 +77,10 @@ bool Ability::isActive() const {
 	return mIsActive;
 }
 
-void Ability::spawnPawn(std::shared_ptr<Pawn> const& pawn) const {
-	mPawnList->push_back(pawn);
+void Ability::spawnMinion(std::shared_ptr<Minion> const& unit) const {
+	_ASSERT(mSpawnUnitCallback);
+
+	mSpawnUnitCallback(unit);
 }
 
 void Ability::spawnProjectile(std::shared_ptr<Projectile> const& projectile) const {

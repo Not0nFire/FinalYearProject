@@ -9,6 +9,7 @@
 #include <include/ProjectileManager.hpp>
 
 class Pawn;
+class Minion;
 
 /*!
 \class Ability
@@ -58,16 +59,24 @@ public:
 	float getRemainingCooldown() const;
 
 	/*!
-	\brief Sets the pawn list to be used when the Ability wishes to add Pawns to the game.
+	\brief Sets the pawn list to be used when the Ability wishes to find pawns in the game.
+	The pawn list cannot be used for directly adding Pawns to the game.
 	\param list Shared pointer to a list of shared pawns.
 	*/
-	void setPawnList(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& list);
+	void setPawnList(std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> const& list);
 
 	/*!
 	\brief Sets the ProjectileManager to be used when the Ability wishes to add projectiles to the game.
 	\param manager Shared pointer to a ProjectileManager, the Ability can give projectiles to this.
 	*/
 	void setProjectileManager(std::shared_ptr<ProjectileManager> const& manager);
+
+	/*!
+	\brief Sets the callback used for adding units to the game.
+	Adding a unit to the pawn list won't add flocking or collision, so we've a callback that will.
+	\param callback The function called when an ability want to spawn a unit.
+	*/
+	void setSpawnCallback(std::function<void(std::shared_ptr<Minion>)> const& callback);
 
 protected:
 	void activate();
@@ -101,7 +110,7 @@ protected:
 	\param pawn The Pawn to push into the list.
 	\see Level.hpp
 	*/
-	void spawnPawn(std::shared_ptr<Pawn> const& pawn) const;
+	void spawnMinion(std::shared_ptr<Minion> const& pawn) const;
 
 	/*!
 	\brief Adds a projectile to the game.
@@ -127,8 +136,8 @@ private:
 	//! The number of seconds since the ability was last deactivated.
 	float mSecondsSinceCast;
 
-	std::shared_ptr<std::list<std::shared_ptr<Pawn>>> mPawnList;
+	std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> mPawnList;
 	std::shared_ptr<ProjectileManager> mProjectileManager;
+	std::function<void(std::shared_ptr<Minion>)> mSpawnUnitCallback;
 };
-#include <include/Pawn.hpp>
 #endif

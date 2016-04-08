@@ -34,7 +34,7 @@ public:
 	\param	path Path onto which UnitTowers will send their spawned units.
 	\param	flock Flock into which UnitTowers will add their spawned units.
 	*/
-	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<Minion*>> &flock);
+	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, std::function<void(shared_ptr<Minion>)> const &unitSpawnCallback);
 	virtual ~TowerPlacer();
 
 	/*!
@@ -98,8 +98,8 @@ private:
 	static const std::string mMagicTowerDefPath;
 	static const std::string mUnitTowerDefPath;
 
-	shared_ptr<ProjectileManager> mProjectileManager;
-	shared_ptr<Path> mPath;
-	shared_ptr<std::list<Minion*>> mFlock;
+	const shared_ptr<ProjectileManager> mProjectileManager;
+	const shared_ptr<Path> mPath;
+	const std::function<void(shared_ptr<Minion>)> mUnitSpawnCallback;
 };
 #endif

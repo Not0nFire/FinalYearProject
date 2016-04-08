@@ -103,6 +103,9 @@ private:
 	\brief Initializes abilities and their buttons.
 	*/
 	void setupAbilities();
+
+	
+	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath = true, bool addFlock = true, bool addCollision = true) const;
 	
 public:
 	/*!

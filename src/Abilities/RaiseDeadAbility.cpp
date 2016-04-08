@@ -43,7 +43,7 @@ void RaiseDead::doExecuteLogic(Pawn* user) {
 		unit->setPosition(actualSpawnPosition);
 		unit->setDestination(actualSpawnPosition);
 
-		spawnPawn(unit);
+		spawnMinion(unit);
 	}
 }
 
