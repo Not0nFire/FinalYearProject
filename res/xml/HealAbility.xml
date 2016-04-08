@@ -8,7 +8,7 @@
   </Description>
 
   <!-- How long, in seconds, to stun the user while they cast the ability -->
-  <CastTime>0.5</CastTime>
+  <CastTime>1.5</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
   <Cooldown>1</Cooldown>
@@ -26,12 +26,14 @@
 
   <!-- The actor used to display the casting animations -->
   <Actor>
-    <Texture>././res/img/hero.png</Texture>
+    <Texture>././res/img/heal_fx.png</Texture>
     <!-- The casting animation, played on ability execution -->
-    <Animation path="././res/xml/hero_death.anim">
+    <Animation path="././res/xml/heal.anim">
       <Name>Cast</Name>
-      <Duration>1.f</Duration>
+      <Duration>1.5</Duration>
     </Animation>
+
+    <Origin x="40" y="50"/>
 
     <!-- Unused, but required by actor -->
     <Collidable pointCount="3" type="Circle">
