@@ -4,6 +4,7 @@
 #include <Thor/Particles.hpp>
 #include <Thor/Math.hpp>
 #include <SFML/Graphics.hpp>
+#include <Thor/Animations/FadeAnimation.hpp>
 
 class BloodSystem : public sf::Drawable {
 public:
@@ -11,15 +12,21 @@ public:
 	~BloodSystem();
 
 	void addSpurt(sf::Vector2f const& position);
-	void addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, float speed = 50.f, float deflectionAngle = 30.f);
+	void addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, float speed = 40.f, float deflectionAngle = 30.f, float minTtl = 0.8f, float maxTtl = 1.2f);
 
 	void update(sf::Time const& time);
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	thor::ParticleSystem mParticleSystem;
+	thor::ParticleSystem mSpurtSystem;
 
 	static const thor::Distribution<sf::Vector2f> mRandomDirection;
+
+	bool persistantTextureUpdated;
+	sf::RenderTexture mPersistantBloodTexture;
+	sf::Sprite mPersistantBloodSprite;
+	sf::Sprite mPersistantParticle;
+	void persistParticle(thor::Particle const& particle);
 };
 #endif
