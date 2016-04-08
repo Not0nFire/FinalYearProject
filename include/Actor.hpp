@@ -39,6 +39,6 @@ public:
 	bool toggleVisible();
 	bool getVisible() const;
 
-	virtual void draw(sf::RenderTarget &target);
+	virtual void draw(sf::RenderTarget &target) const;
 };
 #endif

@@ -10,6 +10,7 @@ namespace abilities
 	public:
 		RaiseDead(tinyxml2::XMLElement* xml);
 		virtual ~RaiseDead();
+
 	protected:
 		void doExecuteLogic(Pawn* user) override;
 		void doUpdateLogic(sf::Time const& deltaTime) override;

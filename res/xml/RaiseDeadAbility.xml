@@ -24,12 +24,14 @@
 
   <!-- The actor used to display the casting animations -->
   <Actor>
-    <Texture>././res/img/hero.png</Texture>
+    <Texture>././res/img/raise_dead_fx.png</Texture>
     <!-- The casting animation, played on ability execution -->
-    <Animation path="././res/xml/hero_death.anim">
+    <Animation path="././res/xml/raise_dead.anim">
       <Name>Cast</Name>
-      <Duration>1.f</Duration>
+      <Duration>2.f</Duration>
     </Animation>
+
+    <Origin x="64" y="128"/>
 
     <!-- Unused, but required by actor -->
     <Collidable pointCount="3" type="Circle">

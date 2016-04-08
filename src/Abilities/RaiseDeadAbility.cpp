@@ -11,12 +11,11 @@ mUnitPrototype(xml->FirstChildElement("Minion"))
 	auto unitsToSpawn = atoi(xml->FirstChildElement("BaseNumberUnits")->GetText());
 	mSpawnPoints.reserve(unitsToSpawn);
 
-	//Integer division intentional.
-	auto deltaAngle = 360 / unitsToSpawn;
+	int deltaAngle = (360 / unitsToSpawn) * 0.017;
 
 	//Calculate spawn points evenly in a circle
 	for (auto numSpawnPoints = 0; numSpawnPoints < unitsToSpawn; ++numSpawnPoints) {
-		auto angle = numSpawnPoints * deltaAngle;
+		int angle = numSpawnPoints * deltaAngle;
 
 		mSpawnPoints.emplace_back(
 			spawnDistance * cosf(angle % 360),	// X value
@@ -28,23 +27,12 @@ mUnitPrototype(xml->FirstChildElement("Minion"))
 RaiseDead::~RaiseDead() {}
 
 void RaiseDead::doExecuteLogic(Pawn* user) {
-	const auto& userPosition = user->getPosition();
-
 	//Set the casting graphics to the user's position and lay the casting animation.
 	mCastGraphics.setPosition(user->getPosition());
 	mCastGraphics.playAnimation("Cast");
+	//mCastGraphics.animate(sf::seconds(0.f));
 
-	//Spawn units around the user.
-	for (auto const& spawnPoint : mSpawnPoints) {
-		auto unit = std::make_shared<Minion>(mUnitPrototype);
-		unit->playAnimation("Spawn");
-
-		auto actualSpawnPosition = userPosition + spawnPoint;
-		unit->setPosition(actualSpawnPosition);
-		unit->setDestination(actualSpawnPosition);
-
-		spawnMinion(unit);
-	}
+	
 }
 
 void RaiseDead::doUpdateLogic(sf::Time const& deltaTime) {
@@ -53,8 +41,25 @@ void RaiseDead::doUpdateLogic(sf::Time const& deltaTime) {
 		mCastGraphics.animate(deltaTime);
 	}
 	else {
+		auto const& position = mCastGraphics.getPosition();
+		//Spawn units around the user.
+		for (auto const& spawnPoint : mSpawnPoints) {
+			auto unit = std::make_shared<Minion>(mUnitPrototype);
+			unit->playAnimation("Spawn");
+
+			auto actualSpawnPosition = position + spawnPoint;
+			unit->setPosition(actualSpawnPosition);
+			unit->setDestination(actualSpawnPosition);
+
+			spawnMinion(unit);
+		}
+
 		deactivate();
 	}
 }
 
-void RaiseDead::draw(sf::RenderTarget& target, sf::RenderStates states) const {}
+void RaiseDead::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	if (isActive()) {
+		mCastGraphics.draw(target);
+	}
+}
