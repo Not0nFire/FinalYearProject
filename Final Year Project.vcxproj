@@ -109,6 +109,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
+    <ClCompile Include="src\BloodSystem.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
@@ -144,6 +145,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
     <ClInclude Include="include\ArcProjectile.h" />
+    <ClInclude Include="include\BloodSystem.hpp" />
     <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />

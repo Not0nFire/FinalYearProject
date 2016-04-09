@@ -6,13 +6,27 @@
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 #define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
-bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B) {
+void Level::drawToUnderlay(sf::Drawable const& drawable) {
+	mUnderlayTex.draw(drawable);
+	mUnderlayTex.display();
+}
+
+void Level::onPawnDeath(Pawn* pawn) {
+	//award money for non-friendly pawns dying
+	if (pawn->getFaction() != Pawn::Faction::PLAYER) {
+		*mMoney += static_cast<Minion*>(pawn)->getMonetaryValue();
+	}
+
+	mBloodSystem.addSpurt(pawn->getPosition());
+}
+
+bool Level::compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B) {
 	return A->getPosition().y < B->getPosition().y;
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
-Level::Level(tinyxml2::XMLElement* root) :
+Level::Level(XMLElement* root) :
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
@@ -25,7 +39,8 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>())
+mMinionFlock(std::make_shared<std::list<Minion*>>()),
+mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -112,6 +127,7 @@ mMinionFlock(std::make_shared<std::list<Minion*>>())
 	for (auto& p : *mPawns)
 	{
 		p->offerTarget(mHero);
+		p->setOnDeath(bind(&Level::onPawnDeath, this, std::placeholders::_1));
 	}
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
@@ -216,14 +232,7 @@ void Level::update(sf::Time const &elapsedTime) {
 			//if dead and not playing an animation...
 			if (!p->isPlayingAnimation() && p->isDead())
 			{
-				//draw to underlay and erase
-				mUnderlayTex.draw(*p);
-				mUnderlayTex.display();
-
-				//award money for enemies that die
-				if(p->getFaction() != Pawn::Faction::PLAYER) {
-					*mMoney += std::static_pointer_cast<Minion, Pawn>(p)->getMonetaryValue();
-				}
+				drawToUnderlay(*p);
 
 				itr = mPawns->erase(itr);
 			}
@@ -252,6 +261,10 @@ void Level::update(sf::Time const &elapsedTime) {
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
 		mBgMusic.play();
 	}
+
+
+	mBloodSystem.update(elapsedTime);
+
 	
 	mHud.update(elapsedTime.asSeconds());
 
@@ -290,6 +303,8 @@ void Level::draw(sf::RenderWindow &w) {
 	}
 
 	mProjectileManager->draw(w);
+
+	w.draw(mBloodSystem);
 
 	mTowerPlacer->draw(w);
 
