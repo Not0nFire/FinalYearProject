@@ -19,6 +19,10 @@ mCastGraphics(xml->FirstChildElement("Actor"))
 	{
 		mDamageType = Damage::MAGICAL;
 	}
+
+	std::string launchSoundPath = xml->FirstChildElement("MissileLaunchSound")->Attribute("path");
+	auto &buffer = ResourceManager<sf::SoundBuffer>::instance()->get(launchSoundPath);
+	mLaunchSound.setBuffer(buffer);
 }
 
 MagicMisile::~MagicMisile() {
@@ -36,7 +40,9 @@ void MagicMisile::doExecuteLogic(Pawn* user) {
 
 void MagicMisile::doUpdateLogic(sf::Time const& deltaTime) {
 	mCastGraphics.animate(deltaTime);
-	mTimeSinceMissileSpawn += deltaTime.asSeconds();
+
+	float deltaSeconds = deltaTime.asSeconds();
+	mTimeSinceMissileSpawn += deltaSeconds;
 
 	if (mTimeSinceMissileSpawn >= mMissileSpawnInterval)
 	{
@@ -53,6 +59,7 @@ void MagicMisile::doUpdateLogic(sf::Time const& deltaTime) {
 		missile->setPosition(mCastGraphics.getPosition());
 
 		spawnProjectile(missile);
+		mLaunchSound.play();
 
 		if (++mMissilesSpawned == M_NUM_MISSILES)
 		{

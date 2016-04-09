@@ -9,6 +9,10 @@ M_COOLDOWN(atof(xml->FirstChildElement("Cooldown")->GetText())),
 mSecondsSinceCast(M_COOLDOWN)
 {
 	_ASSERT(xml->Name() == std::string("Ability"));
+
+	std::string soundPath = xml->FirstChildElement("Sound")->Attribute("path");
+	auto &buffer = ResourceManager<sf::SoundBuffer>::instance()->get(soundPath);
+	mExecutionSound.setBuffer(buffer);
 }
 
 Ability::~Ability() {
@@ -19,6 +23,7 @@ void Ability::execute(Pawn* user) {
 		user->stun(M_CAST_TIME);	//Stun the user for the duration of the cast time.
 		doExecuteLogic(user);	//Do ability-specific execution logic.
 		activate();
+		mExecutionSound.play();
 	}
 }
 

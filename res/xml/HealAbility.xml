@@ -16,6 +16,8 @@
   <!-- How much to heal the user by -->
   <HealAmount>100</HealAmount>
 
+  <Sound path="./res/sfx/heal.ogg"/>
+
   <Particles>
     <Texture path="./res/img/heal_particle.png"/>
     <TimeToLive min="0.4" max="0.8"/>

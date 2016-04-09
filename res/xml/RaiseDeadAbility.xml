@@ -22,6 +22,8 @@
   <!-- Each upgrade to the ability will increase the number of units spawned by this much -->
   <UpgradeUnitNumberBoost>1</UpgradeUnitNumberBoost>
 
+  <Sound path="./res/sfx/raise_dead.ogg"/>
+
   <!-- The actor used to display the casting animations -->
   <Actor>
     <Texture>././res/img/raise_dead_fx.png</Texture>

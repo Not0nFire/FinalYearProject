@@ -28,6 +28,9 @@
   <!-- The number of seconds that must be waited before the ability can be used again -->
   <Cooldown>5</Cooldown>
 
+  <Sound path="./res/sfx/magic_missile.ogg"/>
+  <MissileLaunchSound path="./res/sfx/magic_missile_launch.ogg"/>
+
   <!-- The clickable button definition for this ability-->
   <Button>
     <Texture path="./res/img/magic_missile_icon_2.png"/>
@@ -41,12 +44,14 @@
 
   <!-- The actor used to display the casting animations -->
   <Actor>
-    <Texture>././res/img/hero.png</Texture>
+    <Texture>././res/img/missile_fx.png</Texture>
     <!-- The casting animation, played on ability execution -->
-    <Animation path="././res/xml/hero_death.anim">
+    <Animation path="././res/xml/magic_missile.anim">
       <Name>Cast</Name>
-      <Duration>1.f</Duration>
+      <Duration>2</Duration>
     </Animation>
+
+    <Origin x="100" y="120"/>
 
     <!-- Unused, but required by actor -->
     <Collidable pointCount="3" type="Circle">

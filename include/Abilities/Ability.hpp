@@ -136,6 +136,9 @@ private:
 	//! The number of seconds since the ability was last deactivated.
 	float mSecondsSinceCast;
 
+	//! The sound played when the ability is executed.
+	sf::Sound mExecutionSound;
+
 	std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> mPawnList;
 	std::shared_ptr<ProjectileManager> mProjectileManager;
 	std::function<void(std::shared_ptr<Minion>)> mSpawnUnitCallback;

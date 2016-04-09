@@ -52,6 +52,7 @@ namespace abilities {
 		float mTimeSinceMissileSpawn;
 
 		Actor mCastGraphics;
+		sf::Sound mLaunchSound;
 	};
 }
 #endif

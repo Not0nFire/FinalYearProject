@@ -2,7 +2,7 @@
   <Lives>3</Lives>
 	<Background>./res/img/bg.png</Background>
 	<TerrainData>./res/img/terrain.bmp</TerrainData>
-  <Music volume="50">./res/mus/level.ogg</Music>
+  <Music volume="10">./res/mus/level.ogg</Music>
   <StartingMoney>300</StartingMoney>
   <NextLevel>LevelTwo</NextLevel>
 	<Path>
