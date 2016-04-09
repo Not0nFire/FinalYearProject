@@ -27,8 +27,6 @@ private:
 
 	Level *mLevelOne, *mLevelTwo;
 
-	std::shared_ptr<sfg::SFGUI> mSFGUI;
-
 	static std::unique_ptr<PlayerProfile> mPlayerProfile;
 
 public:

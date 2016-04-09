@@ -10,7 +10,7 @@ mMonetaryValue(atoi(xml->FirstChildElement("MoneyValue")->GetText()))
 Minion::~Minion() {
 	//remove ourselves from the flock
 	if (mFlock) {
-		auto itr = find(mFlock->begin(), mFlock->end(), this);
+		auto itr = std::find(mFlock->begin(), mFlock->end(), this);
 		if (itr != mFlock->end()) {
 			mFlock->erase(itr);
 		}

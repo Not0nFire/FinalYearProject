@@ -3,7 +3,8 @@
 Hero::Hero(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn")),
 mSecondsSinceRegen(0.f),
-mHealthRegen(atoi(xml->FirstChildElement("HealthRegen")->GetText()))
+M_HEALTH_REGEN(atoi(xml->FirstChildElement("HealthRegen")->GetText())),
+M_REGEN_INTERVAL(1.f / atof(xml->FirstChildElement("HealthRegen")->Attribute("rate")))
 {
 	_ASSERT(std::string(xml->Name()) == "Hero");
 
@@ -15,10 +16,10 @@ Hero::~Hero() {
 
 void Hero::update(sf::Time const& elapsedTime) {
 	mSecondsSinceRegen += elapsedTime.asSeconds();
-	if (mState != DEAD && mSecondsSinceRegen >= 1.f)
+	if (mState != DEAD && mSecondsSinceRegen >= M_REGEN_INTERVAL)
 	{
-		mSecondsSinceRegen -= 1.f;
-		heal(mHealthRegen);
+		mSecondsSinceRegen -= M_REGEN_INTERVAL;
+		heal(M_HEALTH_REGEN);
 	}
 
 	Pawn::update(elapsedTime);

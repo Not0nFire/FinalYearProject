@@ -79,6 +79,12 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 
 	//----------------------------------------------------------
 
+	mHud.addLifeTracker(mLivesRemaining, GET_TEXTURE("./res/img/heart.png"), { 500.f, 10.f }, { 1.f, 1.f }, { 30.f, 0.f });	//(lives, texture, position, scale, spacing)
+	mHud.addImage(GET_TEXTURE("./res/img/coin.png"), { 380.f, 10.f });
+	mHud.addNumberTracker(mMoney, { 400.f, 10.f }, GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"));
+	mHud.addImage(GET_TEXTURE("./res/img/portrait.png"), { 0.f, 0.f });
+
+
 	UnitFactory factory;
 	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
@@ -100,12 +106,12 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 			pawn = factory.produce(type);
 
 			mHero = pawn;
-			//mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			mHud.addHealthBar(mHero,sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f), &GET_TEXTURE("./res/img/hp_red.png"),true);
 		}
 		else
 		{
 			pawn = factory.produce(type);
-			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
+			//mHud.addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
 			auto constNode = std::const_pointer_cast<const Node>(mPath->begin());
 			minion->setPath(constNode);
@@ -124,10 +130,6 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 		p->setOnDeath(bind(&Level::onPawnDeath, this, std::placeholders::_1));
 	}
 
-	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
-	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
-
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
@@ -144,7 +146,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
 
 		auto tower = mTowerPlacer->place();
-		std::lock_guard<std::mutex> lock(mMutex);
+		//std::lock_guard<std::mutex> lock(mMutex);
 		if (nullptr != tower) {
 
 			if (*mMoney >= tower->getCost()) {
@@ -260,9 +262,11 @@ void Level::update(sf::Time const &elapsedTime) {
 		mBgMusic.play();
 	}
 
+
 	mBloodSystem.update(elapsedTime);
 
-	//mHud->update(elapsedTime);
+	
+	mHud.update(elapsedTime.asSeconds());
 
 	//if (mIsLost)
 	//{
@@ -275,7 +279,7 @@ void Level::update(sf::Time const &elapsedTime) {
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	
 	w.setView(mCamera);
 
@@ -304,7 +308,9 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer->draw(w);
 
-	//mHud->draw(w);
+	//reset the view before we draw the hud
+	w.setView(w.getDefaultView());
+	w.draw(mHud);
 }
 
 bool Level::isWon() const {
@@ -316,7 +322,7 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	//mHud->hide();
 	mBgMusic.stop();
 }

@@ -15,8 +15,11 @@ protected:
 
 	float mSecondsSinceRegen;
 
+	//! Seconds to wait between applying health regen
+	const float M_REGEN_INTERVAL;
+
 	//! Amount of health to regenerate per second
-	unsigned mHealthRegen;
+	const unsigned int M_HEALTH_REGEN;
 
 	//Ability mAbility;
 public:

@@ -2,6 +2,7 @@
 #define _LEVEL_
 
 #include <vector>
+#include <list>
 #include <SFML/Graphics.hpp>
 #include <include/Scene.hpp>
 #include <include/Minion.hpp>
@@ -19,6 +20,7 @@
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
 #include <include/BloodSystem.hpp>
+#include <include/HUD.hpp>
 
 using std::shared_ptr;
 
@@ -35,7 +37,7 @@ private:
 	//! List of ranged towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
-	std::mutex mMutex;
+	//std::mutex mMutex;
 
 	//! Visual backdrop of level
 	sf::Sprite mBackground;
@@ -43,7 +45,7 @@ private:
 	//! Camera that follows mHero.
 	Camera mCamera;
 
-	//std::unique_ptr<HUD> mHud;
+	Hud mHud;
 	
 	//! Quadtree used to decide where towers can be placed.
 	shared_ptr<Quadtree<unsigned char>> terrainTree;
