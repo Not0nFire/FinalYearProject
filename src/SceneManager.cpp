@@ -36,19 +36,16 @@ std::string SceneManager::getCurrentScene() const {
 
 //calls the current scene's update method
 void SceneManager::updateCurrentScene( sf::Time const &elapsedTime) {
-	joinCleanupThread();
 	mScenes[ mCurrentScene ]->update( elapsedTime);
 }
 
 //calls the current scene's draw method
 void SceneManager::drawCurrentScene( sf::RenderWindow &w ) {
-	joinCleanupThread();
 	mScenes[ mCurrentScene ]->draw( w );
 }
 
 //returns true if no further processing should be done for the event (i.e. the event has been used up )
 bool SceneManager::passEventToCurrentScene( sf::Event &theEvent ) {
-	joinCleanupThread();
 	return mScenes[ mCurrentScene ]->handleEvent( theEvent );
 }
 

@@ -1,7 +1,6 @@
 #ifndef _PAWN_H
 #define _PAWN_H
 
-#include <boost/signals2.hpp>
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>

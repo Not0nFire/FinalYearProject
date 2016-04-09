@@ -1,5 +1,4 @@
 #include <include\Pawn.hpp>
-#include <boost/thread/lock_guard.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :

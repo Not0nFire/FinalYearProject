@@ -130,7 +130,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
 
 		auto tower = mTowerPlacer->place();
-		std::lock_guard<std::mutex> lock(mMutex);
+		//std::lock_guard<std::mutex> lock(mMutex);
 		if (nullptr != tower) {
 
 			if (*mMoney >= tower->getCost()) {
@@ -266,7 +266,7 @@ void Level::update(sf::Time const &elapsedTime) {
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	
 	w.setView(mCamera);
 
@@ -307,7 +307,7 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	//mHud->hide();
 	mBgMusic.stop();
 }

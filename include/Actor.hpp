@@ -3,10 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <include/Collision/Collidable.hpp>
-#include <boost/thread/mutex.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/ResourceManager.hpp>
 #include <Thor/Animations.hpp>
+#include <iostream>
 
 /*!
 \brief Class for anything that animates and has a position.
@@ -18,7 +18,6 @@ private:
 	thor::Animator<sf::Sprite, std::string> mAnimator;	//!< Used to animate ourself
 protected:
 	bool mVisible;
-	//boost::mutex mMutex;	//!< Not to be confused with the private mutex in Collidable
 public:
 	/*!
 	\param texture Spritesheet to be used for animation

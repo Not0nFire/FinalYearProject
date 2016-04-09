@@ -2,6 +2,7 @@
 #define _LEVEL_
 
 #include <vector>
+#include <list>
 #include <SFML/Graphics.hpp>
 #include <include/Scene.hpp>
 #include <include/Minion.hpp>
@@ -35,7 +36,7 @@ private:
 	//! List of ranged towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
-	std::mutex mMutex;
+	//std::mutex mMutex;
 
 	//! Visual backdrop of level
 	sf::Sprite mBackground;

@@ -15,7 +15,7 @@ Game::Game() :
 	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene", false);
 
 	//Tell the renderer to draw the correct scene whenever the scene changes
-	SceneManager::instance()->onSceneChange.connect(bind(&Renderer::setScene, &mRenderer, _1));
+	SceneManager::instance()->onSceneChange = bind(&Renderer::setScene, &mRenderer, std::placeholders::_1);
 
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 

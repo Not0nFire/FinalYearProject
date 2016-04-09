@@ -2,10 +2,9 @@
 #define _SCENE_MANAGER_H
 
 #include <include/Scene.hpp>
-#include <boost/signals2.hpp>
+#include <functional>
 #include <map>
 #include <thread>
-using namespace boost::signals2;
 
 /*!
 \brief Singleton class to handle scenes and the navigation between them.
@@ -58,7 +57,7 @@ public:
 	\param goToScene True if the new scene should become the current scene (i.e. navigated to immediately)
 	*/
 	template <class SceneType>
-	void createScene(std::string const &name, std::string const& xmlPath, bool goToScene = true);
+	void createScene(std::string const &name, std::string const& xmlPath, bool goToScene = true, bool overwriteExisting = true);
 
 	/*!
 	Calls the current scene's update method.
@@ -85,18 +84,39 @@ public:
 	bool navigateToScene( std::string const &path );
 
 	/*!
-	Signal that is invoked whenever the scene changes.
+	Function that is invoked whenever the scene changes.
 	The scene pointer passed is the new current scene.
 	*/
-	signal<void(SceneProxy* newScene)> onSceneChange;
+	std::function<void(SceneProxy* newScene)> onSceneChange;
 };
 
 template <class SceneType>
-void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene) {
+void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene, bool overwriteExisting) {
 
-	mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
-	if (goToScene) {
-		navigateToScene(name);
+	//check if the scene already exists
+	if (mScenes.count(name)) {
+		printf("Scene \"%s\" already exists.\n", name.c_str());
+
+		//if we should overwrite the existing scene...
+		if (overwriteExisting) {
+			printf("Overwriting \"%s\" with new from file: %s\n", name.c_str(), xmlPath.c_str());
+			delete mScenes[name];
+			mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
+		}
+		else if (goToScene) {
+			printf("Navigating to \"%s\" instead of overwriting.\n", name.c_str());
+		}
+		else {
+			printf("Bool \"goToScene\" is false. Doing nothing.\n");
+		}
+		
+	}
+	//scene doesn't exist
+	else {
+		mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
+		if (goToScene) {
+			navigateToScene(name);
+		}
 	}
 }
 #endif

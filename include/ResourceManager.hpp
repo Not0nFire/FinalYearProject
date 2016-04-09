@@ -1,8 +1,8 @@
 #ifndef _RESOURCE_MANAGER_H
 #define _RESOURCE_MANAGER_H
-#include <boost/thread.hpp>
 #include <memory>
 #include <map>
+#include <mutex>
 #include <Thor/Animations.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 
@@ -20,7 +20,7 @@ private:
 	*/
 	std::map< std::string, std::unique_ptr<T>> mResources;
 
-	boost::mutex mResourceMutex;
+	std::mutex mResourceMutex;
 
 public:
 	~ResourceManager<T>();
@@ -67,7 +67,7 @@ ResourceManager<T>* ResourceManager<T>::instance() {
 template<typename T>
 T& ResourceManager<T>::get(std::string const &path) {
 	//lock the mutex
-	boost::lock_guard<boost::mutex> lock(mResourceMutex);
+	std::lock_guard<std::mutex> lock(mResourceMutex);
 
 	//if path does not exist as a key in the map
 	if (!mResources.count(path)) {
@@ -87,7 +87,7 @@ T& ResourceManager<T>::get(std::string const &path) {
 template<>
 inline thor::FrameAnimation& ResourceManager<thor::FrameAnimation>::get(std::string const &path) {
 	//Lock the mutex
-	boost::lock_guard<boost::mutex> lock(mResourceMutex);
+	std::lock_guard<std::mutex> lock(mResourceMutex);
 
 	//If path does not exist as a key in the map
 	if (!mResources.count(path)) {
@@ -124,7 +124,7 @@ inline thor::FrameAnimation& ResourceManager<thor::FrameAnimation>::get(std::str
 		}
 
 		//Put the animation into the map (move it instead of copying)
-		mResources.insert(std::make_pair(path, std::move(anim)));
+		mResources.insert(make_pair(path, move(anim)));
 	}
 
 	//return reference to the animation

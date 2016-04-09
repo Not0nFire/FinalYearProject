@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Pawn.hpp"
+#include <list>
 
 namespace gui
 {
