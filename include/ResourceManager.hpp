@@ -1,5 +1,5 @@
-#ifndef _RESOURCE_MANAGER_H
-#define _RESOURCE_MANAGER_H
+#ifndef RESOURCE_MANAGER_HPP
+#define RESOURCE_MANAGER_HPP
 #include <memory>
 #include <map>
 #include <mutex>
@@ -12,7 +12,7 @@
 template<typename T>
 class ResourceManager {
 private:
-	static ResourceManager<T>* mInstance;
+	static std::unique_ptr<ResourceManager<T>> mInstance;
 	ResourceManager<T>();
 
 	/*!
@@ -30,7 +30,7 @@ public:
 	Instanciates (or gets the existing instance of) the ResourceManager<T> where T = an SFML resource type.
 	Each instance of ResourceManager manages a different type of resource (e.g. ResourceManager<Texture>, ResourceManager<Font>).
 	*/
-	static ResourceManager<T>* instance();
+	static std::unique_ptr<ResourceManager<T>> const& instance();
 	
 	/*!
 	\brief Gets a resource by its path in the file system.
@@ -44,7 +44,7 @@ public:
 };
 
 template<typename T>
-ResourceManager<T>* ResourceManager<T>::mInstance = nullptr;
+std::unique_ptr<ResourceManager<T>> ResourceManager<T>::mInstance = nullptr;
 
 template<typename T>
 ResourceManager<T>::ResourceManager() {
@@ -57,9 +57,9 @@ ResourceManager<T>::~ResourceManager() {
 }
 
 template <typename T>
-ResourceManager<T>* ResourceManager<T>::instance() {
+std::unique_ptr<ResourceManager<T>> const& ResourceManager<T>::instance() {
 	if (!mInstance) {
-		mInstance = new ResourceManager<T>();
+		mInstance = std::unique_ptr<ResourceManager<T>>(new ResourceManager<T>());
 	}
 	return mInstance;
 }

@@ -8,14 +8,11 @@ std::unique_ptr<PlayerProfile> Game::mPlayerProfile = nullptr;
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 
 Game::Game() :
-	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]")
+	mRenderer(sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]")
 {
 	Cursor::setTexture("./res/img/cursor.png");
 
 	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene", false);
-
-	//Tell the renderer to draw the correct scene whenever the scene changes
-	SceneManager::instance()->onSceneChange = bind(&Renderer::setScene, &mRenderer, std::placeholders::_1);
 
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 
