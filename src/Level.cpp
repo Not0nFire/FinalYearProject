@@ -43,6 +43,7 @@ void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
 void Level::setupAbilities() {
 	auto spawnCallback = bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true);
 
+	/////////////////////////////////////////////////////
 	//Create magic missile ability
 	XMLDocument doc;
 	auto result = doc.LoadFile("./res/xml/MagicMissileAbility.xml");
@@ -50,47 +51,45 @@ void Level::setupAbilities() {
 		throw result;
 	}
 	auto abilityRoot = doc.FirstChildElement("Ability");
+	shared_ptr<Ability> ability = std::make_shared<abilities::MagicMisile>(abilityRoot);
+	auto button = gui::AbilityButton(100, 450, abilityRoot->FirstChildElement("Button"), ability);
 
-	mAbilityList.push_back(make_pair(
-		gui::Button(100, 450, abilityRoot->FirstChildElement("Button")),
-		std::make_unique<abilities::MagicMisile>(abilityRoot)
-		));
+	mAbilityList.push_back(make_pair(button,ability));
 
-	auto ability = mAbilityList.rbegin()->second.get();
 
-	ability->setProjectileManager(mProjectileManager);
-	ability->setPawnList(mPawns);
+	auto pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
 	//ability.setSpawnCallback(spawnCallback);
 
+	///////////////////////////////////////////////////////
 	//Create raise dead ability
 	result = doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
 	if (result != XML_NO_ERROR) {
 		throw result;
 	}
 	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::RaiseDead>(abilityRoot);
+	button = gui::AbilityButton(164, 450, abilityRoot->FirstChildElement("Button"), ability);
 
-	mAbilityList.push_back(make_pair(
-		gui::Button(164, 450, abilityRoot->FirstChildElement("Button")),
-		std::make_unique<abilities::RaiseDead>(abilityRoot)
-		));
+	mAbilityList.push_back(make_pair(button, ability));
 
-	ability = mAbilityList.rbegin()->second.get();
+	pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
+	pair->second->setSpawnCallback(spawnCallback);
 
-	ability->setProjectileManager(mProjectileManager);
-	ability->setPawnList(mPawns);
-	ability->setSpawnCallback(spawnCallback);
-
+	///////////////////////////////////////////////////////
 	//Create heal ability
 	result = doc.LoadFile("./res/xml/HealAbility.xml");
 	if (result != XML_NO_ERROR) {
 		throw result;
 	}
 	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::Heal>(abilityRoot);
+	button = gui::AbilityButton(228, 450, abilityRoot->FirstChildElement("Button"), ability);
 
-	mAbilityList.push_back(make_pair(
-		gui::Button(228, 450, abilityRoot->FirstChildElement("Button")),
-		std::make_unique<abilities::Heal>(abilityRoot)
-		));
+	mAbilityList.push_back(make_pair(button, ability));
 }
 
 void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
@@ -305,13 +304,9 @@ bool Level::handleEvent(sf::Event &evnt ) {
 void Level::update(sf::Time const &elapsedTime) {
 	for (auto& pair : mAbilityList) {
 		//.first is the button
-		//.second is the ability (unique_ptr)
+		//.second is the ability (shared_ptr)
+		pair.first.updateCooldownVisuals(elapsedTime);
 		pair.second->update(elapsedTime);
-		if (pair.second->canCast()) {
-			pair.first.enable();
-		} else {
-			pair.first.disable();
-		}
 	}
 
 	bool allEnemiesDead = true;

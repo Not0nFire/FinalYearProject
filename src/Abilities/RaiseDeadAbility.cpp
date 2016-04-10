@@ -58,7 +58,7 @@ void RaiseDead::doUpdateLogic(sf::Time const& deltaTime) {
 	}
 }
 
-void RaiseDead::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void RaiseDead::doDraw(sf::RenderTarget& target, sf::RenderStates states) const {
 	if (isActive()) {
 		mCastGraphics.draw(target);
 	}

@@ -11,7 +11,23 @@
   <CastTime>2</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
-  <Cooldown>8</Cooldown>
+  <Cooldown seconds="8">
+    <!-- actor to show visual cooldown timer-->
+    <Actor>
+      <Texture>././res/img/cooldown_timer.png</Texture>
+      <Animation path="././res/xml/cooldown_timer.anim">
+        <Name>Cast</Name>
+        <Duration>8</Duration>
+      </Animation>
+
+      <Origin x="40" y="50"/>
+
+      <!-- Unused, but required by actor -->
+      <Collidable pointCount="3" type="Circle">
+        <Radius>1</Radius>
+      </Collidable>
+    </Actor>
+  </Cooldown>
 
   <!-- How far away from the user to spawn the units -->
   <SpawnDistance>50</SpawnDistance>
@@ -92,7 +108,7 @@
   </Minion>
 
   <!-- The clickable button definition for this ability-->
-  <Button>
+  <Button name="Raise Dead">
     <Texture path="./res/img/raise_dead_icon_2.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="255" height="255"/>

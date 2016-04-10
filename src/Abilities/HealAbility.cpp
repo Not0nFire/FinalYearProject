@@ -65,7 +65,7 @@ void Heal::doUpdateLogic(sf::Time const& deltaTime) {
 	}
 }
 
-void Heal::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void Heal::doDraw(sf::RenderTarget& target, sf::RenderStates states) const {
 	if (isActive()) {
 		target.draw(mCastGraphics, states);
 		target.draw(mParticleSystem);

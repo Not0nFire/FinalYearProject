@@ -31,7 +31,7 @@ namespace abilities {
 		/*!
 		\brief Draws the ability graphics.
 		*/
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void doDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		//! The number of missiles to spawn.

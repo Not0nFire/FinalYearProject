@@ -14,7 +14,7 @@ namespace abilities
 	protected:
 		void doExecuteLogic(Pawn* user) override;
 		void doUpdateLogic(sf::Time const& deltaTime) override;
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void doDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		Actor mCastGraphics;

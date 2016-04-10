@@ -25,6 +25,12 @@ namespace gui
 
 		std::string const& getName() const;
 
+		sf::Vector2f const& getPosition() const;
+
+		sf::Vector2f const& getSize() const;
+
+		sf::Vector2f const& getScale() const;
+
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
@@ -36,7 +42,8 @@ namespace gui
 
 		void setState(State newState);
 
-		sf::Sprite mSprite;
+	private:
+		sf::RectangleShape mGraphic;
 
 		sf::Sound mOnHoverSound;
 		sf::IntRect mNormalSrcRect, mHoverSrcRect, mDisabledSrcRect;

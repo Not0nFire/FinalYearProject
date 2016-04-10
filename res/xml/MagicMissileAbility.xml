@@ -26,13 +26,29 @@
   <CastTime>2</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
-  <Cooldown>5</Cooldown>
+  <Cooldown seconds="5">
+    <!-- actor to show visual cooldown timer-->
+    <Actor>
+      <Texture>././res/img/cooldown_timer.png</Texture>
+      <Animation path="././res/xml/cooldown_timer.anim">
+        <Name>Cast</Name>
+        <Duration>5</Duration>
+      </Animation>
+
+      <Origin x="40" y="50"/>
+
+      <!-- Unused, but required by actor -->
+      <Collidable pointCount="3" type="Circle">
+        <Radius>1</Radius>
+      </Collidable>
+    </Actor>
+  </Cooldown>
 
   <Sound path="./res/sfx/magic_missile.ogg"/>
   <MissileLaunchSound path="./res/sfx/magic_missile_launch.ogg"/>
 
   <!-- The clickable button definition for this ability-->
-  <Button>
+  <Button name="Magic Missile">
     <Texture path="./res/img/magic_missile_icon_2.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="127" height="127"/>

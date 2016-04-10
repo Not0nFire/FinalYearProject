@@ -1,0 +1,58 @@
+<Animation name="cooldown_timer">
+	<Frame id="cooldown_0">
+		<X>258</X>
+		<Y>0</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+  <Frame id="cooldown_45">
+    <X>516</X>
+    <Y>0</Y>
+    <Width>256</Width>
+    <Height>256</Height>
+    <Duration>1.f</Duration>
+  </Frame>
+  <Frame id="cooldown_90">
+    <X>258</X>
+    <Y>516</Y>
+    <Width>256</Width>
+    <Height>256</Height>
+    <Duration>1.f</Duration>
+  </Frame>
+	<Frame id="cooldown_120">
+		<X>258</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="cooldown_180">
+		<X>516</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="cooldown_225">
+		<X>0</X>
+		<Y>516</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="cooldown_270">
+		<X>0</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="cooldown_315">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

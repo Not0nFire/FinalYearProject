@@ -5,7 +5,7 @@ mIsActive(false),
 M_DESCRIPTION(xml->FirstChildElement("Description")->GetText()),
 M_NAME(xml->FirstChildElement("Name")->GetText()),
 M_CAST_TIME(sf::seconds(atof(xml->FirstChildElement("CastTime")->GetText()))),
-M_COOLDOWN(atof(xml->FirstChildElement("Cooldown")->GetText())),
+M_COOLDOWN(atof(xml->FirstChildElement("Cooldown")->Attribute("seconds"))),
 mSecondsSinceCast(M_COOLDOWN)
 {
 	_ASSERT(xml->Name() == std::string("Ability"));
@@ -53,6 +53,10 @@ float Ability::getRemainingCooldown() const {
 	return M_COOLDOWN - mSecondsSinceCast;
 }
 
+float Ability::getTotalCooldown() const {
+	return M_COOLDOWN;
+}
+
 void Ability::setPawnList(std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> const& list) {
 	mPawnList = list;
 }
@@ -80,6 +84,12 @@ sf::Time const& Ability::getCastDuration() const {
 
 bool Ability::isActive() const {
 	return mIsActive;
+}
+
+void Ability::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	if (mIsActive) {
+		doDraw(target, states);
+	}
 }
 
 void Ability::spawnMinion(std::shared_ptr<Minion> const& unit) const {

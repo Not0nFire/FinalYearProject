@@ -11,11 +11,28 @@
   <CastTime>1.5</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
-  <Cooldown>1</Cooldown>
+  <Cooldown seconds="1">
+    <!-- actor to show visual cooldown timer-->
+    <Actor>
+      <Texture>././res/img/cooldown_timer.png</Texture>
+      <Animation path="././res/xml/cooldown_timer.anim">
+        <Name>Cast</Name>
+        <Duration>1</Duration>
+      </Animation>
+
+      <Origin x="40" y="50"/>
+
+      <!-- Unused, but required by actor -->
+      <Collidable pointCount="3" type="Circle">
+        <Radius>1</Radius>
+      </Collidable>
+    </Actor>
+  </Cooldown>
 
   <!-- How much to heal the user by -->
   <HealAmount>100</HealAmount>
 
+  <!-- sound to play upon execution-->
   <Sound path="./res/sfx/heal.ogg"/>
 
   <Particles>
@@ -44,7 +61,7 @@
   </Actor>
 
   <!-- The clickable button definition for this ability-->
-  <Button>
+  <Button name="Heal">
     <Texture path="./res/img/heal_icon.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="255" height="255"/>

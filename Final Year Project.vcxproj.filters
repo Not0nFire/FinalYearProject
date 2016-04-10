@@ -132,6 +132,9 @@
     <ClCompile Include="src\Abilities\RaiseDeadAbility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AbilityButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor.h">
@@ -291,6 +294,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Abilities\RaiseDeadAbility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Gui\AbilityButton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

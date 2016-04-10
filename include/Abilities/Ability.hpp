@@ -7,6 +7,7 @@
 #include <list>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/ProjectileManager.hpp>
+#include <include/Gui/Button.hpp>
 
 class Pawn;
 class Minion;
@@ -56,7 +57,11 @@ public:
 
 	bool canCast() const;
 
+	//! Gets the remaining time, in seconds, before the ability can be used again.
 	float getRemainingCooldown() const;
+
+	//! The time, in seconds, that the ability's cooldown lasts.
+	float getTotalCooldown() const;
 
 	/*!
 	\brief Sets the pawn list to be used when the Ability wishes to find pawns in the game.
@@ -102,8 +107,10 @@ protected:
 	*/
 	virtual void doUpdateLogic(sf::Time const& deltaTime) = 0;
 
-	//! Draws the ability to the render target.
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+	//! Calls doDraw() if ability is active
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
+
+	virtual void doDraw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	/*!
 	\brief Adds a Pawn to the game.

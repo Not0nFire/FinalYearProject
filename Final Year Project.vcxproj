@@ -110,6 +110,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Abilities\HealAbility.cpp" />
     <ClCompile Include="src\Abilities\MagicMissileability.cpp" />
     <ClCompile Include="src\Abilities\RaiseDeadAbility.cpp" />
+    <ClCompile Include="src\AbilityButton.cpp" />
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
@@ -161,6 +162,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Damage.hpp" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Gui\AbilityButton.hpp" />
     <ClInclude Include="include\Gui\Button.hpp" />
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />

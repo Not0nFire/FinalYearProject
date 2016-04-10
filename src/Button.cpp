@@ -3,11 +3,11 @@
 using namespace gui;
 
 Button::Button(int x, int y, const tinyxml2::XMLElement* xmlButtonDefinition) :
-mSprite()
+mGraphic()
 {
 	//get the texture
 	std::string texturePath = xmlButtonDefinition->FirstChildElement("Texture")->Attribute("path");
-	mSprite.setTexture(ResourceManager<sf::Texture>::instance()->get(texturePath));
+	mGraphic.setTexture(&ResourceManager<sf::Texture>::instance()->get(texturePath));
 
 	//get the hover sound (played when the mouse rolls over the button)
 	std::string soundPath = xmlButtonDefinition->FirstChildElement("HoverSound")->Attribute("path");
@@ -17,6 +17,8 @@ mSprite()
 	auto dimensions = xmlButtonDefinition->FirstChildElement("Dimensions");
 	int width = atoi(dimensions->Attribute("width"));
 	int height = atoi(dimensions->Attribute("height"));
+
+	mGraphic.setSize(sf::Vector2f(width, height));
 
 	mNormalSrcRect.width = width;
 	mHoverSrcRect.width = width;
@@ -46,17 +48,18 @@ mSprite()
 		float scaleX = atof(scale->Attribute("x"));
 		float scaleY = atof(scale->Attribute("y"));
 
-		mSprite.setScale(scaleX, scaleY);
+		mGraphic.setScale(scaleX, scaleY);
 	}
 
-	mSprite.setPosition(x, y);
-	setState(NORMAL);
+	mGraphic.setPosition(x, y);
 
 	auto name = xmlButtonDefinition->Attribute("name");
 	if (nullptr != name)
 	{
 		mName = name;
 	}
+
+	setState(NORMAL);
 }
 
 Button::~Button() {
@@ -65,7 +68,7 @@ Button::~Button() {
 void Button::update(sf::Vector2i const& mousePos) {
 	if (mState != DISABLED) {
 		//if the sprite bounds contain the mouse coordinates...
-		if (mSprite.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+		if (mGraphic.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
 			setState(HOVER);
 		}
 		else {
@@ -85,15 +88,29 @@ void Button::enable() {
 }
 
 void Button::disable() {
-	setState(DISABLED);
+	if (mState != DISABLED) {
+		setState(DISABLED);
+	}
 }
 
 std::string const& Button::getName() const {
 	return mName;
 }
 
+sf::Vector2f const& Button::getPosition() const {
+	return mGraphic.getPosition();
+}
+
+sf::Vector2f const& Button::getSize() const {
+	return mGraphic.getSize();
+}
+
+sf::Vector2f const& Button::getScale() const {
+	return mGraphic.getScale();
+}
+
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(mSprite);
+	target.draw(mGraphic);
 }
 
 void Button::setState(State newState) {
@@ -103,16 +120,16 @@ void Button::setState(State newState) {
 		switch (mState) {
 
 			case NORMAL:
-				mSprite.setTextureRect(mNormalSrcRect);
+				mGraphic.setTextureRect(mNormalSrcRect);
 				break;
 
 			case HOVER:
-				mSprite.setTextureRect(mHoverSrcRect);
+				mGraphic.setTextureRect(mHoverSrcRect);
 				mOnHoverSound.play();
 				break;
 
 			case DISABLED:
-				mSprite.setTextureRect(mDisabledSrcRect);
+				mGraphic.setTextureRect(mDisabledSrcRect);
 				break;
 
 			default:

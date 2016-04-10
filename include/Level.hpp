@@ -23,7 +23,7 @@
 #include <include/Abilities/MagicMissileAbility.hpp>
 #include <include/Abilities/RaiseDeadAbility.hpp>
 #include <include/Abilities/HealAbility.hpp>
-#include <include/Gui/Button.hpp>
+#include <include/Gui/AbilityButton.hpp>
 
 using std::shared_ptr;
 
@@ -33,7 +33,7 @@ using std::shared_ptr;
 class Level : public I_Scene{
 private:
 	//Each button is paired with an ability, which will be executed when the button is clicked
-	std::list<std::pair<gui::Button, std::unique_ptr<Ability>>> mAbilityList;
+	std::list<std::pair<gui::AbilityButton, std::shared_ptr<Ability>>> mAbilityList;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;

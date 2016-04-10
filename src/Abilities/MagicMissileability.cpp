@@ -69,7 +69,7 @@ void MagicMisile::doUpdateLogic(sf::Time const& deltaTime) {
 	}
 }
 
-void MagicMisile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void MagicMisile::doDraw(sf::RenderTarget& target, sf::RenderStates states) const {
 	if (isActive()) {
 		target.draw(mCastGraphics, states);
 	}
