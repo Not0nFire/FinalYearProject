@@ -23,6 +23,7 @@ void Ability::execute(Pawn* user) {
 		user->stun(M_CAST_TIME);	//Stun the user for the duration of the cast time.
 		doExecuteLogic(user);	//Do ability-specific execution logic.
 		activate();
+		mExecutionSound.setPosition(sf::Vector3f(user->getPosition().x, user->getPosition().y, 0.f));
 		mExecutionSound.play();
 	}
 }
