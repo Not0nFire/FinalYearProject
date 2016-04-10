@@ -1,8 +1,8 @@
-#ifndef _RESOURCE_MANAGER_H
-#define _RESOURCE_MANAGER_H
-#include <boost/thread.hpp>
+#ifndef RESOURCE_MANAGER_HPP
+#define RESOURCE_MANAGER_HPP
 #include <memory>
 #include <map>
+#include <mutex>
 #include <Thor/Animations.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 
@@ -12,7 +12,7 @@
 template<typename T>
 class ResourceManager {
 private:
-	static ResourceManager<T>* mInstance;
+	static std::unique_ptr<ResourceManager<T>> mInstance;
 	ResourceManager<T>();
 
 	/*!
@@ -20,7 +20,7 @@ private:
 	*/
 	std::map< std::string, std::unique_ptr<T>> mResources;
 
-	boost::mutex mResourceMutex;
+	std::mutex mResourceMutex;
 
 public:
 	~ResourceManager<T>();
@@ -30,7 +30,7 @@ public:
 	Instanciates (or gets the existing instance of) the ResourceManager<T> where T = an SFML resource type.
 	Each instance of ResourceManager manages a different type of resource (e.g. ResourceManager<Texture>, ResourceManager<Font>).
 	*/
-	static ResourceManager<T>* instance();
+	static std::unique_ptr<ResourceManager<T>> const& instance();
 	
 	/*!
 	\brief Gets a resource by its path in the file system.
@@ -44,7 +44,7 @@ public:
 };
 
 template<typename T>
-ResourceManager<T>* ResourceManager<T>::mInstance = nullptr;
+std::unique_ptr<ResourceManager<T>> ResourceManager<T>::mInstance = nullptr;
 
 template<typename T>
 ResourceManager<T>::ResourceManager() {
@@ -57,9 +57,9 @@ ResourceManager<T>::~ResourceManager() {
 }
 
 template <typename T>
-ResourceManager<T>* ResourceManager<T>::instance() {
+std::unique_ptr<ResourceManager<T>> const& ResourceManager<T>::instance() {
 	if (!mInstance) {
-		mInstance = new ResourceManager<T>();
+		mInstance = std::unique_ptr<ResourceManager<T>>(new ResourceManager<T>());
 	}
 	return mInstance;
 }
@@ -67,7 +67,7 @@ ResourceManager<T>* ResourceManager<T>::instance() {
 template<typename T>
 T& ResourceManager<T>::get(std::string const &path) {
 	//lock the mutex
-	boost::lock_guard<boost::mutex> lock(mResourceMutex);
+	std::lock_guard<std::mutex> lock(mResourceMutex);
 
 	//if path does not exist as a key in the map
 	if (!mResources.count(path)) {
@@ -87,7 +87,7 @@ T& ResourceManager<T>::get(std::string const &path) {
 template<>
 inline thor::FrameAnimation& ResourceManager<thor::FrameAnimation>::get(std::string const &path) {
 	//Lock the mutex
-	boost::lock_guard<boost::mutex> lock(mResourceMutex);
+	std::lock_guard<std::mutex> lock(mResourceMutex);
 
 	//If path does not exist as a key in the map
 	if (!mResources.count(path)) {
@@ -124,7 +124,7 @@ inline thor::FrameAnimation& ResourceManager<thor::FrameAnimation>::get(std::str
 		}
 
 		//Put the animation into the map (move it instead of copying)
-		mResources.insert(std::make_pair(path, std::move(anim)));
+		mResources.insert(make_pair(path, move(anim)));
 	}
 
 	//return reference to the animation

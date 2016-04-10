@@ -1,7 +1,6 @@
 #ifndef _PAWN_H
 #define _PAWN_H
 
-#include <boost/signals2.hpp>
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>
@@ -27,6 +26,8 @@ public:
 		STUNNED,
 		DEAD
 	};
+private:
+	std::function<void(Pawn*)> mOnDeathFunction;
 protected:
 #pragma region Fields
 	Faction mFaction; /*!< The faction that the Pawn belongs to */
@@ -212,5 +213,7 @@ public:
 	\param mtv The Minimum Translation Vector for the collision.
 	*/
 	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv) override;
+
+	void setOnDeath(std::function<void(Pawn*)> const& callback);
 };
 #endif

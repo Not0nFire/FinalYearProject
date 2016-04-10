@@ -93,7 +93,15 @@ namespace collision {
 	}
 
 	void CollisionGroup::remove(std::shared_ptr<Collidable> const &entry) {
-		mMembers.erase( std::remove(mMembers.begin(), mMembers.end(), entry) );
+		auto end = mMembers.end();
+		auto itr = std::remove(mMembers.begin(), end, entry);
+		if (itr != end) {
+			mMembers.erase(itr);
+		}
+		else
+		{
+			std::cout << "CollisionGroup: Tried to erase list element, but could not find it." << std::endl;
+		}
 	}
 
 	void CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {

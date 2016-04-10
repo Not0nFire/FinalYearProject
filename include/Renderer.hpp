@@ -1,13 +1,12 @@
-#ifndef _RENDERER_H
-#define _RENDERER_H
+#ifndef RENDERER_HPP
+#define RENDERER_HPP
 
-#include <include/Actor.hpp>
 #include <atomic>
 #include <mutex>
 #include <chrono>
 #include <thread>
 #include <functional>
-#include "Scene.hpp"
+#include "SceneManager.hpp"
 #include "Cursor.h"
 
 
@@ -21,8 +20,6 @@ private:
 	std::atomic<bool> mLoopOngoing;	/*!< True if want to keep rendering, false if we want rendering to stop. */
 	std::chrono::milliseconds frameDelay;
 
-	SceneProxy* mSceneToRender;
-
 	std::thread mThread;	/*!< Thread that rendering takes place on. */
 
 	std::mutex mMutex;
@@ -33,8 +30,7 @@ public:
 	/*!
 	Creates a render window and sets the scene to be rendered.
 	*/
-	Renderer(SceneProxy* sceneToRender,
-			sf::VideoMode mode,	//RenderWindow ctor arguments
+	Renderer(sf::VideoMode mode,	//RenderWindow ctor arguments
 			std::string const &title,
 			sf::Uint32 style = sf::Style::Titlebar,
 			sf::ContextSettings& settings = sf::ContextSettings()

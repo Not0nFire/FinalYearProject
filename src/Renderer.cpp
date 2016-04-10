@@ -1,8 +1,8 @@
 #include <include/Renderer.hpp>
 
-Renderer::Renderer(SceneProxy* _sceneToRender, sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
-	: mWindow(mode, title, style, settings), mSceneToRender(_sceneToRender) {
-
+Renderer::Renderer(sf::VideoMode mode, std::string const &title, sf::Uint32 style, sf::ContextSettings& settings)
+	: mWindow(mode, title, style, settings)
+{
 	mWindow.setActive(false);
 }
 
@@ -45,7 +45,7 @@ void Renderer::render() {
 			mWindow.clear();
 
 			mMutex.lock();	//Block until ownership can be obtained
-			mSceneToRender->draw(mWindow);
+			SceneManager::instance()->drawCurrentScene(mWindow);
 			mMutex.unlock();	//Release the mutex
 
 			mWindow.setView(originalView);
@@ -67,12 +67,6 @@ std::thread& Renderer::getThread() {
 const sf::RenderWindow& Renderer::getWindow() const {
 	return mWindow;
 }
-
-void Renderer::setScene(SceneProxy* newScene) {
-	std::lock_guard<std::mutex> lock(mMutex);
-	mSceneToRender = newScene;
-}
-
 
 bool Renderer::pollEvent(sf::Event& event) {
 	std::lock_guard<std::mutex> lock(mMutex);

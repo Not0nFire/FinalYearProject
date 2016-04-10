@@ -1,5 +1,4 @@
 #include <include\Pawn.hpp>
-#include <boost/thread/lock_guard.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
@@ -191,6 +190,9 @@ void Pawn::update(sf::Time const &elapsedTime) {
 void Pawn::kill() {
 	mHealth = 0;
 	mState = State::DEAD;
+	if (mOnDeathFunction) {
+		mOnDeathFunction(this);
+	}
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type) {
@@ -211,6 +213,9 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 
 	if (isDead) {
 		mState = State::DEAD;
+		if (mOnDeathFunction) {
+			mOnDeathFunction(this);
+		}
 	}
 
 	//return true if damage killed us
@@ -316,6 +321,10 @@ void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv
 		}
 		move(mtv);
 	}
+}
+
+void Pawn::setOnDeath(std::function<void(Pawn*)> const& callback) {
+	mOnDeathFunction = callback;
 }
 
 //bool Pawn::hasDecayed() const {

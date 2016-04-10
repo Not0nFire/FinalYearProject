@@ -1,5 +1,5 @@
 <Level id="1">
-  <Lives>3</Lives>
+  <Lives>8</Lives>
 	<Background>./res/img/bg.png</Background>
 	<TerrainData>./res/img/terrain.bmp</TerrainData>
   <Music volume="10">./res/mus/level.ogg</Music>

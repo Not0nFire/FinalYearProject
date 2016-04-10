@@ -114,6 +114,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Actor.cpp" />
     <ClCompile Include="src\ArcProjectile.cpp" />
     <ClCompile Include="src\BasicTower.cpp" />
+    <ClCompile Include="src\BloodSystem.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
@@ -129,7 +130,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\MageTower.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Minion.cpp" />
     <ClCompile Include="src\Pathing\Node.cpp" />
     <ClCompile Include="src\Pathing\Path.cpp" />
@@ -153,6 +153,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Actor.h" />
     <ClInclude Include="include\Actor.hpp" />
     <ClInclude Include="include\ArcProjectile.h" />
+    <ClInclude Include="include\BloodSystem.hpp" />
     <ClInclude Include="include\Camera.hpp" />
     <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Collision\Collidable.hpp" />
@@ -170,7 +171,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Abilities\Ability.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\LevelSelect.hpp" />
-    <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />

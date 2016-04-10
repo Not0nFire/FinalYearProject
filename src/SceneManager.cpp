@@ -1,71 +1,130 @@
-#include "../include/SceneManager.hpp"
+#include <include/SceneManager.hpp>
 
-SceneManager* SceneManager::mInstance = nullptr;
+std::unique_ptr<SceneManager> SceneManager::mInstance = nullptr;
 
-void SceneManager::joinCleanupThread() {
-	if (mCleanupThread.joinable()) {
-		mCleanupThread.join();
+SceneManager::SceneManager() {
+	mRequestThread = std::thread(std::bind(&SceneManager::handleSceneRequests, this));
+}
+
+void SceneManager::handleSceneRequests() {
+	while (true) {
+		if (mStopRequestThread) {
+			//Break out of while loop and return. Lock will release upon destruction.
+			break;
+		}
+
+		std::unique_lock<std::mutex> requestLock(mRequestMutex);
+		while (mRequests.empty()) {
+			mRequestPending.wait(requestLock);
+		}
+
+		//Fetch a request from the queue
+		auto request = mRequests.front();
+
+		std::lock_guard<std::mutex> sceneLock(mSceneMutex);
+
+		switch (request.type) {
+		case detail::SceneRequest::NAVIGATE:
+			processNavigateRequest(request);
+			break;
+
+		case detail::SceneRequest::ADD_TO_MANAGER:
+			processAddRequest(request);
+			break;
+
+		case detail::SceneRequest::BOTH:
+			processAddRequest(request);
+			processNavigateRequest(request);
+			break;
+
+		}//end switch(type)
+
+		mRequests.pop();
+	}//end while true
+}
+
+void SceneManager::processAddRequest(detail::SceneRequest const& request) {
+	//check if the scene already exists
+	if (mScenes.count(request.name)) {
+		//delete the old scene
+		printf("Scene \"%s\" already exists.\nOverwriting with new scene.\n", request.name.c_str());
+		delete mScenes[request.name];
+	}
+	mScenes[request.name] = request.scene;
+}
+
+void SceneManager::processNavigateRequest(detail::SceneRequest const& request) {
+	if (mScenes.find(request.name) != mScenes.end()) {
+
+		//Cleanup the old scene
+		if (mCurrentScene) {
+			mCurrentScene->cleanup();
+		}
+
+		//Set the current scene
+		mCurrentSceneName = request.name;
+		mCurrentScene = mScenes[mCurrentSceneName];
+	}
+	else {
+		printf("Navigation failed: Scene \"%s\" was not found.", request.name.c_str());
 	}
 }
 
-SceneManager::SceneManager() {
-	
-}
-
 SceneManager::~SceneManager() {
-	//for (std::pair<std::string, I_Scene*> sceneEntry : mScenes) {
-	//	delete sceneEntry.second;
-	//}
+	for (auto& sceneEntry : mScenes) {
+		delete sceneEntry.second;
+	}
+
+	mStopRequestThread = true;
+	mRequestPending.notify_all();	// Tell the waiting thread to continue execution, so that we can join it
+	_ASSERT(mRequestThread.joinable());
+	mRequestThread.join();
 }
 
-SceneManager* SceneManager::instance() {
+std::unique_ptr<SceneManager> const& SceneManager::instance() {
 	if (mInstance == nullptr) {
-		mInstance = new SceneManager();
+		mInstance = std::unique_ptr<SceneManager>(new SceneManager());
 	}
 
 	return mInstance;
 }
 
-std::string SceneManager::getCurrentScene() const {
-	return mCurrentScene;
+std::string SceneManager::getCurrentScene() {
+	std::lock_guard<std::mutex> lock(mSceneMutex);
+	return mCurrentSceneName;
 }
-
-//I_Scene * SceneManager::getEditableScene() const {
-//	return mScenes.at(mCurrentScene);
-//}
 
 //calls the current scene's update method
 void SceneManager::updateCurrentScene( sf::Time const &elapsedTime) {
-	joinCleanupThread();
-	mScenes[ mCurrentScene ]->update( elapsedTime);
+	std::lock_guard<std::mutex> lock(mSceneMutex);
+	if (mCurrentScene) {
+		mCurrentScene->update(elapsedTime);
+	}
 }
 
 //calls the current scene's draw method
 void SceneManager::drawCurrentScene( sf::RenderWindow &w ) {
-	joinCleanupThread();
-	mScenes[ mCurrentScene ]->draw( w );
+	std::lock_guard<std::mutex> lock(mSceneMutex);
+	if (mCurrentScene) {
+		mCurrentScene->draw(w);
+	}
 }
 
 //returns true if no further processing should be done for the event (i.e. the event has been used up )
 bool SceneManager::passEventToCurrentScene( sf::Event &theEvent ) {
-	joinCleanupThread();
-	return mScenes[ mCurrentScene ]->handleEvent( theEvent );
+	std::lock_guard<std::mutex> lock(mSceneMutex);
+	bool handled = false;
+	if (mCurrentScene) {
+		handled = mCurrentScene->handleEvent(theEvent);
+	}
+	return handled;
 }
 
-bool SceneManager::navigateToScene(std::string const &path ) {
-	joinCleanupThread();
+void SceneManager::navigateToScene(std::string const &path ) {
+	std::unique_lock<std::mutex> lock(mRequestMutex);
 
-	bool success = false;
+	//Add the request to the queue. (SceneRequest has a converting ctor for navigation requests)
+	mRequests.push(path);
 
-	if ( mScenes.find(path) != mScenes.end() ) {
-		//cleanup old scene in seperate thread to avoid double locking the SceneProxy mutex in this thread
-		if (!mCurrentScene.empty()) {
-			mCleanupThread = std::thread(&SceneProxy::cleanup, mScenes[mCurrentScene]);
-		}
-		mCurrentScene = path;
-		success = true;
-		onSceneChange(mScenes[mCurrentScene]);
-	}
-
-	return success;
+	mRequestPending.notify_all();
 }
