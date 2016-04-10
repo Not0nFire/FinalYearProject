@@ -1,0 +1,142 @@
+<Animation name="magic_missile_cast_fx">
+	<Frame id="arcane_fx (20)">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (19)">
+		<X>0</X>
+		<Y>158</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (18)">
+		<X>0</X>
+		<Y>316</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (17)">
+		<X>0</X>
+		<Y>474</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (16)">
+		<X>0</X>
+		<Y>632</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (15)">
+		<X>179</X>
+		<Y>0</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (14)">
+		<X>179</X>
+		<Y>158</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (13)">
+		<X>179</X>
+		<Y>316</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (12)">
+		<X>179</X>
+		<Y>474</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (11)">
+		<X>537</X>
+		<Y>632</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (10)">
+		<X>358</X>
+		<Y>0</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (9)">
+		<X>358</X>
+		<Y>158</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (8)">
+		<X>358</X>
+		<Y>316</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (7)">
+		<X>358</X>
+		<Y>474</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (6)">
+		<X>358</X>
+		<Y>632</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (5)">
+		<X>537</X>
+		<Y>0</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (4)">
+		<X>537</X>
+		<Y>158</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (3)">
+		<X>537</X>
+		<Y>316</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (2)">
+		<X>537</X>
+		<Y>474</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="arcane_fx (1)">
+		<X>179</X>
+		<Y>632</Y>
+		<Width>177</Width>
+		<Height>156</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

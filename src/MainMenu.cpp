@@ -69,8 +69,8 @@ void MainMenu::update(sf::Time const& elapsedTime) {
 
 void MainMenu::draw(sf::RenderWindow &w) {
 	w.draw(mBackground);
-	mStartButton->draw(w);
-	mQuitButton->draw(w);
+	w.draw(*mStartButton);
+	w.draw(*mQuitButton);
 }
 
 void MainMenu::cleanup() {

@@ -1,0 +1,226 @@
+<Animation name="heal">
+	<Frame id="ball (1)">
+		<X>164</X>
+		<Y>69</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (10)">
+		<X>246</X>
+		<Y>69</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (11)">
+		<X>246</X>
+		<Y>0</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (12)">
+		<X>164</X>
+		<Y>414</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (13)">
+		<X>164</X>
+		<Y>345</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (14)">
+		<X>164</X>
+		<Y>276</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (15)">
+		<X>164</X>
+		<Y>207</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (16)">
+		<X>164</X>
+		<Y>138</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (17)">
+		<X>328</X>
+		<Y>207</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (18)">
+		<X>164</X>
+		<Y>0</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (19)">
+		<X>82</X>
+		<Y>414</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (2)">
+		<X>328</X>
+		<Y>138</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (20)">
+		<X>82</X>
+		<Y>345</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (21)">
+		<X>82</X>
+		<Y>276</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (22)">
+		<X>82</X>
+		<Y>207</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (23)">
+		<X>82</X>
+		<Y>138</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (24)">
+		<X>82</X>
+		<Y>69</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (25)">
+		<X>82</X>
+		<Y>0</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (26)">
+		<X>0</X>
+		<Y>414</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (27)">
+		<X>0</X>
+		<Y>345</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (28)">
+		<X>0</X>
+		<Y>276</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (29)">
+		<X>0</X>
+		<Y>207</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (3)">
+		<X>328</X>
+		<Y>69</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (30)">
+		<X>0</X>
+		<Y>138</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (31)">
+		<X>0</X>
+		<Y>69</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (32)">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (4)">
+		<X>328</X>
+		<Y>0</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (5)">
+		<X>246</X>
+		<Y>414</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (6)">
+		<X>246</X>
+		<Y>345</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (7)">
+		<X>246</X>
+		<Y>276</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (8)">
+		<X>246</X>
+		<Y>207</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ball (9)">
+		<X>246</X>
+		<Y>138</Y>
+		<Width>80</Width>
+		<Height>67</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

@@ -1,0 +1,86 @@
+<Animation name="active">
+	<Frame id="active_0">
+		<X>1034</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_45">
+		<X>1292</X>
+		<Y>516</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_45_c">
+		<X>1292</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_90">
+		<X>1292</X>
+		<Y>0</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_120">
+		<X>1034</X>
+		<Y>774</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_120_c">
+		<X>1034</X>
+		<Y>516</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_180">
+		<X>1292</X>
+		<Y>774</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_225">
+		<X>1034</X>
+		<Y>0</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_225_c">
+		<X>776</X>
+		<Y>774</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_270">
+		<X>776</X>
+		<Y>516</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_315">
+		<X>776</X>
+		<Y>258</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="active_315_c">
+		<X>776</X>
+		<Y>0</Y>
+		<Width>256</Width>
+		<Height>256</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

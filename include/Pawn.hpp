@@ -49,6 +49,7 @@ protected:
 	std::shared_ptr<Pawn> mCombatTarget;
 
 	sf::Time mStunDuration;
+	sf::Time mTimeStunned;
 
 	sf::Vector2f mDestination;
 
@@ -156,7 +157,7 @@ public:
 	i.e. A stun of 1 second cannot cancel out a 5 second stun, nor does it becoe a 6 second stun.
 	\param duration The length of the stun.
 	*/
-	void stun(sf::Time duration);
+	void stun(sf::Time const& duration);
 
 	/*!
 	\brief Become forced to attack th taunter.

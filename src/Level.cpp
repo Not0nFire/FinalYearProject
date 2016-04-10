@@ -1,6 +1,4 @@
 #include <include/Level.hpp>
-#include <include/Hero.hpp>
-#include <include/ResourceManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -22,6 +20,114 @@ void Level::onPawnDeath(Pawn* pawn) {
 
 bool Level::compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B) {
 	return A->getPosition().y < B->getPosition().y;
+}
+
+void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
+	assert(!projectile->isActive());
+
+	auto const& projectilePos = projectile->getPosition();
+	auto& pawnList = *mPawns;
+	auto nearestPawnDistance = std::numeric_limits<float>::max();
+	shared_ptr<Pawn> target;
+	
+	//Find the nearest pawn
+	for (auto const& pawn : pawnList)
+	{
+		if (pawn->getFaction() == Pawn::Faction::ENEMY) {
+			auto distance = thor::length(pawn->getPosition() - projectilePos);
+
+			if (distance < nearestPawnDistance)
+			{
+				nearestPawnDistance = distance;
+				target = pawn;
+			}
+		}
+	}
+
+	if (target) {
+		projectile->fire(projectilePos, target->getPosition(), 5.f);
+		auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectile);
+		if (fancy)
+		{
+			fancy->setTarget(target);
+		}
+	}
+}
+
+void Level::setupAbilities() {
+	auto spawnCallback = bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true);
+
+	/////////////////////////////////////////////////////
+	//Create magic missile ability
+	XMLDocument doc;
+	auto result = doc.LoadFile("./res/xml/MagicMissileAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	auto abilityRoot = doc.FirstChildElement("Ability");
+	shared_ptr<Ability> ability = std::make_shared<abilities::MagicMisile>(abilityRoot);
+	auto button = gui::AbilityButton(100, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button,ability));
+
+
+	auto pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
+	//ability.setSpawnCallback(spawnCallback);
+
+	///////////////////////////////////////////////////////
+	//Create raise dead ability
+	result = doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::RaiseDead>(abilityRoot);
+	button = gui::AbilityButton(164, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button, ability));
+
+	pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
+	pair->second->setSpawnCallback(spawnCallback);
+
+	///////////////////////////////////////////////////////
+	//Create heal ability
+	result = doc.LoadFile("./res/xml/HealAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::Heal>(abilityRoot);
+	button = gui::AbilityButton(228, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button, ability));
+}
+
+void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
+	
+	if (setPath) {
+		//Set path and position
+		auto node = std::const_pointer_cast<const Node>(mPath->begin());
+		auto spawnPos = node->getPoint();
+
+		unit->setPath(node);
+
+		unit->setPosition(spawnPos);
+		unit->setDestination(spawnPos);
+	}
+
+	if (addFlock) {
+		unit->addToFlock(mMinionFlock);
+	}
+
+	if (addCollision) {
+		mCollisionGroup->add(unit);
+	}
+
+	mPawns->push_back(unit);
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
@@ -130,12 +236,17 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 		p->setOnDeath(bind(&Level::onPawnDeath, this, std::placeholders::_1));
 	}
 
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mMinionFlock);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true));
+
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
 	mUnderlayTex.create(imageSize.x, imageSize.y);
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
+
+	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
+
+	setupAbilities();
 }
 
 Level::~Level() {
@@ -153,20 +264,39 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				*mMoney -= tower->getCost();
 				mTowers.push_back(tower);
 				mCollisionGroup->add(tower);	//add the tower to collision group
-			} else {
+			}
+			else {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
 			}
 			handled = true;
 
 		} else {
-			//destination = mouse position in window + camera position
-			mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
-			handled = true;
+
+			bool buttonClicked = false;
+			for (auto& pair : mAbilityList) {
+				//.first is the button
+				//.second is the ability (unique_ptr)
+				if (pair.first.checkClick()) {	//if the button was clicked...
+					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
+					buttonClicked = true;
+				}
+			}
+
+			if (!buttonClicked) {
+				//destination = mouse position in window + camera position
+				mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
+				handled = true;
+			}
 		}
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
 		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 
+		for (auto& pair : mAbilityList) {
+			//.first is the button
+			//.second is the ability (unique_ptr)
+			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
+		}
 	}
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
@@ -191,7 +321,13 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
-	//boost::lock_guard<boost::mutex> lock(mMutex);
+	for (auto& pair : mAbilityList) {
+		//.first is the button
+		//.second is the ability (shared_ptr)
+		pair.first.updateCooldownVisuals(elapsedTime);
+		pair.second->update(elapsedTime);
+	}
+
 	bool allEnemiesDead = true;
 
 	auto itr = mPawns->begin();
@@ -302,14 +438,22 @@ void Level::draw(sf::RenderWindow &w) {
 		actor->draw(w);
 	}
 
+	for (auto& pair : mAbilityList) {
+		w.draw(*pair.second);	//draw the ability
+	}
+
 	mProjectileManager->draw(w);
 
 	w.draw(mBloodSystem);
 
 	mTowerPlacer->draw(w);
 
-	//reset the view before we draw the hud
-	w.setView(w.getDefaultView());
+	w.setView(w.getDefaultView());	//reset the view before we draw hud items
+
+	for (auto& pair : mAbilityList) {
+		w.draw(pair.first);	//draw the button
+	}
+
 	w.draw(mHud);
 }
 

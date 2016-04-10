@@ -1,5 +1,5 @@
-#ifndef _LEVEL_
-#define _LEVEL_
+#ifndef LEVEL_HPP
+#define LEVEL_HPP
 
 #include <vector>
 #include <list>
@@ -19,6 +19,11 @@
 #include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/ResourceManager.hpp>
+#include <include/Abilities/MagicMissileAbility.hpp>
+#include <include/Abilities/RaiseDeadAbility.hpp>
+#include <include/Abilities/HealAbility.hpp>
+#include <include/Gui/AbilityButton.hpp>
 #include <include/BloodSystem.hpp>
 #include <include/HUD.hpp>
 
@@ -29,6 +34,8 @@ using std::shared_ptr;
 */
 class Level : public I_Scene{
 private:
+	//Each button is paired with an ability, which will be executed when the button is clicked
+	std::list<std::pair<gui::AbilityButton, std::shared_ptr<Ability>>> mAbilityList;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
@@ -94,6 +101,21 @@ private:
 
 	//! Compares the y position of two actors for the purpose of sorting the draw order
 	static bool compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B);
+
+	/*!
+	\brief Used to handle unfired projectile that are given to the projectile manager.
+	Fires the projectile at the nearest enemy pawn.
+	\param projectile The projectile to fire. Must be unfired.
+	*/
+	void autofireProjectile(shared_ptr<Projectile> const& projectile) const;
+
+	/*!
+	\brief Initializes abilities and their buttons.
+	*/
+	void setupAbilities();
+
+	
+	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath = true, bool addFlock = true, bool addCollision = true) const;
 	
 public:
 	/*!
