@@ -277,7 +277,8 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			for (auto& pair : mAbilityList) {
 				//.first is the button
 				//.second is the ability (unique_ptr)
-				if (pair.first.checkClick()) {	//if the button was clicked...
+				buttonClicked = pair.first.containsMouse();
+				if (pair.first.checkClick()) {	//if the button was clicked and not disabled...
 					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
 					buttonClicked = true;
 				}

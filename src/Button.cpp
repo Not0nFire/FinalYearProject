@@ -66,9 +66,10 @@ Button::~Button() {
 }
 
 void Button::update(sf::Vector2i const& mousePos) {
+	mMouseOver = mGraphic.getGlobalBounds().contains(mousePos.x, mousePos.y);
 	if (mState != DISABLED) {
 		//if the sprite bounds contain the mouse coordinates...
-		if (mGraphic.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+		if (mMouseOver) {
 			setState(HOVER);
 		}
 		else {
@@ -91,6 +92,10 @@ void Button::disable() {
 	if (mState != DISABLED) {
 		setState(DISABLED);
 	}
+}
+
+bool Button::containsMouse() const {
+	return mMouseOver;
 }
 
 std::string const& Button::getName() const {

@@ -23,6 +23,8 @@ namespace gui
 		void enable();	
 		void disable();
 
+		bool containsMouse() const;
+
 		std::string const& getName() const;
 
 		sf::Vector2f const& getPosition() const;
@@ -49,6 +51,8 @@ namespace gui
 		sf::IntRect mNormalSrcRect, mHoverSrcRect, mDisabledSrcRect;
 
 		std::string mName;
+
+		bool mMouseOver;	//!< True if the mouse is within bounds
 	};
 }
 #endif
