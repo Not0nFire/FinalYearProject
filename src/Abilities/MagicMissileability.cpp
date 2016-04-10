@@ -36,6 +36,8 @@ void MagicMisile::doExecuteLogic(Pawn* user) {
 	mMissilesSpawned = 0u;
 	mMissileSpawnInterval = getCastDuration().asSeconds() / M_NUM_MISSILES;
 	mTimeSinceMissileSpawn = mMissileSpawnInterval;
+
+	mLaunchSound.setPosition(sf::Vector3f(user->getPosition().x, user->getPosition().y, 0.f));
 }
 
 void MagicMisile::doUpdateLogic(sf::Time const& deltaTime) {

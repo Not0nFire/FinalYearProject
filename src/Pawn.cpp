@@ -21,7 +21,19 @@ mStunDuration(sf::seconds(0.f))
 
 	mHealth = M_MAX_HEALTH;
 
-	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(GET_ELEMENT("AttackSound")));
+	auto soundXml = xml->FirstChildElement("AttackSound");
+	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(soundXml->GetText()));
+
+	//set min distance and attenuation of sound, if they're found in the xml
+	auto minDistXml = soundXml->Attribute("minDistance");
+	if (minDistXml) {
+		mAttackSound.setMinDistance(atof(minDistXml));
+	}
+
+	auto attenuationXml = soundXml->Attribute("attenuation");
+	if (attenuationXml) {
+		mAttackSound.setAttenuation(atof(attenuationXml));
+	}
 
 	playAnimation("idle", true);
 }
@@ -109,6 +121,7 @@ void Pawn::doAttack(float secondsElapsed) {
 			//Deal damage to our target
 			mCombatTarget->takeDamage(mAttackDamage, mDamageType);
 			mTimeSinceAttack = 0.0f;
+			mAttackSound.setPosition(sf::Vector3f(getPosition().x, getPosition().y, 0.f));
 			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
 		}

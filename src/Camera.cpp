@@ -7,6 +7,8 @@ mBoundingArea(boundingArea)
 {
 	_ASSERT(screenSize.x < boundingArea.x);
 	_ASSERT(screenSize.y < boundingArea.y);
+
+	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
 
 Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
@@ -17,6 +19,8 @@ mBoundingArea(boundingArea)
 {
 	_ASSERT(screenSize.x < boundingArea.x);
 	_ASSERT(screenSize.y < boundingArea.y);
+
+	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
 
 void Camera::setTarget(std::shared_ptr<Actor> target)
@@ -44,6 +48,9 @@ void Camera::update()
 	{
 		sf::Vector2f newCenter = mTarget->getPosition();
 
+		//set listener position before clamping
+		sf::Listener::setPosition(sf::Vector3f(newCenter.x, newCenter.y, 0.f));
+
 		//stop edge of camera going out of bounds
 		const sf::Vector2f halfSize = getSize() * 0.5f;
 		clamp(newCenter, halfSize, mBoundingArea - halfSize);
@@ -52,7 +59,7 @@ void Camera::update()
 	}
 }
 
-void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) const {
+void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) {
 	//assert that min is less than max
 	_ASSERT(min.x < max.x && min.y < max.y);
 

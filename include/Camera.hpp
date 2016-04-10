@@ -1,6 +1,7 @@
-#ifndef _CAMERA_H
-#define _CAMERA_H
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
 
+#include <SFML/Audio/Listener.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <include/Actor.hpp>
 
@@ -35,6 +36,6 @@ private:
 	sf::Vector2f mBoundingArea;	//!< Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position
 
 	//! \brief Clamps a vector2f to a min and max value
-	void clamp(sf::Vector2f& value, sf::Vector2f const &min, sf::Vector2f const &max) const;
+	static void clamp(sf::Vector2f& value, sf::Vector2f const &min, sf::Vector2f const &max);
 };
 #endif
