@@ -7,7 +7,7 @@ Button(x, y, xmlButtonDefinition),
 mAbility(ability),
 mCooldownVisual(getSize())
 {
-	mCooldownVisual.setTexture(&ResourceManager<sf::Texture>::instance()->get("./res/img/cooldown_timer.png"));
+	mCooldownVisual.setTexture(&ResourceManager<sf::Texture>::instance()->get("./res/img/ability_overlays.png"));
 
 	mCooldownVisual.setScale(getScale());
 
@@ -17,6 +17,12 @@ mCooldownVisual(getSize())
 		"Cooldown",	//name of the animation
 		ResourceManager<thor::FrameAnimation>::instance()->get("./res/xml/cooldown_timer.anim"),	//path to animation definition
 		sf::seconds(ability->getTotalCooldown())	//animation duration
+		);
+
+	mCooldownAnimator.addAnimation(
+		"Active",
+		ResourceManager<thor::FrameAnimation>::instance()->get("./res/xml/active_ability.anim"),
+		ability->getCastDuration()
 		);
 }
 
@@ -34,6 +40,11 @@ void AbilityButton::updateCooldownVisuals(sf::Time const& elapsedTime) {
 			mCooldownAnimator.playAnimation("Cooldown");
 			mCooldownAnimator.update(sf::seconds(0.f));	//prevent entire spritesheet being drawn before first real animate() call
 			disable();	//disable button
+		}
+		else if (ability->isActive()) {
+			mCooldownAnimator.playAnimation("Active");
+			mCooldownAnimator.update(sf::seconds(0.f));
+			disable();
 		}
 		else {
 			enable();

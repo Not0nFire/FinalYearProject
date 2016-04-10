@@ -63,6 +63,14 @@ public:
 	//! The time, in seconds, that the ability's cooldown lasts.
 	float getTotalCooldown() const;
 
+	sf::Time const& getCastDuration() const;
+
+	/*!
+	\brief Gets whether the ability has been activated or not.
+	\returns True if the ability has been actived (execute() has been called).
+	*/
+	bool isActive() const;
+
 	/*!
 	\brief Sets the pawn list to be used when the Ability wishes to find pawns in the game.
 	The pawn list cannot be used for directly adding Pawns to the game.
@@ -86,14 +94,6 @@ public:
 protected:
 	void activate();
 	void deactivate();
-
-	sf::Time const& getCastDuration() const;
-
-	/*!
-	\brief Gets whether the ability has been activated or not.
-	\returns True if the ability has been actived (execute() has been called).
-	*/
-	bool isActive() const;
 
 	/*!
 	\brief
