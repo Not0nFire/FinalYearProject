@@ -1,24 +1,22 @@
 #include <include\Camera.hpp>
 
-Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea) :
-View(sf::Vector2f(screenSize.x / 2, screenSize.y / 2), sf::Vector2f(screenSize)),
-mScreenSize(screenSize),
+Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea) :
+View(viewportSize * 0.5f, viewportSize),
 mBoundingArea(boundingArea)
 {
-	_ASSERT(screenSize.x < boundingArea.x);
-	_ASSERT(screenSize.y < boundingArea.y);
+	_ASSERT(viewportSize.x <= boundingArea.x);
+	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
 
-Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
-View(sf::Vector2f(screenSize.x / 2, screenSize.y / 2), sf::Vector2f(screenSize)),
+Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
+View(viewportSize * 0.5f, viewportSize),
 mTarget(target),
-mScreenSize(screenSize),
 mBoundingArea(boundingArea)
 {
-	_ASSERT(screenSize.x < boundingArea.x);
-	_ASSERT(screenSize.y < boundingArea.y);
+	_ASSERT(viewportSize.x <= boundingArea.x);
+	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
@@ -44,6 +42,7 @@ sf::Vector2f Camera::getDisplacement() const {
 
 void Camera::update()
 {
+	
 	if (mTarget)
 	{
 		sf::Vector2f newCenter = mTarget->getPosition();
@@ -59,9 +58,15 @@ void Camera::update()
 	}
 }
 
+sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
+	const float translationFactorX = getSize().x / static_cast<float>(GAME_GLOBAL::windowWidth);
+	const float translationFactorY = getSize().y / static_cast<float>(GAME_GLOBAL::windowHeight);
+	return sf::Vector2f(x * translationFactorX, y * translationFactorY) + getDisplacement();
+}
+
 void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) {
 	//assert that min is less than max
-	_ASSERT(min.x < max.x && min.y < max.y);
+	_ASSERT(min.x <= max.x && min.y <= max.y);
 
 	//clamp x value
 	if (value.x < min.x) {

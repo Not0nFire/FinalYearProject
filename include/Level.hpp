@@ -27,6 +27,7 @@
 #include <include/BloodSystem.hpp>
 #include <include/HUD.hpp>
 #include <include/Gui/DialogueBox.hpp>
+#include <include/Constants.h>
 
 using std::shared_ptr;
 class SceneManager;

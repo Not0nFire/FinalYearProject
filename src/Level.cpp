@@ -153,11 +153,11 @@ void Level::processPauseMenuResult() {
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(XMLElement* root) :
-mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "PAUSED", "The game is paused.", "Resume", "Quit"),
+mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
+mCamera(Constants::Vectors::getViewport(), Constants::Vectors::getCameraBounds()),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -307,7 +307,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 			if (!buttonClicked) {
 				//destination = mouse position in window + camera position
-				mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
+				mHero->setDestination(mCamera.mousePositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
 				handled = true;
 			}
 		}

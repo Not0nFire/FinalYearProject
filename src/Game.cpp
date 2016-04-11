@@ -8,7 +8,7 @@ std::unique_ptr<PlayerProfile> Game::mPlayerProfile = nullptr;
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 
 Game::Game() :
-	mRenderer(sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]")
+	mRenderer("C00165681 - Final Year Project [WIP]")
 {
 	Cursor::setTexture("./res/img/cursor.png");
 
@@ -91,27 +91,32 @@ PlayerProfile& Game::getPlayerProfile() {
 
 void Game::handleEvent(sf::Event& event) {
 
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
+		mRenderer.setWindowSize(sf::Vector2u(800u, 800u));
+		return;
+	}
+
 	if (event.type == sf::Event::EventType::MouseMoved) {
 		//update cursor
 		Cursor::setPosition(event.mouseMove.x, event.mouseMove.y);
 	}
 
-	if (SceneManager::instance()->passEventToCurrentScene(event)) {
-		return; //event is already handled
-	}
-
-	switch (event.type) {
-
+	if (!SceneManager::instance()->passEventToCurrentScene(event)) {
+		switch (event.type) {
 		case sf::Event::Closed:
 			mRun = false;
 			break;
+
 		case sf::Event::LostFocus:
 			mPaused = true;
 			break;
+
 		case sf::Event::GainedFocus:
 			mPaused = false;
 			break;
+
 		default:
 			break;
+		}
 	}
 }
