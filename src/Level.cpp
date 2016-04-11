@@ -146,7 +146,8 @@ mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
 mMinionFlock(std::make_shared<std::list<Minion*>>()),
-mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
+mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1)),
+mTestBox({ 400.f, 400.f }, { 400.f, 400.f }, "my Title", "this_is_a_test\nlorem ipsum\ndann ohne mich\ncuinis bóthar\ncailín bainne")
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
@@ -312,6 +313,8 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+		case sf::Keyboard::Escape:
+			SceneManager::instance()->showDialogueBox(&mTestBox);
 		default:
 			break;
 		}

@@ -20,6 +20,9 @@ mGraphic()
 
 	mGraphic.setSize(sf::Vector2f(width, height));
 
+	auto bounds = mGraphic.getLocalBounds();
+	mGraphic.setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
+
 	mNormalSrcRect.width = width;
 	mHoverSrcRect.width = width;
 	mDisabledSrcRect.width = width;

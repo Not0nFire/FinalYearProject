@@ -26,16 +26,20 @@
 #include <include/Gui/AbilityButton.hpp>
 #include <include/BloodSystem.hpp>
 #include <include/HUD.hpp>
+#include <include/Gui/DialogueBox.hpp>
 
 using std::shared_ptr;
+class SceneManager;
 
 /*!
 \brief Playable level of the game.
 */
 class Level : public I_Scene{
 private:
+	gui::DialogueBox mTestBox;
+
 	//Each button is paired with an ability, which will be executed when the button is clicked
-	std::list<std::pair<gui::AbilityButton, std::shared_ptr<Ability>>> mAbilityList;
+	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
@@ -140,4 +144,5 @@ public:
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };
+#include "SceneManager.hpp"
 #endif

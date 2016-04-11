@@ -1,0 +1,8 @@
+<Button>
+		<Texture path="./res/img/close_button.png"/>
+		<HoverSound path="./res/sfx/menu_selection.ogg"/>
+		<Dimensions width="91" height="64"/>
+		<NormalImage x="0" y="0"/>
+		<HoverImage x="0" y="65"/>
+    <DisabledImage x="0" y="130"/>
+</Button>

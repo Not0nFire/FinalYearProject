@@ -2,6 +2,7 @@
 #define SCENE_MANAGER_HPP
 
 #include <include/Scene.hpp>
+#include <include/Gui/DialogueBox.hpp>
 #include <functional>
 #include <map>
 #include <thread>
@@ -14,14 +15,22 @@ namespace detail
 	struct SceneRequest {
 		//!Converting ctor for easy navigation requests
 		SceneRequest(std::string const& _name) : type(NAVIGATE), name(_name), scene(nullptr) {}
+		SceneRequest() : type(DUMMY) {}
 		enum Type {
+			DUMMY,
 			NAVIGATE,
 			ADD_TO_MANAGER,
-			BOTH
+			ADD_AND_NAVIGATE,
+			SHOW_DIALOGUE
 		} type;
 
 		std::string name;	//!< Name of scene
-		SceneProxy* scene;	//!< Scene to add to the manager
+
+		//No request should ever have both a scene and dialogue
+		union {
+			SceneProxy* scene;	//!< Scene to add to the manager
+			gui::DialogueBox* dialogue;	//<! Dialog box to be shown
+		};
 	};
 }
 
@@ -35,6 +44,8 @@ private:
 	Each scene is identified by its name.
 	*/
 	std::map<std::string, SceneProxy*> mScenes;
+
+	gui::DialogueBox* mActiveDialogue;
 
 	//! The current scenes map key.
 	std::string mCurrentSceneName;
@@ -64,6 +75,9 @@ private:
 
 	//! Transitions to a scene
 	void processNavigateRequest(detail::SceneRequest const& request);
+
+	//! Show a dialog box on top of the current scene
+	void processDialogueRequest(detail::SceneRequest const& request);
 
 public:
 	~SceneManager();
@@ -108,6 +122,8 @@ public:
 	\returns True if the path matched an existing scene.
 	*/
 	void navigateToScene( std::string const &path );
+
+	void showDialogueBox(gui::DialogueBox* dialogueBox);
 };
 
 template <class SceneType>
@@ -119,7 +135,7 @@ void SceneManager::createScene(std::string const& name, std::string const& xmlPa
 
 	//Decide whether we need to just add the scene or if we should navigate to it too.
 	request.type = goToScene ?
-		detail::SceneRequest::BOTH :
+		detail::SceneRequest::ADD_AND_NAVIGATE :
 		detail::SceneRequest::ADD_TO_MANAGER;
 
 	//Create the scene proxy
