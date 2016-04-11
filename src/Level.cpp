@@ -130,9 +130,30 @@ void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFl
 	mPawns->push_back(unit);
 }
 
+void Level::processPauseMenuResult() {
+	switch (mPauseDialogue.getResult()) {
+
+		//Do nothing if result is YES or CANCEL. (Resume or X clicked)
+		case gui::DialogueBox::YES:
+			std::cout << "Dialogue result: YES. Level resumed." << std::endl;
+			break;
+
+		//Quit the level if result is NO. (Quit clicked)
+		case gui::DialogueBox::NO:
+			std::cout << "Dialogue result: NO. Level quit." << std::endl;
+			SceneManager::instance()->navigateToScene("LevelSelect");
+			break;
+
+		case gui::DialogueBox::CANCEL:
+			std::cout << "Dialogue result: CANCEL. Level resumed." << std::endl;
+			break;
+	}
+}
+
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(XMLElement* root) :
+mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "PAUSED", "The game is paused.", "Resume", "Quit"),
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
@@ -313,6 +334,8 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+		case sf::Keyboard::Escape:
+			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
 		default:
 			break;
 		}
@@ -322,6 +345,11 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
+	//If  getResult() has not been called on the dialogue box...
+	if (!mPauseDialogue.resultProcessed()) {
+		processPauseMenuResult();
+	}
+
 	for (auto& pair : mAbilityList) {
 		//.first is the button
 		//.second is the ability (shared_ptr)

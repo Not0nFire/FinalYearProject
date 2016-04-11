@@ -74,6 +74,8 @@ int Game::run() {
 
 	mRenderer.stopRenderLoop();
 
+	SceneManager::destruct();
+
 	//std::cin.get();
 
 	return EXIT_SUCCESS;

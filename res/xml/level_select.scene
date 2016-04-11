@@ -1,7 +1,7 @@
 <LevelSelect>
   <Backdrop path="./res/img/level_select.png"/>
   <Music path="./res/mus/menu.ogg"/>
-  <BackButton x="5" y="5">
+  <BackButton x="205" y="50">
     <Texture path="./res/img/exit_button.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="400" height="91"/>
@@ -10,7 +10,7 @@
     <DisabledImage x="0" y="182"/>
   </BackButton>
   <LevelButtons>
-    <Button name="LevelOne" x="500" y="400" path="./res/xml/levelOne.lvl">
+    <Button name="LevelOne" x="500" y="500" path="./res/xml/levelOne.lvl">
       <Texture path="./res/img/lock_button.png"/>
       <HoverSound path="./res/sfx/menu_selection.ogg"/>
       <Dimensions width="172" height="91"/>
@@ -18,7 +18,7 @@
       <HoverImage x="0" y="0"/>
       <DisabledImage x="0" y="182"/>
     </Button>
-    <Button name="LevelTwo" x="600" y="40" path="./res/xml/levelTwo.lvl">
+    <Button name="LevelTwo" x="600" y="140" path="./res/xml/levelTwo.lvl">
       <Texture path="./res/img/lock_button.png"/>
       <HoverSound path="./res/sfx/menu_selection.ogg"/>
       <Dimensions width="172" height="91"/>

@@ -4,6 +4,7 @@
 #include <map>
 #include "Scene.hpp"
 #include "Gui/Button.hpp"
+#include "Gui/DialogueBox.hpp"
 #include "Game.hpp"
 
 class SceneManager;
@@ -33,6 +34,7 @@ public:
 	//! Stops the background music.
 	void cleanup() override;
 private:
+	gui::DialogueBox mQuitConfirmDialogue;
 
 	//! Background sprite
 	sf::Sprite mBackground;

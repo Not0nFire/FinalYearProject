@@ -25,8 +25,6 @@ private:
 
 	void handleEvent(sf::Event &event);
 
-	Level *mLevelOne, *mLevelTwo;
-
 	static std::unique_ptr<PlayerProfile> mPlayerProfile;
 
 public:
