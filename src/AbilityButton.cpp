@@ -11,6 +11,9 @@ mCooldownVisual(getSize())
 
 	mCooldownVisual.setScale(getScale());
 
+	auto bounds = mCooldownVisual.getLocalBounds();
+	mCooldownVisual.setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
+
 	mCooldownVisual.setPosition(getPosition());
 
 	mCooldownAnimator.addAnimation(
