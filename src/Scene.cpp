@@ -43,8 +43,9 @@ void SceneProxy::draw(sf::RenderWindow& w) {
 
 void SceneProxy::cleanup() {
 	std::lock_guard<std::mutex> lock(mMutex);
-	//assumes mScene has been created
-	mScene->cleanup();
+	if (nullptr != mScene) {
+		mScene->cleanup();
+	}
 }
 
 void SceneProxy::loadNow() {

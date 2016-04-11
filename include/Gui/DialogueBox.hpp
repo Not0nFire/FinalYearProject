@@ -14,6 +14,8 @@ namespace gui
 		void open();
 		bool isOpen() const;
 
+		bool resultProcessed() const;
+
 		bool handleEvent(sf::Event const& theEvent);
 
 		enum Result {
@@ -22,7 +24,7 @@ namespace gui
 			CANCEL
 		};
 
-		Result getResult() const;
+		Result getResult();
 
 	private:
 		Result mResult;
@@ -30,6 +32,7 @@ namespace gui
 		std::map<Result, std::unique_ptr<Button>> mButtonMap;
 		bool mIsOpen;
 		sf::RectangleShape mBoxGraphic;
+		bool mResultProcessed;
 
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

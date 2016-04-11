@@ -16,6 +16,10 @@ void SceneManager::handleSceneRequests() {
 		std::unique_lock<std::mutex> requestLock(mRequestMutex);
 		while (mRequests.empty()) {
 			mRequestPending.wait(requestLock);
+
+			if (mStopRequestThread) {
+				return;
+			}
 		}
 
 		//Fetch a request from the queue
@@ -52,9 +56,9 @@ void SceneManager::processAddRequest(detail::SceneRequest const& request) {
 	if (mScenes.count(request.name)) {
 		//delete the old scene
 		printf("Scene \"%s\" already exists.\nOverwriting with new scene.\n", request.name.c_str());
-		delete mScenes[request.name];
+		//delete mScenes[request.name];
 	}
-	mScenes[request.name] = request.scene;
+	mScenes[request.name] = std::unique_ptr<SceneProxy>(request.scene);
 }
 
 void SceneManager::processNavigateRequest(detail::SceneRequest const& request) {
@@ -67,7 +71,7 @@ void SceneManager::processNavigateRequest(detail::SceneRequest const& request) {
 
 		//Set the current scene
 		mCurrentSceneName = request.name;
-		mCurrentScene = mScenes[mCurrentSceneName];
+		mCurrentScene = mScenes[mCurrentSceneName].get();
 	}
 	else {
 		printf("Navigation failed: Scene \"%s\" was not found.", request.name.c_str());
@@ -80,14 +84,15 @@ void SceneManager::processDialogueRequest(detail::SceneRequest const& request) {
 }
 
 SceneManager::~SceneManager() {
-	for (auto& sceneEntry : mScenes) {
-		delete sceneEntry.second;
+	mStopRequestThread = true;
+	if (mRequestThread.joinable()) {
+		mRequestPending.notify_all();	// Tell the waiting thread to continue execution, so that we can join it
+		mRequestThread.join();
 	}
 
-	mStopRequestThread = true;
-	mRequestPending.notify_all();	// Tell the waiting thread to continue execution, so that we can join it
-	_ASSERT(mRequestThread.joinable());
-	mRequestThread.join();
+	for (auto& entry : mScenes) {
+		entry.second->cleanup();
+	}
 }
 
 std::unique_ptr<SceneManager> const& SceneManager::instance() {
@@ -174,4 +179,8 @@ void SceneManager::showDialogueBox(gui::DialogueBox* dialogueBox) {
 	mRequests.push(request);
 
 	mRequestPending.notify_all();
+}
+
+void SceneManager::destruct() {
+	delete mInstance.release();
 }

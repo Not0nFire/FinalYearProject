@@ -7,7 +7,8 @@ mResult(CANCEL),
 mTitle(title, ResourceManager<sf::Font>::instance()->get("./res/fonts/KENVECTOR_FUTURE.TTF"), titleCharSize),
 mMessage(message, ResourceManager<sf::Font>::instance()->get("./res/fonts/KENVECTOR_FUTURE.TTF"), msgCharSize),
 mIsOpen(false),
-mBoxGraphic(size)
+mBoxGraphic(size),
+mResultProcessed(true)
 {
 	const auto textColor = sf::Color(73, 40, 17);
 
@@ -34,11 +35,17 @@ mBoxGraphic(size)
 		throw result;
 	}
 
+	auto btnCharSize = 20u;
+	const auto textLength = std::max(yesText.length(), noText.length());
+	if (textLength > btnCharSize / 3u) {
+		btnCharSize -= textLength;
+	}
+
 	//Setup positions for text and buttons
 	mTitle.setPosition(centre.x, centre.y - size.y * 0.3f);
 	mMessage.setPosition(centre.x, centre.y);
-	mButtonMap	[YES]		= std::make_unique<TextButton>(centre.x - size.x * 0.25f, centre.y + size.y * 0.3f, doc.FirstChildElement("BlankButtonSmall"), yesText);
-	mButtonMap	[NO]		= std::make_unique<TextButton>(centre.x + size.x * 0.25f, centre.y + size.y * 0.3f, doc.FirstChildElement("BlankButtonSmall"), noText);
+	mButtonMap	[YES]		= std::make_unique<TextButton>(centre.x - size.x * 0.25f, centre.y + size.y * 0.3f, doc.FirstChildElement("BlankButtonSmall"), yesText, btnCharSize);
+	mButtonMap	[NO]		= std::make_unique<TextButton>(centre.x + size.x * 0.25f, centre.y + size.y * 0.3f, doc.FirstChildElement("BlankButtonSmall"), noText, btnCharSize);
 	mButtonMap	[CANCEL]	= std::make_unique<Button>(centre.x + size.x * 0.4f, centre.y - size.y * 0.4f, doc.FirstChildElement("CloseButton"));
 }
 
@@ -46,10 +53,15 @@ DialogueBox::~DialogueBox() {}
 
 void DialogueBox::open() {
 	mIsOpen = true;
+	mResult = CANCEL;
 }
 
 bool DialogueBox::isOpen() const {
 	return mIsOpen;
+}
+
+bool DialogueBox::resultProcessed() const {
+	return mResultProcessed;
 }
 
 bool DialogueBox::handleEvent(sf::Event const& theEvent) {
@@ -75,7 +87,8 @@ bool DialogueBox::handleEvent(sf::Event const& theEvent) {
 	return handled;
 }
 
-DialogueBox::Result DialogueBox::getResult() const {
+DialogueBox::Result DialogueBox::getResult() {
+	mResultProcessed = true;
 	return mResult;
 }
 
@@ -108,6 +121,7 @@ void DialogueBox::updateResult() {
 			//...set the result to be its key in the map
 			mResult = pair.first;
 			mIsOpen = false;	//close the dialogue
+			mResultProcessed = false;
 		}
 	}
 }

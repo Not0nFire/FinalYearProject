@@ -43,7 +43,7 @@ private:
 	A map of all scenes managed by the SceneManager.
 	Each scene is identified by its name.
 	*/
-	std::map<std::string, SceneProxy*> mScenes;
+	std::map<std::string, std::unique_ptr<SceneProxy>> mScenes;
 
 	gui::DialogueBox* mActiveDialogue;
 
@@ -124,6 +124,9 @@ public:
 	void navigateToScene( std::string const &path );
 
 	void showDialogueBox(gui::DialogueBox* dialogueBox);
+
+	//! Destroys the instance.
+	static void destruct();
 };
 
 template <class SceneType>

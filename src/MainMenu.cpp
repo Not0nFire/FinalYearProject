@@ -1,6 +1,8 @@
 #include <include/MainMenu.hpp>
 
-MainMenu::MainMenu(tinyxml2::XMLElement* root) {
+MainMenu::MainMenu(tinyxml2::XMLElement* root) :
+mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")
+{
 	_ASSERT(root->Name() == std::string("MainMenu"));
 
 	mBackground.setTexture(
@@ -45,7 +47,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 				SceneManager::instance()->navigateToScene("LevelSelect");
 			} else if (mQuitButton->checkClick()) {
 				//quit the game
-				Game::close();
+				SceneManager::instance()->showDialogueBox(&mQuitConfirmDialogue);
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
@@ -64,6 +66,13 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 void MainMenu::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
 		mMusic.play();
+	}
+
+	if (!mQuitConfirmDialogue.resultProcessed()) {
+		if (mQuitConfirmDialogue.getResult() == gui::DialogueBox::YES) {
+			cleanup();
+			Game::close();
+		}
 	}
 }
 

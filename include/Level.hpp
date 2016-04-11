@@ -36,7 +36,7 @@ class SceneManager;
 */
 class Level : public I_Scene{
 private:
-	gui::DialogueBox mTestBox;
+	gui::DialogueBox mPauseDialogue;
 
 	//Each button is paired with an ability, which will be executed when the button is clicked
 	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
@@ -120,6 +120,8 @@ private:
 
 	
 	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath = true, bool addFlock = true, bool addCollision = true) const;
+
+	void processPauseMenuResult();
 	
 public:
 	/*!
