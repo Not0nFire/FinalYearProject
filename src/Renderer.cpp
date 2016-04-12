@@ -1,16 +1,8 @@
 #include <include/Renderer.hpp>
 
-namespace GAME_GLOBAL
-{
-	int windowWidth = -1;
-	int windowHeight = -1;
-}
-
 Renderer::Renderer(std::string const &title, sf::VideoMode mode, sf::Uint32 style, sf::ContextSettings settings) :
 mWindow(mode, title, style, settings)
 {
-	GAME_GLOBAL::windowWidth = mode.width;
-	GAME_GLOBAL::windowHeight = mode.height;
 	mWindow.setActive(false);
 }
 
@@ -36,8 +28,6 @@ sf::Vector2u Renderer::getWindowSize() {
 void Renderer::setWindowSize(sf::Vector2u const& newSize) {
 	std::lock_guard<std::mutex> lock(mMutex);
 	mWindow.setSize(newSize);
-	GAME_GLOBAL::windowWidth = newSize.x;
-	GAME_GLOBAL::windowHeight = newSize.y;
 }
 
 void Renderer::stopRenderLoop() {

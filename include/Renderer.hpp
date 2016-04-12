@@ -9,13 +9,6 @@
 #include "SceneManager.hpp"
 #include "Cursor.h"
 
-namespace GAME_GLOBAL
-{
-	//Camera.hpp uses these.
-	extern int windowWidth;
-	extern int windowHeight;
-}
-
 /*!
 \brief Manages rendering in it's own thread.
 */

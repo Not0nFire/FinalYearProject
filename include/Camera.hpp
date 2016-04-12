@@ -5,13 +5,6 @@
 #include <SFML/Graphics/View.hpp>
 #include <include/Actor.hpp>
 
-namespace GAME_GLOBAL
-{
-	//defined in Renderer.cpp
-	extern int windowWidth;
-	extern int windowHeight;
-}
-
 /*!
 \brief Follow camera that can target an Actor
 */

@@ -22,18 +22,7 @@
 
 #include <include/Game.hpp>
 
-#include <include/Settings.hpp>
-#include <include/Constants.h>
-
 int main() {
-
-	std::cout << Constants::Strings::getGameName() << std::endl;
-
-	printf("Resolution: %u, %u\n", Settings::getUnsigned("ResolutionX"), Settings::getUnsigned("ResolutionY"));
-	printf("\nVolumes:\n\tMaster:\t\t%d\n\tMusic:\t\t%d\n\tEffects:\t%d\n", Settings::getInt("MasterVolume"), Settings::getInt("MusicVolume"), Settings::getInt("EffectsVolume"));
-
-	system("PAUSE");
-
 	Game game;
 	return game.run();
 }

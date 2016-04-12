@@ -1,4 +1,5 @@
 #include <include/Constants.h>;
+#include <SFML/Window/VideoMode.hpp>
 
 using namespace Constants;
 
@@ -44,15 +45,14 @@ std::string const& Strings::getSettingsFilePath() {
 //	Vector constants - Section start	//
 //										//
 //////////////////////////////////////////
-#pragma region vector_constants
-sf::Vector2f const& Vectors::getViewport() {
-	static const sf::Vector2f viewport(1280.f, 800.f);
-	return viewport;
-}
-
 sf::Vector2f const& Vectors::getCameraBounds() {
 	static const sf::Vector2f bounds(2000.f, 2000.f);
 	return bounds;
+}
+
+sf::Vector2u const& Vectors::getScreenSize() {
+	static const sf::Vector2u size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	return size;
 }
 #pragma endregion
 //////////////////////////////////////////

@@ -1,4 +1,5 @@
 #include <include\Camera.hpp>
+#include <include/Constants.h>
 
 Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea) :
 View(viewportSize * 0.5f, viewportSize),
@@ -59,8 +60,9 @@ void Camera::update()
 }
 
 sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
-	const float translationFactorX = getSize().x / static_cast<float>(GAME_GLOBAL::windowWidth);
-	const float translationFactorY = getSize().y / static_cast<float>(GAME_GLOBAL::windowHeight);
+	static auto const& desktopSize = Constants::Vectors::getScreenSize();
+	const float translationFactorX = getSize().x / static_cast<float>(desktopSize.x);
+	const float translationFactorY = getSize().y / static_cast<float>(desktopSize.y);
 	return sf::Vector2f(x * translationFactorX, y * translationFactorY) + getDisplacement();
 }
 

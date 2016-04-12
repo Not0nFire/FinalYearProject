@@ -25,6 +25,10 @@ float Settings::getFloat(std::string const& name) {
 	return boost::get<float>(instance()->mMap[name]);
 }
 
+sf::Vector2i const& Settings::getVector2i(std::string const& name) {
+	return boost::get<sf::Vector2i const&>(instance()->mMap[name]);
+}
+
 Settings::~Settings() {
 }
 
@@ -85,6 +89,12 @@ void Settings::parse(tinyxml2::XMLElement* xml) {
 	{
 		float value;
 		xml->QueryFloatAttribute("value", &value);
+	}
+	else if (type == "VECTOR2") {
+		sf::Vector2i value;
+		xml->QueryIntAttribute("x", &value.x);
+		xml->QueryIntAttribute("y", &value.y);
+		mMap[name] = value;
 	}
 	else
 	{

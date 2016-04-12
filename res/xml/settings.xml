@@ -1,8 +1,7 @@
 <Settings>
 	<DoDebugDraw type="BOOL" value="false"/>
 	
-	<ResolutionX type="UNSIGNED" value="800"/>
-	<ResolutionY type="UNSIGNED" value="600"/>
+	<Resolution type="VECTOR2" x="800" y="600"/>
 	
 	<MasterVolume type="INTEGER" value="100"/>
 	<MusicVolume type="INTEGER" value="100"/>

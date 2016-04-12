@@ -25,8 +25,8 @@ namespace Constants
 		//! This class cannot be instanciated.
 		Vectors() = delete;
 
-		static sf::Vector2f const& getViewport();		//!< Viewport for the camera
 		static sf::Vector2f const& getCameraBounds();	//!< Camera edges cannot go beyond this volume (starts at 0,0)
+		static sf::Vector2u const& getScreenSize();	//!< Gets the resolution of the monitor
 	};
 };
 #endif

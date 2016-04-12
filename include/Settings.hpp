@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <boost/variant.hpp>
+#include <SFML/System/Vector2.hpp>
 
 namespace tinyxml2 {
 	class XMLElement;
@@ -24,6 +25,7 @@ public:
 	static int getInt(std::string const& name);
 	static unsigned getUnsigned(std::string const& name);
 	static float getFloat(std::string const& name);
+	static sf::Vector2i const& getVector2i(std::string const& name);
 
 private:
 	Settings();
@@ -31,7 +33,7 @@ private:
 	static std::unique_ptr<Settings> const& instance();
 	static std::unique_ptr<Settings> mInstance;
 
-	typedef boost::variant<std::string, bool, int, unsigned, float> settingValue;
+	typedef boost::variant<std::string, bool, int, unsigned, float, sf::Vector2i> settingValue;
 	
 	std::map<std::string, settingValue> mMap;
 

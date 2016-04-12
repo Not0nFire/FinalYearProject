@@ -1,4 +1,5 @@
 #include <include/Level.hpp>
+#include <include/Settings.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -157,7 +158,7 @@ mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseD
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(Constants::Vectors::getViewport(), Constants::Vectors::getCameraBounds()),
+mCamera(sf::Vector2f(Settings::getVector2i("Resolution")), Constants::Vectors::getCameraBounds()),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -298,15 +299,18 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			for (auto& pair : mAbilityList) {
 				//.first is the button
 				//.second is the ability (unique_ptr)
-				buttonClicked = pair.first.containsMouse();
+				if (!buttonClicked) {
+					buttonClicked = pair.first.containsMouse();
+				}
+
 				if (pair.first.checkClick()) {	//if the button was clicked and not disabled...
 					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
-					buttonClicked = true;
 				}
 			}
 
 			if (!buttonClicked) {
 				//destination = mouse position in window + camera position
+
 				mHero->setDestination(mCamera.mousePositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
 				handled = true;
 			}
