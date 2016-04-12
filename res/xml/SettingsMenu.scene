@@ -1,0 +1,15 @@
+<SettingsMenu>
+	<Slider x="300" y="300" setting="MasterVolume" minValue="0" maxValue="100"width="572" height="85">
+	<!-- starting value is between 0.0 and 1.0 -->
+	<StartingValue>0.5</StartingValue>
+	<BarTexture path="./res/img/slider_bar.png"/>
+		<Blip>
+			<Texture path="./res/img/slider_blip.png"/>
+			<HoverSound path="./res/sfx/menu_selection.ogg"/>
+			<Dimensions width="50" height="41"/>
+			<NormalImage x="0" y="0"/>
+			<HoverImage x="0" y="0"/>
+			<DisabledImage x="0" y="0"/>
+		</Blip>
+	</Slider>
+</SettingsMenu>

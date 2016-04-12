@@ -12,6 +12,8 @@ namespace Constants
 		Strings() = delete;
 
 		static std::string const& getGameName();	//!< The name of the game.
+		static std::string const& getMainFontPath();	//!< Path to main font used for the game
+
 		static std::string const& getPauseDialogueTitle();	//!< Title text for the in-game pause dialogue box.
 		static std::string const& getPauseDialogueBody();	//!< Body text for the in-game pause dialogue box.
 		static std::string const& getPauseDialogueYES();	//!< Confirmation text for in-game pause dialogue box.

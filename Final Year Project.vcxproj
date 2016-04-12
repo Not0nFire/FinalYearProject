@@ -143,6 +143,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\Settings.cpp" />
+    <ClCompile Include="src\SettingsMenu.cpp" />
+    <ClCompile Include="src\Slider.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TextButton.cpp" />
     <ClCompile Include="src\Tower.cpp" />
@@ -171,6 +173,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Gui\AbilityButton.hpp" />
     <ClInclude Include="include\Gui\Button.hpp" />
     <ClInclude Include="include\Gui\DialogueBox.hpp" />
+    <ClInclude Include="include\Gui\Slider.hpp" />
     <ClInclude Include="include\Gui\TextButton.hpp" />
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
@@ -200,6 +203,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
     <ClInclude Include="include\Settings.hpp" />
+    <ClInclude Include="include\SettingsMenu.hpp" />
     <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />

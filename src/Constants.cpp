@@ -13,6 +13,12 @@ std::string const& Strings::getGameName() {
 	static const std::string gameName = "FinalYearProject";
 	return gameName;
 }
+
+std::string const& Strings::getMainFontPath() {
+	static const std::string path = "./res/fonts/KEBVECTOR_FUTURE.TTF";
+	return path;
+}
+
 std::string const& Strings::getPauseDialogueTitle() {
 	static const std::string title = "PAUSE";
 	return title;

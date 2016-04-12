@@ -1,6 +1,7 @@
 #include <include/MainMenu.hpp>
 #include <include/Game.hpp>
 #include <include/Settings.hpp>
+#include <include/SettingsMenu.hpp>
 
 MainMenu::MainMenu(tinyxml2::XMLElement* root) :
 mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")
@@ -26,6 +27,13 @@ mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?"
 		startBtnXml
 	);
 
+	auto optBtnXml = root->FirstChildElement("OptionsButton");
+	mOptionsButton = std::make_unique<gui::Button>(
+		atoi(optBtnXml->Attribute("x")),
+		atoi(optBtnXml->Attribute("y")),
+		optBtnXml
+		);
+
 	auto quitBtnXml = root->FirstChildElement("QuitButton");
 	mQuitButton = std::make_unique<gui::Button>(
 		atoi(quitBtnXml->Attribute("x")),
@@ -50,6 +58,8 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 			} else if (mQuitButton->checkClick()) {
 				//quit the game
 				SceneManager::instance()->showDialogueBox(&mQuitConfirmDialogue);
+			} else if (mOptionsButton->checkClick()) {
+				SceneManager::instance()->createScene<SettingsMenu>("SettingsMenu", "./res/xml/SettingsMenu.scene", true);
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
@@ -57,6 +67,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 		case sf::Event::MouseMoved:
 			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
 			mStartButton->update(mousePos);
+			mOptionsButton->update(mousePos);
 			mQuitButton->update(mousePos);
 			handled = true;
 			break;
@@ -81,6 +92,7 @@ void MainMenu::update(sf::Time const& elapsedTime) {
 void MainMenu::draw(sf::RenderWindow &w) {
 	w.draw(mBackground);
 	w.draw(*mStartButton);
+	w.draw(*mOptionsButton);
 	w.draw(*mQuitButton);
 }
 
