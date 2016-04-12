@@ -1,4 +1,5 @@
 #include <include/Game.hpp>
+#include <include/Settings.hpp>
 
 bool Game::mRun = false;
 bool Game::mPaused = false;
@@ -90,11 +91,6 @@ PlayerProfile& Game::getPlayerProfile() {
 }
 
 void Game::handleEvent(sf::Event& event) {
-
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
-		mRenderer.setWindowSize(sf::Vector2u(800u, 800u));
-		return;
-	}
 
 	if (event.type == sf::Event::EventType::MouseMoved) {
 		//update cursor

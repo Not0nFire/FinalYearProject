@@ -1,4 +1,6 @@
 #include <include/MainMenu.hpp>
+#include <include/Game.hpp>
+#include <include/Settings.hpp>
 
 MainMenu::MainMenu(tinyxml2::XMLElement* root) :
 mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")

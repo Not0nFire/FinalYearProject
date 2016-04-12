@@ -46,10 +46,6 @@ public:
 	*/
 	void stopRenderLoop();
 
-	sf::Vector2u getWindowSize();
-
-	void setWindowSize(sf::Vector2u const& newSize);
-
 	bool pollEvent(sf::Event &event);
 
 private:

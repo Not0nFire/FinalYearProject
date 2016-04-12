@@ -11,7 +11,7 @@
 class Camera : public sf::View
 {
 public:
-	Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea);
+	Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea = sf::Vector2f(FLT_MAX, FLT_MAX));
 	Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target);
 
 	void setTarget(std::shared_ptr<Actor> target);

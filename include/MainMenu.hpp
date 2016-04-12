@@ -1,11 +1,9 @@
 #ifndef MAIN_MENU_SCENE_HPP
 #define MAIN_MENU_SCENE_HPP
 
-#include <map>
 #include "Scene.hpp"
 #include "Gui/Button.hpp"
 #include "Gui/DialogueBox.hpp"
-#include "Game.hpp"
 
 class SceneManager;
 

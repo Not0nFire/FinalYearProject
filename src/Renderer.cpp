@@ -20,16 +20,6 @@ void Renderer::startRenderLoop(const unsigned int framesPerSecond) {
 	//render();
 }
 
-sf::Vector2u Renderer::getWindowSize() {
-	std::lock_guard<std::mutex> lock(mMutex);
-	return mWindow.getSize();
-}
-
-void Renderer::setWindowSize(sf::Vector2u const& newSize) {
-	std::lock_guard<std::mutex> lock(mMutex);
-	mWindow.setSize(newSize);
-}
-
 void Renderer::stopRenderLoop() {
 	mLoopOngoing = false;
 	mThread.join();
