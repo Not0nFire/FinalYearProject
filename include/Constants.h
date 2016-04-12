@@ -16,6 +16,8 @@ namespace Constants
 		static std::string const& getPauseDialogueBody();	//!< Body text for the in-game pause dialogue box.
 		static std::string const& getPauseDialogueYES();	//!< Confirmation text for in-game pause dialogue box.
 		static std::string const& getPauseDialogueNO();		//!< Declination text for in-game pause dialogue box.
+
+		static std::string const& getSettingsFilePath();
 	};
 
 	class Vectors {

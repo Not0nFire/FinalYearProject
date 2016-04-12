@@ -28,6 +28,10 @@ std::string const& Strings::getPauseDialogueNO() {
 	static const std::string no = "Quit";
 	return no;
 }
+std::string const& Strings::getSettingsFilePath() {
+	static const std::string path = "./res/xml/settings.xml";
+	return path;
+}
 #pragma endregion
 //////////////////////////////////////////
 //										//

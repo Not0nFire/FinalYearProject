@@ -24,16 +24,17 @@ public:
 	/*!
 	\brief Creates a render window and sets the scene to be rendered.
 	*/
-#if defined _RELEASE
-	Renderer(std::string const &title,	//RenderWindow ctor arguments
-		sf::VideoMode mode = sf::VideoMode::getDesktopMode(),
-		sf::Uint32 style = sf::Style::Fullscreen,
-		sf::ContextSettings settings = sf::ContextSettings()
-		);
-#else	//Default to fullscreen windowed while debugging
+#if defined _DEBUG //Default to fullscreen windowed while debugging
 	Renderer(std::string const &title,	//RenderWindow ctor arguments
 		sf::VideoMode mode = sf::VideoMode::getDesktopMode(),
 		sf::Uint32 style = sf::Style::None,
+		sf::ContextSettings settings = sf::ContextSettings()
+		);
+	
+#else
+	Renderer(std::string const &title,	//RenderWindow ctor arguments
+		sf::VideoMode mode = sf::VideoMode::getDesktopMode(),
+		sf::Uint32 style = sf::Style::Fullscreen,
 		sf::ContextSettings settings = sf::ContextSettings()
 		);
 #endif

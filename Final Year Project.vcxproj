@@ -142,6 +142,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Settings.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TextButton.cpp" />
     <ClCompile Include="src\Tower.cpp" />
@@ -198,6 +199,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
+    <ClInclude Include="include\Settings.hpp" />
     <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
@@ -215,6 +217,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <Image Include="res\img\tower.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\Settings.inl" />
     <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
