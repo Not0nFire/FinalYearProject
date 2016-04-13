@@ -4,39 +4,52 @@
 #include <include/Settings.hpp>
 
 SettingsMenu::SettingsMenu(tinyxml2::XMLElement* xml) :
-mSaveChangesDialogueBox({ 400.f, 400.f }, { 200.f, 200.f }, "Save?", "Settings have changed.\nSave them?"),
-mSettingsChanged(true)
+mSaveChangesDialogueBox({ 400.f, 400.f }, { 400.f, 300.f }, "Save?", "Settings have changed.\nSave them?"),
+mSettingsChanged(true),
+mBackdrop(ResourceManager<sf::Texture>::instance()->get(xml->FirstChildElement("Backdrop")->Attribute("path")))
 {
+	std::cout << "Creating settings menu...\n";
+
+	std::cout << "\tParsing Sliders...\n";
 	for (auto sliderXml = xml->FirstChildElement("Slider");
 		nullptr != sliderXml;
-		sliderXml = xml->NextSiblingElement("Slider"))
+		sliderXml = sliderXml->NextSiblingElement("Slider"))
 	{
 		std::string key = sliderXml->Attribute("setting");
+		std::cout << "\t\tAdding slider for setting \"" << key <<"\"...\n";
 		//Map each slider to its setting
 		mSliders.emplace(make_pair(key, gui::Slider(sliderXml)));
 		mSliders.at(key).setPosition({ sliderXml->FloatAttribute("x"), sliderXml->FloatAttribute("y") });
 	}
 
+	std::cout << "\tParsing Buttons...\n";
 	for (auto btnXml = xml->FirstChildElement("Button");
 		nullptr != btnXml;
-		btnXml = xml->NextSiblingElement("Button"))
+		btnXml = btnXml->NextSiblingElement("Button"))
 	{
+		std::string key = btnXml->Attribute("setting");
+		std::cout << "\t\tAdding button for setting \"" << key << "\"...\n";
 		//Map each button to its setting
-		mButtons.emplace(make_pair(std::string(btnXml->Attribute("setting")), gui::TextButton(btnXml->IntAttribute("x"), btnXml->IntAttribute("y"), btnXml)));
+		mButtons.emplace(make_pair(key, gui::TextButton(btnXml->IntAttribute("x"), btnXml->IntAttribute("y"), btnXml)));
 	}
 
+	std::cout << "\tParsing Labels...\n";
 	for (auto lblXml = xml->FirstChildElement("Label");
 		nullptr != lblXml;
-		lblXml = xml->NextSiblingElement("Label"))
+		lblXml = lblXml->NextSiblingElement("Label"))
 	{
+		printf("\t\tAdding label: \"%s\"\n", lblXml->GetText());
 		auto label = sf::Text(lblXml->GetText(), ResourceManager<sf::Font>::instance()->get(Constants::Strings::getMainFontPath()));
 		auto bounds = label.getLocalBounds();
 		label.setOrigin(bounds.width * 0.5f, bounds.height * 0.5f);
 
 		label.setPosition(lblXml->FloatAttribute("x"), lblXml->FloatAttribute("y"));
 
+		label.setColor(Constants::Misc::getSecondaryTextColor());
+
 		mLabels.push_back(std::move(label));
 	}
+	std::cout << "Done creating settings menu." << std::endl;
 }
 
 SettingsMenu::~SettingsMenu() {}
@@ -65,18 +78,46 @@ bool SettingsMenu::handleEvent(sf::Event& Event) {
 	return handled;
 }
 
-void SettingsMenu::update(sf::Time const& elapsedTime) {}
+void SettingsMenu::update(sf::Time const& elapsedTime) {
+	if (!mSaveChangesDialogueBox.resultProcessed())
+	{
+		switch (mSaveChangesDialogueBox.getResult())
+		{
+		case gui::DialogueBox::YES:
+			Settings::save();
+			SceneManager::instance()->navigateToScene("MainMenu");
+			break;
+
+		case gui::DialogueBox::NO:
+			SceneManager::instance()->navigateToScene("MainMenu");
+			break;
+
+		case gui::DialogueBox::CANCEL:
+			//Do nothing.
+		default:
+			break;
+		}
+	}
+}
 
 void SettingsMenu::draw(sf::RenderWindow& w) {
+	w.draw(mBackdrop);
+
 	for (auto& entry : mSliders) {
 		w.draw(entry.second);
-		//TODO: apply change to setting
+		Settings::set(entry.first, entry.second.getAbsoluteValue());
 	}
 
 
 	for (auto& entry : mButtons) {
 		w.draw(entry.second);
 		//TODO: apply change to setting
+	}
+
+
+	for (auto const& lbl : mLabels)
+	{
+		w.draw(lbl);
 	}
 }
 

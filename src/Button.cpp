@@ -63,6 +63,7 @@ mGraphic()
 	}
 
 	setState(NORMAL);
+	mGraphic.setTextureRect(mNormalSrcRect);
 }
 
 Button::~Button() {

@@ -27,6 +27,8 @@ public:
 	static float getFloat(std::string const& name);
 	static sf::Vector2i const& getVector2i(std::string const& name);
 
+	static void save();
+
 private:
 	Settings();
 

@@ -30,6 +30,10 @@ sf::Vector2i const& Settings::getVector2i(std::string const& name) {
 	return boost::get<sf::Vector2i const&>(instance()->mMap[name]);
 }
 
+void Settings::save() {
+	instance()->commit();
+}
+
 Settings::~Settings() {
 }
 

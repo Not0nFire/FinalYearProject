@@ -15,7 +15,7 @@ std::string const& Strings::getGameName() {
 }
 
 std::string const& Strings::getMainFontPath() {
-	static const std::string path = "./res/fonts/KEBVECTOR_FUTURE.TTF";
+	static const std::string path = "./res/fonts/KENVECTOR_FUTURE.TTF";
 	return path;
 }
 
@@ -64,5 +64,26 @@ sf::Vector2u const& Vectors::getScreenSize() {
 //////////////////////////////////////////
 //										//
 //	Vector constants - Section end		//
+//										//
+//////////////////////////////////////////
+
+//////////////////////////////////////////
+//										//
+//	Misc constants - Section start		//
+//										//
+//////////////////////////////////////////
+sf::Color const& Misc::getPrimaryTextColor() {
+	static const sf::Color colour(73, 40, 17);
+	return colour;
+}
+
+sf::Color const& Misc::getSecondaryTextColor() {
+	static const sf::Color colour(255, 191, 0);
+	return colour;
+}
+
+//////////////////////////////////////////
+//										//
+//	Misc constants - Section end		//
 //										//
 //////////////////////////////////////////

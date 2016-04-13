@@ -1,5 +1,8 @@
 <SettingsMenu>
-	<Slider x="300" y="300" setting="MasterVolume" minValue="0" maxValue="100"width="572" height="85">
+  <Backdrop path="./res/img/optionsbg.png"/>
+  
+  <Label x="300" y="230">Master Volume</Label>
+	<Slider x="400" y="300" setting="MasterVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
 	<!-- starting value is between 0.0 and 1.0 -->
 	<StartingValue>0.5</StartingValue>
 	<BarTexture path="./res/img/slider_bar.png"/>
@@ -8,8 +11,32 @@
 			<HoverSound path="./res/sfx/menu_selection.ogg"/>
 			<Dimensions width="50" height="41"/>
 			<NormalImage x="0" y="0"/>
-			<HoverImage x="0" y="0"/>
-			<DisabledImage x="0" y="0"/>
+			<HoverImage x="0" y="41"/>
+			<DisabledImage x="0" y="82"/>
 		</Blip>
 	</Slider>
+  
+  <Label x="300" y="430">Music Volume</Label>
+  <Slider x="400" y="500" setting="MusicVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
+    <!-- starting value is between 0.0 and 1.0 -->
+    <StartingValue>0.5</StartingValue>
+    <BarTexture path="./res/img/slider_bar.png"/>
+    <Blip>
+      <Texture path="./res/img/slider_blip.png"/>
+      <HoverSound path="./res/sfx/menu_selection.ogg"/>
+      <Dimensions width="50" height="41"/>
+      <NormalImage x="0" y="0"/>
+      <HoverImage x="0" y="41"/>
+      <DisabledImage x="0" y="82"/>
+    </Blip>
+  </Slider>
+  
+  <Button setting="Bacon" x="300" y="600">
+    <Texture path="./res/img/lock_button.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="172" height="91"/>
+    <NormalImage x="0" y="91"/>
+    <HoverImage x="0" y="0"/>
+    <DisabledImage x="0" y="182"/>
+  </Button>
 </SettingsMenu>

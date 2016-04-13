@@ -19,6 +19,10 @@ mBar(sf::Vector2f(xml->FloatAttribute("width"), xml->FloatAttribute("height")))
 	mBar.setTexture(&ResourceManager<sf::Texture>::instance()->get(barTexPath));
 
 	mBlip.setPosition(sf::Vector2f(bounds.left + (mValue * bounds.width), mBar.getPosition().y));
+
+	//auto cap = xml->IntAttribute("capWidth");
+	//mBlipCapLeft = bounds.left + cap;
+	//mBlipCapRight = bounds.left + bounds.width - cap;
 }
 
 gui::Slider::~Slider() {}
@@ -32,6 +36,16 @@ void gui::Slider::update(int mouseX, int mouseY) {
 	if (mouseDown && bounds.contains(mouseX, mouseY)) {
 		//Value is a float between 0.0 and 1.0, representing how far along the bar the blip is.
 		mValue = (mouseX - bounds.left) / bounds.width;
+
+		//auto newBlipPos = sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y);
+		//if (newBlipPos.x > mBlipCapRight)
+		//{
+		//	newBlipPos.x = mBlipCapRight;
+		//}
+		//else if (newBlipPos.x < mBlipCapLeft)
+		//{
+		//	newBlipPos.x = mBlipCapLeft;
+		//}
 
 		mBlip.setPosition(sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y));
 	}

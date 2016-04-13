@@ -32,6 +32,9 @@ namespace gui
 
 		//! Visual representation of slider bar.
 		sf::RectangleShape mBar;
+
+		//! How far left/right the blip is allowed to go. Visual only.
+		//int mBlipCapRight, mBlipCapLeft;
 	};
 }
 #endif

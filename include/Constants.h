@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 namespace Constants
 {
@@ -29,6 +30,13 @@ namespace Constants
 
 		static sf::Vector2f const& getCameraBounds();	//!< Camera edges cannot go beyond this volume (starts at 0,0)
 		static sf::Vector2u const& getScreenSize();	//!< Gets the resolution of the monitor
+	};
+
+	class Misc {
+	public:
+		Misc() = delete;
+		static sf::Color const& getPrimaryTextColor();	//!< Color used for most text
+		static sf::Color const& getSecondaryTextColor();
 	};
 };
 #endif

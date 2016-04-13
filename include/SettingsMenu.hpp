@@ -20,6 +20,8 @@ private:
 	gui::DialogueBox mSaveChangesDialogueBox;
 	bool mSettingsChanged;
 
+	const sf::Sprite mBackdrop;
+
 	//! Map of setting names to sliders
 	std::map<std::string, gui::Slider> mSliders;
 
