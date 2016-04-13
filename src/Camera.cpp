@@ -60,10 +60,24 @@ void Camera::update()
 }
 
 sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
-	auto const& desktopSize = Constants::Vectors::getScreenSize();
-	const float translationFactorX = getSize().x / static_cast<float>(desktopSize.x);
-	const float translationFactorY = getSize().y / static_cast<float>(desktopSize.y);
-	return sf::Vector2f(x * translationFactorX, y * translationFactorY) + getDisplacement();
+	//Taken from sf::RenderTarget::mapPixelToCoord()
+	const auto& viewport = getViewport();
+	const auto& screenSize = Constants::Vectors::getScreenSize();
+	sf::IntRect adjustedViewport(
+		static_cast<int>(0.5f + screenSize.x  * viewport.left),
+		static_cast<int>(0.5f + screenSize.y * viewport.top),
+		static_cast<int>(0.5f + screenSize.x  * viewport.width),
+		static_cast<int>(0.5f + screenSize.y * viewport.height)
+	);
+
+	sf::Vector2f normalized;
+	normalized.x = -1.f + 2.f * (x - adjustedViewport.left) / adjustedViewport.width;
+	normalized.y = 1.f - 2.f * (y - adjustedViewport.top) / adjustedViewport.height;
+
+	//const auto debug = getInverseTransform().transformPoint(normalized);
+	//printf("Mouse : %f, %f\n", debug.x, debug.y);
+
+	return getInverseTransform().transformPoint(normalized);
 }
 
 void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) {

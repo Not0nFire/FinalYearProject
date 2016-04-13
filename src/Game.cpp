@@ -92,6 +92,10 @@ PlayerProfile& Game::getPlayerProfile() {
 
 void Game::handleEvent(sf::Event& event) {
 
+	if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::Q) {
+		Settings::set("Resolution", sf::Vector2i(800, 800));
+	}
+
 	if (event.type == sf::Event::EventType::MouseMoved) {
 		//update cursor
 		Cursor::setPosition(event.mouseMove.x, event.mouseMove.y);
