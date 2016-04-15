@@ -22,6 +22,8 @@ private:
 
 	const sf::Sprite mBackdrop;
 
+	gui::Button mBackButton;
+
 	//! Map of setting names to sliders
 	std::map<std::string, gui::Slider> mSliders;
 

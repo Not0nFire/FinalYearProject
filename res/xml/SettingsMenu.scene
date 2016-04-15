@@ -1,5 +1,13 @@
 <SettingsMenu>
   <Backdrop path="./res/img/optionsbg.png"/>
+  <QuitButton x="100" y="100">
+    <Texture path="./res/img/exit_button.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="400" height="91"/>
+    <NormalImage x="0" y="91"/>
+    <HoverImage x="0" y="0"/>
+    <DisabledImage x="0" y="182"/>
+  </QuitButton>
   
   <Label x="300" y="230">Master Volume</Label>
 	<Slider x="400" y="300" setting="MasterVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">

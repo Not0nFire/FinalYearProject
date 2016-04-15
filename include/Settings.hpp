@@ -7,6 +7,7 @@
 #include <SFML/System/Vector2.hpp>
 
 namespace tinyxml2 {
+	class XMLPrinter;
 	class XMLElement;
 }
 
@@ -36,12 +37,29 @@ private:
 	static std::unique_ptr<Settings> mInstance;
 
 	typedef boost::variant<std::string, bool, int, unsigned, float, sf::Vector2i> settingValue;
+	//Used in tandem with boost::variant::which() to get the type the variant holds.
+	enum ValueTypes {
+		//These must be in same order as the settingValue variant typedef.
+		STRING = 0,
+		BOOL,
+		INTEGER,
+		UNSIGNED,
+		FLOAT
+	};
 	
 	std::map<std::string, settingValue> mMap;
 
 	void parse(tinyxml2::XMLElement* xml);
 
 	void commit() const;
+
+	void printError(std::string const& preMsg, errno_t err) const;
+
+	void writeString(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
+	void writeBool(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
+	void writeInteger(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
+	void writeUnsigned(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
+	void writeFloat(tinyxml2::XMLPrinter& printer, std::string const& mapKey)const;
 };
 #include "Settings.inl"
 #endif

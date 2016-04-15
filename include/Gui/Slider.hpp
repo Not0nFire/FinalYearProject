@@ -10,7 +10,8 @@ namespace gui
 		Slider(tinyxml2::XMLElement* xml);
 		virtual ~Slider();
 
-		void update(int mouseX, int mouseY);
+		//! Returns true if value changed.
+		bool update(int mouseX, int mouseY);
 
 		void setValue(const int value);
 		int getAbsoluteValue() const;

@@ -27,7 +27,8 @@ mBar(sf::Vector2f(xml->FloatAttribute("width"), xml->FloatAttribute("height")))
 
 gui::Slider::~Slider() {}
 
-void gui::Slider::update(int mouseX, int mouseY) {
+bool gui::Slider::update(int mouseX, int mouseY) {
+	bool valueChanged = false;
 	const bool mouseDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
 	mBlip.update({ mouseX, mouseY });
@@ -36,6 +37,7 @@ void gui::Slider::update(int mouseX, int mouseY) {
 	if (mouseDown && bounds.contains(mouseX, mouseY)) {
 		//Value is a float between 0.0 and 1.0, representing how far along the bar the blip is.
 		mValue = (mouseX - bounds.left) / bounds.width;
+		valueChanged = true;
 
 		//auto newBlipPos = sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y);
 		//if (newBlipPos.x > mBlipCapRight)
@@ -49,6 +51,8 @@ void gui::Slider::update(int mouseX, int mouseY) {
 
 		mBlip.setPosition(sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y));
 	}
+
+	return valueChanged;
 }
 
 void gui::Slider::setValue(const int value) {

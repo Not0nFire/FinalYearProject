@@ -1,7 +1,6 @@
 <Settings>
-	<DoDebugDraw type="BOOL" value="false"/>
-  <!-- <Resolution type="VECTOR2" x="800" y="600"/> -->
-	<MasterVolume type="INTEGER" value="100"/>
-	<MusicVolume type="INTEGER" value="100"/>
-	<EffectsVolume type="INTEGER" value="100"/>
+    <DoDebugDraw type="BOOL" value="0"/>
+    <EffectsVolume type="INTEGER" value="100"/>
+    <MasterVolume type="INTEGER" value="76"/>
+    <MusicVolume type="INTEGER" value="100"/>
 </Settings>

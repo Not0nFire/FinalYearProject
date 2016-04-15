@@ -5,8 +5,9 @@
 
 SettingsMenu::SettingsMenu(tinyxml2::XMLElement* xml) :
 mSaveChangesDialogueBox({ 400.f, 400.f }, { 400.f, 300.f }, "Save?", "Settings have changed.\nSave them?"),
-mSettingsChanged(true),
-mBackdrop(ResourceManager<sf::Texture>::instance()->get(xml->FirstChildElement("Backdrop")->Attribute("path")))
+mSettingsChanged(false),
+mBackdrop(ResourceManager<sf::Texture>::instance()->get(xml->FirstChildElement("Backdrop")->Attribute("path"))),
+mBackButton(xml->FirstChildElement("QuitButton")->IntAttribute("x"), xml->FirstChildElement("QuitButton")->IntAttribute("y"), xml->FirstChildElement("QuitButton"))
 {
 	std::cout << "Creating settings menu...\n";
 
@@ -57,14 +58,19 @@ SettingsMenu::~SettingsMenu() {}
 bool SettingsMenu::handleEvent(sf::Event& Event) {
 	bool handled = true;
 	switch (Event.type) {
-		case sf::Event::KeyPressed:
-			if (Event.key.code == sf::Keyboard::Escape && mSettingsChanged) {
-				SceneManager::instance()->showDialogueBox(&mSaveChangesDialogueBox);
-			}
-			break;
 
 		case sf::Event::MouseButtonPressed:
 			updateAll(Event.mouseButton.x, Event.mouseButton.y);
+
+			if (mBackButton.checkClick()) {
+				//Prompt to save settings if they have changed.
+				if (mSettingsChanged) {
+					SceneManager::instance()->showDialogueBox(&mSaveChangesDialogueBox);
+				}
+				else {
+					SceneManager::instance()->navigateToScene("MainMenu");
+				}
+			}
 			break;
 
 		case sf::Event::MouseMoved:
@@ -103,15 +109,15 @@ void SettingsMenu::update(sf::Time const& elapsedTime) {
 void SettingsMenu::draw(sf::RenderWindow& w) {
 	w.draw(mBackdrop);
 
+	w.draw(mBackButton);
+
 	for (auto& entry : mSliders) {
 		w.draw(entry.second);
-		Settings::set(entry.first, entry.second.getAbsoluteValue());
 	}
 
 
 	for (auto& entry : mButtons) {
 		w.draw(entry.second);
-		//TODO: apply change to setting
 	}
 
 
@@ -124,12 +130,18 @@ void SettingsMenu::draw(sf::RenderWindow& w) {
 void SettingsMenu::cleanup() {}
 
 void SettingsMenu::updateAll(const int mouseX, const int mouseY) {
+	const sf::Vector2i mousePos(mouseX, mouseY);
+
+	mBackButton.update(mousePos);
+
 	for (auto& entry : mSliders) {
-		entry.second.update(mouseX, mouseY);
-		//TODO: apply change to setting
+		if (entry.second.update(mouseX, mouseY)) {
+			//Update setting if slider value changed.
+			Settings::set(entry.first, entry.second.getAbsoluteValue());
+			mSettingsChanged = true;
+		}
 	}
 
-	const sf::Vector2i mousePos(mouseX, mouseY);
 	for (auto& entry : mButtons) {
 		entry.second.update(mousePos);
 		//TODO: apply change to setting
