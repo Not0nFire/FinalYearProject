@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 namespace Constants
 {
@@ -12,12 +13,18 @@ namespace Constants
 		Strings() = delete;
 
 		static std::string const& getGameName();	//!< The name of the game.
+		static std::string const& getMainFontPath();	//!< Path to main font used for the game
+
 		static std::string const& getPauseDialogueTitle();	//!< Title text for the in-game pause dialogue box.
 		static std::string const& getPauseDialogueBody();	//!< Body text for the in-game pause dialogue box.
 		static std::string const& getPauseDialogueYES();	//!< Confirmation text for in-game pause dialogue box.
 		static std::string const& getPauseDialogueNO();		//!< Declination text for in-game pause dialogue box.
 
-		static std::string const& getSettingsFilePath();
+		static std::string const& getSettingsFilePath();	//!< Path to settings file
+		static std::string const& getSettingsDialogueTitle();	//!< Title displayed at top of save-settings dialogue box
+		static std::string const& getSettingsDialogueBody();	//!< Body text for save-settings dialogue box
+		static std::string const& getSettingsDialogueYES();	//!< Confirmation text for settings dialogue
+		static std::string const& getSettingsDialogueNO();	//!< Declination text for settings dialogue
 	};
 
 	class Vectors {
@@ -26,7 +33,14 @@ namespace Constants
 		Vectors() = delete;
 
 		static sf::Vector2f const& getCameraBounds();	//!< Camera edges cannot go beyond this volume (starts at 0,0)
-		static sf::Vector2u const& getScreenSize();	//!< Gets the resolution of the monitor
+		static sf::Vector2u const& getMinimumResolution();	//!< Gets the resolution of the monitor
+	};
+
+	class Misc {
+	public:
+		Misc() = delete;
+		static sf::Color const& getPrimaryTextColor();	//!< Color used for most text
+		static sf::Color const& getSecondaryTextColor();
 	};
 };
 #endif

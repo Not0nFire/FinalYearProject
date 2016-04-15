@@ -1,7 +1,6 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include <SFML/Audio/Listener.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <include/Actor.hpp>
 

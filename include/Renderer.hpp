@@ -15,7 +15,7 @@
 class Renderer {
 public:
 	/*!
-	\brief Creates a render window and sets the scene to be rendered.
+	\brief Creates a render window.
 	*/
 #if defined _DEBUG //Default to fullscreen windowed while debugging
 	Renderer(std::string const &title,	//RenderWindow ctor arguments

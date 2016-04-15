@@ -172,7 +172,7 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 {
 	
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
-	mBgMusic.setVolume(atof(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music>
+	mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 	mBgMusic.setLoop(true);
 
 	//instantiate the interpreter with the image path from the xml node
@@ -428,6 +428,7 @@ void Level::update(sf::Time const &elapsedTime) {
 	mCamera.update();
 
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.setVolume(Settings::getInt("MasterVolume"));
 		mBgMusic.play();
 	}
 
