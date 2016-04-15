@@ -9,6 +9,7 @@
 #include <condition_variable>
 #include <atomic>
 #include <queue>
+#include "Camera.hpp"
 
 namespace detail
 {
@@ -44,6 +45,8 @@ private:
 	Each scene is identified by its name.
 	*/
 	std::map<std::string, std::unique_ptr<SceneProxy>> mScenes;
+
+	Camera mDefaultCamera;
 
 	gui::DialogueBox* mActiveDialogue;
 

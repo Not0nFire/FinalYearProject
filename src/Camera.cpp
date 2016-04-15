@@ -1,24 +1,25 @@
 #include <include\Camera.hpp>
+#include <include/Constants.h>
+#include <include/Settings.hpp>
+#include <SFML/Audio/Listener.hpp>
 
-Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea) :
-View(sf::Vector2f(screenSize.x / 2, screenSize.y / 2), sf::Vector2f(screenSize)),
-mScreenSize(screenSize),
+Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea) :
+View(viewportSize * 0.5f, viewportSize),
 mBoundingArea(boundingArea)
 {
-	_ASSERT(screenSize.x < boundingArea.x);
-	_ASSERT(screenSize.y < boundingArea.y);
+	_ASSERT(viewportSize.x <= boundingArea.x);
+	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
 
-Camera::Camera(sf::Vector2u const &screenSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
-View(sf::Vector2f(screenSize.x / 2, screenSize.y / 2), sf::Vector2f(screenSize)),
+Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
+View(viewportSize * 0.5f, viewportSize),
 mTarget(target),
-mScreenSize(screenSize),
 mBoundingArea(boundingArea)
 {
-	_ASSERT(screenSize.x < boundingArea.x);
-	_ASSERT(screenSize.y < boundingArea.y);
+	_ASSERT(viewportSize.x <= boundingArea.x);
+	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
 }
@@ -44,6 +45,7 @@ sf::Vector2f Camera::getDisplacement() const {
 
 void Camera::update()
 {
+	
 	if (mTarget)
 	{
 		sf::Vector2f newCenter = mTarget->getPosition();
@@ -59,9 +61,30 @@ void Camera::update()
 	}
 }
 
+sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
+	//Taken from sf::RenderTarget::mapPixelToCoord()
+	const auto& viewport = getViewport();
+	const auto& screenSize = Settings::getVector2i("Resolution");
+	sf::IntRect adjustedViewport(
+		static_cast<int>(0.5f + screenSize.x  * viewport.left),
+		static_cast<int>(0.5f + screenSize.y * viewport.top),
+		static_cast<int>(0.5f + screenSize.x  * viewport.width),
+		static_cast<int>(0.5f + screenSize.y * viewport.height)
+	);
+
+	sf::Vector2f normalized;
+	normalized.x = -1.f + 2.f * (x - adjustedViewport.left) / adjustedViewport.width;
+	normalized.y = 1.f - 2.f * (y - adjustedViewport.top) / adjustedViewport.height;
+
+	//const auto debug = getInverseTransform().transformPoint(normalized);
+	//printf("Mouse : %f, %f\n", debug.x, debug.y);
+
+	return getInverseTransform().transformPoint(normalized);
+}
+
 void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) {
 	//assert that min is less than max
-	_ASSERT(min.x < max.x && min.y < max.y);
+	_ASSERT(min.x <= max.x && min.y <= max.y);
 
 	//clamp x value
 	if (value.x < min.x) {

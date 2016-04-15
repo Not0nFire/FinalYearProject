@@ -1,8 +1,11 @@
 #include <include/SceneManager.hpp>
+#include <include/Settings.hpp>
 
 std::unique_ptr<SceneManager> SceneManager::mInstance = nullptr;
 
-SceneManager::SceneManager() {
+SceneManager::SceneManager() :
+mDefaultCamera(sf::Vector2f(Settings::getVector2i("Resolution").x, Settings::getVector2i("Resolution").y))
+{
 	mRequestThread = std::thread(std::bind(&SceneManager::handleSceneRequests, this));
 }
 
@@ -119,6 +122,7 @@ void SceneManager::updateCurrentScene( sf::Time const &elapsedTime) {
 //calls the current scene's draw method
 void SceneManager::drawCurrentScene( sf::RenderWindow &w ) {
 	std::lock_guard<std::mutex> lock(mSceneMutex);
+	w.setView(mDefaultCamera);
 
 	//draw scene if we have one
 	if (mCurrentScene) {
@@ -135,6 +139,18 @@ void SceneManager::drawCurrentScene( sf::RenderWindow &w ) {
 bool SceneManager::passEventToCurrentScene( sf::Event &theEvent ) {
 	std::lock_guard<std::mutex> lock(mSceneMutex);
 	bool handled = false;
+
+	//adjust mouse position to match window scaling
+	if (theEvent.type == sf::Event::EventType::MouseButtonPressed) {
+		auto adjusted = mDefaultCamera.mousePositionToGamePosition(theEvent.mouseButton.x, theEvent.mouseButton.y);
+		theEvent.mouseButton.x = adjusted.x;
+		theEvent.mouseButton.y = adjusted.y;
+	}
+	else if (theEvent.type == sf::Event::EventType::MouseMoved) {
+		auto adjusted = mDefaultCamera.mousePositionToGamePosition(theEvent.mouseMove.x, theEvent.mouseMove.y);
+		theEvent.mouseMove.x = adjusted.x;
+		theEvent.mouseMove.y = adjusted.y;
+	}
 
 	//pass event to dialogue box if one is open
 	if (mActiveDialogue) {

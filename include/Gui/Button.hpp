@@ -27,6 +27,7 @@ namespace gui
 
 		std::string const& getName() const;
 
+		void setPosition(sf::Vector2f const& position);
 		sf::Vector2f const& getPosition() const;
 
 		sf::Vector2f const& getSize() const;
