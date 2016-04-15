@@ -33,7 +33,7 @@ namespace Constants
 		Vectors() = delete;
 
 		static sf::Vector2f const& getCameraBounds();	//!< Camera edges cannot go beyond this volume (starts at 0,0)
-		static sf::Vector2u const& getScreenSize();	//!< Gets the resolution of the monitor
+		static sf::Vector2u const& getMinimumResolution();	//!< Gets the resolution of the monitor
 	};
 
 	class Misc {

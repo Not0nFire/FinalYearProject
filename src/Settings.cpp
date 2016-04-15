@@ -54,6 +54,12 @@ Settings::Settings() {
 		parse(element);
 		element = element->NextSiblingElement();
 	}
+
+	//Create resolution if it wasn't in the settings file.
+	if (!mMap.count("Resolution")) {
+		auto const& mode = sf::VideoMode::getDesktopMode();
+		mMap["Resolution"] = sf::Vector2i(mode.width, mode.height);
+	}
 }
 
 std::unique_ptr<Settings> const& Settings::instance() {

@@ -72,9 +72,9 @@ sf::Vector2f const& Vectors::getCameraBounds() {
 	return bounds;
 }
 
-sf::Vector2u const& Vectors::getScreenSize() {
-	static const sf::Vector2u size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	return size;
+sf::Vector2u const& Vectors::getMinimumResolution() {
+	static const sf::Vector2u min(800u, 600u);
+	return min;
 }
 #pragma endregion
 //////////////////////////////////////////

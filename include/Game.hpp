@@ -3,11 +3,7 @@
 
 #include <include/ResourceManager.hpp>
 #include <include/Renderer.hpp>
-#include <include/Level.hpp>
-#include <include/MainMenu.hpp>
-#include <include/LevelSelect.hpp>
 #include <include/SceneManager.hpp>
-#include <include/TinyXML2/tinyxml2.h>
 #include "PlayerProfile.hpp"
 
 /*

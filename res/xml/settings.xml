@@ -1,5 +1,4 @@
 <Settings>
     <EffectsVolume type="INTEGER" value="7"/>
     <MusicVolume type="INTEGER" value="7"/>
-    <Resolution type="VECTOR2" x="1280" y="720"/>
 </Settings>

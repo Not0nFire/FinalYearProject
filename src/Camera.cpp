@@ -64,7 +64,7 @@ void Camera::update()
 sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
 	//Taken from sf::RenderTarget::mapPixelToCoord()
 	const auto& viewport = getViewport();
-	const auto& screenSize = Constants::Vectors::getScreenSize();
+	const auto& screenSize = Settings::getVector2i("Resolution");
 	sf::IntRect adjustedViewport(
 		static_cast<int>(0.5f + screenSize.x  * viewport.left),
 		static_cast<int>(0.5f + screenSize.y * viewport.top),

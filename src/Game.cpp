@@ -1,5 +1,7 @@
 #include <include/Game.hpp>
 #include <include/Settings.hpp>
+#include <include/LevelSelect.hpp>
+#include <include/MainMenu.hpp>
 
 bool Game::mRun = false;
 bool Game::mPaused = false;
@@ -19,11 +21,6 @@ Game::Game() :
 
 	mPlayerProfile = std::make_unique<PlayerProfile>("res/saves/profile.sav");
 
-	//mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
-	//
-	//assert(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
-	//
-	//assert(mPlayerProfile->save());
 }
 
 Game::~Game() {
