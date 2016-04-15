@@ -39,6 +39,8 @@ bool gui::Slider::update(int mouseX, int mouseY) {
 		mValue = (mouseX - bounds.left) / bounds.width;
 		valueChanged = true;
 
+		printf("Slider sliding:\tRel: %f\tAbs:%d\n", getNormalisedValue(), getAbsoluteValue());
+
 		//auto newBlipPos = sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y);
 		//if (newBlipPos.x > mBlipCapRight)
 		//{
@@ -63,8 +65,11 @@ void gui::Slider::setValue(const int value) {
 		mValue = 0.f;
 	}
 	else {
-		mValue = value / (mMaxValue - mMinValue);
+		mValue = static_cast<float>(value) / static_cast<float>(mMaxValue - mMinValue);
 	}
+
+	auto const& bounds = mBar.getGlobalBounds();
+	mBlip.setPosition(sf::Vector2f(bounds.left + (mValue * bounds.width), mBlip.getPosition().y));
 }
 
 int gui::Slider::getAbsoluteValue() const {

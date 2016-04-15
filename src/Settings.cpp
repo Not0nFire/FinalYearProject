@@ -161,6 +161,10 @@ void Settings::commit() const {
 					writeFloat(printer, entry.first);
 					break;
 
+				case VECTOR2:
+					writeVector2(printer, entry.first);
+					break;
+
 				default:
 					printf("\aSettings::commit(): Uknown variant type! variant::which() returned %d\n", typeIndex);
 					break;
@@ -220,6 +224,16 @@ void Settings::writeFloat(tinyxml2::XMLPrinter& printer, std::string const& mapK
 	printer.OpenElement(mapKey.c_str());
 	printer.PushAttribute("type", "FLOAT");
 	printer.PushAttribute("value", boost::get<float>(mMap.at(mapKey)));
+	printer.CloseElement();
+}
+
+void Settings::writeVector2(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const {
+	printer.OpenElement(mapKey.c_str());
+	printer.PushAttribute("type", "VECTOR2");
+
+	auto const& vec = boost::get<sf::Vector2i>(mMap.at(mapKey));
+	printer.PushAttribute("x", vec.x);
+	printer.PushAttribute("y", vec.y);
 	printer.CloseElement();
 }
 

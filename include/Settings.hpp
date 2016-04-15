@@ -44,7 +44,8 @@ private:
 		BOOL,
 		INTEGER,
 		UNSIGNED,
-		FLOAT
+		FLOAT,
+		VECTOR2
 	};
 	
 	std::map<std::string, settingValue> mMap;
@@ -60,6 +61,7 @@ private:
 	void writeInteger(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
 	void writeUnsigned(tinyxml2::XMLPrinter& printer, std::string const& mapKey) const;
 	void writeFloat(tinyxml2::XMLPrinter& printer, std::string const& mapKey)const;
+	void writeVector2(tinyxml2::XMLPrinter& printer, std::string const& mapKey)const;
 };
 #include "Settings.inl"
 #endif

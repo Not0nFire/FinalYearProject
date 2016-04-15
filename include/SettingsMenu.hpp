@@ -28,7 +28,7 @@ private:
 	std::map<std::string, gui::Slider> mSliders;
 
 	//! Map of setting names to buttons
-	std::map<std::string, gui::TextButton> mButtons;
+	//std::map<std::string, gui::TextButton> mButtons;
 
 	//! List of labels
 	std::list<sf::Text> mLabels;

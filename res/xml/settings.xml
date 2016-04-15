@@ -1,6 +1,5 @@
 <Settings>
-    <DoDebugDraw type="BOOL" value="0"/>
-    <EffectsVolume type="INTEGER" value="100"/>
-    <MasterVolume type="INTEGER" value="76"/>
-    <MusicVolume type="INTEGER" value="100"/>
+    <EffectsVolume type="INTEGER" value="99"/>
+    <MasterVolume type="INTEGER" value="99"/>
+    <MusicVolume type="INTEGER" value="98"/>
 </Settings>

@@ -21,18 +21,21 @@ mBackButton(xml->FirstChildElement("QuitButton")->IntAttribute("x"), xml->FirstC
 		//Map each slider to its setting
 		mSliders.emplace(make_pair(key, gui::Slider(sliderXml)));
 		mSliders.at(key).setPosition({ sliderXml->FloatAttribute("x"), sliderXml->FloatAttribute("y") });
+
+		//Set the slider's value to match its setting's value
+		mSliders.at(key).setValue(Settings::getInt(key));
 	}
 
-	std::cout << "\tParsing Buttons...\n";
-	for (auto btnXml = xml->FirstChildElement("Button");
-		nullptr != btnXml;
-		btnXml = btnXml->NextSiblingElement("Button"))
-	{
-		std::string key = btnXml->Attribute("setting");
-		std::cout << "\t\tAdding button for setting \"" << key << "\"...\n";
-		//Map each button to its setting
-		mButtons.emplace(make_pair(key, gui::TextButton(btnXml->IntAttribute("x"), btnXml->IntAttribute("y"), btnXml)));
-	}
+	//std::cout << "\tParsing Buttons...\n";
+	//for (auto btnXml = xml->FirstChildElement("Button");
+	//	nullptr != btnXml;
+	//	btnXml = btnXml->NextSiblingElement("Button"))
+	//{
+	//	std::string key = btnXml->Attribute("setting");
+	//	std::cout << "\t\tAdding button for setting \"" << key << "\"...\n";
+	//	//Map each button to its setting
+	//	mButtons.emplace(make_pair(key, gui::TextButton(btnXml->IntAttribute("x"), btnXml->IntAttribute("y"), btnXml)));
+	//}
 
 	std::cout << "\tParsing Labels...\n";
 	for (auto lblXml = xml->FirstChildElement("Label");
@@ -116,9 +119,9 @@ void SettingsMenu::draw(sf::RenderWindow& w) {
 	}
 
 
-	for (auto& entry : mButtons) {
-		w.draw(entry.second);
-	}
+	//for (auto& entry : mButtons) {
+	//	w.draw(entry.second);
+	//}
 
 
 	for (auto const& lbl : mLabels)
@@ -142,8 +145,8 @@ void SettingsMenu::updateAll(const int mouseX, const int mouseY) {
 		}
 	}
 
-	for (auto& entry : mButtons) {
-		entry.second.update(mousePos);
-		//TODO: apply change to setting
-	}
+	//for (auto& entry : mButtons) {
+	//	entry.second.update(mousePos);
+	//	//TODO: apply change to setting
+	//}
 }
