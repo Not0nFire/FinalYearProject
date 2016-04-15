@@ -1,5 +1,7 @@
 <SettingsMenu>
   <Backdrop path="./res/img/optionsbg.png"/>
+  <Music path="./res/mus/Snowfall.ogg"/>
+  
   <QuitButton x="100" y="100">
     <Texture path="./res/img/exit_button.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
@@ -9,10 +11,8 @@
     <DisabledImage x="0" y="182"/>
   </QuitButton>
   
-  <Label x="300" y="210">Master Volume</Label>
-	<Slider x="400" y="270" setting="MasterVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
-	<!-- starting value is between 0.0 and 1.0 -->
-	<!-- <StartingValue>1.0</StartingValue> -->
+  <Label x="300" y="210">Music Volume</Label>
+	<Slider x="400" y="270" setting="MusicVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
 	<BarTexture path="./res/img/slider_bar.png"/>
 		<Blip>
 			<Texture path="./res/img/slider_blip.png"/>
@@ -24,21 +24,8 @@
 		</Blip>
 	</Slider>
   
-  <Label x="300" y="320">Music Volume</Label>
-  <Slider x="400" y="380" setting="MusicVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
-    <BarTexture path="./res/img/slider_bar.png"/>
-    <Blip>
-      <Texture path="./res/img/slider_blip.png"/>
-      <HoverSound path="./res/sfx/menu_selection.ogg"/>
-      <Dimensions width="50" height="41"/>
-      <NormalImage x="0" y="0"/>
-      <HoverImage x="0" y="41"/>
-      <DisabledImage x="0" y="82"/>
-    </Blip>
-  </Slider>
-
-  <Label x="300" y="430">Effects Volume</Label>
-  <Slider x="400" y="490" setting="EffectsVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
+  <Label x="300" y="320">Effects Volume</Label>
+  <Slider x="400" y="380" setting="EffectsVolume" minValue="0" maxValue="100" width="572" height="85" capWidth="30">
     <BarTexture path="./res/img/slider_bar.png"/>
     <Blip>
       <Texture path="./res/img/slider_blip.png"/>

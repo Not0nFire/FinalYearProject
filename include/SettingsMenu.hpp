@@ -22,6 +22,8 @@ private:
 
 	const sf::Sprite mBackdrop;
 
+	sf::Music mBgMusic;
+
 	gui::Button mBackButton;
 
 	//! Map of setting names to sliders

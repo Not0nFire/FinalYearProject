@@ -39,6 +39,22 @@ std::string const& Strings::getSettingsFilePath() {
 	static const std::string path = "./res/xml/settings.xml";
 	return path;
 }
+std::string const& Strings::getSettingsDialogueTitle() {
+	static const std::string title = "Save?";
+	return title;
+}
+std::string const& Strings::getSettingsDialogueBody() {
+	static const std::string body = "Save these settings or\njust use them this once?";
+	return body;
+}
+std::string const& Strings::getSettingsDialogueYES() {
+	static const std::string yes = "Save";
+	return yes;
+}
+std::string const& Strings::getSettingsDialogueNO() {
+	static const std::string no = "Use";
+	return no;
+}
 #pragma endregion
 //////////////////////////////////////////
 //										//

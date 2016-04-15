@@ -4,7 +4,13 @@
 #include <include/Settings.hpp>
 
 SettingsMenu::SettingsMenu(tinyxml2::XMLElement* xml) :
-mSaveChangesDialogueBox({ 400.f, 400.f }, { 400.f, 300.f }, "Save?", "Settings have changed.\nSave them?"),
+mSaveChangesDialogueBox(
+	{ 400.f, 400.f },
+	{ 400.f, 300.f },
+	Constants::Strings::getSettingsDialogueTitle(),
+	Constants::Strings::getSettingsDialogueBody(),
+	Constants::Strings::getSettingsDialogueYES(),
+	Constants::Strings::getSettingsDialogueNO()),
 mSettingsChanged(false),
 mBackdrop(ResourceManager<sf::Texture>::instance()->get(xml->FirstChildElement("Backdrop")->Attribute("path"))),
 mBackButton(xml->FirstChildElement("QuitButton")->IntAttribute("x"), xml->FirstChildElement("QuitButton")->IntAttribute("y"), xml->FirstChildElement("QuitButton"))
@@ -54,6 +60,9 @@ mBackButton(xml->FirstChildElement("QuitButton")->IntAttribute("x"), xml->FirstC
 		mLabels.push_back(std::move(label));
 	}
 	std::cout << "Done creating settings menu." << std::endl;
+
+	mBgMusic.openFromFile(xml->FirstChildElement("Music")->Attribute("path"));
+	mBgMusic.setLoop(true);
 }
 
 SettingsMenu::~SettingsMenu() {}
@@ -88,6 +97,11 @@ bool SettingsMenu::handleEvent(sf::Event& Event) {
 }
 
 void SettingsMenu::update(sf::Time const& elapsedTime) {
+	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.play();
+	}
+	mBgMusic.setVolume(Settings::getInt("MusicVolume"));	//adapt to changes to music volume setting
+
 	if (!mSaveChangesDialogueBox.resultProcessed())
 	{
 		switch (mSaveChangesDialogueBox.getResult())
@@ -130,7 +144,9 @@ void SettingsMenu::draw(sf::RenderWindow& w) {
 	}
 }
 
-void SettingsMenu::cleanup() {}
+void SettingsMenu::cleanup() {
+	mBgMusic.stop();
+}
 
 void SettingsMenu::updateAll(const int mouseX, const int mouseY) {
 	const sf::Vector2i mousePos(mouseX, mouseY);

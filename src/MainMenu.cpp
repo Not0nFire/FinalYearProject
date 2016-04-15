@@ -19,6 +19,7 @@ mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?"
 	);//end openFromFile()
 
 	mMusic.setLoop(true);
+	mMusic.setVolume(Settings::getInt("MusicVolume"));
 	
 	auto startBtnXml = root->FirstChildElement("StartButton");
 	mStartButton = std::make_unique<gui::Button>(
@@ -78,6 +79,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 
 void MainMenu::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.setVolume(Settings::getInt("MusicVolume"));
 		mMusic.play();
 	}
 

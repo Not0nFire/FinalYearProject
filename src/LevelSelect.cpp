@@ -1,4 +1,5 @@
 #include "include/LevelSelect.hpp"
+#include <include/Settings.hpp>
 
 LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 	
@@ -15,6 +16,7 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 	);//end openFromFile()
 
 	mMusic.setLoop(true);
+	mMusic.setVolume(Settings::getInt("MusicVolume"));
 
 	auto backBtnXml = xml->FirstChildElement("BackButton");
 	mBackButton = std::make_unique<gui::Button>(
@@ -84,6 +86,7 @@ bool LevelSelect::handleEvent(sf::Event& evnt) {
 
 void LevelSelect::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.setVolume(Settings::getInt("MusicVolume"));
 		mMusic.play();
 	}
 }

@@ -1,5 +1,7 @@
 #include <include\Camera.hpp>
 #include <include/Constants.h>
+#include <include/Settings.hpp>
+#include <SFML/Audio/Listener.hpp>
 
 Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea) :
 View(viewportSize * 0.5f, viewportSize),

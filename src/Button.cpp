@@ -1,4 +1,5 @@
 #include "include/Gui/Button.hpp"
+#include <include/Settings.hpp>
 
 using namespace gui;
 
@@ -138,6 +139,7 @@ void Button::setState(State newState) {
 
 			case HOVER:
 				mGraphic.setTextureRect(mHoverSrcRect);
+				mOnHoverSound.setVolume(Settings::getInt("EffectsVolume"));
 				mOnHoverSound.play();
 				break;
 

@@ -47,15 +47,7 @@ Settings::Settings() {
 		throw result;
 	}
 
-	auto element = doc.FirstChildElement("Settings")->FirstChildElement("Resolution");
-	//Handle default resolution
-	if (nullptr == element) {
-		//Default to desktop resolution
-		auto mode = sf::VideoMode::getDesktopMode();
-		mMap["Resolution"] = sf::Vector2i(mode.width, mode.height);
-
-		element = doc.FirstChildElement("Settings")->FirstChildElement();
-	}
+	auto element = doc.FirstChildElement("Settings")->FirstChildElement();
 
 	while (nullptr != element)
 	{

@@ -14,8 +14,8 @@
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="400" height="91"/>
     <NormalImage x="0" y="0"/>
-    <HoverImage x="0" y="92"/>
-    <DisabledImage x="0" y="182"/>
+    <HoverImage x="0" y="93"/>
+    <DisabledImage x="0" y="186"/>
   </OptionsButton>
   <QuitButton x="300" y="500">
     <Texture path="./res/img/exit_button.png"/>
