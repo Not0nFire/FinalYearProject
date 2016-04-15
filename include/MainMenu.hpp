@@ -42,7 +42,7 @@ private:
 	//! Background music that will play in this scene
 	sf::Music mMusic;
 
-	std::unique_ptr<gui::Button> mStartButton, mQuitButton;
+	std::unique_ptr<gui::Button> mStartButton, mCreditsButton, mQuitButton;
 };
 #include "SceneManager.hpp"
 #endif

@@ -1,0 +1,51 @@
+<Credits music="./res/mus/Soliloquy.ogg" backdrop="./res/credits/zeyu_ren.png" baseScrollSpeed="50" speedMultiplier="5">
+  <BackButton x="50" y="30">
+    <Texture path="./res/img/back_button.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="100" height="63"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="65"/>
+    <DisabledImage x="0" y="130"/>
+  </BackButton>
+  
+  
+  <Entry>
+    <Author>Alexander Meuer</Author>
+    <Link>AlexMeuer.github.io</Link>
+    <Work>You're playing the game I made.</Work>
+    <Licence>(These credits are scrollable)</Licence>
+  </Entry>
+  <Entry>
+    <Author>Krzysztof "Ravenmore" Dycha</Author>
+    <Link>Dycha.net</Link>
+    <Work>Fantasy gui items</Work>
+    <Licence>CC-BY 3.0</Licence>
+    <Image>./res/credits/ravenmore.png</Image>
+  </Entry>
+  <Entry>
+    <Author>J. W. Bjerk (eleazzaar)</Author>
+    <Link>www.jwbjerk.com/art</Link>
+    <Work>Spell icons</Work>
+    <Licence>CC-BY-SA 3.0 / GPL 3.0</Licence>
+    <Image>./res/credits/eleazzaar.jpg</Image>
+  </Entry>
+  <Entry>
+    <Author>Killy Vera (killyoverdrive)</Author>
+    <Link>opengameart.org/users/killyoverdrive</Link>
+    <Work>Menu art</Work>
+    <Licence>CC-BY-SA 3.0</Licence>
+    <Image>./res/credits/killyoverdrive.png</Image>
+  </Entry>
+  <Entry>
+    <Author>Joseph Gilbert / Kistol</Author>
+    <Link>opengameart.org/content/snowfall</Link>
+    <Work>Snowfall (Settings music)</Work>
+    <Licence>CC-BY 3.0</Licence>
+  </Entry>
+  <Entry>
+    <Author>Zeyu Ren</Author>
+    <Link>opengameart.org/users/greggman</Link>
+    <Work>Credits background art</Work>
+    <Licence>CC-BY 3.0</Licence>
+  </Entry>
+</Credits>

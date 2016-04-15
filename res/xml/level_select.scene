@@ -1,13 +1,13 @@
 <LevelSelect>
   <Backdrop path="./res/img/level_select.png"/>
   <Music path="./res/mus/menu.ogg"/>
-  <BackButton x="205" y="50">
-    <Texture path="./res/img/exit_button.png"/>
+  <BackButton x="50" y="30">
+    <Texture path="./res/img/back_button.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
-    <Dimensions width="400" height="91"/>
-    <NormalImage x="0" y="91"/>
-    <HoverImage x="0" y="0"/>
-    <DisabledImage x="0" y="182"/>
+    <Dimensions width="100" height="63"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="65"/>
+    <DisabledImage x="0" y="130"/>
   </BackButton>
   <LevelButtons>
     <Button name="LevelOne" x="500" y="500" path="./res/xml/levelOne.lvl">

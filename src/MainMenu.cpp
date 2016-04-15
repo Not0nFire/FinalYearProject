@@ -1,4 +1,5 @@
 #include <include/MainMenu.hpp>
+#include <include/CreditsScene.hpp>
 
 MainMenu::MainMenu(tinyxml2::XMLElement* root) :
 mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")
@@ -19,15 +20,22 @@ mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?"
 	
 	auto startBtnXml = root->FirstChildElement("StartButton");
 	mStartButton = std::make_unique<gui::Button>(
-		atoi(startBtnXml->Attribute("x")),
-		atoi(startBtnXml->Attribute("y")),
+		startBtnXml->IntAttribute("x"),
+		startBtnXml->IntAttribute("y"),
 		startBtnXml
 	);
 
+	auto creditsBtnXml = root->FirstChildElement("CreditsButton");
+	mCreditsButton = std::make_unique<gui::Button>(
+		creditsBtnXml->IntAttribute("x"),
+		creditsBtnXml->IntAttribute("y"),
+		creditsBtnXml
+		);
+
 	auto quitBtnXml = root->FirstChildElement("QuitButton");
 	mQuitButton = std::make_unique<gui::Button>(
-		atoi(quitBtnXml->Attribute("x")),
-		atoi(quitBtnXml->Attribute("y")),
+		quitBtnXml->IntAttribute("x"),
+		quitBtnXml->IntAttribute("y"),
 		quitBtnXml
 	);
 }
@@ -45,7 +53,11 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 			if (mStartButton->checkClick()) {
 				//start the game
 				SceneManager::instance()->navigateToScene("LevelSelect");
-			} else if (mQuitButton->checkClick()) {
+			}
+			else if (mCreditsButton->checkClick()) {
+				SceneManager::instance()->createScene<Credits>("Credits", "./res/xml/credits.scene.xml", true);
+			}
+			else if (mQuitButton->checkClick()) {
 				//quit the game
 				SceneManager::instance()->showDialogueBox(&mQuitConfirmDialogue);
 			}
@@ -55,6 +67,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 		case sf::Event::MouseMoved:
 			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
 			mStartButton->update(mousePos);
+			mCreditsButton->update(mousePos);
 			mQuitButton->update(mousePos);
 			handled = true;
 			break;
@@ -79,6 +92,7 @@ void MainMenu::update(sf::Time const& elapsedTime) {
 void MainMenu::draw(sf::RenderWindow &w) {
 	w.draw(mBackground);
 	w.draw(*mStartButton);
+	w.draw(*mCreditsButton);
 	w.draw(*mQuitButton);
 }
 
