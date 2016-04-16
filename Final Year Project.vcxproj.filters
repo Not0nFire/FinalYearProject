@@ -329,4 +329,7 @@
   <ItemGroup>
     <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="C:\WINDOWS\Fonts\NEVIS.TTF" />
+  </ItemGroup>
 </Project>

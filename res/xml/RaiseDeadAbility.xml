@@ -1,4 +1,4 @@
-<Ability>
+<Ability hotkey="w">
   <!-- User-friendly name of the ability -->
   <Name>Raise Dead</Name>
   

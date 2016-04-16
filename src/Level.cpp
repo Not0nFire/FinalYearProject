@@ -1,4 +1,5 @@
 #include <include/Level.hpp>
+#include <include/SceneManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -363,6 +364,21 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			break;
 		}
 	}//end key release handling
+
+	//Process text input (for ability hotkeys)
+	else if (evnt.type == sf::Event::EventType::TextEntered) {
+		//If it's less than 128 we can cast it to a char
+		if (evnt.text.unicode < 128) {
+			char key = evnt.text.unicode;	//Cast to char
+
+			//Check hotkey for each ability
+			for (auto &pair : mAbilityList) {
+				if (pair.second->checkHotkey(key)) {
+					pair.second->execute(mHero.get());
+				}
+			}
+		}
+	}//end text input handling
 
 	return handled;
 }
