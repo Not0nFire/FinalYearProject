@@ -106,6 +106,24 @@ void Level::setupAbilities() {
 	mAbilityList.push_back(make_pair(button, ability));
 }
 
+void Level::setupTowerButtons() {
+	XMLDocument doc;
+	auto const result = doc.LoadFile("./res/xml/towerButtons.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	const auto root = doc.FirstChildElement("TowerButtons");
+
+	auto btnDef = root->FirstChildElement("Arrow");
+	mTowerButtons[TowerPlacer::ARROW] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+	
+	btnDef = root->FirstChildElement("Magic");
+	mTowerButtons[TowerPlacer::MAGIC] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+	
+	btnDef = root->FirstChildElement("Unit");
+	mTowerButtons[TowerPlacer::UNIT] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+}
+
 void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
 	
 	if (setPath) {
@@ -268,6 +286,8 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
 
 	setupAbilities();
+
+	setupTowerButtons();
 }
 
 Level::~Level() {
@@ -294,6 +314,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 		} else {
 
+			//Check ability buttons
 			bool buttonClicked = false;
 			for (auto& pair : mAbilityList) {
 				//.first is the button
@@ -301,7 +322,26 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				buttonClicked = pair.first.containsMouse();
 				if (pair.first.checkClick()) {	//if the button was clicked and not disabled...
 					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
-					buttonClicked = true;
+				}
+
+				if (buttonClicked) {
+					break;
+				}
+			}
+
+			//Check tower buttons
+			if (!buttonClicked) {
+				for (auto const& entry : mTowerButtons) {
+					//.first is enum key
+					//.second is button
+					buttonClicked = entry.second->containsMouse();
+					if (entry.second->checkClick()) {
+						mTowerPlacer->activate(entry.first);
+					}
+
+					if (buttonClicked) {
+						break;
+					}
 				}
 			}
 
@@ -319,6 +359,10 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			//.second is the ability (unique_ptr)
 			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
 		}
+
+		mTowerButtons[TowerPlacer::ARROW]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+		mTowerButtons[TowerPlacer::MAGIC]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+		mTowerButtons[TowerPlacer::UNIT]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
 	}
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
@@ -482,6 +526,10 @@ void Level::draw(sf::RenderWindow &w) {
 	for (auto& pair : mAbilityList) {
 		w.draw(pair.first);	//draw the button
 	}
+
+	w.draw(*mTowerButtons[TowerPlacer::ARROW]);
+	w.draw(*mTowerButtons[TowerPlacer::MAGIC]);
+	w.draw(*mTowerButtons[TowerPlacer::UNIT]);
 
 	w.draw(mHud);
 }

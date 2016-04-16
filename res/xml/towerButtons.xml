@@ -1,0 +1,31 @@
+<TowerButtons>
+	<Arrow x="400" y="450">
+		<Texture path="./res/img/arrow_icon_2.png"/>
+		<HoverSound path="./res/sfx/menu_selection.ogg"/>
+		<Dimensions width="255" height="255"/>
+		<NormalImage x="0" y="0"/>
+		<HoverImage x="0" y="256"/>
+		<DisabledImage x="0" y="512"/>
+		<Scale x="0.25" y="0.25"/>
+	  </Arrow>
+	  
+	<Magic x="464" y="450">
+		<Texture path="./res/img/magic_icon_2.png"/>
+		<HoverSound path="./res/sfx/menu_selection.ogg"/>
+		<Dimensions width="255" height="255"/>
+		<NormalImage x="0" y="0"/>
+		<HoverImage x="0" y="256"/>
+		<DisabledImage x="0" y="512"/>
+		<Scale x="0.25" y="0.25"/>
+	  </Magic>
+	  
+	<Unit x="528" y="450">
+		<Texture path="./res/img/unit_icon.png"/>
+		<HoverSound path="./res/sfx/menu_selection.ogg"/>
+		<Dimensions width="255" height="255"/>
+		<NormalImage x="0" y="0"/>
+		<HoverImage x="0" y="256"/>
+		<DisabledImage x="0" y="512"/>
+		<Scale x="0.25" y="0.25"/>
+	  </Unit>
+</TowerButtons>

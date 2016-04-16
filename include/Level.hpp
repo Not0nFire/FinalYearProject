@@ -41,6 +41,8 @@ private:
 	//Each button is paired with an ability, which will be executed when the button is clicked
 	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
 
+	std::map<TowerPlacer::TowerType, std::unique_ptr<gui::Button>> mTowerButtons;
+
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
 	shared_ptr<collision::CollisionGroup> mCollisionGroup;
@@ -117,6 +119,8 @@ private:
 	\brief Initializes abilities and their buttons.
 	*/
 	void setupAbilities();
+
+	void setupTowerButtons();
 
 	
 	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath = true, bool addFlock = true, bool addCollision = true) const;
