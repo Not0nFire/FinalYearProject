@@ -27,6 +27,7 @@
 #include <include/BloodSystem.hpp>
 #include <include/HUD.hpp>
 #include <include/Gui/DialogueBox.hpp>
+#include "Gui/CostButton.hpp"
 
 using std::shared_ptr;
 class SceneManager;
@@ -41,7 +42,7 @@ private:
 	//Each button is paired with an ability, which will be executed when the button is clicked
 	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
 
-	std::map<TowerPlacer::TowerType, std::unique_ptr<gui::Button>> mTowerButtons;
+	std::map<TowerPlacer::TowerType, std::unique_ptr<gui::CostButton>> mTowerButtons;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;

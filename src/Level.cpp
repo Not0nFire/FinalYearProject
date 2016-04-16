@@ -115,13 +115,13 @@ void Level::setupTowerButtons() {
 	const auto root = doc.FirstChildElement("TowerButtons");
 
 	auto btnDef = root->FirstChildElement("Arrow");
-	mTowerButtons[TowerPlacer::ARROW] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+	mTowerButtons[TowerPlacer::ARROW] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
 	
 	btnDef = root->FirstChildElement("Magic");
-	mTowerButtons[TowerPlacer::MAGIC] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+	mTowerButtons[TowerPlacer::MAGIC] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
 	
 	btnDef = root->FirstChildElement("Unit");
-	mTowerButtons[TowerPlacer::UNIT] = std::make_unique<gui::Button>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef);
+	mTowerButtons[TowerPlacer::UNIT] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
 }
 
 void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
