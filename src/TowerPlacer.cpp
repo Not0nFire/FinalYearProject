@@ -86,7 +86,10 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 			std::cout << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
 		}
 
-		mIsActive = false;
+		//Deactivate if we're not sticky (i.e. if we don't want to place more towers)
+		if (!mIsSticky) {
+			mIsActive = false;
+		}
 	}
 
 	return placed;
@@ -104,6 +107,10 @@ void TowerPlacer::update(sf::Vector2i mousePosition) {
 void TowerPlacer::activate(TowerType type) {
 	mIsActive = true;
 	mTowerType = type;
+}
+
+void TowerPlacer::setSticky(bool sticky) {
+	mIsSticky = sticky;
 }
 
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {

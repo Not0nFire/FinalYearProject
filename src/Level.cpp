@@ -290,6 +290,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
 			}
+
 			handled = true;
 
 		} else {
@@ -319,27 +320,49 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			//.second is the ability (unique_ptr)
 			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
 		}
-	}
+	}//end mouse press handling
+
+	//Handle key presses
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
 			handled = true;
 			break;
+
 		case sf::Keyboard::Y:
 			mTowerPlacer->activate(TowerPlacer::MAGIC);
 			handled = true;
 			break;
+
 		case sf::Keyboard::U:
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(true);
+			break;
+
 		case sf::Keyboard::Escape:
 			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
 		default:
 			break;
 		}
-	}
+	}//end key press handling
+
+	//Handle key releases
+	else if (evnt.type == sf::Event::EventType::KeyReleased) {
+		switch (evnt.key.code) {
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(false);
+			break;
+		default:
+			break;
+		}
+	}//end key release handling
 
 	return handled;
 }
