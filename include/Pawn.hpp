@@ -205,6 +205,9 @@ public:
 	*/
 	Faction getFaction() const;
 
+	Damage::Reduction const& getArmour() const;
+	Damage::Reduction const& getMagicResist() const;
+
 	/*!
 	\brief Called whenever the Pawn collides with something.
 	Virtual method that is invoked whenver this Pawn collides with something.
