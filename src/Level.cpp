@@ -458,18 +458,21 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
 		handled = true;
+		const sf::Vector2i mousePos(evnt.mouseMove.x, evnt.mouseMove.y);
 
-		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
+		mTowerPlacer->update(mousePos + sf::Vector2i(mCamera.getDisplacement()));
 
 		for (auto& pair : mAbilityList) {
 			//.first is the button
 			//.second is the ability (unique_ptr)
-			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
+			pair.first.update(mousePos);	//update the button with the mouse position (as a Vector2i)
 		}
 
-		mTowerButtons[TowerPlacer::ARROW]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
-		mTowerButtons[TowerPlacer::MAGIC]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
-		mTowerButtons[TowerPlacer::UNIT]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+		mTowerButtons[TowerPlacer::ARROW]->update(mousePos);
+		mTowerButtons[TowerPlacer::MAGIC]->update(mousePos);
+		mTowerButtons[TowerPlacer::UNIT]->update(mousePos);
+
+		mCamera.doMouseMove(sf::Vector2f(mousePos));
 	}//end mouse press handling
 
 	//Handle key presses
@@ -490,6 +493,9 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+
+		case sf::Keyboard::Space:
+			mCamera.toggleLock();
 
 		case sf::Keyboard::RShift:
 		case sf::Keyboard::LShift:
@@ -561,7 +567,7 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	cleanPawnFlock();
 
-	mCamera.update();
+	mCamera.update(elapsedTime.asSeconds());
 
 	ensureMusicPlaying();
 

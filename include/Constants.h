@@ -27,6 +27,14 @@ namespace Constants
 		static std::string const& getSettingsDialogueNO();	//!< Declination text for settings dialogue
 	};
 
+	class Numbers {
+	public:
+		Numbers() = delete;
+
+		static float getCameraMoveSpeed();
+		static float getCameraEdgeMoveThreshold();
+	};
+
 	class Vectors {
 	public:
 		//! This class cannot be instanciated.
