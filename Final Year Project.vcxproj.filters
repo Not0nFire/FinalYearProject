@@ -117,6 +117,9 @@
     <ClCompile Include="src\Tower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\WaveController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Abilities\Ability.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -302,6 +305,9 @@
     <ClInclude Include="include\Towers\Tower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\WaveController.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Abilities\Ability.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -361,8 +367,5 @@
     <None Include="include\Settings.inl">
       <Filter>Header Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="C:\WINDOWS\Fonts\NEVIS.TTF" />
   </ItemGroup>
 </Project>

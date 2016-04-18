@@ -23,6 +23,7 @@ mMask([]()
       }()),
 mProjectileManager(projectileMgr),
 mPath(path),
+mTowerCollisionGroup(),
 mUnitSpawnCallback(unitSpawnCallback)
 {
 	mMask->setFillColor(sf::Color::Yellow);
@@ -86,6 +87,20 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 			std::cout << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
 		}
 
+		//Check if the tower placement intersects another tower...
+		auto collidable = std::static_pointer_cast<collision::Collidable, tower::Tower>(placed);
+		if (mTowerCollisionGroup.checkAgainst(collidable)) {
+			//... if it does: don't place it.
+			std::cout << "Tower placement intersects another tower!" << std::endl;
+			placed = nullptr;
+			mIsValid = false;
+			calculateColor();
+		}
+		else {
+			//... if it doesn't, add it to the collision group so that future towers can be tested against it.
+			mTowerCollisionGroup.add(collidable);
+		}
+
 		//Deactivate if we're not sticky (i.e. if we don't want to place more towers)
 		if (!mIsSticky) {
 			mIsActive = false;
@@ -121,6 +136,10 @@ void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {
 		renderTarget.draw(*mMask);
 #endif
 	}
+}
+
+bool TowerPlacer::isActive() const {
+	return mIsActive;
 }
 
 void TowerPlacer::checkValidity() {

@@ -6,6 +6,12 @@
   <StartingMoney>300</StartingMoney>
   <NextLevel>LevelTwo</NextLevel>
 	<Path>
+    <Node>
+      <!-- start the path off to the right, so that units walk in instead of suddenly appearing on screen -->
+      <X>-100</X>
+      <Y>140</Y>
+      <Radius>100</Radius>
+    </Node>
 		<Node>
 			<X>51</X>
 			<Y>140</Y>
@@ -37,13 +43,45 @@
       <Radius>100</Radius>
     </Node>
     <Node>
-      <X>1100</X>
+      <X>1300</X>
       <Y>400</Y>
       <Radius>100</Radius>
     </Node>
 	</Path>
+  <WaveController>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>1</SpawnDelay>
+      <NumberOfUnits>1</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>30</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>2</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>60</SpawnDelay>
+      <NumberOfUnits>15</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+  </WaveController>
 	<Units>
-    <Unit type="basic_enemy">
+    <!--<Unit type="basic_enemy">
       <X>100</X>
       <Y>200</Y>
     </Unit>
@@ -66,7 +104,7 @@
     <Unit type="fast_enemy">
       <X>50</X>
       <Y>50</Y>
-    </Unit>
+    </Unit>-->
 	<Unit type="hero">
       <X>500</X>
       <Y>400</Y>

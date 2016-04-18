@@ -56,6 +56,96 @@ void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
 	}
 }
 
+bool Level::updatePawns(sf::Time const& elapsedTime) {
+	bool allEnemiesDead = true;
+
+	auto itr = mPawns->begin();
+	auto end = mPawns->end();
+	while (itr != end) {
+		auto p = *itr;
+		p->update(elapsedTime);
+
+		if (p != mHero && !p->isDead()) {
+			if (p->getFaction() == Pawn::Faction::ENEMY)
+				allEnemiesDead = false;
+
+			auto minion = std::dynamic_pointer_cast<Minion, Pawn>(p);
+			//if reached end of path
+			if (nullptr != minion && minion->reachedEndOfPath()) {
+				printf("!\n");
+				p->kill();
+
+				if (--(*mLivesRemaining) <= 0) {
+					mIsLost = true;
+				}
+
+			}//if reached end of path
+
+			else if (p->targetIsDead()) {
+				for (auto &other : *mPawns) {
+					if (p->offerTarget(other)) {
+						break;
+					}//if
+				}//for
+			}//if target dead
+
+			++itr;
+
+		}//if !dead
+		else
+		{
+			//if dead and not playing an animation...
+			if (!p->isPlayingAnimation() && p->isDead())
+			{
+				//draw to underlay and erase
+				mUnderlayTex.draw(*p);
+				mUnderlayTex.display();
+
+				//award money for enemies that die
+				if (p->getFaction() != Pawn::Faction::PLAYER) {
+					*mMoney += std::static_pointer_cast<Minion, Pawn>(p)->getMonetaryValue();
+				}
+
+				itr = mPawns->erase(itr);
+			}
+			else
+			{
+				++itr;
+			}
+
+		}
+	}//while
+
+	return allEnemiesDead;
+}
+
+void Level::updateTowers(sf::Time const& elapsedTime) {
+	for (auto tower : mTowers) {
+		tower->update(elapsedTime);
+		tower->shoot(mPawns);
+	}
+}
+
+void Level::ensureMusicPlaying() {
+	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.setVolume(Settings::getInt("MusicVolume"));
+		mBgMusic.play();
+	}
+}
+
+void Level::cleanPawnFlock() const {
+	auto end = mFlock->end();
+	auto itr = std::remove_if(
+		mFlock->begin(),
+		end,
+		[](std::weak_ptr<Pawn> const& minion) { return minion.expired(); }	//remove if it has expired
+	);
+
+	if (itr != end) {
+		mFlock->erase(itr, end);
+	}
+}
+
 void Level::setupAbilities() {
 	auto spawnCallback = bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true);
 
@@ -127,6 +217,8 @@ void Level::setupTowerButtons() {
 }
 
 void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
+
+	unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
 	
 	if (setPath) {
 		//Set path and position
@@ -140,7 +232,7 @@ void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFl
 	}
 
 	if (addFlock) {
-		unit->addToFlock(mMinionFlock);
+		unit->addToFlock(mFlock);
 	}
 
 	if (addCollision) {
@@ -186,7 +278,8 @@ mIsLost(false),
 mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
-mMinionFlock(std::make_shared<std::list<Minion*>>()),
+mFlock(std::make_shared<std::list<std::weak_ptr<Pawn>>>()),
+mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1, true, true, true)),
 mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
 {
 	//Let our camera translate the mouse.
@@ -255,6 +348,8 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 			pawn = factory.produce(type);
 
 			mHero = pawn;
+			//mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
+			mFlock->push_back(pawn);	//Add the hero to the flock. The hero doesn't do any flock logic but this allows minions to account for him.
 			mHud.addHealthBar(mHero,sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f), &GET_TEXTURE("./res/img/hp_red.png"),true);
 		}
 		else
@@ -262,9 +357,9 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 			pawn = factory.produce(type);
 			//mHud.addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
-			auto constNode = std::const_pointer_cast<const Node>(mPath->begin());
+			auto constNode = mPath->begin();
 			minion->setPath(constNode);
-			minion->addToFlock(mMinionFlock);
+			minion->addToFlock(mFlock);
 		}
 
 		pawn->setDestination(pos);
@@ -280,7 +375,6 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 	}
 
 	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true));
-
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
@@ -300,6 +394,7 @@ Level::~Level() {
 bool Level::handleEvent(sf::Event &evnt ) {
 	bool handled = false;
 	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
+		handled = true;
 
 		auto tower = mTowerPlacer->place();
 		//std::lock_guard<std::mutex> lock(mMutex);
@@ -360,7 +455,10 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				handled = true;
 			}
 		}
+
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
+		handled = true;
+
 		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 
 		for (auto& pair : mAbilityList) {
@@ -376,6 +474,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 	//Handle key presses
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
+
 		switch (evnt.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
@@ -399,6 +498,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 		case sf::Keyboard::Escape:
 			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
+
 		default:
 			break;
 		}
@@ -435,6 +535,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 }
 
 void Level::update(sf::Time const &elapsedTime) {
+
 	//If  getResult() has not been called on the dialogue box...
 	if (!mPauseDialogue.resultProcessed()) {
 		processPauseMenuResult();
@@ -447,91 +548,29 @@ void Level::update(sf::Time const &elapsedTime) {
 		pair.second->update(elapsedTime);
 	}
 
-	bool allEnemiesDead = true;
+	mWaveController.update(elapsedTime);
 
-	auto itr = mPawns->begin();
-	auto end = mPawns->end();
-	while (itr != end) {
-		auto p = *itr;
-		p->update(elapsedTime);
 
-		if (p != mHero && !p->isDead()) {
-			if (p->getFaction() == Pawn::Faction::ENEMY)
-				allEnemiesDead = false;
-
-			//if out of bounds
-			if (!mBounds.contains(p->getPosition())) {
-
-				p->kill();
-				mCollisionGroup->remove(p);
-
-				if (--(*mLivesRemaining) <= 0) {
-					mIsLost = true;
-				}
-
-			}//if out of bounds
-
-			else if (p->targetIsDead()) {
-				for (auto &other : *mPawns) {
-					if (p->offerTarget(other)) {
-						break;
-					}//if
-				}//for
-			}//if target dead
-
-			++itr;
-
-		}//if !dead
-		else
-		{
-			//if dead and not playing an animation...
-			if (!p->isPlayingAnimation() && p->isDead())
-			{
-				drawToUnderlay(*p);
-
-				itr = mPawns->erase(itr);
-			}
-			else
-			{
-				++itr;
-			}
-
-		}
-	}//while
-
-	mIsWon = allEnemiesDead;
+	mIsWon = updatePawns(elapsedTime);
 
 	mCollisionGroup->check();
 
-
-	for (auto tower : mTowers) {
-		tower->update(elapsedTime);
-		tower->shoot(mPawns);
-	}
+	updateTowers(elapsedTime);
 
 	mProjectileManager->update(elapsedTime);
 
+	cleanPawnFlock();
+
 	mCamera.update();
 
-	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
-		mBgMusic.setVolume(Settings::getInt("MusicVolume"));
-		mBgMusic.play();
-	}
-
+	ensureMusicPlaying();
 
 	mBloodSystem.update(elapsedTime);
 
 	
 	mHud.update(elapsedTime.asSeconds());
 
-	//if (mIsLost)
-	//{
-	//	onLose();
-	//}
-	//else if (mIsWon)
-	//{
-	//	onWin();
-	//}
+
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {

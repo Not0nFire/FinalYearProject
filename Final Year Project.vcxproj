@@ -152,6 +152,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\TowerPlacer.cpp" />
     <ClCompile Include="src\UnitFactory.cpp" />
     <ClCompile Include="src\UnitTower.cpp" />
+    <ClCompile Include="src\WaveController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Abilities\HealAbility.hpp" />
@@ -215,6 +216,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />
     <ClInclude Include="include\MainMenu.hpp" />
+    <ClInclude Include="include\WaveController.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />
@@ -225,9 +227,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
   <ItemGroup>
     <None Include="include\Settings.inl" />
     <None Include="res\sfx\hit01.ogg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="C:\WINDOWS\Fonts\NEVIS.TTF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

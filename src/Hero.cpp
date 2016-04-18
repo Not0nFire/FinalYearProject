@@ -24,6 +24,8 @@ void Hero::update(sf::Time const& elapsedTime) {
 
 	Pawn::update(elapsedTime);
 
+	turnToFaceDirection(mDestination);
+
 }
 
 void Hero::doAttack(float secondsElapsed) {
