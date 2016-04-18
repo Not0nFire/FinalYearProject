@@ -1,7 +1,7 @@
 <MainMenu>
 	<Backdrop path="./res/img/menubg.png"/>
 	<Music path="./res/mus/menu.ogg"/>
-	<StartButton x="100" y="400">
+	<StartButton x="300" y="300">
 		<Texture path="./res/img/start_button.png"/>
 		<HoverSound path="./res/sfx/menu_selection.ogg"/>
 		<Dimensions width="400" height="91"/>
@@ -9,7 +9,15 @@
 		<HoverImage x="0" y="0"/>
     <DisabledImage x="0" y="182"/>
 	</StartButton>
-  <QuitButton x="100" y="500">
+  <OptionsButton x="300" y="400">
+    <Texture path="./res/img/options_button.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="400" height="91"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="93"/>
+    <DisabledImage x="0" y="186"/>
+  </OptionsButton>
+  <QuitButton x="300" y="500">
     <Texture path="./res/img/exit_button.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="400" height="91"/>

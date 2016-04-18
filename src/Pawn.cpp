@@ -1,5 +1,5 @@
 #include <include\Pawn.hpp>
-#include <boost/thread/lock_guard.hpp>
+#include <include/Settings.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
@@ -16,13 +16,28 @@ mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
 mCombatTarget(nullptr),
-mTurnHistory(0x00)
+mTurnHistory(0x00),
+mStunDuration(sf::seconds(0.f))
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
 	mHealth = M_MAX_HEALTH;
 
-	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(GET_ELEMENT("AttackSound")));
+	auto soundXml = xml->FirstChildElement("AttackSound");
+	mAttackSound.setBuffer(ResourceManager<sf::SoundBuffer>::instance()->get(soundXml->GetText()));
+
+	//set min distance and attenuation of sound, if they're found in the xml
+	auto minDistXml = soundXml->Attribute("minDistance");
+	if (minDistXml) {
+		mAttackSound.setMinDistance(atof(minDistXml));
+	}
+
+	auto attenuationXml = soundXml->Attribute("attenuation");
+	if (attenuationXml) {
+		mAttackSound.setAttenuation(atof(attenuationXml));
+	}
+
+	mAttackSound.setVolume(Settings::getInt("EffectsVolume"));
 
 	playAnimation("idle", true);
 	animate(sf::seconds(0.f));
@@ -95,7 +110,7 @@ void Pawn::calculateAnimation() {
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 	//don't bother updating state if dead
-	if (mState != State::DEAD) {
+	if (mState != State::DEAD && mState != State::STUNNED) {
 
 		//attack if in range
 		if (mCombatTarget != nullptr &&
@@ -132,6 +147,7 @@ void Pawn::doAttack(float secondsElapsed) {
 			//Deal damage to our target
 			mCombatTarget->takeDamage(mAttackDamage, mDamageType, self.lock());
 			mTimeSinceAttack = 0.0f;
+			mAttackSound.setPosition(sf::Vector3f(getPosition().x, getPosition().y, 0.f));
 			mAttackSound.play();
 			setDebugColour(sf::Color::Yellow);
 		}
@@ -208,6 +224,11 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
+		mTimeStunned += elapsedTime;
+		if (mTimeStunned >= mStunDuration)
+		{
+			mState = IDLE;
+		}
 		break;
 	case DEAD:
 		setDebugColour(sf::Color::White);
@@ -227,6 +248,9 @@ void Pawn::update(sf::Time const &elapsedTime) {
 void Pawn::kill() {
 	mHealth = 0;
 	mState = State::DEAD;
+	if (mOnDeathFunction) {
+		mOnDeathFunction(this);
+	}
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type) {
@@ -247,6 +271,9 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 
 	if (isDead) {
 		mState = State::DEAD;
+		if (mOnDeathFunction) {
+			mOnDeathFunction(this);
+		}
 	}
 
 	//return true if damage killed us
@@ -272,11 +299,14 @@ void Pawn::heal(int healAmount) {
 		mHealth = M_MAX_HEALTH;
 	}
 }
-void Pawn::stun(sf::Time duration) {
+void Pawn::stun(sf::Time const& duration) {
 	//apply new time if it is higher than current (don't let stuns cancel each other out!)
-	mStunDuration =
-		duration > mStunDuration ? duration : mStunDuration;
-	mState = State::STUNNED;
+	bool applyStun = duration > (mStunDuration - mTimeStunned);
+	if (applyStun) {
+		mStunDuration = duration;
+		mTimeStunned = sf::seconds(0.f);
+		mState = STUNNED;
+	}
 }
 
 void Pawn::beTaunted(std::shared_ptr<Pawn> const &taunter) {
@@ -347,6 +377,14 @@ std::shared_ptr<Pawn> const& Pawn::getCombatTarget() const {
 	return mCombatTarget;
 }
 
+Damage::Reduction const& Pawn::getArmour() const {
+	return mArmour;
+}
+
+Damage::Reduction const& Pawn::getMagicResist() const {
+	return mMagicResist;
+}
+
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {
 	auto projectile = std::dynamic_pointer_cast<Projectile, Collidable>(other);
 	if (projectile) {
@@ -360,6 +398,10 @@ void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv
 		}
 		move(mtv);
 	}
+}
+
+void Pawn::setOnDeath(std::function<void(Pawn*)> const& callback) {
+	mOnDeathFunction = callback;
 }
 
 //bool Pawn::hasDecayed() const {

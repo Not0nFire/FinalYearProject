@@ -1,0 +1,450 @@
+<Animation name="raise_dead">
+	<Frame id="64">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="63">
+		<X>0</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="62">
+		<X>0</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="61">
+		<X>0</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="60">
+		<X>0</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="59">
+		<X>0</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="58">
+		<X>0</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="57">
+		<X>0</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="56">
+		<X>130</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="55">
+		<X>130</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="54">
+		<X>130</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="53">
+		<X>130</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="52">
+		<X>130</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="51">
+		<X>130</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="50">
+		<X>130</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="49">
+		<X>130</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="48">
+		<X>260</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="47">
+		<X>260</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="46">
+		<X>260</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="45">
+		<X>260</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="44">
+		<X>260</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="43">
+		<X>260</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="42">
+		<X>260</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="41">
+		<X>260</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="40">
+		<X>390</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="39">
+		<X>390</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="38">
+		<X>390</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="37">
+		<X>390</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="36">
+		<X>390</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="35">
+		<X>390</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="34">
+		<X>390</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="33">
+		<X>910</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="32">
+		<X>520</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="31">
+		<X>520</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="30">
+		<X>520</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="29">
+		<X>520</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="28">
+		<X>520</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="27">
+		<X>520</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="26">
+		<X>520</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="25">
+		<X>520</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="24">
+		<X>650</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="23">
+		<X>650</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="22">
+		<X>650</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="21">
+		<X>650</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="20">
+		<X>650</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="19">
+		<X>650</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="18">
+		<X>650</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="17">
+		<X>650</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="16">
+		<X>780</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="15">
+		<X>780</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="14">
+		<X>780</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="13">
+		<X>780</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="12">
+		<X>780</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="11">
+		<X>780</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="10">
+		<X>780</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="9">
+		<X>780</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="8">
+		<X>910</X>
+		<Y>0</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="7">
+		<X>910</X>
+		<Y>130</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="6">
+		<X>910</X>
+		<Y>260</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="5">
+		<X>910</X>
+		<Y>390</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="4">
+		<X>910</X>
+		<Y>520</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="3">
+		<X>910</X>
+		<Y>650</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="2">
+		<X>910</X>
+		<Y>780</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="1">
+		<X>390</X>
+		<Y>910</Y>
+		<Width>128</Width>
+		<Height>128</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

@@ -1,28 +1,57 @@
 #include <include/Level.hpp>
-#include <include/Hero.hpp>
-#include <include/ResourceManager.hpp>
+#include <include/Settings.hpp>
+#include <include/SceneManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 #define GET_SFX(path) ResourceManager<sf::SoundBuffer>::instance()->get(path)
 
-bool Level::compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B) {
+void Level::drawToUnderlay(sf::Drawable const& drawable) {
+	mUnderlayTex.draw(drawable);
+	mUnderlayTex.display();
+}
+
+void Level::onPawnDeath(Pawn* pawn) {
+	//award money for non-friendly pawns dying
+	if (pawn->getFaction() != Pawn::Faction::PLAYER) {
+		*mMoney += static_cast<Minion*>(pawn)->getMonetaryValue();
+	}
+
+	mBloodSystem.addSpurt(pawn->getPosition());
+}
+
+bool Level::compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B) {
 	return A->getPosition().y < B->getPosition().y;
 }
 
-void Level::tryPlaceTower() {
-	auto tower = mTowerPlacer->place();
-	std::lock_guard<std::mutex> lock(mMutex);
-	if (nullptr != tower) {
+void Level::autofireProjectile(shared_ptr<Projectile> const& projectile) const {
+	assert(!projectile->isActive());
 
-		if (*mMoney >= tower->getCost()) {
-			*mMoney -= tower->getCost();
-			mTowers.push_back(tower);
-			mCollisionGroup->add(tower);	//add the tower to collision group
+	auto const& projectilePos = projectile->getPosition();
+	auto& pawnList = *mPawns;
+	auto nearestPawnDistance = std::numeric_limits<float>::max();
+	shared_ptr<Pawn> target;
+	
+	//Find the nearest pawn
+	for (auto const& pawn : pawnList)
+	{
+		if (pawn->getFaction() == Pawn::Faction::ENEMY) {
+			auto distance = thor::length(pawn->getPosition() - projectilePos);
+
+			if (distance < nearestPawnDistance)
+			{
+				nearestPawnDistance = distance;
+				target = pawn;
+			}
 		}
-		else {
-			std::cout << "Not enough money to place tower!" << std::endl;
-			//not enough money for tower
+	}
+
+	if (target) {
+		projectile->fire(projectilePos, target->getPosition(), 5.f);
+		auto fancy = std::dynamic_pointer_cast<FancyProjectile, Projectile>(projectile);
+		if (fancy)
+		{
+			fancy->setTarget(target);
 		}
 	}
 }
@@ -45,7 +74,6 @@ bool Level::updatePawns(sf::Time const& elapsedTime) {
 			if (nullptr != minion && minion->reachedEndOfPath()) {
 				printf("!\n");
 				p->kill();
-				mCollisionGroup->remove(p);
 
 				if (--(*mLivesRemaining) <= 0) {
 					mIsLost = true;
@@ -100,6 +128,7 @@ void Level::updateTowers(sf::Time const& elapsedTime) {
 
 void Level::ensureMusicPlaying() {
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 		mBgMusic.play();
 	}
 }
@@ -117,36 +146,130 @@ void Level::cleanPawnFlock() const {
 	}
 }
 
-void Level::spawnMinion(shared_ptr<Minion> const& unit) const {
-	//give the minion a smart pointer to itself
+void Level::setupAbilities() {
+	auto spawnCallback = bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true);
+
+	/////////////////////////////////////////////////////
+	//Create magic missile ability
+	XMLDocument doc;
+	auto result = doc.LoadFile("./res/xml/MagicMissileAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	auto abilityRoot = doc.FirstChildElement("Ability");
+	shared_ptr<Ability> ability = std::make_shared<abilities::MagicMisile>(abilityRoot);
+	auto button = gui::AbilityButton(100, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button,ability));
+
+
+	auto pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
+	//ability.setSpawnCallback(spawnCallback);
+
+	///////////////////////////////////////////////////////
+	//Create raise dead ability
+	result = doc.LoadFile("./res/xml/RaiseDeadAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::RaiseDead>(abilityRoot);
+	button = gui::AbilityButton(164, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button, ability));
+
+	pair = mAbilityList.rbegin();
+	pair->second->setProjectileManager(mProjectileManager);
+	pair->second->setPawnList(mPawns);
+	pair->second->setSpawnCallback(spawnCallback);
+
+	///////////////////////////////////////////////////////
+	//Create heal ability
+	result = doc.LoadFile("./res/xml/HealAbility.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	abilityRoot = doc.FirstChildElement("Ability");
+	ability = std::make_shared<abilities::Heal>(abilityRoot);
+	button = gui::AbilityButton(228, 450, abilityRoot->FirstChildElement("Button"), ability);
+
+	mAbilityList.push_back(make_pair(button, ability));
+}
+
+void Level::setupTowerButtons() {
+	XMLDocument doc;
+	auto const result = doc.LoadFile("./res/xml/towerButtons.xml");
+	if (result != XML_NO_ERROR) {
+		throw result;
+	}
+	const auto root = doc.FirstChildElement("TowerButtons");
+
+	auto btnDef = root->FirstChildElement("Arrow");
+	mTowerButtons[TowerPlacer::ARROW] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
+	
+	btnDef = root->FirstChildElement("Magic");
+	mTowerButtons[TowerPlacer::MAGIC] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
+	
+	btnDef = root->FirstChildElement("Unit");
+	mTowerButtons[TowerPlacer::UNIT] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
+}
+
+void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
+
 	unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
+	
+	if (setPath) {
+		//Set path and position
+		auto node = std::const_pointer_cast<const Node>(mPath->begin());
+		auto spawnPos = node->getPoint();
 
-	//add the minion to the flock
-	unit->addToFlock(mFlock);
+		unit->setPath(node);
 
-	//set the minion's path
-	auto node = mPath->begin();
-	unit->setPath(node);
+		unit->setPosition(spawnPos);
+		unit->setDestination(spawnPos);
+	}
 
-	//set the position of the minion
-	auto spawnPos = node->getPoint();
-	unit->setPosition(spawnPos);
-	unit->setDestination(spawnPos);
+	if (addFlock) {
+		unit->addToFlock(mFlock);
+	}
 
-	//add the minion to the collision group
-	mCollisionGroup->add(unit);
+	if (addCollision) {
+		mCollisionGroup->add(unit);
+	}
 
-	//add the minion to the list
 	mPawns->push_back(unit);
+}
+
+void Level::processPauseMenuResult() {
+	switch (mPauseDialogue.getResult()) {
+
+		//Do nothing if result is YES or CANCEL. (Resume or X clicked)
+		case gui::DialogueBox::YES:
+			std::cout << "Dialogue result: YES. Level resumed." << std::endl;
+			break;
+
+		//Quit the level if result is NO. (Quit clicked)
+		case gui::DialogueBox::NO:
+			std::cout << "Dialogue result: NO. Level quit." << std::endl;
+			SceneManager::instance()->navigateToScene("LevelSelect");
+			break;
+
+		case gui::DialogueBox::CANCEL:
+			std::cout << "Dialogue result: CANCEL. Level resumed." << std::endl;
+			break;
+	}
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
-Level::Level(tinyxml2::XMLElement* root) :
+Level::Level(XMLElement* root) :
+mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
+mCamera(sf::Vector2f(Settings::getVector2i("Resolution")), Constants::Vectors::getCameraBounds()),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -156,11 +279,14 @@ mIsWon(false),
 mId(atoi(root->Attribute("id"))),
 mNextScene(root->GET_CHILD_VALUE("NextLevel")),
 mFlock(std::make_shared<std::list<std::weak_ptr<Pawn>>>()),
-mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1))
+mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1, true, true, true)),
+mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
 {
-	
+	//Let our camera translate the mouse.
+	SceneManager::instance()->stopTranslatingMouse();
+
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
-	mBgMusic.setVolume(atof(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music>
+	mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 	mBgMusic.setLoop(true);
 
 	//instantiate the interpreter with the image path from the xml node
@@ -195,6 +321,12 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 
 	//----------------------------------------------------------
 
+	mHud.addLifeTracker(mLivesRemaining, GET_TEXTURE("./res/img/heart.png"), { 500.f, 10.f }, { 1.f, 1.f }, { 30.f, 0.f });	//(lives, texture, position, scale, spacing)
+	mHud.addImage(GET_TEXTURE("./res/img/coin.png"), { 380.f, 10.f });
+	mHud.addNumberTracker(mMoney, { 400.f, 10.f }, GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"));
+	mHud.addImage(GET_TEXTURE("./res/img/portrait.png"), { 0.f, 0.f });
+
+
 	UnitFactory factory;
 	//For each <Unit> element under the <Units> tag
 	for (tinyxml2::XMLElement* enemyElement = root->FirstChildElement("Units")->FirstChildElement("Unit");
@@ -218,11 +350,12 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 			mHero = pawn;
 			//mHud->addHealthBarStatic(mHero.get(), sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f));
 			mFlock->push_back(pawn);	//Add the hero to the flock. The hero doesn't do any flock logic but this allows minions to account for him.
+			mHud.addHealthBar(mHero,sf::Vector2f(135.f, 46.f), sf::Vector2f(200.f, 35.f), &GET_TEXTURE("./res/img/hp_red.png"),true);
 		}
 		else
 		{
 			pawn = factory.produce(type);
-			//mHud->addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));	//Camera doesn't like moving healthbars
+			//mHud.addHealthBar(pawn, sf::Vector2f(-25.f, 35.f), sf::Vector2f(50.f, 5.f));
 			auto minion = std::static_pointer_cast<Minion, Pawn>(pawn);
 			auto constNode = mPath->begin();
 			minion->setPath(constNode);
@@ -238,18 +371,21 @@ mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMin
 	for (auto& p : *mPawns)
 	{
 		p->offerTarget(mHero);
+		p->setOnDeath(bind(&Level::onPawnDeath, this, std::placeholders::_1));
 	}
 
-	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/heart.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(720.f, 10.f), sf::Vector2f(30.f, 0.f), mLivesRemaining);
-	//mHud->addImageWithLabel(GET_TEXTURE("./res/img/coin.png"), GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"), sf::Vector2f(200.f, 2.5f), sf::Vector2f(30.f, 0.f), mMoney);
-	//mHud->addImage(GET_TEXTURE("./res/img/portrait.png"), sf::Vector2f());
-
-	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, mFlock);
+	mTowerPlacer = std::make_unique<TowerPlacer>(terrainTree, mProjectileManager, mPath, bind(&Level::spawnMinion, this, std::placeholders::_1, false, true, true));
 
 	mCamera.setTarget(std::static_pointer_cast<Actor, Pawn>(mHero));
 
 	mUnderlayTex.create(imageSize.x, imageSize.y);
 	mUnderlaySpr.setTexture(mUnderlayTex.getTexture());
+
+	mProjectileManager->setUnfiredProjectileHandler(bind(&Level::autofireProjectile, this, std::placeholders::_1));
+
+	setupAbilities();
+
+	setupTowerButtons();
 }
 
 Level::~Level() {
@@ -260,24 +396,84 @@ bool Level::handleEvent(sf::Event &evnt ) {
 	if (evnt.type == sf::Event::EventType::MouseButtonPressed) {
 		handled = true;
 
-		if (mTowerPlacer->isActive()) {
-			tryPlaceTower();
-		}
-		else {
-			std::lock_guard<std::mutex> lock(mMutex);
-			mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
+		auto tower = mTowerPlacer->place();
+		//std::lock_guard<std::mutex> lock(mMutex);
+		if (nullptr != tower) {
+
+			if (*mMoney >= tower->getCost()) {
+				*mMoney -= tower->getCost();
+				mTowers.push_back(tower);
+				mCollisionGroup->add(tower);	//add the tower to collision group
+			}
+			else {
+				std::cout << "Not enough money to place tower!" << std::endl;
+				//not enough money for tower
+			}
+
+			handled = true;
+
+		} else {
+
+			//Check ability buttons
+			bool buttonClicked = false;
+			for (auto& pair : mAbilityList) {
+				//.first is the button
+				//.second is the ability (unique_ptr)
+				if (!buttonClicked) {
+					buttonClicked = pair.first.containsMouse();
+				}
+
+				if (pair.first.checkClick()) {	//if the button was clicked and not disabled...
+					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
+				}
+
+				if (buttonClicked) {
+					break;
+				}
+			}
+
+			//Check tower buttons
+			if (!buttonClicked) {
+				for (auto const& entry : mTowerButtons) {
+					//.first is enum key
+					//.second is button
+					buttonClicked = entry.second->containsMouse();
+					if (entry.second->checkClick()) {
+						mTowerPlacer->activate(entry.first);
+					}
+
+					if (buttonClicked) {
+						break;
+					}
+				}
+			}
+
+			if (!buttonClicked) {
+				//destination = mouse position in window + camera position
+
+				mHero->setDestination(mCamera.screenPositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
+				handled = true;
+			}
 		}
 
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
 		handled = true;
 
-		std::lock_guard<std::mutex> lock(mMutex);
 		mTowerPlacer->update(sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y) + sf::Vector2i(mCamera.getDisplacement()));
 
-	}
-	else if (evnt.type == sf::Event::EventType::KeyPressed) {
+		for (auto& pair : mAbilityList) {
+			//.first is the button
+			//.second is the ability (unique_ptr)
+			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
+		}
 
-		std::lock_guard<std::mutex> lock(mMutex);
+		mTowerButtons[TowerPlacer::ARROW]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+		mTowerButtons[TowerPlacer::MAGIC]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+		mTowerButtons[TowerPlacer::UNIT]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
+	}//end mouse press handling
+
+	//Handle key presses
+	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 
 		switch (evnt.key.code) {
 		case sf::Keyboard::T:
@@ -295,16 +491,62 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			handled = true;
 			break;
 
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(true);
+			break;
+
+		case sf::Keyboard::Escape:
+			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
+
 		default:
 			break;
 		}
-	}
+	}//end key press handling
+
+	//Handle key releases
+	else if (evnt.type == sf::Event::EventType::KeyReleased) {
+		switch (evnt.key.code) {
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(false);
+			break;
+		default:
+			break;
+		}
+	}//end key release handling
+
+	//Process text input (for ability hotkeys)
+	else if (evnt.type == sf::Event::EventType::TextEntered) {
+		//If it's less than 128 we can cast it to a char
+		if (evnt.text.unicode < 128) {
+			char key = evnt.text.unicode;	//Cast to char
+
+			//Check hotkey for each ability
+			for (auto &pair : mAbilityList) {
+				if (pair.second->checkHotkey(key)) {
+					pair.second->execute(mHero.get());
+				}
+			}
+		}
+	}//end text input handling
 
 	return handled;
 }
 
 void Level::update(sf::Time const &elapsedTime) {
-	std::lock_guard<std::mutex> lock(mMutex);
+
+	//If  getResult() has not been called on the dialogue box...
+	if (!mPauseDialogue.resultProcessed()) {
+		processPauseMenuResult();
+	}
+
+	for (auto& pair : mAbilityList) {
+		//.first is the button
+		//.second is the ability (shared_ptr)
+		pair.first.updateCooldownVisuals(elapsedTime);
+		pair.second->update(elapsedTime);
+	}
 
 	mWaveController.update(elapsedTime);
 
@@ -323,20 +565,16 @@ void Level::update(sf::Time const &elapsedTime) {
 
 	ensureMusicPlaying();
 
-	//mHud->update(elapsedTime);
+	mBloodSystem.update(elapsedTime);
 
-	//if (mIsLost)
-	//{
-	//	onLose();
-	//}
-	//else if (mIsWon)
-	//{
-	//	onWin();
-	//}
+	
+	mHud.update(elapsedTime.asSeconds());
+
+
 }//end update
 
 void Level::draw(sf::RenderWindow &w) {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	
 	w.setView(mCamera);
 
@@ -359,11 +597,27 @@ void Level::draw(sf::RenderWindow &w) {
 		actor->draw(w);
 	}
 
+	for (auto& pair : mAbilityList) {
+		w.draw(*pair.second);	//draw the ability
+	}
+
 	mProjectileManager->draw(w);
+
+	w.draw(mBloodSystem);
 
 	mTowerPlacer->draw(w);
 
-	//mHud->draw(w);
+	w.setView(w.getDefaultView());	//reset the view before we draw hud items
+
+	for (auto& pair : mAbilityList) {
+		w.draw(pair.first);	//draw the button
+	}
+
+	w.draw(*mTowerButtons[TowerPlacer::ARROW]);
+	w.draw(*mTowerButtons[TowerPlacer::MAGIC]);
+	w.draw(*mTowerButtons[TowerPlacer::UNIT]);
+
+	w.draw(mHud);
 }
 
 bool Level::isWon() const {
@@ -375,7 +629,7 @@ bool Level::isLost() const {
 }
 
 void Level::cleanup() {
-	std::lock_guard<std::mutex> lock(mMutex);
+	//std::lock_guard<std::mutex> lock(mMutex);
 	//mHud->hide();
 	mBgMusic.stop();
 }

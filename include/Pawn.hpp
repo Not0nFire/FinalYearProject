@@ -1,7 +1,6 @@
 #ifndef _PAWN_H
 #define _PAWN_H
 
-//#include <boost/signals2.hpp>
 #include <include/Actor.hpp>
 #include <include/Damage.hpp>
 #include <Thor/Vectors.hpp>
@@ -29,6 +28,7 @@ public:
 		DEAD
 	};
 
+#pragma region Methods
 	/*!
 	\brief Constructs a pawn from an xml element.
 	Parses members from child xml tags.
@@ -107,7 +107,7 @@ public:
 	i.e. A stun of 1 second cannot cancel out a 5 second stun, nor does it becoe a 6 second stun.
 	\param duration The length of the stun.
 	*/
-	void stun(sf::Time duration);
+	void stun(sf::Time const& duration);
 
 	/*!
 	\brief Become forced to attack th taunter.
@@ -161,7 +161,13 @@ public:
 	*/
 	Faction getFaction() const;
 
+	void setOnDeath(std::function<void(Pawn*)> const& callback);
+
 	std::shared_ptr<Pawn> const& getCombatTarget() const;
+
+	Damage::Reduction const& getArmour() const;
+	Damage::Reduction const& getMagicResist() const;
+
 
 	/*!
 	\brief Called whenever the Pawn collides with something.
@@ -170,7 +176,8 @@ public:
 	\param other The object we collided with.
 	\param mtv The Minimum Translation Vector for the collision.
 	*/
-	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv) override;
+	virtual void onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const &mtv);
+#pragma endregion
 
 protected:
 #pragma region Fields
@@ -184,7 +191,6 @@ protected:
 	Damage::Type mDamageType;
 	float mAttackRange;
 
-
 	int mMovementSpeed;
 
 	int mAttackDamage;
@@ -193,20 +199,16 @@ protected:
 	std::shared_ptr<Pawn> mCombatTarget;
 
 	sf::Time mStunDuration;
+	sf::Time mTimeStunned;
 
 	sf::Vector2f mDestination;
 
 	sf::Sound mAttackSound;
 
 	std::weak_ptr<Pawn> self;
-
-	//sf::Time mDecayTime;
-	//bool mDecayed;
 #pragma endregion
 
 #pragma region Methods
-
-	//bool decay(sf::Time const &elapsedTime);
 	void turnToFaceDirection(sf::Vector2f const& dir);
 
 	virtual void calculateAnimation();
@@ -233,5 +235,7 @@ private:
 	unsigned char mTurnHistory;
 
 	static unsigned int countBits(unsigned char flags);
+
+	std::function<void(Pawn*)> mOnDeathFunction;
 };
 #endif

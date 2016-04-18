@@ -1,0 +1,77 @@
+<Ability hotkey="q">
+  <!-- User-friendly name of the ability -->
+  <Name>Magic Missile</Name>
+  
+  <!-- User-friendly ability descrition -->
+  <Description>
+    Fires magic missiles that seek out foes.
+  </Description>
+  
+  <!-- How much damage the non-upgraded ability does per missile -->
+  <BaseDamagePerMissile>5</BaseDamagePerMissile>
+  
+  <!-- How much the damage of each missile increases with each upgrade -->
+  <UpgradeDamageBoost>2</UpgradeDamageBoost>
+  
+  <!-- The type of damage the missiles do -->
+  <DamageType>MAGICAL</DamageType>
+  
+  <!-- The amount of missiles the non-upgraded ability produces -->
+  <BaseNumberOfMissiles>5</BaseNumberOfMissiles>
+  
+  <!-- How many extra missiles to produce, per level of upgrade -->
+  <UpgradeMissileNumberBoost>2</UpgradeMissileNumberBoost>
+  
+  <!-- How long, in seconds, to stun the user while they cast the ability -->
+  <CastTime>2</CastTime>
+
+  <!-- The number of seconds that must be waited before the ability can be used again -->
+  <Cooldown seconds="5">
+    <!-- actor to show visual cooldown timer-->
+    <Actor>
+      <Texture>././res/img/cooldown_timer.png</Texture>
+      <Animation path="././res/xml/cooldown_timer.anim">
+        <Name>Cast</Name>
+        <Duration>5</Duration>
+      </Animation>
+
+      <Origin x="40" y="50"/>
+
+      <!-- Unused, but required by actor -->
+      <Collidable pointCount="3" type="Circle">
+        <Radius>1</Radius>
+      </Collidable>
+    </Actor>
+  </Cooldown>
+
+  <Sound path="./res/sfx/magic_missile.ogg"/>
+  <MissileLaunchSound path="./res/sfx/magic_missile_launch.ogg"/>
+
+  <!-- The clickable button definition for this ability-->
+  <Button name="Magic Missile">
+    <Texture path="./res/img/magic_missile_icon_2.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="127" height="127"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="128"/>
+    <DisabledImage x="0" y="256"/>
+    <Scale x="0.5" y="0.5"/>
+  </Button>
+
+  <!-- The actor used to display the casting animations -->
+  <Actor>
+    <Texture>././res/img/missile_fx.png</Texture>
+    <!-- The casting animation, played on ability execution -->
+    <Animation path="././res/xml/magic_missile.anim">
+      <Name>Cast</Name>
+      <Duration>2</Duration>
+    </Animation>
+
+    <Origin x="100" y="120"/>
+
+    <!-- Unused, but required by actor -->
+    <Collidable pointCount="3" type="Circle">
+      <Radius>1</Radius>
+    </Collidable>
+  </Actor>
+</Ability>

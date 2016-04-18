@@ -3,6 +3,7 @@
 
 #include <include/Pawn.hpp>
 #include <include/Pathing/Path.hpp>
+#include <list>
 
 /*!
 \brief Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing it.

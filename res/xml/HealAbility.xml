@@ -1,0 +1,73 @@
+<Ability hotkey="e">
+  <!-- User-friendly name of the ability -->
+  <Name>Heal</Name>
+  
+  <!-- User-friendly ability descrition -->
+  <Description>
+    Instantly heals you!
+  </Description>
+
+  <!-- How long, in seconds, to stun the user while they cast the ability -->
+  <CastTime>1.5</CastTime>
+
+  <!-- The number of seconds that must be waited before the ability can be used again -->
+  <Cooldown seconds="1">
+    <!-- actor to show visual cooldown timer-->
+    <Actor>
+      <Texture>././res/img/cooldown_timer.png</Texture>
+      <Animation path="././res/xml/cooldown_timer.anim">
+        <Name>Cast</Name>
+        <Duration>1</Duration>
+      </Animation>
+
+      <Origin x="40" y="50"/>
+
+      <!-- Unused, but required by actor -->
+      <Collidable pointCount="3" type="Circle">
+        <Radius>1</Radius>
+      </Collidable>
+    </Actor>
+  </Cooldown>
+
+  <!-- How much to heal the user by -->
+  <HealAmount>100</HealAmount>
+
+  <!-- sound to play upon execution-->
+  <Sound path="./res/sfx/heal.ogg"/>
+
+  <Particles>
+    <Texture path="./res/img/heal_particle.png"/>
+    <TimeToLive min="0.4" max="0.8"/>
+    <EmissionRate>25</EmissionRate>
+    <Velocity x="0" y="-50" variance="90"/>  <!-- launch velocity of particles with an angle of variation-->
+    <!-- <Scale x="1" y="1/>" optional tag -->
+  </Particles>
+
+  <!-- The actor used to display the casting animations -->
+  <Actor>
+    <Texture>././res/img/heal_fx.png</Texture>
+    <!-- The casting animation, played on ability execution -->
+    <Animation path="././res/xml/heal.anim">
+      <Name>Cast</Name>
+      <Duration>1.5</Duration>
+    </Animation>
+
+    <Origin x="40" y="50"/>
+
+    <!-- Unused, but required by actor -->
+    <Collidable pointCount="3" type="Circle">
+      <Radius>1</Radius>
+    </Collidable>
+  </Actor>
+
+  <!-- The clickable button definition for this ability-->
+  <Button name="Heal">
+    <Texture path="./res/img/heal_icon.png"/>
+    <HoverSound path="./res/sfx/menu_selection.ogg"/>
+    <Dimensions width="255" height="255"/>
+    <NormalImage x="0" y="0"/>
+    <HoverImage x="0" y="256"/>
+    <DisabledImage x="0" y="512"/>
+    <Scale x="0.25" y="0.25"/>
+  </Button>
+</Ability>

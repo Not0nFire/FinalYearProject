@@ -7,7 +7,7 @@ const std::string TowerPlacer::mArrowTowerDefPath = "./res/xml/arrow_tower.def.x
 const std::string TowerPlacer::mMagicTowerDefPath = "./res/xml/mage_tower.def.xml";
 const std::string TowerPlacer::mUnitTowerDefPath = "./res/xml/unit_tower.def.xml";
 
-TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, shared_ptr<std::list<std::weak_ptr<Pawn>>> const &flock) :
+TowerPlacer::TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, std::function<void(shared_ptr<Minion>)> const &unitSpawnCallback) :
 mIsActive(false),
 mIsValid(false),
 mTerrainTree(terrainTree),
@@ -23,8 +23,8 @@ mMask([]()
       }()),
 mProjectileManager(projectileMgr),
 mPath(path),
-mFlock(flock),
-mTowerCollisionGroup()
+mTowerCollisionGroup(),
+mUnitSpawnCallback(unitSpawnCallback)
 {
 	mMask->setFillColor(sf::Color::Yellow);
 
@@ -80,11 +80,11 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 
 			auto unitTower = std::make_shared<tower::UnitTower>(mMask->getPosition(), doc.FirstChildElement("Tower"));
 			unitTower->setPath(mPath);
-			unitTower->setFlock(mFlock);
+			unitTower->setSpawnCallback(mUnitSpawnCallback);
 			placed = unitTower;
 		}
 		else {
-			throw "INVALID TOWER TYPE (TowerPlacer::place())";
+			std::cout << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
 		}
 
 		//Check if the tower placement intersects another tower...
@@ -99,6 +99,10 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 		else {
 			//... if it doesn't, add it to the collision group so that future towers can be tested against it.
 			mTowerCollisionGroup.add(collidable);
+		}
+
+		//Deactivate if we're not sticky (i.e. if we don't want to place more towers)
+		if (!mIsSticky) {
 			mIsActive = false;
 		}
 	}
@@ -118,6 +122,10 @@ void TowerPlacer::update(sf::Vector2i mousePosition) {
 void TowerPlacer::activate(TowerType type) {
 	mIsActive = true;
 	mTowerType = type;
+}
+
+void TowerPlacer::setSticky(bool sticky) {
+	mIsSticky = sticky;
 }
 
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {

@@ -84,6 +84,8 @@ bool Actor::getVisible() const {
 	return mVisible;
 }
 
-void Actor::draw(sf::RenderTarget& target) {
-	target.draw(*this);
+void Actor::draw(sf::RenderTarget& target) const {
+	if (mVisible) {
+		target.draw(*this);
+	}
 }

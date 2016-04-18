@@ -1,44 +1,36 @@
-#ifndef _RENDERER_H
-#define _RENDERER_H
+#ifndef RENDERER_HPP
+#define RENDERER_HPP
 
-#include <include/Actor.hpp>
 #include <atomic>
 #include <mutex>
 #include <chrono>
 #include <thread>
 #include <functional>
-#include "Scene.hpp"
+#include "SceneManager.hpp"
 #include "Cursor.h"
-
 
 /*!
 \brief Manages rendering in it's own thread.
 */
 class Renderer {
-private:
-	sf::RenderWindow mWindow;
-
-	std::atomic<bool> mLoopOngoing;	/*!< True if want to keep rendering, false if we want rendering to stop. */
-	std::chrono::milliseconds frameDelay;
-
-	SceneProxy* mSceneToRender;
-
-	std::thread mThread;	/*!< Thread that rendering takes place on. */
-
-	std::mutex mMutex;
-
-	void render();
-
 public:
 	/*!
-	Creates a render window and sets the scene to be rendered.
+	\brief Creates a render window.
 	*/
-	Renderer(SceneProxy* sceneToRender,
-			sf::VideoMode mode,	//RenderWindow ctor arguments
-			std::string const &title,
-			sf::Uint32 style = sf::Style::Titlebar,
-			sf::ContextSettings& settings = sf::ContextSettings()
-	);
+#if defined _DEBUG //Default to fullscreen windowed while debugging
+	Renderer(std::string const &title,	//RenderWindow ctor arguments
+		sf::VideoMode mode = { 1000, 1000 },//sf::VideoMode::getDesktopMode(),
+		sf::Uint32 style = sf::Style::None,
+		sf::ContextSettings settings = sf::ContextSettings()
+		);
+	
+#else
+	Renderer(std::string const &title,	//RenderWindow ctor arguments
+		sf::VideoMode mode = sf::VideoMode::getDesktopMode(),
+		sf::Uint32 style = sf::Style::Fullscreen,
+		sf::ContextSettings settings = sf::ContextSettings()
+		);
+#endif
 
 	~Renderer();
 
@@ -54,11 +46,18 @@ public:
 	*/
 	void stopRenderLoop();
 
-	std::thread& getThread();
-	const sf::RenderWindow& getWindow() const;
-
-	void setScene(SceneProxy* newScene);
-
 	bool pollEvent(sf::Event &event);
+
+private:
+	sf::RenderWindow mWindow;
+
+	std::atomic<bool> mLoopOngoing;	//!< True if want to keep rendering, false if we want rendering to stop.
+	std::chrono::milliseconds mFrameDelay;
+
+	std::thread mThread;	//!< Thread that rendering takes place on.
+
+	std::mutex mMutex;
+
+	void render();
 };
 #endif

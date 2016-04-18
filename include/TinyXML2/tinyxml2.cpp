@@ -1301,7 +1301,7 @@ XMLElement::~XMLElement()
 
 const XMLAttribute* XMLElement::FindAttribute( const char* name ) const
 {
-    for( XMLAttribute* a = _rootAttribute; a; a = a->_next ) {
+	for( XMLAttribute* a = _rootAttribute; a; a = a->_next ) {
         if ( XMLUtil::StringEqual( a->Name(), name ) ) {
             return a;
         }

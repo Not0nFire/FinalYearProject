@@ -11,7 +11,7 @@ namespace collision {
 		
 	}
 
-	bool CollisionGroup::checkPair(std::shared_ptr<Collidable> const &first, std::shared_ptr<Collidable> const &second, sf::Vector2f &minTranslation) const {
+	bool CollisionGroup::checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) const {
 		if (first == second) {
 			return false;	//don't check the same object against itself
 		}
@@ -72,19 +72,31 @@ namespace collision {
 		return collisionOccured;
 	}
 
+	void CollisionGroup::cullExpiredMembers() {
+		auto itr = std::remove_if(mMembers.begin(), mMembers.end(), [](std::weak_ptr<Collidable>& ptr){ return ptr.expired(); });
+		if (mMembers.end() != itr) {
+			mMembers.erase(itr, mMembers.end());
+		}
+	}
+
 	void CollisionGroup::check() {
+		cullExpiredMembers();
 
 		sf::Vector2f mtv;	//minimum translation vector
-		for (auto &first : mMembers)
+		for (auto &first_weak : mMembers)
 		{
-			for (auto &second : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
-			{
-				if (checkPair(first, second, mtv))
+			if (auto first = first_weak.lock()) {
+				for (auto &second_weak : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
 				{
-					first->onCollide(second, -mtv);
-					second->onCollide(first, mtv);
-				}
-			}//for second
+					if (auto second = second_weak.lock()) {
+						if (checkPair(first.get(), second.get(), mtv))
+						{
+							first->onCollide(second, mtv);
+							second->onCollide(first, -mtv);
+						}
+					}
+				}//for second
+			}
 		}//for first
 	}
 
@@ -92,20 +104,18 @@ namespace collision {
 		mMembers.push_back(entry);
 	}
 
-	void CollisionGroup::remove(std::shared_ptr<Collidable> const &entry) {
-		mMembers.erase(std::remove(mMembers.begin(), mMembers.end(), entry));
-	}
-
 	bool CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
 		sf::Vector2f mtv;
 		bool collisionOccured = false;
-		for (auto &member : mMembers)
+		for (auto &member_weak : mMembers)
 		{
-			collisionOccured = checkPair(other, member, mtv);
+			if (auto member = member_weak.lock()) {
+				collisionOccured = checkPair(other.get(), member.get(), mtv);
 				if (collisionOccured)
-			{
-				member->onCollide(other, mtv);
-				other->onCollide(member, -mtv);
+				{
+					member->onCollide(other, mtv);
+					other->onCollide(member, -mtv);
+				}
 			}
 		}
 

@@ -1,10 +1,15 @@
 #include <include/Towers/BasicTower.h>
+#include <include/ArcProjectile.h>
 
 using namespace tower;
 
 
 ProjectileTower::ProjectileTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef) :
-Tower(position, xmlDef)
+Tower(position, xmlDef),
+mTargetingSortPredicate([](std::weak_ptr<Pawn> &A, std::weak_ptr<Pawn> &B)
+{	//Sort by armour (lowest first)
+	return A.lock()->getArmour() < B.lock()->getArmour();
+})//end sort predicate
 {
 	mRange = atof(xmlDef->FirstChildElement("Range")->GetText());
 	mDamage = atof(xmlDef->FirstChildElement("Damage")->GetText());
@@ -41,24 +46,44 @@ bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> co
 			//If p is not dead, and p is in range, and p is an enemy
 			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
 
-				auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+				//Add it to the target list
+				mTargetList.emplace_back(p);
+			}
+		}
 
-				float ttl = distance / mRange;
+		//Remove dead or distance targets from the list
+		auto itr = mTargetList.begin();
+		while (mTargetList.end() != itr) {
+			if (itr->expired() || thor::length(itr->lock()->getPosition() - this->getPosition()) > mRange) {
+				itr = mTargetList.erase(itr);
+			}
+			else {
+				++itr;
+			}
+		}
 
-				//Fire the newly created projectile at the target.
-				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(p.get(), ttl), ttl);
+		//If there's a target we can attack...
+		if (!mTargetList.empty()) {
 
-				//Give the projectile to the manager. We lost ownership of it.
-				mProjectileManager->give(projectile);
+			//Sort the targets
+			mTargetList.sort(mTargetingSortPredicate);
 
-				mSecondsSinceLastAttack = 0.f;
-				targetAqcuired = true;
-				break;
+			auto const& chosenTarget = mTargetList.begin()->lock();
+			float distance = thor::length(chosenTarget->getPosition() - this->getPosition());
 
-			}//if (range)
+			auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
 
-		}//(pawn*)
+			float ttl = distance / mRange;
 
+			//Fire the newly created projectile at the target.
+			projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(chosenTarget.get(), ttl), ttl);
+
+			//Give the projectile to the manager. We lost ownership of it.
+			mProjectileManager->give(projectile);
+
+			mSecondsSinceLastAttack = 0.f;
+			targetAqcuired = true;
+		}
 	}
 
 	return targetAqcuired;

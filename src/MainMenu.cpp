@@ -1,6 +1,11 @@
 #include <include/MainMenu.hpp>
+#include <include/Game.hpp>
+#include <include/Settings.hpp>
+#include <include/SettingsMenu.hpp>
 
-MainMenu::MainMenu(tinyxml2::XMLElement* root) {
+MainMenu::MainMenu(tinyxml2::XMLElement* root) :
+mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")
+{
 	_ASSERT(root->Name() == std::string("MainMenu"));
 
 	mBackground.setTexture(
@@ -14,6 +19,7 @@ MainMenu::MainMenu(tinyxml2::XMLElement* root) {
 	);//end openFromFile()
 
 	mMusic.setLoop(true);
+	mMusic.setVolume(Settings::getInt("MusicVolume"));
 	
 	auto startBtnXml = root->FirstChildElement("StartButton");
 	mStartButton = std::make_unique<gui::Button>(
@@ -21,6 +27,13 @@ MainMenu::MainMenu(tinyxml2::XMLElement* root) {
 		atoi(startBtnXml->Attribute("y")),
 		startBtnXml
 	);
+
+	auto optBtnXml = root->FirstChildElement("OptionsButton");
+	mOptionsButton = std::make_unique<gui::Button>(
+		atoi(optBtnXml->Attribute("x")),
+		atoi(optBtnXml->Attribute("y")),
+		optBtnXml
+		);
 
 	auto quitBtnXml = root->FirstChildElement("QuitButton");
 	mQuitButton = std::make_unique<gui::Button>(
@@ -45,7 +58,9 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 				SceneManager::instance()->navigateToScene("LevelSelect");
 			} else if (mQuitButton->checkClick()) {
 				//quit the game
-				Game::close();
+				SceneManager::instance()->showDialogueBox(&mQuitConfirmDialogue);
+			} else if (mOptionsButton->checkClick()) {
+				SceneManager::instance()->createScene<SettingsMenu>("SettingsMenu", "./res/xml/SettingsMenu.scene", true);
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
@@ -53,6 +68,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 		case sf::Event::MouseMoved:
 			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
 			mStartButton->update(mousePos);
+			mOptionsButton->update(mousePos);
 			mQuitButton->update(mousePos);
 			handled = true;
 			break;
@@ -63,14 +79,23 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 
 void MainMenu::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.setVolume(Settings::getInt("MusicVolume"));
 		mMusic.play();
+	}
+
+	if (!mQuitConfirmDialogue.resultProcessed()) {
+		if (mQuitConfirmDialogue.getResult() == gui::DialogueBox::YES) {
+			cleanup();
+			Game::close();
+		}
 	}
 }
 
 void MainMenu::draw(sf::RenderWindow &w) {
 	w.draw(mBackground);
-	mStartButton->draw(w);
-	mQuitButton->draw(w);
+	w.draw(*mStartButton);
+	w.draw(*mOptionsButton);
+	w.draw(*mQuitButton);
 }
 
 void MainMenu::cleanup() {

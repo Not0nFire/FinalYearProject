@@ -3,6 +3,7 @@
 
 #include <include/Actor.hpp>
 #include <include/Pawn.hpp>
+#include <list>
 
 namespace tower
 {

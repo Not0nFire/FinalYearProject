@@ -22,7 +22,7 @@ namespace tower {
 		Tower::update(elapsedTime);
 
 		//If we have a container to put units into AND we have a path node to send them to AND it's time to spawn a unit...
-		if (mUnitList && !mNearestPathNode.expired() && mSecondsSinceLastAttack >= mSecondsPerAttack)
+		if (mSpawnCallback && !mNearestPathNode.expired() && mSecondsSinceLastAttack >= mSecondsPerAttack)
 		{
 			//Even if we can't spawn a unit, we'll have to wait our turn to try again.
 			mSecondsSinceLastAttack = 0.f;
@@ -36,7 +36,7 @@ namespace tower {
 					//...spawn a new one.
 					unit = spawnUnit();
 					mSpawnedUnits[i] = unit;
-					mUnitList->push_back(unit);
+					mSpawnCallback(unit);
 					break;
 				}//end if(null||dead)
 			}//end for
@@ -44,10 +44,6 @@ namespace tower {
 	}
 
 	bool UnitTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& targetList) {
-		//If we don't yet have somewhere to put spawned units
-		if (nullptr == mUnitList) {
-			mUnitList = targetList;	//put spawned units into the targetList
-		}
 		return false;
 	}
 
@@ -72,11 +68,11 @@ namespace tower {
 		mNearestPathNode = nearestNode;
 	}
 
-	void UnitTower::setFlock(std::shared_ptr<std::list<std::weak_ptr<Pawn>>> const& flock) {
-		mFlock = flock;
+	void UnitTower::setSpawnCallback(std::function<void(std::shared_ptr<Minion>)> const& callback) {
+		mSpawnCallback = callback;
 	}
 
-	std::shared_ptr<Pawn> UnitTower::spawnUnit() {
+	std::shared_ptr<Minion> UnitTower::spawnUnit() {
 		tinyxml2::XMLDocument doc;
 
 		tinyxml2::XMLError result = doc.LoadFile(mUnitDefPath.c_str());
@@ -98,10 +94,6 @@ namespace tower {
 			unit->clearPath();
 		}
 
-		if (auto flock = mFlock.lock()) {
-			unit->addToFlock(flock);
-		}
-
-		return std::static_pointer_cast<Pawn, Minion>(unit);
+		return unit;
 	}
 }

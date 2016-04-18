@@ -1,11 +1,39 @@
-#ifndef _SCENE_MANAGER_H
-#define _SCENE_MANAGER_H
+#ifndef SCENE_MANAGER_HPP
+#define SCENE_MANAGER_HPP
 
 #include <include/Scene.hpp>
-#include <boost/signals2.hpp>
+#include <include/Gui/DialogueBox.hpp>
+#include <functional>
 #include <map>
 #include <thread>
-//using namespace boost::signals2;
+#include <condition_variable>
+#include <atomic>
+#include <queue>
+#include "Camera.hpp"
+
+namespace detail
+{
+	struct SceneRequest {
+		//!Converting ctor for easy navigation requests
+		SceneRequest(std::string const& _name) : type(NAVIGATE), name(_name), scene(nullptr) {}
+		SceneRequest() : type(DUMMY) {}
+		enum Type {
+			DUMMY,
+			NAVIGATE,
+			ADD_TO_MANAGER,
+			ADD_AND_NAVIGATE,
+			SHOW_DIALOGUE
+		} type;
+
+		std::string name;	//!< Name of scene
+
+		//No request should ever have both a scene and dialogue
+		union {
+			SceneProxy* scene;	//!< Scene to add to the manager
+			gui::DialogueBox* dialogue;	//<! Dialog box to be shown
+		};
+	};
+}
 
 /*!
 \brief Singleton class to handle scenes and the navigation between them.
@@ -16,40 +44,55 @@ private:
 	A map of all scenes managed by the SceneManager.
 	Each scene is identified by its name.
 	*/
-	std::map<std::string, SceneProxy*> mScenes;
+	std::map<std::string, std::unique_ptr<SceneProxy>> mScenes;
 
-	std::string mCurrentScene;
+	Camera mDefaultCamera;
+	bool mTranslateMouseEvents;	//!< True if we should translate mouse positions from screen to game
 
-	static SceneManager *mInstance;
+	gui::DialogueBox* mActiveDialogue;
 
-	/*!
-	\brief Thread used solely for calling cleanup() on old scene when changing to a new scene.
-	This allows scenes to call navigate on the SceneManager from inside a scene, without deadlocking or throwing system_errors
-	from trying to lock a mutex while it is currently owned by the same thread.
+	//! The current scenes map key.
+	std::string mCurrentSceneName;
+	SceneProxy* mCurrentScene;
+
+	static std::unique_ptr<SceneManager> mInstance;
+
+	//! Must be set to true before we try and join switcher thread.
+	std::atomic_bool mStopRequestThread;
+
+	/*! Thread for handling scene requests.
+	\see handleSceneRequests()
 	*/
-	std::thread mCleanupThread;
-
-	void joinCleanupThread();
+	std::thread mRequestThread;
+	std::mutex mSceneMutex;	//!< Locked whenever we need to do something involving the current scene.
+	std::mutex mRequestMutex;	//!< Locked whenever we need to access the request queue.
+	std::condition_variable mRequestPending;	//!< Notified whenever a request is pushed onto the queue.
+	std::queue<detail::SceneRequest> mRequests;	//!< Queue of pending requests
 
 	SceneManager();
+
+	//! Waits to be notified about a pending scene change, then does cleanup and assignment.
+	void handleSceneRequests();
+
+	//! Adds a scene to the map
+	void processAddRequest(detail::SceneRequest const& request);
+
+	//! Transitions to a scene
+	void processNavigateRequest(detail::SceneRequest const& request);
+
+	//! Show a dialog box on top of the current scene
+	void processDialogueRequest(detail::SceneRequest const& request);
 
 public:
 	~SceneManager();
 
-	static SceneManager* instance();
+	static std::unique_ptr<SceneManager> const& instance();
 
 	/*!
 	Gets the name of the current scene (its key in the map of scenes)
 	\returns The name of the current scene.
 	*/
-	std::string getCurrentScene() const;
-
-	/*!
-	Gets a pointer to the current scene, allowing it to be edited.
-	Use getCurrentScene() in place of this method wherever possible.
-	\returns A pointer to the current scene.
-	*/
-	//I_Scene * getEditableScene() const;
+	std::string getCurrentScene();
 
 	/*!
 	Adds a scene to the map under the specified name.
@@ -63,7 +106,7 @@ public:
 	/*!
 	Calls the current scene's update method.
 	*/
-	void updateCurrentScene( sf::Time const &elapsedTime);
+	void updateCurrentScene( sf::Time const &elapsedTime );
 
 	/*!
 	Calls the current scene's draw method
@@ -82,21 +125,38 @@ public:
 	\param path The name of the scene to be navigated to.
 	\returns True if the path matched an existing scene.
 	*/
-	bool navigateToScene( std::string const &path );
+	void navigateToScene( std::string const &path );
 
 	/*!
-	Signal that is invoked whenever the scene changes.
-	The scene pointer passed is the new current scene.
+	\brief Stops translating mouse until the scene is changed.
+	Be default, the manager translates mouse posititions from screen coordinates to game coordinates.
 	*/
-	boost::signals2::signal<void(SceneProxy* newScene)> onSceneChange;
+	void stopTranslatingMouse();
+
+	void showDialogueBox(gui::DialogueBox* dialogueBox);
+
+	//! Destroys the instance.
+	static void destruct();
 };
 
 template <class SceneType>
 void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene) {
+	std::unique_lock<std::mutex> lock(mRequestMutex);
 
-	mScenes[name] = SceneProxy::create<SceneType>(xmlPath);
-	if (goToScene) {
-		navigateToScene(name);
-	}
+	//Construct the scene from the name. It defaults to a navigation request.
+	detail::SceneRequest request = name;
+
+	//Decide whether we need to just add the scene or if we should navigate to it too.
+	request.type = goToScene ?
+		detail::SceneRequest::ADD_AND_NAVIGATE :
+		detail::SceneRequest::ADD_TO_MANAGER;
+
+	//Create the scene proxy
+	request.scene = SceneProxy::create<SceneType>(xmlPath);
+
+	//Add the request to the queue.
+	mRequests.push(request);
+
+	mRequestPending.notify_all();
 }
 #endif

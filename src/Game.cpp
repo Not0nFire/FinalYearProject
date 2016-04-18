@@ -1,4 +1,7 @@
 #include <include/Game.hpp>
+#include <include/Settings.hpp>
+#include <include/LevelSelect.hpp>
+#include <include/MainMenu.hpp>
 
 bool Game::mRun = false;
 bool Game::mPaused = false;
@@ -8,25 +11,16 @@ std::unique_ptr<PlayerProfile> Game::mPlayerProfile = nullptr;
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
 
 Game::Game() :
-	mRenderer(nullptr, sf::VideoMode(800U, 600U), "C00165681 - Final Year Project [WIP]"),
-	mSFGUI(new sfg::SFGUI())
+	mRenderer("C00165681 - Final Year Project [WIP]")
 {
 	Cursor::setTexture("./res/img/cursor.png");
 
 	SceneManager::instance()->createScene<LevelSelect>("LevelSelect", "./res/xml/level_select.scene", false);
 
-	//Tell the renderer to draw the correct scene whenever the scene changes
-	SceneManager::instance()->onSceneChange.connect(bind(&Renderer::setScene, &mRenderer, _1));
-
 	SceneManager::instance()->createScene<MainMenu>("MainMenu", "./res/xml/main_menu.scene", true);
 
 	mPlayerProfile = std::make_unique<PlayerProfile>("res/saves/profile.sav");
 
-	//mPlayerProfile->unlockLevel("./res/xml/levelTwo.lvl");
-	//
-	//assert(mPlayerProfile->hasUnlockedLevel("./res/xml/levelTwo.lvl"));
-	//
-	//assert(mPlayerProfile->save());
 }
 
 Game::~Game() {
@@ -78,6 +72,8 @@ int Game::run() {
 
 	mRenderer.stopRenderLoop();
 
+	SceneManager::destruct();
+
 	//std::cin.get();
 
 	return EXIT_SUCCESS;
@@ -93,27 +89,31 @@ PlayerProfile& Game::getPlayerProfile() {
 
 void Game::handleEvent(sf::Event& event) {
 
+	if (event.type == sf::Event::EventType::KeyPressed && event.key.code == sf::Keyboard::Q) {
+		Settings::set("Resolution", sf::Vector2i(800, 800));
+	}
+
 	if (event.type == sf::Event::EventType::MouseMoved) {
 		//update cursor
 		Cursor::setPosition(event.mouseMove.x, event.mouseMove.y);
 	}
 
-	if (SceneManager::instance()->passEventToCurrentScene(event)) {
-		return; //event is already handled
-	}
-
-	switch (event.type) {
-
+	if (!SceneManager::instance()->passEventToCurrentScene(event)) {
+		switch (event.type) {
 		case sf::Event::Closed:
 			mRun = false;
 			break;
+
 		case sf::Event::LostFocus:
 			mPaused = true;
 			break;
+
 		case sf::Event::GainedFocus:
 			mPaused = false;
 			break;
+
 		default:
 			break;
+		}
 	}
 }

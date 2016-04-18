@@ -42,6 +42,8 @@ public:
 	*/
 	void draw(sf::RenderTarget &w);
 
+	void setUnfiredProjectileHandler(std::function<void(std::shared_ptr<Projectile> const&)> const& handler);
+
 private:
 	//! The collection of projectiles to be managed.
 	std::list<std::shared_ptr<Projectile>> mProjectiles;
@@ -50,6 +52,9 @@ private:
 	std::shared_ptr<collision::CollisionGroup> mCollisionGroup;
 
 	thor::ParticleSystem mParticleSystem;
+
+	//Invoked when the manager is given an unfired projectile.
+	std::function<void(std::shared_ptr<Projectile> const&)> mUnfiredProjectileHandler;
 };
 #include "include/Projectile.h"
 #include "include/FancyProjectile.hpp"

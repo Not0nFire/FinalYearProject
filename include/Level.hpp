@@ -2,6 +2,7 @@
 #define LEVEL_HPP
 
 #include <vector>
+#include <list>
 #include <SFML/Graphics.hpp>
 #include <include/Scene.hpp>
 #include <include/Minion.hpp>
@@ -18,6 +19,16 @@
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
 #include <include/WaveController.hpp>
+#include <include/ResourceManager.hpp>
+#include <include/Abilities/MagicMissileAbility.hpp>
+#include <include/Abilities/RaiseDeadAbility.hpp>
+#include <include/Abilities/HealAbility.hpp>
+#include <include/Gui/AbilityButton.hpp>
+#include <include/BloodSystem.hpp>
+#include <include/HUD.hpp>
+#include <include/Gui/DialogueBox.hpp>
+#include "Gui/CostButton.hpp"
+#include <include/Constants.h>
 
 using std::shared_ptr;
 
@@ -26,6 +37,12 @@ using std::shared_ptr;
 */
 class Level : public I_Scene{
 private:
+	gui::DialogueBox mPauseDialogue;
+
+	//Each button is paired with an ability, which will be executed when the button is clicked
+	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
+
+	std::map<TowerPlacer::TowerType, std::unique_ptr<gui::CostButton>> mTowerButtons;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
@@ -34,7 +51,7 @@ private:
 	//! List of towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
-	std::mutex mMutex;
+	//std::mutex mMutex;
 
 	//! Visual backdrop of level
 	sf::Sprite mBackground;
@@ -42,7 +59,7 @@ private:
 	//! Camera that follows mHero.
 	Camera mCamera;
 
-	//std::unique_ptr<HUD> mHud;
+	Hud mHud;
 	
 	//! Quadtree used to decide where towers can be placed.
 	shared_ptr<Quadtree<unsigned char>> terrainTree;
@@ -62,10 +79,14 @@ private:
 	//! Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens.
 	sf::FloatRect mBounds;
 
-	//! RenderTexture used for persisting dead bodies without clogging the update.
+	//! RenderTexture used for persisting dead bodies and blood without clogging the update.
 	sf::RenderTexture mUnderlayTex;
+
 	//! Sprite used to draw mUnderlayTex to the screen.
 	sf::Sprite mUnderlaySpr;
+
+	//! Draws an object to the underlay texture.
+	void drawToUnderlay(sf::Drawable const& drawable);
 
 	bool mIsLost, mIsWon;
 
@@ -84,12 +105,32 @@ private:
 	//! Controller for spawning groups of units units after delays
 	WaveController mWaveController;
 
+	BloodSystem mBloodSystem;
+
+	void onPawnDeath(Pawn* pawn);
+
 	//! Compares the y position of two actors for the purpose of sorting the draw order
-	static bool compareDepth(std::shared_ptr<Actor> const &A, std::shared_ptr<Actor> const &B);
+	static bool compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B);
 
-	void spawnMinion(shared_ptr<Minion> const& unit) const;
+	/*!
+	\brief Used to handle unfired projectile that are given to the projectile manager.
+	Fires the projectile at the nearest enemy pawn.
+	\param projectile The projectile to fire. Must be unfired.
+	*/
+	void autofireProjectile(shared_ptr<Projectile> const& projectile) const;
 
-	void tryPlaceTower();
+	/*!
+	\brief Initializes abilities and their buttons.
+	*/
+	void setupAbilities();
+
+	void setupTowerButtons();
+
+	
+	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath=true, bool addFlock=true, bool addCollision=true) const;
+
+	void processPauseMenuResult();
+
 	bool updatePawns(sf::Time const& elapsedTime);
 	//! Calls update and shoot on all towers.
 	void updateTowers(sf::Time const& elapsedTime);
@@ -99,13 +140,13 @@ private:
 	void cleanPawnFlock() const;
 	
 public:
-	Level(tinyxml2::XMLElement* root);
+	Level(XMLElement* root);
 	~Level();
 	
-	bool I_Scene::handleEvent(sf::Event &Event ) override;
-	void I_Scene::update(sf::Time const &elapsedTime) override;
-	void I_Scene::draw(sf::RenderWindow &w) override;
-	void I_Scene::cleanup() override;
+	bool handleEvent(sf::Event &Event ) override;
+	void update(sf::Time const &elapsedTime) override;
+	void draw(sf::RenderWindow &w) override;
+	void cleanup() override;
 
 	//signal<void()> onWin, onLose;
 	bool isWon() const;

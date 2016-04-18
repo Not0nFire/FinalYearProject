@@ -8,7 +8,7 @@
 
 class Projectile : public Actor {
 public:
-	Projectile(int damage, Damage::Type damageType, sf::Texture& texture);
+	Projectile(int damage, Damage::Type damageType, sf::Texture& texture, int impactRadius = 10);
 	~Projectile();
 
 	/*!

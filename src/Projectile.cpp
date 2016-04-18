@@ -1,7 +1,7 @@
 #include <include/Projectile.h>
 
-Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture) :
-Actor(texture, new sf::CircleShape(10, 5), sf::Vector2f(-5.0f, -5.0f)),
+Projectile::Projectile(int damage, Damage::Type damageType, sf::Texture& texture, int impactRadius) :
+Actor(texture, new sf::CircleShape(impactRadius, 5), sf::Vector2f(-impactRadius, -impactRadius)),
 mDamage(damage),
 mDamageType(damageType),
 mActive(false),
