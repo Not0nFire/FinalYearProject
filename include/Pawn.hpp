@@ -226,15 +226,10 @@ protected:
 private:
 	float mSecondsToWait;
 
-	/*!
-	\brief Bitfield.
-	A bit is 1 (true) if the sprite was flipped that update, or 0 (false) if it was not.
-	Every time turnToFaceDirection() is called, each bit is shifted to the left and the result is put in.
-	We use this field to check if the Pawn is rapidly flipping back and forth, and tell it to wait if it is.
-	*/
-	unsigned char mTurnHistory;
-
-	static unsigned int countBits(unsigned char flags);
+	//! The time to wait between flipping the sprite.
+	const float mTurnCooldown;
+	//! How long it has been since the sprite was flipped.
+	float mSecondsSinceTurn;
 
 	std::function<void(Pawn*)> mOnDeathFunction;
 };

@@ -16,7 +16,8 @@ mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
 mCombatTarget(nullptr),
-mTurnHistory(0x00),
+mSecondsSinceTurn(0.f),
+mTurnCooldown(1.f),
 mStunDuration(sf::seconds(0.f))
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
@@ -58,27 +59,20 @@ void Pawn::makeSelfAware(std::shared_ptr<Pawn> const& smartThis) {
 //}
 
 void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
-	const sf::Vector2f& scale = getScale();
-	const sf::Vector2f& pos = getPosition();
-	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : dir.x;	//face target if attacking
+	if (mSecondsSinceTurn >= mTurnCooldown) {
+		const sf::Vector2f& scale = getScale();
+		const sf::Vector2f& pos = getPosition();
+		float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : dir.x;	//face target if attacking
 
-	//Shift bits left by 1. This gets rid of the oldest result.
-	mTurnHistory <<= 1;
+		//mirror the sprite, making it face the right way
+		if ((faceThis < pos.x && scale.x > 0) ||
+			faceThis > pos.x && scale.x < 0)
+		{
+			setScale(scale.x * -1, scale.y);
 
-	//mirror the sprite, making it face the right way
-	if ((faceThis < pos.x && scale.x > 0) ||
-		faceThis > pos.x && scale.x < 0)
-	{
-		setScale(scale.x * -1, scale.y);
-
-		mTurnHistory |= 0x01;	//Set bit to 1 (true) if turn occured. Bit starts off at zero.
+			mSecondsSinceTurn = 0.f;
+		}
 	}
-
-	if (countBits(mTurnHistory) == 8)
-	{
-		wait(0.5f);
-	}
-
 }
 
 void Pawn::calculateAnimation() {
@@ -173,19 +167,6 @@ void Pawn::stopWaiting() {
 	mSecondsToWait = 0.f;
 }
 
-unsigned Pawn::countBits(unsigned char flags) {
-	//Count the number of times we've changed direction
-	auto count = 0u;
-
-	for (; flags != 0u; flags >>= 1) {
-		if (flags & 0x01) {
-			++count;
-		}
-	}
-
-	return count;
-}
-
 sf::Vector2f Pawn::getDestination() const {
 	return mDestination;
 }
@@ -201,10 +182,13 @@ void Pawn::setMovementSpeed(int newSpeed) {
 }
 
 void Pawn::update(sf::Time const &elapsedTime) {
+	const float elapsedSeconds = elapsedTime.asSeconds();
+
+	mSecondsSinceTurn += elapsedSeconds;
 
 	//Decrease the time to wait. While this is above zero
 	if (mSecondsToWait > 0) {
-		mSecondsToWait -= elapsedTime.asSeconds();
+		mSecondsToWait -= elapsedSeconds;
 	}
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
@@ -216,11 +200,11 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		setDebugColour(sf::Color::Black);
 		break;
 	case MARCHING:
-		doMarch(distanceToGoal, elapsedTime.asSeconds());
+		doMarch(distanceToGoal, elapsedSeconds);
 		setDebugColour(sf::Color::Cyan);
 		break;
 	case ATTACKING:
-		doAttack(elapsedTime.asSeconds());
+		doAttack(elapsedSeconds);
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
