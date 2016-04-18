@@ -11,6 +11,10 @@ mBoundingArea(boundingArea)
 	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
+
+	std::cout << "\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a" << std::endl;
+
+	calculateScalingFactor();
 }
 
 Camera::Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target) :
@@ -22,6 +26,10 @@ mBoundingArea(boundingArea)
 	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
+
+	std::cout << "\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a" << std::endl;
+
+	calculateScalingFactor();
 }
 
 void Camera::setTarget(std::shared_ptr<Actor> target)
@@ -61,25 +69,8 @@ void Camera::update()
 	}
 }
 
-sf::Vector2f Camera::mousePositionToGamePosition(const int x, const int y) const {
-	//Taken from sf::RenderTarget::mapPixelToCoord()
-	const auto& viewport = getViewport();
-	const auto& screenSize = Settings::getVector2i("Resolution");
-	sf::IntRect adjustedViewport(
-		static_cast<int>(0.5f + screenSize.x  * viewport.left),
-		static_cast<int>(0.5f + screenSize.y * viewport.top),
-		static_cast<int>(0.5f + screenSize.x  * viewport.width),
-		static_cast<int>(0.5f + screenSize.y * viewport.height)
-	);
-
-	sf::Vector2f normalized;
-	normalized.x = -1.f + 2.f * (x - adjustedViewport.left) / adjustedViewport.width;
-	normalized.y = 1.f - 2.f * (y - adjustedViewport.top) / adjustedViewport.height;
-
-	//const auto debug = getInverseTransform().transformPoint(normalized);
-	//printf("Mouse : %f, %f\n", debug.x, debug.y);
-
-	return getInverseTransform().transformPoint(normalized);
+sf::Vector2f Camera::screenPositionToGamePosition(const int x, const int y) const {
+	return sf::Vector2f(x*mScalingFactor.x, y*mScalingFactor.y) + getDisplacement();
 }
 
 void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f const& max) {
@@ -101,4 +92,12 @@ void Camera::clamp(sf::Vector2f& value, sf::Vector2f const& min, sf::Vector2f co
 	else if (value.y > max.y) {
 		value.y = max.y;
 	}
+}
+
+void Camera::calculateScalingFactor() {
+	auto const& screenSize = Constants::Vectors::getScreenSize();
+	auto const& gamesize = Settings::getVector2i("Resolution");
+
+	mScalingFactor.x = static_cast<float>(gamesize.x) / static_cast<float>(screenSize.x);
+	mScalingFactor.y = static_cast<float>(gamesize.y) / static_cast<float>(screenSize.y);
 }

@@ -30,12 +30,17 @@ public:
 	*/
 	void update();
 
-	sf::Vector2f mousePositionToGamePosition(const int x, const int y) const;
+	sf::Vector2f screenPositionToGamePosition(const int x, const int y) const;
 private:
 	std::shared_ptr<Actor> mTarget;
 	sf::Vector2f mBoundingArea;	//!< Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position
 
 	//! \brief Clamps a vector2f to a min and max value
 	static void clamp(sf::Vector2f& value, sf::Vector2f const &min, sf::Vector2f const &max);
+
+	//! Used to convert a point from screen coords to game coords.
+	sf::Vector2f mScalingFactor;
+
+	void calculateScalingFactor();
 };
 #endif

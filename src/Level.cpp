@@ -170,7 +170,9 @@ mNextScene(root->GET_CHILD_VALUE("NextLevel")),
 mMinionFlock(std::make_shared<std::list<Minion*>>()),
 mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
 {
-	
+	//Let our camera translate the mouse.
+	SceneManager::instance()->stopTranslatingMouse();
+
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
 	mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 	mBgMusic.setLoop(true);
@@ -311,7 +313,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			if (!buttonClicked) {
 				//destination = mouse position in window + camera position
 
-				mHero->setDestination(mCamera.mousePositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
+				mHero->setDestination(mCamera.screenPositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
 				handled = true;
 			}
 		}
@@ -428,7 +430,7 @@ void Level::update(sf::Time const &elapsedTime) {
 	mCamera.update();
 
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
-		mBgMusic.setVolume(Settings::getInt("MasterVolume"));
+		mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 		mBgMusic.play();
 	}
 

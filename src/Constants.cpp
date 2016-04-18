@@ -68,13 +68,18 @@ std::string const& Strings::getSettingsDialogueNO() {
 //										//
 //////////////////////////////////////////
 sf::Vector2f const& Vectors::getCameraBounds() {
-	static const sf::Vector2f bounds(2000.f, 2000.f);
+	static const sf::Vector2f bounds(4000.f, 4000.f);
 	return bounds;
 }
 
 sf::Vector2u const& Vectors::getMinimumResolution() {
 	static const sf::Vector2u min(800u, 600u);
 	return min;
+}
+
+sf::Vector2u const& Vectors::getScreenSize() {
+	static const sf::Vector2u size(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	return size;
 }
 #pragma endregion
 //////////////////////////////////////////

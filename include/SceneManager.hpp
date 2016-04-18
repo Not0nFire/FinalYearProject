@@ -47,6 +47,7 @@ private:
 	std::map<std::string, std::unique_ptr<SceneProxy>> mScenes;
 
 	Camera mDefaultCamera;
+	bool mTranslateMouseEvents;	//!< True if we should translate mouse positions from screen to game
 
 	gui::DialogueBox* mActiveDialogue;
 
@@ -125,6 +126,12 @@ public:
 	\returns True if the path matched an existing scene.
 	*/
 	void navigateToScene( std::string const &path );
+
+	/*!
+	\brief Stops translating mouse until the scene is changed.
+	Be default, the manager translates mouse posititions from screen coordinates to game coordinates.
+	*/
+	void stopTranslatingMouse();
 
 	void showDialogueBox(gui::DialogueBox* dialogueBox);
 

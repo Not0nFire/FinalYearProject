@@ -1,4 +1,5 @@
 #include <include\Pawn.hpp>
+#include <include/Settings.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
@@ -34,6 +35,8 @@ mStunDuration(sf::seconds(0.f))
 	if (attenuationXml) {
 		mAttackSound.setAttenuation(atof(attenuationXml));
 	}
+
+	mAttackSound.setVolume(Settings::getInt("EffectsVolume"));
 
 	playAnimation("idle", true);
 }
