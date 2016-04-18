@@ -1,4 +1,5 @@
 #include <include/Gui/DialogueBox.hpp>
+#include <include/Constants.h>
 
 using namespace gui;
 
@@ -10,7 +11,7 @@ mIsOpen(false),
 mBoxGraphic(size),
 mResultProcessed(true)
 {
-	const auto textColor = sf::Color(73, 40, 17);
+	sf::Color const& textColor = Constants::Misc::getPrimaryTextColor();
 
 	//Setup box
 	mBoxGraphic.setOrigin(size.x * 0.5f, size.y * 0.5f);

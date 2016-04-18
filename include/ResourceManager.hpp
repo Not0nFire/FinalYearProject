@@ -73,7 +73,10 @@ T& ResourceManager<T>::get(std::string const &path) {
 	if (!mResources.count(path)) {
 		//load resource from path
 		std::unique_ptr<T> res(new T);
-		res->loadFromFile(path);
+		if (!res->loadFromFile(path))
+		{
+			printf("ResourceManager ERROR: Could not load resource at %s\n", path.c_str());
+		}
 
 		//put the resource into the map (move it instead of copying)
 		mResources.insert(std::make_pair(path, std::move(res)));

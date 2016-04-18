@@ -1,4 +1,7 @@
 #include <include/MainMenu.hpp>
+#include <include/Game.hpp>
+#include <include/Settings.hpp>
+#include <include/SettingsMenu.hpp>
 
 MainMenu::MainMenu(tinyxml2::XMLElement* root) :
 mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?")
@@ -16,6 +19,7 @@ mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?"
 	);//end openFromFile()
 
 	mMusic.setLoop(true);
+	mMusic.setVolume(Settings::getInt("MusicVolume"));
 	
 	auto startBtnXml = root->FirstChildElement("StartButton");
 	mStartButton = std::make_unique<gui::Button>(
@@ -23,6 +27,13 @@ mQuitConfirmDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "Quit", "Are you sure?"
 		atoi(startBtnXml->Attribute("y")),
 		startBtnXml
 	);
+
+	auto optBtnXml = root->FirstChildElement("OptionsButton");
+	mOptionsButton = std::make_unique<gui::Button>(
+		atoi(optBtnXml->Attribute("x")),
+		atoi(optBtnXml->Attribute("y")),
+		optBtnXml
+		);
 
 	auto quitBtnXml = root->FirstChildElement("QuitButton");
 	mQuitButton = std::make_unique<gui::Button>(
@@ -48,6 +59,8 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 			} else if (mQuitButton->checkClick()) {
 				//quit the game
 				SceneManager::instance()->showDialogueBox(&mQuitConfirmDialogue);
+			} else if (mOptionsButton->checkClick()) {
+				SceneManager::instance()->createScene<SettingsMenu>("SettingsMenu", "./res/xml/SettingsMenu.scene", true);
 			}
 			break;
 		case sf::Event::MouseButtonReleased:
@@ -55,6 +68,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 		case sf::Event::MouseMoved:
 			auto mousePos = sf::Vector2i(evnt.mouseMove.x, evnt.mouseMove.y);
 			mStartButton->update(mousePos);
+			mOptionsButton->update(mousePos);
 			mQuitButton->update(mousePos);
 			handled = true;
 			break;
@@ -65,6 +79,7 @@ bool MainMenu::handleEvent(sf::Event& evnt) {
 
 void MainMenu::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.setVolume(Settings::getInt("MusicVolume"));
 		mMusic.play();
 	}
 
@@ -79,6 +94,7 @@ void MainMenu::update(sf::Time const& elapsedTime) {
 void MainMenu::draw(sf::RenderWindow &w) {
 	w.draw(mBackground);
 	w.draw(*mStartButton);
+	w.draw(*mOptionsButton);
 	w.draw(*mQuitButton);
 }
 
