@@ -51,6 +51,7 @@ std::string const& Strings::getSettingsDialogueYES() {
 	static const std::string yes = "Save";
 	return yes;
 }
+
 std::string const& Strings::getSettingsDialogueNO() {
 	static const std::string no = "Use";
 	return no;
@@ -64,9 +65,32 @@ std::string const& Strings::getSettingsDialogueNO() {
 
 //////////////////////////////////////////
 //										//
+//	Number constants - Section start	//
+//										//
+//////////////////////////////////////////
+#pragma region number_constants
+float Numbers::getCameraMoveSpeed() {
+	static auto speed = 250.f;
+	return speed;
+}
+
+float Numbers::getCameraEdgeMoveThreshold() {
+	static auto threshold = 20.f;
+	return threshold;
+}
+#pragma endregion 
+//////////////////////////////////////////
+//										//
+//	Number constants - Section end		//
+//										//
+//////////////////////////////////////////
+
+//////////////////////////////////////////
+//										//
 //	Vector constants - Section start	//
 //										//
 //////////////////////////////////////////
+#pragma region vector_constants
 sf::Vector2f const& Vectors::getCameraBounds() {
 	static const sf::Vector2f bounds(4000.f, 4000.f);
 	return bounds;
@@ -93,6 +117,7 @@ sf::Vector2u const& Vectors::getScreenSize() {
 //	Misc constants - Section start		//
 //										//
 //////////////////////////////////////////
+#pragma region misc_constants
 sf::Color const& Misc::getPrimaryTextColor() {
 	static const sf::Color colour(73, 40, 17);
 	return colour;
@@ -102,7 +127,7 @@ sf::Color const& Misc::getSecondaryTextColor() {
 	static const sf::Color colour(255, 191, 0);
 	return colour;
 }
-
+#pragma endregion
 //////////////////////////////////////////
 //										//
 //	Misc constants - Section end		//
