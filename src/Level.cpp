@@ -1,4 +1,6 @@
 #include <include/Level.hpp>
+#include <include/Settings.hpp>
+#include <include/SceneManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -171,11 +173,11 @@ void Level::processPauseMenuResult() {
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(XMLElement* root) :
-mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, "PAUSED", "The game is paused.", "Resume", "Quit"),
+mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(sf::Vector2u(800, 600), sf::Vector2f(1200.f, 800.f)),
+mCamera(sf::Vector2f(Settings::getVector2i("Resolution")), Constants::Vectors::getCameraBounds()),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -187,9 +189,11 @@ mNextScene(root->GET_CHILD_VALUE("NextLevel")),
 mMinionFlock(std::make_shared<std::list<Minion*>>()),
 mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
 {
-	
+	//Let our camera translate the mouse.
+	SceneManager::instance()->stopTranslatingMouse();
+
 	mBgMusic.openFromFile(root->FirstChildElement("Music")->GetText());
-	mBgMusic.setVolume(atof(root->FirstChildElement("Music")->Attribute("volume")));	//read volume attribute from <Music>
+	mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 	mBgMusic.setLoop(true);
 
 	//instantiate the interpreter with the image path from the xml node
@@ -310,6 +314,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
 			}
+
 			handled = true;
 
 		} else {
@@ -319,7 +324,10 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			for (auto& pair : mAbilityList) {
 				//.first is the button
 				//.second is the ability (unique_ptr)
-				buttonClicked = pair.first.containsMouse();
+				if (!buttonClicked) {
+					buttonClicked = pair.first.containsMouse();
+				}
+
 				if (pair.first.checkClick()) {	//if the button was clicked and not disabled...
 					pair.second->execute(mHero.get());	//..execute the ability (as the hero)
 				}
@@ -347,7 +355,8 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 			if (!buttonClicked) {
 				//destination = mouse position in window + camera position
-				mHero->setDestination(sf::Vector2f(evnt.mouseButton.x, evnt.mouseButton.y) + mCamera.getDisplacement());
+
+				mHero->setDestination(mCamera.screenPositionToGamePosition(evnt.mouseButton.x, evnt.mouseButton.y));
 				handled = true;
 			}
 		}
@@ -363,27 +372,64 @@ bool Level::handleEvent(sf::Event &evnt ) {
 		mTowerButtons[TowerPlacer::ARROW]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
 		mTowerButtons[TowerPlacer::MAGIC]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
 		mTowerButtons[TowerPlacer::UNIT]->update({ evnt.mouseMove.x, evnt.mouseMove.y });
-	}
+	}//end mouse press handling
+
+	//Handle key presses
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
 			handled = true;
 			break;
+
 		case sf::Keyboard::Y:
 			mTowerPlacer->activate(TowerPlacer::MAGIC);
 			handled = true;
 			break;
+
 		case sf::Keyboard::U:
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(true);
+			break;
+
 		case sf::Keyboard::Escape:
 			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
 		default:
 			break;
 		}
-	}
+	}//end key press handling
+
+	//Handle key releases
+	else if (evnt.type == sf::Event::EventType::KeyReleased) {
+		switch (evnt.key.code) {
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(false);
+			break;
+		default:
+			break;
+		}
+	}//end key release handling
+
+	//Process text input (for ability hotkeys)
+	else if (evnt.type == sf::Event::EventType::TextEntered) {
+		//If it's less than 128 we can cast it to a char
+		if (evnt.text.unicode < 128) {
+			char key = evnt.text.unicode;	//Cast to char
+
+			//Check hotkey for each ability
+			for (auto &pair : mAbilityList) {
+				if (pair.second->checkHotkey(key)) {
+					pair.second->execute(mHero.get());
+				}
+			}
+		}
+	}//end text input handling
 
 	return handled;
 }
@@ -468,6 +514,7 @@ void Level::update(sf::Time const &elapsedTime) {
 	mCamera.update();
 
 	if (mBgMusic.getStatus() != sf::Music::Status::Playing) {
+		mBgMusic.setVolume(Settings::getInt("MusicVolume"));
 		mBgMusic.play();
 	}
 

@@ -1,11 +1,9 @@
 #ifndef MAIN_MENU_SCENE_HPP
 #define MAIN_MENU_SCENE_HPP
 
-#include <map>
 #include "Scene.hpp"
 #include "Gui/Button.hpp"
 #include "Gui/DialogueBox.hpp"
-#include "Game.hpp"
 
 class SceneManager;
 
@@ -42,7 +40,7 @@ private:
 	//! Background music that will play in this scene
 	sf::Music mMusic;
 
-	std::unique_ptr<gui::Button> mStartButton, mQuitButton;
+	std::unique_ptr<gui::Button> mStartButton, mOptionsButton, mQuitButton;
 };
 #include "SceneManager.hpp"
 #endif

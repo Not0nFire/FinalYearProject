@@ -57,7 +57,6 @@ private:
 	//! How much the projectile can turn (in radians) each update.
 	const float mTurnSpeed;
 
-	std::shared_ptr<Pawn> mTarget;
-	sf::Vector2f mTargetPosition;
+	std::weak_ptr<Pawn> mTarget;
 };
 #endif

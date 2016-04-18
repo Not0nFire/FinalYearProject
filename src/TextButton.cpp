@@ -8,6 +8,11 @@ mText("", ResourceManager<sf::Font>::instance()->get("./res/fonts/KENVECTOR_FUTU
 {
 	centreText();
 	mText.setColor(sf::Color(73, 40, 17));
+
+	auto textXml = xmlDefinition->FirstChildElement("Text");
+	if (nullptr != textXml) {
+		mText.setString(textXml->GetText());
+	}
 }
 
 TextButton::TextButton(int x, int y, tinyxml2::XMLElement* xmlDefinition, std::string const& text, unsigned int characterSize) :

@@ -5,8 +5,9 @@ mIsActive(false),
 M_DESCRIPTION(xml->FirstChildElement("Description")->GetText()),
 M_NAME(xml->FirstChildElement("Name")->GetText()),
 M_CAST_TIME(sf::seconds(atof(xml->FirstChildElement("CastTime")->GetText()))),
-M_COOLDOWN(atof(xml->FirstChildElement("Cooldown")->Attribute("seconds"))),
-mSecondsSinceCast(M_COOLDOWN)
+M_COOLDOWN(xml->FirstChildElement("Cooldown")->FloatAttribute("seconds")),
+mSecondsSinceCast(M_COOLDOWN),
+mHotkey(xml->Attribute("hotkey")[0])
 {
 	_ASSERT(xml->Name() == std::string("Ability"));
 
@@ -64,6 +65,18 @@ void Ability::setPawnList(std::shared_ptr<const std::list<std::shared_ptr<Pawn>>
 
 void Ability::setSpawnCallback(std::function<void(std::shared_ptr<Minion>)> const& callback) {
 	mSpawnUnitCallback = callback;
+}
+
+bool Ability::checkHotkey(char key) const {
+	return mHotkey == key;
+}
+
+char Ability::getHotkey() const {
+	return mHotkey;
+}
+
+void Ability::setHotkey(char hotkey) {
+	mHotkey = hotkey;
 }
 
 void Ability::setProjectileManager(std::shared_ptr<ProjectileManager> const& manager) {

@@ -1,13 +1,10 @@
-#ifndef _BASIC_TOWER_H
-#define _BASIC_TOWER_H
+#ifndef PROJECTILE_TOWER_H
+#define PROJECTILE_TOWER_H
 
 #include "Tower.h"
 #include <include/Damage.hpp>
 #include <include/Pawn.hpp>
-#include <include/Collision/CollisionGroup.hpp>
-#include <include/ResourceManager.hpp>
 #include "include/ProjectileManager.hpp"
-#include <include/ArcProjectile.h>
 
 namespace tower
 {
@@ -30,7 +27,7 @@ namespace tower
 		\brief Tries to fire at the members of possibleTargets.
 		\returns True if a target was chosen and fired upon.
 		*/
-		virtual bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const &possibleTargets) override;
+		bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const &possibleTargets) override;
 
 		void setProjectileManager(std::shared_ptr<ProjectileManager> projectileMgr);
 		
@@ -46,6 +43,9 @@ namespace tower
 
 		//! Relative position at which to fire the projectile from.
 		sf::Vector2f mProjectileSpawnOffset;
+
+		std::list<std::weak_ptr<Pawn>> mTargetList;
+		std::function<bool(std::weak_ptr<Pawn>&, std::weak_ptr<Pawn>&)> mTargetingSortPredicate;
 
 		/*!
 		\brief Predicts where a marching Pawn will be after a certain number of seconds.

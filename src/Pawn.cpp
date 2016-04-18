@@ -1,4 +1,5 @@
 #include <include\Pawn.hpp>
+#include <include/Settings.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
@@ -34,6 +35,8 @@ mStunDuration(sf::seconds(0.f))
 	if (attenuationXml) {
 		mAttackSound.setAttenuation(atof(attenuationXml));
 	}
+
+	mAttackSound.setVolume(Settings::getInt("EffectsVolume"));
 
 	playAnimation("idle", true);
 }
@@ -319,6 +322,14 @@ bool Pawn::isDead() const {
 
 Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
+}
+
+Damage::Reduction const& Pawn::getArmour() const {
+	return mArmour;
+}
+
+Damage::Reduction const& Pawn::getMagicResist() const {
+	return mMagicResist;
 }
 
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {

@@ -1,4 +1,5 @@
 #include "include/Gui/Button.hpp"
+#include <include/Settings.hpp>
 
 using namespace gui;
 
@@ -15,8 +16,8 @@ mGraphic()
 
 	//get the button dimensions
 	auto dimensions = xmlButtonDefinition->FirstChildElement("Dimensions");
-	int width = atoi(dimensions->Attribute("width"));
-	int height = atoi(dimensions->Attribute("height"));
+	int width = dimensions->IntAttribute("width");
+	int height = dimensions->IntAttribute("height");
 
 	mGraphic.setSize(sf::Vector2f(width, height));
 
@@ -33,23 +34,23 @@ mGraphic()
 
 	//get the position of the normal state subimage
 	auto normalImagePos = xmlButtonDefinition->FirstChildElement("NormalImage");
-	mNormalSrcRect.left = atoi(normalImagePos->Attribute("x"));
-	mNormalSrcRect.top = atoi(normalImagePos->Attribute("y"));
+	mNormalSrcRect.left = normalImagePos->IntAttribute("x");
+	mNormalSrcRect.top = normalImagePos->IntAttribute("y");
 
 	//get the position of the hover state subimage
 	auto hoverImagePos = xmlButtonDefinition->FirstChildElement("HoverImage");
-	mHoverSrcRect.left = atoi(normalImagePos->Attribute("x"));
-	mHoverSrcRect.top = atoi(hoverImagePos->Attribute("y"));
+	mHoverSrcRect.left = normalImagePos->IntAttribute("x");
+	mHoverSrcRect.top = hoverImagePos->IntAttribute("y");
 
 	auto disabledImagePos = xmlButtonDefinition->FirstChildElement("DisabledImage");
-	mDisabledSrcRect.left = atoi(disabledImagePos->Attribute("x"));
-	mDisabledSrcRect.top = atoi(disabledImagePos->Attribute("y"));
+	mDisabledSrcRect.left = disabledImagePos->IntAttribute("x");
+	mDisabledSrcRect.top = disabledImagePos->IntAttribute("y");
 
 	//Parse the optional <Scale> tag and apply it to our sprite
 	auto scale = xmlButtonDefinition->FirstChildElement("Scale");
 	if (nullptr != scale) {
-		float scaleX = atof(scale->Attribute("x"));
-		float scaleY = atof(scale->Attribute("y"));
+		float scaleX = scale->FloatAttribute("x");
+		float scaleY = scale->FloatAttribute("y");
 
 		mGraphic.setScale(scaleX, scaleY);
 	}
@@ -106,6 +107,10 @@ std::string const& Button::getName() const {
 	return mName;
 }
 
+void Button::setPosition(sf::Vector2f const& position) {
+	mGraphic.setPosition(position);
+}
+
 sf::Vector2f const& Button::getPosition() const {
 	return mGraphic.getPosition();
 }
@@ -134,6 +139,7 @@ void Button::setState(State newState) {
 
 			case HOVER:
 				mGraphic.setTextureRect(mHoverSrcRect);
+				mOnHoverSound.setVolume(Settings::getInt("EffectsVolume"));
 				mOnHoverSound.play();
 				break;
 
