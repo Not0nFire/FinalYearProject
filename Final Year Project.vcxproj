@@ -120,6 +120,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
+    <ClCompile Include="src\CostButton.cpp" />
     <ClCompile Include="src\Constants.cpp" />
     <ClCompile Include="src\Cursor.cpp" />
     <ClCompile Include="src\Damage.cpp" />
@@ -172,6 +173,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Gui\AbilityButton.hpp" />
     <ClInclude Include="include\Gui\Button.hpp" />
+    <ClInclude Include="include\Gui\CostButton.hpp" />
     <ClInclude Include="include\Gui\DialogueBox.hpp" />
     <ClInclude Include="include\Gui\Slider.hpp" />
     <ClInclude Include="include\Gui\TextButton.hpp" />

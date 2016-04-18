@@ -17,7 +17,7 @@ namespace gui
 		Button(int x, int y, const tinyxml2::XMLElement* xmlButtonDefinition );
 		virtual ~Button();
 
-		void update(sf::Vector2i const& mousePos);
+		virtual void update(sf::Vector2i const& mousePos);
 		bool checkClick() const;
 
 		void enable();	
