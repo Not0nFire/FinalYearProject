@@ -25,6 +25,7 @@ namespace gui
 		sf::RectangleShape mCooldownVisual;
 		thor::Animator<sf::RectangleShape, std::string> mCooldownAnimator;
 		std::weak_ptr<Ability const> mAbility;
+		sf::Text mHotkeyText;
 	};
 }
 #endif

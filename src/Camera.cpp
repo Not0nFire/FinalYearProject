@@ -12,8 +12,6 @@ mBoundingArea(boundingArea)
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
 
-	std::cout << "\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a" << std::endl;
-
 	calculateScalingFactor();
 }
 
@@ -26,8 +24,6 @@ mBoundingArea(boundingArea)
 	_ASSERT(viewportSize.y <= boundingArea.y);
 
 	sf::Listener::setDirection(0.f, -1.f, 0.f);
-
-	std::cout << "\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a" << std::endl;
 
 	calculateScalingFactor();
 }

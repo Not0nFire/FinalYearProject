@@ -324,6 +324,14 @@ Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
 }
 
+Damage::Reduction const& Pawn::getArmour() const {
+	return mArmour;
+}
+
+Damage::Reduction const& Pawn::getMagicResist() const {
+	return mMagicResist;
+}
+
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {
 	auto projectile = std::dynamic_pointer_cast<Projectile, Collidable>(other);
 	if (projectile) {

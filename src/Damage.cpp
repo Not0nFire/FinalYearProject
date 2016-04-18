@@ -17,6 +17,14 @@ Damage::Reduction& Damage::Reduction::operator=(float newValue) {
 	return *this;
 }
 
+bool Damage::Reduction::operator<(Reduction const& other) const {
+	return value < other.value;
+}
+
+bool Damage::Reduction::operator<=(Reduction const& other) const {
+	return value <= other.value;
+}
+
 const float Damage::Reduction::NONE = 1.00f;
 const float Damage::Reduction::LIGHT = 0.75f;
 const float Damage::Reduction::MEDIUM = 0.50f;

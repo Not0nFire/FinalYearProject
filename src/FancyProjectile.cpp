@@ -44,62 +44,60 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 		using thor::dotProduct;
 		using thor::toRadian;
 
-		if (nullptr != mTarget){
-			if (mTarget->isDead()) {
-				mTarget = nullptr;
-			}
-			else {
-				mTargetPosition = mTarget->getMask()->getPosition();
-			}
-		}
-
-		auto displacement = mTargetPosition - getPosition();
-		auto distance = thor::length(displacement);
 		auto elapsedSeconds = elapsedTime.asSeconds();
 		mTimeToLive -= elapsedSeconds;
+		
+		bool makeImpact = mTimeToLive <= 0.f;
 
-		if (distance < 5.f || mTimeToLive <= 0.f) {
-			if (mTimeToLive <= 0.f) {
+		if (auto target = mTarget.lock()) {
+
+			auto displacement = target->getPosition() - getPosition();
+			auto distance = thor::length(displacement);
+
+
+				//auto currentDirection = unitVector(mVelocity);
+				auto desiredDirection = unitVector(displacement);
+				auto currentDirection = unitVector(mVelocity);
+
+				float perpDotProd = perpDot(currentDirection, desiredDirection);
+
+				if (perpDotProd > 0.f) {
+					rotate(mTurnSpeed * elapsedSeconds);
+				}
+				else if (perpDotProd < 0.f) {
+					rotate(-mTurnSpeed * elapsedSeconds);
+				}
+				else {	// perpDotProduct is 0 and we are either facing directly at or away from our target
+					if (dotProduct(currentDirection, desiredDirection) < 0.f) {	//if dotProduct is negative we are facing away from target
+						rotate(mTurnSpeed * elapsedSeconds);
+					}
+				}
+
+				float rotationRadians = toRadian(getRotation());
+				mVelocity.x = cosf(rotationRadians);
+				mVelocity.y = sinf(rotationRadians);
+
+				mVelocity = unitVector(mVelocity) * mSpeed;
+
+				//make impact if close to target
+				makeImpact = distance < 5.f;
+		}
+
+		if (makeImpact) {
+			if (mTimeToLive < 0.f) {
 				mActive = false;
 			}
 			updateCollidableMask(getPosition());
 			mImpactOccurred = true;
 		}
-		else {
 
-			//auto currentDirection = unitVector(mVelocity);
-			auto desiredDirection = unitVector(displacement);
-			auto currentDirection = unitVector(mVelocity);
-
-			float perpDotProd = perpDot(currentDirection, desiredDirection);
-
-			if (perpDotProd > 0.f) {
-				rotate(mTurnSpeed * elapsedSeconds);
-			}
-			else if (perpDotProd < 0.f) {
-				rotate(-mTurnSpeed * elapsedSeconds);
-			} 
-			else {	// perpDotProduct is 0 and we are either facing directly at or away from our target
-				if (dotProduct(currentDirection, desiredDirection) < 0.f) {	//if dotProduct is negative we are facing away from target
-					rotate(mTurnSpeed * elapsedSeconds);
-				}
-			}
-
-			float rotationRadians = toRadian(getRotation());
-			mVelocity.x = cosf(rotationRadians);
-			mVelocity.y = sinf(rotationRadians);
-
-			mVelocity = unitVector(mVelocity) * mSpeed;
-
-			move(mVelocity * elapsedSeconds);
-			mEmitter.setParticlePosition(getPosition());
-		}
+		move(mVelocity * elapsedSeconds);
+		mEmitter.setParticlePosition(getPosition());
 		
 	}//end if(active)
 }
 
 void FancyProjectile::setTarget(std::shared_ptr<Pawn> const &newTarget) {
-	mTargetPosition = newTarget->getPosition();
 	mTarget = newTarget;
 }
 

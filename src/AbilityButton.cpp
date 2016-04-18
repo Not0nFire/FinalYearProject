@@ -27,6 +27,16 @@ mCooldownVisual(getSize())
 		ResourceManager<thor::FrameAnimation>::instance()->get("./res/xml/active_ability.anim"),
 		ability->getCastDuration()
 		);
+
+	char key = ability->getHotkey();
+	//Convert to uppercase
+	if ((key > 96) && (key < 123)) {
+		key = key - 32;
+	}
+	mHotkeyText = sf::Text(key, ResourceManager<sf::Font>::instance()->get("./res/fonts/NEVIS.TTF"), 15u);
+
+	mHotkeyText.setPosition(getPosition());
+	mHotkeyText.move(-30.f, -30.f);
 }
 
 AbilityButton::~AbilityButton() {}
@@ -57,6 +67,9 @@ void AbilityButton::updateCooldownVisuals(sf::Time const& elapsedTime) {
 
 void AbilityButton::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	Button::draw(target, states);	//run base draw first
+
+	target.draw(mHotkeyText);
+
 	if (mCooldownAnimator.isPlayingAnimation()) {
 		target.draw(mCooldownVisual, states);
 	}

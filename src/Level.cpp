@@ -1,5 +1,6 @@
 #include <include/Level.hpp>
 #include <include/Settings.hpp>
+#include <include/SceneManager.hpp>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -293,6 +294,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 				std::cout << "Not enough money to place tower!" << std::endl;
 				//not enough money for tower
 			}
+
 			handled = true;
 
 		} else {
@@ -325,27 +327,64 @@ bool Level::handleEvent(sf::Event &evnt ) {
 			//.second is the ability (unique_ptr)
 			pair.first.update({evnt.mouseMove.x, evnt.mouseMove.y});	//update the button with the mouse position (as a Vector2i)
 		}
-	}
+	}//end mouse press handling
+
+	//Handle key presses
 	else if (evnt.type == sf::Event::EventType::KeyPressed) {
 		switch (evnt.key.code) {
 		case sf::Keyboard::T:
 			mTowerPlacer->activate(TowerPlacer::ARROW);
 			handled = true;
 			break;
+
 		case sf::Keyboard::Y:
 			mTowerPlacer->activate(TowerPlacer::MAGIC);
 			handled = true;
 			break;
+
 		case sf::Keyboard::U:
 			mTowerPlacer->activate(TowerPlacer::UNIT);
 			handled = true;
 			break;
+
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(true);
+			break;
+
 		case sf::Keyboard::Escape:
 			SceneManager::instance()->showDialogueBox(&mPauseDialogue);
 		default:
 			break;
 		}
-	}
+	}//end key press handling
+
+	//Handle key releases
+	else if (evnt.type == sf::Event::EventType::KeyReleased) {
+		switch (evnt.key.code) {
+		case sf::Keyboard::RShift:
+		case sf::Keyboard::LShift:
+			mTowerPlacer->setSticky(false);
+			break;
+		default:
+			break;
+		}
+	}//end key release handling
+
+	//Process text input (for ability hotkeys)
+	else if (evnt.type == sf::Event::EventType::TextEntered) {
+		//If it's less than 128 we can cast it to a char
+		if (evnt.text.unicode < 128) {
+			char key = evnt.text.unicode;	//Cast to char
+
+			//Check hotkey for each ability
+			for (auto &pair : mAbilityList) {
+				if (pair.second->checkHotkey(key)) {
+					pair.second->execute(mHero.get());
+				}
+			}
+		}
+	}//end text input handling
 
 	return handled;
 }

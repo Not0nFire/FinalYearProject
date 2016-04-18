@@ -56,6 +56,11 @@ public:
 	void activate(TowerType type);
 
 	/*!
+	\brief If true, placing a tower will not remove the tower placer form the cursor.
+	*/
+	void setSticky(bool sticky);
+
+	/*!
 	\brief	Draws the tower overlay to the render target.
 	\remarks If debugging, also draws the collision mask.
 	*/
@@ -79,6 +84,9 @@ protected:
 
 	//! Shape used to test for validity with the terrain tree.
 	sf::Shape* mMask;
+
+	//! If true, placing a tower will not deactivate the placer.
+	bool mIsSticky;
 
 	/*!
 	\brief Checks if the current location is valid for placement.

@@ -5,6 +5,10 @@ using namespace tower;
 MageTower::MageTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef) :
 ProjectileTower(position, xmlDef)
 {
+	mTargetingSortPredicate = [](std::weak_ptr<Pawn> &A, std::weak_ptr<Pawn> &B)
+	{	//Sort by magic resistance (lowest first)
+		return A.lock()->getMagicResist() < B.lock()->getMagicResist();
+	};
 }
 
 MageTower::~MageTower() {
@@ -38,6 +42,54 @@ bool MageTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& p
 
 		}//(pawn*)
 
+	}
+
+	if (mSecondsSinceLastAttack >= mSecondsPerAttack) {
+
+		for (auto &p : *possibleTargets) {
+
+			float distance = thor::length(p->getPosition() - this->getPosition());
+
+			//If p is not dead, and p is in range, and p is an enemy
+			if (!p->isDead() && distance <= mRange && p->getFaction() == Pawn::Faction::ENEMY) {
+
+				//Add it to the target list
+				mTargetList.emplace_back(p);
+			}
+		}
+
+		//Remove dead or distance targets from the list
+		auto itr = mTargetList.begin();
+		while (mTargetList.end() != itr) {
+			if (itr->expired() || thor::length(itr->lock()->getPosition() - this->getPosition()) > mRange) {
+				itr = mTargetList.erase(itr);
+			}
+			else {
+				++itr;
+			}
+		}
+
+		//If there's a target we can attack...
+		if (!mTargetList.empty()) {
+
+			//Sort the targets
+			mTargetList.sort(mTargetingSortPredicate);
+
+			auto const& chosenTarget = mTargetList.begin()->lock();
+
+			auto projectile = std::make_shared<FancyProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+
+			//Fire the newly created projectile at the target.
+			projectile->fire(getPosition() + mProjectileSpawnOffset, chosenTarget->getPosition(), 5.f);
+
+			projectile->setTarget(chosenTarget);
+
+			//Give the projectile to the manager. We lost ownership of it.
+			mProjectileManager->give(projectile);
+
+			mSecondsSinceLastAttack = 0.f;
+			targetAqcuired = true;
+		}
 	}
 
 	return targetAqcuired;

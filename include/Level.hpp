@@ -30,7 +30,6 @@
 #include <include/Constants.h>
 
 using std::shared_ptr;
-class SceneManager;
 
 /*!
 \brief Playable level of the game.
@@ -147,5 +146,4 @@ public:
 
 	//bool loadFromXML(const char *path); //returns true if no errors
 };
-#include "SceneManager.hpp"
 #endif

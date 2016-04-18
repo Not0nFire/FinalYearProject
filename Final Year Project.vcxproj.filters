@@ -356,4 +356,7 @@
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="C:\WINDOWS\Fonts\NEVIS.TTF" />
+  </ItemGroup>
 </Project>

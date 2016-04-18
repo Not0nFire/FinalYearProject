@@ -224,6 +224,9 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <None Include="include\Settings.inl" />
     <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="C:\WINDOWS\Fonts\NEVIS.TTF" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
