@@ -19,7 +19,7 @@ public:
 	*/
 #if defined _DEBUG //Default to fullscreen windowed while debugging
 	Renderer(std::string const &title,	//RenderWindow ctor arguments
-		sf::VideoMode mode = { 1000, 1000 },//sf::VideoMode::getDesktopMode(),
+		sf::VideoMode mode = sf::VideoMode::getDesktopMode(),
 		sf::Uint32 style = sf::Style::None,
 		sf::ContextSettings settings = sf::ContextSettings()
 		);
