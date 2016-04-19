@@ -157,7 +157,7 @@ void Level::setupAbilities() {
 	}
 	auto abilityRoot = doc.FirstChildElement("Ability");
 	shared_ptr<Ability> ability = std::make_shared<abilities::MagicMisile>(abilityRoot);
-	auto button = gui::AbilityButton(100, 450, abilityRoot->FirstChildElement("Button"), ability);
+	auto button = gui::AbilityButton(100, 650, abilityRoot->FirstChildElement("Button"), ability);
 
 	mAbilityList.push_back(make_pair(button,ability));
 
@@ -175,7 +175,7 @@ void Level::setupAbilities() {
 	}
 	abilityRoot = doc.FirstChildElement("Ability");
 	ability = std::make_shared<abilities::RaiseDead>(abilityRoot);
-	button = gui::AbilityButton(164, 450, abilityRoot->FirstChildElement("Button"), ability);
+	button = gui::AbilityButton(164, 650, abilityRoot->FirstChildElement("Button"), ability);
 
 	mAbilityList.push_back(make_pair(button, ability));
 
@@ -192,7 +192,7 @@ void Level::setupAbilities() {
 	}
 	abilityRoot = doc.FirstChildElement("Ability");
 	ability = std::make_shared<abilities::Heal>(abilityRoot);
-	button = gui::AbilityButton(228, 450, abilityRoot->FirstChildElement("Button"), ability);
+	button = gui::AbilityButton(228, 650, abilityRoot->FirstChildElement("Button"), ability);
 
 	mAbilityList.push_back(make_pair(button, ability));
 }
@@ -615,7 +615,7 @@ void Level::update(sf::Time const &elapsedTime) {
 			SceneManager::instance()->showDialogueBox(&mFailDialogue);
 		}
 
-		mCollisionGroup->check();
+		mCollisionGroup->check(elapsedTime.asSeconds());
 
 		updateTowers(elapsedTime);
 
@@ -654,7 +654,7 @@ void Level::draw(sf::RenderWindow &w) {
 	allActors.sort(&compareDepth);
 
 	for (auto &actor : allActors) {
-		actor->debug_draw(w);
+		//actor->debug_draw(w);
 		actor->draw(w);
 	}
 

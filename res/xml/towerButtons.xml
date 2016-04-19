@@ -1,5 +1,5 @@
 <TowerButtons>
-	<Arrow x="400" y="450" cost="100">
+	<Arrow x="800" y="650" cost="100">
     <CostLabelOffset x="-28" y="12"/>
 		<Texture path="./res/img/arrow_icon_2.png"/>
 		<HoverSound path="./res/sfx/menu_selection.ogg"/>
@@ -10,7 +10,7 @@
 		<Scale x="0.25" y="0.25"/>
 	  </Arrow>
 	  
-	<Magic x="464" y="450" cost="100">
+	<Magic x="864" y="650" cost="100">
     <CostLabelOffset x="-28" y="12"/>
 		<Texture path="./res/img/magic_icon_2.png"/>
 		<HoverSound path="./res/sfx/menu_selection.ogg"/>
@@ -21,7 +21,7 @@
 		<Scale x="0.25" y="0.25"/>
 	  </Magic>
 	  
-	<Unit x="528" y="450" cost="80">
+	<Unit x="928" y="650" cost="80">
     <CostLabelOffset x="-28" y="12"/>
 		<Texture path="./res/img/unit_icon.png"/>
 		<HoverSound path="./res/sfx/menu_selection.ogg"/>

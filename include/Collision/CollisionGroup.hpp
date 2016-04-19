@@ -3,8 +3,6 @@
 
 #include "Collidable.hpp"
 #include <memory>
-#include <exception>
-//#include "CollisionInfo.hpp"
 
 namespace collision {
 
@@ -22,7 +20,7 @@ namespace collision {
 		CollisionGroup();
 		~CollisionGroup();
 
-		void check();
+		void check(float deltaTime);
 		void add(std::shared_ptr<Collidable> const &entry);
 
 		bool checkAgainst(std::shared_ptr<Collidable> &other);

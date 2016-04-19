@@ -79,7 +79,7 @@ namespace collision {
 		}
 	}
 
-	void CollisionGroup::check() {
+	void CollisionGroup::check(float deltaTime) {
 		cullExpiredMembers();
 
 		sf::Vector2f mtv;	//minimum translation vector
@@ -91,6 +91,7 @@ namespace collision {
 					if (auto second = second_weak.lock()) {
 						if (checkPair(first.get(), second.get(), mtv))
 						{
+							mtv *= deltaTime * 8.f;	//take a quarter second
 							first->onCollide(second, mtv);
 							second->onCollide(first, -mtv);
 						}
