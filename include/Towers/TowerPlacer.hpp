@@ -48,7 +48,7 @@ public:
 	/*!
 	\brief	Updates position to match mouse and calculates validity.
 	*/
-	virtual void update(sf::Vector2i mousePosition);
+	virtual void update(sf::Vector2f const& mousePosition);
 
 	/*!
 	\brief	Sets the TowerPlacer to be active.

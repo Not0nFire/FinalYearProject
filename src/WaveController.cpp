@@ -35,6 +35,10 @@ void WaveController::update(sf::Time const& elapsedTime) {
 	}
 }
 
+bool WaveController::isEmpty() const {
+	return mWaveQueue.empty();
+}
+
 bool WaveController::isTimeToSpawnWave() const {
 	return mTimeSinceWave >= mWaveQueue.front().spawnDelay;
 }

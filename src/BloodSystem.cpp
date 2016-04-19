@@ -24,7 +24,7 @@ mPersistDraw(underlayDrawCallback)
 		particle.velocity.y += gravity * time.asSeconds();
 
 		//If we think particle will be removed by next update...
-		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(50, 150))
+		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(60, 140))
 		{
 			//...make the particle persist
 			persistParticle(particle);

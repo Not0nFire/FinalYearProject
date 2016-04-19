@@ -45,7 +45,7 @@ mStunDuration(sf::seconds(0.f))
 }
 
 Pawn::~Pawn() {
-
+	mAttackSound.stop();
 }
 
 void Pawn::makeSelfAware(std::shared_ptr<Pawn> const& smartThis) {
@@ -230,38 +230,40 @@ void Pawn::update(sf::Time const &elapsedTime) {
 }
 
 void Pawn::kill() {
-	mHealth = 0;
-	mState = State::DEAD;
-	if (mOnDeathFunction) {
-		mOnDeathFunction(this);
+	if (mState != DEAD) {
+		mHealth = 0;
+		mState = DEAD;
+		if (mOnDeathFunction) {
+			mOnDeathFunction(this);
+		}
 	}
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type) {
-	//apply relevent damage reduction
-	switch (type) {
+	if (mState != DEAD) {
+		//apply relevent damage reduction
+		switch (type) {
 		case Damage::PHYSICAL:
 			amount *= mArmour;
 			break;
 		case Damage::MAGICAL:
 			amount *= mMagicResist;
 			break;
-	}//switch
+		}//switch
 
-	//apply damage
-	mHealth -= amount;
+		//apply damage
+		mHealth -= amount;
 
-	bool isDead = mHealth <= 0;
-
-	if (isDead) {
-		mState = State::DEAD;
-		if (mOnDeathFunction) {
-			mOnDeathFunction(this);
+		if (mHealth <= 0) {
+			mState = DEAD;
+			if (mOnDeathFunction) {
+				mOnDeathFunction(this);
+			}
 		}
 	}
 
 	//return true if damage killed us
-	return isDead;
+	return isDead();
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const &sender) {
@@ -350,7 +352,7 @@ Pawn::State Pawn::getState() const {
 }
 
 bool Pawn::isDead() const {
-	return mState == State::DEAD;
+	return mState == DEAD;
 }
 
 Pawn::Faction Pawn::getFaction() const {

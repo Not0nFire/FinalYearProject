@@ -4,7 +4,7 @@
 	<TerrainData>./res/img/terrain.bmp</TerrainData>
   <Music volume="10">./res/mus/level.ogg</Music>
   <StartingMoney>300</StartingMoney>
-  <NextLevel>LevelTwo</NextLevel>
+  <NextLevel>./res/xml/levelTwo.lvl</NextLevel>
 	<Path>
     <Node>
       <!-- start the path off to the right, so that units walk in instead of suddenly appearing on screen -->
