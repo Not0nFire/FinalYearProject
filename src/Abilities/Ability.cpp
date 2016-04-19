@@ -1,4 +1,5 @@
 #include <include/Abilities/Ability.hpp>
+#include <include/Settings.hpp>
 
 Ability::Ability(tinyxml2::XMLElement* xml) :
 mIsActive(false),
@@ -14,6 +15,7 @@ mHotkey(xml->Attribute("hotkey")[0])
 	std::string soundPath = xml->FirstChildElement("Sound")->Attribute("path");
 	auto &buffer = ResourceManager<sf::SoundBuffer>::instance()->get(soundPath);
 	mExecutionSound.setBuffer(buffer);
+	mExecutionSound.setVolume(Settings::getInt("EffectsVolume"));
 }
 
 Ability::~Ability() {

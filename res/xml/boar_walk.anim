@@ -1,0 +1,30 @@
+<Animation>
+	<Frame id="boar_walk1">
+		<X>101</X>
+		<Y>53</Y>
+		<Width>42</Width>
+		<Height>44</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="boar_walk2">
+		<X>53</X>
+		<Y>88</Y>
+		<Width>46</Width>
+		<Height>45</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="boar_walk3">
+		<X>0</X>
+		<Y>88</Y>
+		<Width>51</Width>
+		<Height>44</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="boar_walk4">
+		<X>53</X>
+		<Y>135</Y>
+		<Width>46</Width>
+		<Height>45</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

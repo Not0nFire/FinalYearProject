@@ -1,0 +1,23 @@
+<Spritesheet imagePath="sprites.png">
+	<Frame id="ske_atk1">
+		<X>0</X>
+		<Y>30</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_atk3">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>28</Width>
+		<Height>28</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_atk4">
+		<X>55</X>
+		<Y>33</Y>
+		<Width>23</Width>
+		<Height>31</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Spritesheet>

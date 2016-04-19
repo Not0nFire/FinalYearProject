@@ -6,9 +6,18 @@ using namespace tower;
 
 ProjectileTower::ProjectileTower(sf::Vector2f const &position, tinyxml2::XMLElement *xmlDef) :
 Tower(position, xmlDef),
-mTargetingSortPredicate([](std::weak_ptr<Pawn> &A, std::weak_ptr<Pawn> &B)
-{	//Sort by armour (lowest first)
-	return A.lock()->getArmour() < B.lock()->getArmour();
+mTargetingSortPredicate([](std::weak_ptr<Pawn> &A_weak, std::weak_ptr<Pawn> &B_weak)
+{	
+	auto A = A_weak.lock();
+	auto B = B_weak.lock();
+	//if(A is alive but B is dead)
+	if (!A->isDead() && B->isDead()) {
+		return true;
+	}
+	else {
+		//Sort by armour (lowest first)
+		return A->getArmour() < B->getArmour();
+	}
 })//end sort predicate
 {
 	mRange = atof(xmlDef->FirstChildElement("Range")->GetText());
@@ -51,7 +60,7 @@ bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> co
 			}
 		}
 
-		//Remove dead or distance targets from the list
+		//Remove dead or distant targets from the list
 		auto itr = mTargetList.begin();
 		while (mTargetList.end() != itr) {
 			if (itr->expired() || thor::length(itr->lock()->getPosition() - this->getPosition()) > mRange) {

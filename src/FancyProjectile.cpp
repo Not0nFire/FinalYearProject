@@ -86,7 +86,7 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 				}
 		}
 
-		if (makeImpact) {
+		if (makeImpact || mTimeToLive <= 0.f) {
 			mActive = false;
 			updateCollidableMask(getPosition());
 			mImpactOccurred = true;

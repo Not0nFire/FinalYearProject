@@ -1,0 +1,16 @@
+<Animation>
+	<Frame id="ske_walk1">
+		<X>29</X>
+		<Y>30</Y>
+		<Width>24</Width>
+		<Height>30</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_walk2">
+		<X>55</X>
+		<Y>0</Y>
+		<Width>23</Width>
+		<Height>31</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>
