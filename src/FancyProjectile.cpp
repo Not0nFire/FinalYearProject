@@ -81,12 +81,13 @@ void FancyProjectile::update(sf::Time const& elapsedTime) {
 
 				//make impact if close to target
 				makeImpact = distance < 5.f;
+				if (makeImpact) {
+					target->takeDamage(getDamage(), getDamageType());
+				}
 		}
 
 		if (makeImpact) {
-			if (mTimeToLive < 0.f) {
-				mActive = false;
-			}
+			mActive = false;
 			updateCollidableMask(getPosition());
 			mImpactOccurred = true;
 		}
