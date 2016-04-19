@@ -1,8 +1,10 @@
 <SettingsMenu>
   <Backdrop path="./res/img/optionsbg.png"/>
   <Music path="./res/mus/Snowfall.ogg"/>
+
+  <Label x="300" y="100">Settings</Label>
   
-  <QuitButton x="100" y="100">
+  <QuitButton x="300" y="600">
     <Texture path="./res/img/exit_button.png"/>
     <HoverSound path="./res/sfx/menu_selection.ogg"/>
     <Dimensions width="400" height="91"/>
@@ -37,12 +39,4 @@
     </Blip>
   </Slider>
   
-  <Button setting="Bacon" x="300" y="600">
-    <Texture path="./res/img/lock_button.png"/>
-    <HoverSound path="./res/sfx/menu_selection.ogg"/>
-    <Dimensions width="172" height="91"/>
-    <NormalImage x="0" y="91"/>
-    <HoverImage x="0" y="0"/>
-    <DisabledImage x="0" y="182"/>
-  </Button>
 </SettingsMenu>
