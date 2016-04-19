@@ -110,9 +110,9 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 	return placed;
 }
 
-void TowerPlacer::update(sf::Vector2i mousePosition) {
+void TowerPlacer::update(sf::Vector2f const &mousePosition) {
 	if (mIsActive) {
-		mMask->setPosition(mousePosition.x, mousePosition.y);
+		mMask->setPosition(mousePosition);
 		mOverlay.setPosition(mMask->getPosition());
 
 		checkValidity();

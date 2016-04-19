@@ -2,6 +2,7 @@
 #include <include/Constants.h>
 #include <include/SceneManager.hpp>
 #include <include/Settings.hpp>
+#include <iostream>
 
 SettingsMenu::SettingsMenu(tinyxml2::XMLElement* xml) :
 mSaveChangesDialogueBox(

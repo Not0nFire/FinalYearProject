@@ -35,6 +35,11 @@ mMoveSpeed(Constants::Numbers::getCameraMoveSpeed())
 	calculateScalingFactor();
 }
 
+Camera const& Camera::getDefaultCamera() {
+	static const auto defaultCamera = Camera(sf::Vector2f(Settings::getVector2i("Resolution").x, Settings::getVector2i("Resolution").y));
+	return defaultCamera;
+}
+
 void Camera::setTarget(std::shared_ptr<Actor> target)
 {
 	mTarget = target;
@@ -63,6 +68,8 @@ void Camera::update(float deltaSeconds) {
 			auto const displacement = target->getPosition() - getCenter();
 
 			setClampedCenter(getCenter() + (displacement * deltaSeconds));
+
+			sf::Listener::setPosition(target->getPosition().x, target->getPosition().y, 0.f);
 		}
 	}
 	//Handle free moving

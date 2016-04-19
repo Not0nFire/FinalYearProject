@@ -56,6 +56,45 @@ std::string const& Strings::getSettingsDialogueNO() {
 	static const std::string no = "Use";
 	return no;
 }
+std::string const& Strings::getCompletionDialogueTitle() {
+	static const std::string title = "Huzzah!";
+	return title;
+}
+
+std::string const& Strings::getCompletionDialogueBody() {
+	static const std::string body = "You have completed this level!";
+	return body;
+}
+
+std::string const& Strings::getCompletionDialogueYES() {
+	static const std::string yes = "Level Select";
+	return yes;
+}
+
+std::string const& Strings::getCompletionDialogueNO() {
+	static const std::string no = "Main Menu";
+	return no;
+}
+
+std::string const& Strings::getFailDialogueTitle() {
+	static const std::string title = "Oh no!";
+	return title;
+}
+
+std::string const& Strings::getFailDialogueBody() {
+	static const std::string body = "You failed this level.\nBetter luck next time.";
+	return body;
+}
+
+std::string const& Strings::getFailDialogueYES() {
+	static const std::string yes = "Level Select";
+	return yes;
+}
+
+std::string const& Strings::getFailDialogueNO() {
+	static const std::string no = "Main Menu";
+	return no;
+}
 #pragma endregion
 //////////////////////////////////////////
 //										//

@@ -128,20 +128,21 @@ sf::Vector2f Minion::seekEnemy() {
 
 						stopWaiting();	//cancel out any remaining wait time
 
-						//if the member is the same faction as us...
-						if (flockMember->getFaction() == getFaction())
-						{
-							auto target = flockMember->getCombatTarget();
-							if (nullptr != target) {
-								//flockmember is an ally. Attack their target.
-								beTaunted(flockMember->getCombatTarget());
-								displacement = mCombatTarget->getPosition() - getPosition();
-								setDestination(mCombatTarget->getPosition());
-								mState = MARCHING;
-								result = thor::unitVector(displacement);
-							}
-						}
-						else //member is an enemy
+						////if the member is the same faction as us...
+						//if (flockMember->getFaction() == getFaction())
+						//{
+						//	auto target = flockMember->getCombatTarget();
+						//	if (nullptr != target) {
+						//		//flockmember is an ally. Attack their target.
+						//		beTaunted(flockMember->getCombatTarget());
+						//		displacement = mCombatTarget->getPosition() - getPosition();
+						//		setDestination(mCombatTarget->getPosition());
+						//		mState = MARCHING;
+						//		result = thor::unitVector(displacement);
+						//	}
+						//}
+						//else //member is an enemy
+						if (flockMember->getFaction() != getFaction())
 						{
 							//flockmember is an enemy. Attack them.
 							beTaunted(flockMember);

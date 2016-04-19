@@ -42,6 +42,7 @@ public:
 	~WaveController();
 
 	void update(sf::Time const& elapsedTime);
+	bool isEmpty() const;
 private:
 	bool isTimeToSpawnWave() const;
 	void spawnWave();

@@ -10,7 +10,7 @@ namespace Constants
 	class Strings {
 	public:
 		//! This class cannot be instanciated.
-		Strings() = delete;
+		Strings();
 
 		static std::string const& getGameName();	//!< The name of the game.
 		static std::string const& getMainFontPath();	//!< Path to main font used for the game
@@ -25,6 +25,16 @@ namespace Constants
 		static std::string const& getSettingsDialogueBody();	//!< Body text for save-settings dialogue box
 		static std::string const& getSettingsDialogueYES();	//!< Confirmation text for settings dialogue
 		static std::string const& getSettingsDialogueNO();	//!< Declination text for settings dialogue
+
+		static std::string const& getCompletionDialogueTitle();
+		static std::string const& getCompletionDialogueBody();
+		static std::string const& getCompletionDialogueYES();
+		static std::string const& getCompletionDialogueNO();
+
+		static std::string const& getFailDialogueTitle();
+		static std::string const& getFailDialogueBody();
+		static std::string const& getFailDialogueYES();
+		static std::string const& getFailDialogueNO();
 	};
 
 	class Numbers {

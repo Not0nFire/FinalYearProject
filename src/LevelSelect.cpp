@@ -56,6 +56,8 @@ LevelSelect::~LevelSelect() {
 }
 
 bool LevelSelect::handleEvent(sf::Event& evnt) {
+	disableLockedLevels();
+
 	bool handled = false;
 	switch (evnt.type) {
 		case sf::Event::MouseButtonPressed:
@@ -111,6 +113,9 @@ void LevelSelect::disableLockedLevels() {
 		if (!profileRef.hasUnlockedLevel(entry.second)) {
 			//...disable the button.
 			entry.first->disable();
+		}
+		else {
+			entry.first->enable();
 		}
 	}
 }

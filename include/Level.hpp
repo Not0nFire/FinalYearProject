@@ -37,7 +37,7 @@ using std::shared_ptr;
 */
 class Level : public I_Scene{
 private:
-	gui::DialogueBox mPauseDialogue;
+	gui::DialogueBox mPauseDialogue, mCompleteDialogue, mFailDialogue;
 
 	//Each button is paired with an ability, which will be executed when the button is clicked
 	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
@@ -88,16 +88,11 @@ private:
 	//! Draws an object to the underlay texture.
 	void drawToUnderlay(sf::Drawable const& drawable);
 
-	bool mIsLost, mIsWon;
-
 	//! Background music of the level.
 	sf::Music mBgMusic;
 
-	//! Level id. CURRENTLY UNUSED.
-	const int mId;
-
-	//! Scene to go to if player completes this level.
-	const std::string mNextScene;
+	//! Level to unlock if the player completes this level
+	const std::string mNextLevel;
 
 	//! Flock of enemy minions.
 	shared_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
@@ -127,9 +122,11 @@ private:
 	void setupTowerButtons();
 
 	
-	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath=true, bool addFlock=true, bool addCollision=true) const;
+	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath=true, bool addFlock=true, bool addCollision=true);
 
 	void processPauseMenuResult();
+	void processFailDialogueResult();
+	void processCompletionDialogueResult();
 
 	bool updatePawns(sf::Time const& elapsedTime);
 	//! Calls update and shoot on all towers.
@@ -147,14 +144,5 @@ public:
 	void update(sf::Time const &elapsedTime) override;
 	void draw(sf::RenderWindow &w) override;
 	void cleanup() override;
-
-	//signal<void()> onWin, onLose;
-	bool isWon() const;
-	bool isLost() const;
-
-	int getID() const;
-	std::string getNextScene() const;
-
-	//bool loadFromXML(const char *path); //returns true if no errors
 };
 #endif

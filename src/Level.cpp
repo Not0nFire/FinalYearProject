@@ -1,6 +1,8 @@
 #include <include/Level.hpp>
 #include <include/Settings.hpp>
 #include <include/SceneManager.hpp>
+#include <include/Game.hpp>
+#include <functional>
 
 #define GET_TEXTURE(path) ResourceManager<sf::Texture>::instance()->get(path)
 #define GET_FONT(path) ResourceManager<sf::Font>::instance()->get(path)
@@ -66,22 +68,19 @@ bool Level::updatePawns(sf::Time const& elapsedTime) {
 		p->update(elapsedTime);
 
 		if (p != mHero && !p->isDead()) {
-			if (p->getFaction() == Pawn::Faction::ENEMY)
+			if (p->getFaction() == Pawn::Faction::ENEMY) {
 				allEnemiesDead = false;
+			}
 
 			auto minion = std::dynamic_pointer_cast<Minion, Pawn>(p);
-			//if reached end of path
+			//if reached end of path, kill the minion and decrement lives remaining
 			if (nullptr != minion && minion->reachedEndOfPath()) {
-				printf("!\n");
 				p->kill();
-
-				if (--(*mLivesRemaining) <= 0) {
-					mIsLost = true;
-				}
+				--(*mLivesRemaining);
 
 			}//if reached end of path
-
 			else if (p->targetIsDead()) {
+				//offer a new target if this one's is dead
 				for (auto &other : *mPawns) {
 					if (p->offerTarget(other)) {
 						break;
@@ -216,7 +215,7 @@ void Level::setupTowerButtons() {
 	mTowerButtons[TowerPlacer::UNIT] = std::make_unique<gui::CostButton>(btnDef->IntAttribute("x"), btnDef->IntAttribute("y"), btnDef, mMoney);
 }
 
-void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) const {
+void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFlock, bool addCollision) {
 
 	unit->makeSelfAware(std::static_pointer_cast<Pawn, Minion>(unit));
 	
@@ -238,6 +237,8 @@ void Level::spawnMinion(shared_ptr<Minion> const& unit, bool setPath, bool addFl
 	if (addCollision) {
 		mCollisionGroup->add(unit);
 	}
+
+	unit->setOnDeath(bind(&Level::onPawnDeath, this, std::placeholders::_1));
 
 	mPawns->push_back(unit);
 }
@@ -262,10 +263,51 @@ void Level::processPauseMenuResult() {
 	}
 }
 
+void Level::processFailDialogueResult() {
+	switch (mFailDialogue.getResult()) {
+		case gui::DialogueBox::YES:
+			std::cout << "Dialogue result: YES. Return to LevelSelect" << std::endl;
+			SceneManager::instance()->navigateToScene("LevelSelect");
+			break;
+
+		case gui::DialogueBox::NO:
+			std::cout << "Dialogue result: NO. Return to MainMenu" << std::endl;
+			SceneManager::instance()->navigateToScene("MainMenu");
+			break;
+
+		case gui::DialogueBox::CANCEL:
+			std::cout << "Dialogue result: CANCEL. Level resumed." << std::endl;
+			//Do nothing. Allow the user to sandbox in the level.
+			break;
+	}
+}
+
+void Level::processCompletionDialogueResult() {
+	switch (mCompleteDialogue.getResult()) {
+
+		case gui::DialogueBox::YES:
+			std::cout << "Dialogue result: YES. Return to LevelSelect" << std::endl;
+			SceneManager::instance()->navigateToScene("LevelSelect");
+			break;
+
+		case gui::DialogueBox::NO:
+			std::cout << "Dialogue result: NO. Return to MainMenu" << std::endl;
+			SceneManager::instance()->navigateToScene("MainMenu");
+			break;
+
+		case gui::DialogueBox::CANCEL:
+			std::cout << "Dialogue result: CANCEL. Level resumed." << std::endl;
+			//Do nothing. Allow the user to sandbox in the level.
+			break;
+	}
+}
+
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
 
 Level::Level(XMLElement* root) :
-mPauseDialogue({ 400.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
+mPauseDialogue({ 500.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
+mCompleteDialogue({500.f,400.f}, {350.f, 400.f}, Constants::Strings::getCompletionDialogueTitle(), Constants::Strings::getCompletionDialogueBody(), Constants::Strings::getCompletionDialogueYES(), Constants::Strings::getCompletionDialogueNO()),
+mFailDialogue({ 500.f, 400.f }, { 350.f, 400.f }, Constants::Strings::getFailDialogueTitle(), Constants::Strings::getFailDialogueBody(), Constants::Strings::getFailDialogueYES(), Constants::Strings::getFailDialogueNO()),
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
@@ -274,10 +316,7 @@ mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
 mLivesRemaining(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("Lives")))),
-mIsLost(false),
-mIsWon(false),
-mId(atoi(root->Attribute("id"))),
-mNextScene(root->GET_CHILD_VALUE("NextLevel")),
+mNextLevel(root->GET_CHILD_VALUE("NextLevel")),
 mFlock(std::make_shared<std::list<std::weak_ptr<Pawn>>>()),
 mWaveController(root->FirstChildElement("WaveController"), bind(&Level::spawnMinion, this, std::placeholders::_1, true, true, true)),
 mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnderlay, this, std::placeholders::_1))
@@ -389,6 +428,7 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 }
 
 Level::~Level() {
+	mBgMusic.stop();
 }
 
 bool Level::handleEvent(sf::Event &evnt ) {
@@ -458,9 +498,11 @@ bool Level::handleEvent(sf::Event &evnt ) {
 
 	} else if (evnt.type == sf::Event::EventType::MouseMoved) {
 		handled = true;
-		const sf::Vector2i mousePos(evnt.mouseMove.x, evnt.mouseMove.y);
 
-		mTowerPlacer->update(mousePos + sf::Vector2i(mCamera.getDisplacement()));
+		mTowerPlacer->update(mCamera.screenPositionToGamePosition(evnt.mouseMove.x, evnt.mouseMove.y));
+
+		//use default camera for gui items
+		const sf::Vector2i mousePos(Camera::getDefaultCamera().screenPositionToGamePosition(evnt.mouseMove.x, evnt.mouseMove.y));
 
 		for (auto& pair : mAbilityList) {
 			//.first is the button
@@ -472,7 +514,7 @@ bool Level::handleEvent(sf::Event &evnt ) {
 		mTowerButtons[TowerPlacer::MAGIC]->update(mousePos);
 		mTowerButtons[TowerPlacer::UNIT]->update(mousePos);
 
-		mCamera.doMouseMove(sf::Vector2f(mousePos));
+		mCamera.doMouseMove(sf::Vector2f(evnt.mouseMove.x, evnt.mouseMove.y));
 	}//end mouse press handling
 
 	//Handle key presses
@@ -546,36 +588,49 @@ void Level::update(sf::Time const &elapsedTime) {
 	if (!mPauseDialogue.resultProcessed()) {
 		processPauseMenuResult();
 	}
-
-	for (auto& pair : mAbilityList) {
-		//.first is the button
-		//.second is the ability (shared_ptr)
-		pair.first.updateCooldownVisuals(elapsedTime);
-		pair.second->update(elapsedTime);
+	else if (!mFailDialogue.resultProcessed()) {
+		processFailDialogueResult();
 	}
+	else if (!mCompleteDialogue.resultProcessed()) {
+		processCompletionDialogueResult();
+	}
+	else {
 
-	mWaveController.update(elapsedTime);
+		for (auto& pair : mAbilityList) {
+			//.first is the button
+			//.second is the ability (shared_ptr)
+			pair.first.updateCooldownVisuals(elapsedTime);
+			pair.second->update(elapsedTime);
+		}
+
+		mWaveController.update(elapsedTime);
 
 
-	mIsWon = updatePawns(elapsedTime);
+		//updatePawns() returns true if all enemy pawns are dead
+		if (updatePawns(elapsedTime) && mWaveController.isEmpty()) {
+			Game::getPlayerProfile().unlockLevel(mNextLevel);
+			SceneManager::instance()->showDialogueBox(&mCompleteDialogue);
+		}
+		else if (*mLivesRemaining <= 0) {
+			SceneManager::instance()->showDialogueBox(&mFailDialogue);
+		}
 
-	mCollisionGroup->check();
+		mCollisionGroup->check();
 
-	updateTowers(elapsedTime);
+		updateTowers(elapsedTime);
 
-	mProjectileManager->update(elapsedTime);
+		mProjectileManager->update(elapsedTime);
 
-	cleanPawnFlock();
+		cleanPawnFlock();
 
-	mCamera.update(elapsedTime.asSeconds());
+		mCamera.update(elapsedTime.asSeconds());
 
-	ensureMusicPlaying();
+		ensureMusicPlaying();
 
-	mBloodSystem.update(elapsedTime);
+		mBloodSystem.update(elapsedTime);
 
-	
-	mHud.update(elapsedTime.asSeconds());
-
+		mHud.update(elapsedTime.asSeconds());
+	}
 
 }//end update
 
@@ -613,7 +668,7 @@ void Level::draw(sf::RenderWindow &w) {
 
 	mTowerPlacer->draw(w);
 
-	w.setView(w.getDefaultView());	//reset the view before we draw hud items
+	w.setView(Camera::getDefaultCamera());	//reset the view before we draw hud items
 
 	for (auto& pair : mAbilityList) {
 		w.draw(pair.first);	//draw the button
@@ -626,24 +681,8 @@ void Level::draw(sf::RenderWindow &w) {
 	w.draw(mHud);
 }
 
-bool Level::isWon() const {
-	return mIsWon;
-}
-
-bool Level::isLost() const {
-	return mIsLost;
-}
-
 void Level::cleanup() {
 	//std::lock_guard<std::mutex> lock(mMutex);
 	//mHud->hide();
 	mBgMusic.stop();
-}
-
-int Level::getID() const {
-	return mId;
-}
-
-std::string Level::getNextScene() const {
-	return mNextScene;
 }

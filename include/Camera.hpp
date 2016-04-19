@@ -13,6 +13,8 @@ public:
 	Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea = sf::Vector2f(FLT_MAX, FLT_MAX));
 	Camera(sf::Vector2f const& viewportSize, sf::Vector2f const &boundingArea, std::shared_ptr<Actor> const &target);
 
+	static Camera const& getDefaultCamera();
+
 	void setTarget(std::shared_ptr<Actor> target);
 	std::weak_ptr<Actor> getTarget() const;
 	void clearTarget();
