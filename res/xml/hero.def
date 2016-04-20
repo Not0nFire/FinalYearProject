@@ -1,6 +1,13 @@
 <Hero name="hero">
   <!-- Amount of health to regenerate at a time. Rate refers to how many times per second that the regen is applied. -->
   <HealthRegen rate="10">1</HealthRegen>
+  <MoveSounds amount="5">
+    <Sound path="./res/sfx/hero/move1.wav"/>
+    <Sound path="./res/sfx/hero/move2.wav"/>
+    <Sound path="./res/sfx/hero/move3.wav"/>
+    <Sound path="./res/sfx/hero/move4.wav"/>
+    <Sound path="./res/sfx/hero/move5.wav"/>
+  </MoveSounds>
   <Pawn>
     <Faction>PLAYER</Faction>
     <Health>100</Health>

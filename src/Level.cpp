@@ -303,7 +303,6 @@ void Level::processCompletionDialogueResult() {
 }
 
 #define GET_CHILD_VALUE(name) FirstChildElement(name)->GetText()	//make the code a little more readable
-
 Level::Level(XMLElement* root) :
 mPauseDialogue({ 500.f, 400.f }, { 300.f, 300.f }, Constants::Strings::getPauseDialogueTitle(), Constants::Strings::getPauseDialogueBody(), Constants::Strings::getPauseDialogueYES(), Constants::Strings::getPauseDialogueNO()),
 mCompleteDialogue({500.f,400.f}, {350.f, 400.f}, Constants::Strings::getCompletionDialogueTitle(), Constants::Strings::getCompletionDialogueBody(), Constants::Strings::getCompletionDialogueYES(), Constants::Strings::getCompletionDialogueNO()),
@@ -311,7 +310,7 @@ mFailDialogue({ 500.f, 400.f }, { 350.f, 400.f }, Constants::Strings::getFailDia
 mPawns(std::make_shared<std::list<shared_ptr<Pawn>>>()),
 mCollisionGroup(new collision::CollisionGroup()),
 mBackground(GET_TEXTURE(root->GET_CHILD_VALUE("Background"))),
-mCamera(sf::Vector2f(Settings::getVector2i("Resolution")), Constants::Vectors::getCameraBounds()),
+mCamera(sf::Vector2f(Settings::getVector2i("Resolution"))),
 mProjectileManager(new ProjectileManager(mCollisionGroup, GET_TEXTURE("./res/img/magic_particle.png"))),
 mPath(std::make_shared<Path>(root->FirstChildElement("Path"))),
 mMoney(std::make_shared<int>(atoi(root->GET_CHILD_VALUE("StartingMoney")))),
@@ -335,6 +334,8 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 	const sf::Vector2u imageSize = interpreter.getImageSize();
 
 	mBounds = sf::FloatRect(0, 0, imageSize.x, imageSize.y);	//set the level bounds to match the image size
+
+	mCamera.setBoundingArea(sf::Vector2f(mBounds.width, mBounds.height));
 
 	//make a shared_ptr to the newly constructed terrain tree
 	terrainTree = std::make_unique<TerrainTree>(TerrainTree(0, 0, imageSize.x, imageSize.y));
@@ -360,10 +361,10 @@ mBloodSystem(GET_TEXTURE("./res/img/blood_particle.png"), bind(&Level::drawToUnd
 
 	//----------------------------------------------------------
 
-	mHud.addLifeTracker(mLivesRemaining, GET_TEXTURE("./res/img/heart.png"), { 500.f, 10.f }, { 1.f, 1.f }, { 30.f, 0.f });	//(lives, texture, position, scale, spacing)
-	mHud.addImage(GET_TEXTURE("./res/img/coin.png"), { 380.f, 10.f });
-	mHud.addNumberTracker(mMoney, { 400.f, 10.f }, GET_FONT("./res/fonts/KENVECTOR_FUTURE.TTF"));
-	mHud.addImage(GET_TEXTURE("./res/img/portrait.png"), { 0.f, 0.f });
+	mHud.addLifeTracker(mLivesRemaining, GET_TEXTURE(Constants::Strings::getLivesTexture()), Constants::Vectors::getLivesPosition(), Constants::Vectors::getLivesScale(), Constants::Vectors::getLivesSpacing());
+	mHud.addImage(GET_TEXTURE(Constants::Strings::getMoneyTexture()), Constants::Vectors::getMoneyIconPosition());
+	mHud.addNumberTracker(mMoney, Constants::Vectors::getMoneyPosition(), GET_FONT(Constants::Strings::getMainFontPath()));
+	mHud.addImage(GET_TEXTURE(Constants::Strings::getPortraitTexture()), sf::Vector2f());
 
 
 	UnitFactory factory;

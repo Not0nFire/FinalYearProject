@@ -50,7 +50,7 @@ public:
 	\remarks Pawns move straight toward their destination.
 	\param destination The Pawn's new destination.
 	*/
-	void setDestination(sf::Vector2f const &destination);
+	virtual void setDestination(sf::Vector2f const &destination);
 
 	int getMovementSpeed() const;
 	void setMovementSpeed(int newSpeed);

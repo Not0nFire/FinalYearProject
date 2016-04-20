@@ -35,6 +35,10 @@ namespace Constants
 		static std::string const& getFailDialogueBody();
 		static std::string const& getFailDialogueYES();
 		static std::string const& getFailDialogueNO();
+
+		static std::string const& getLivesTexture();
+		static std::string const& getMoneyTexture();
+		static std::string const& getPortraitTexture();
 	};
 
 	class Numbers {
@@ -43,6 +47,10 @@ namespace Constants
 
 		static float getCameraMoveSpeed();
 		static float getCameraEdgeMoveThreshold();
+
+		static unsigned int getMageTowerMaxTargets();
+
+		static unsigned int getHeroMoveSoundChance();	//!< Chance, out of 100, that hero will play a sound when his destination is set.
 	};
 
 	class Vectors {
@@ -53,6 +61,13 @@ namespace Constants
 		static sf::Vector2f const& getCameraBounds();	//!< Camera edges cannot go beyond this volume (starts at 0,0)
 		static sf::Vector2u const& getMinimumResolution();	//!< Gets the resolution of the monitor
 		static sf::Vector2u const& getScreenSize();
+
+		static sf::Vector2f const& getLivesPosition();
+		static sf::Vector2f const& getLivesScale();
+		static sf::Vector2f const& getLivesSpacing();
+
+		static sf::Vector2f const& getMoneyIconPosition();
+		static sf::Vector2f const& getMoneyPosition();
 	};
 
 	class Misc {

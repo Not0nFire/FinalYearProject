@@ -1,28 +1,28 @@
 <Animation>
-	<Frame id="att1">
+<Frame id="att1">
 		<X>54</X>
-		<Y>0</Y>
+		<Y>54</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.f</Duration>
 	</Frame>
 	<Frame id="att2">
 		<X>108</X>
-		<Y>0</Y>
+		<Y>54</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.f</Duration>
 	</Frame>
 	<Frame id="att3">
-		<X>54</X>
-		<Y>162</Y>
+		<X>108</X>
+		<Y>0</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.f</Duration>
 	</Frame>
 	<Frame id="att4">
 		<X>54</X>
-		<Y>108</Y>
+		<Y>162</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.f</Duration>

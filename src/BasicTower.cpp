@@ -17,11 +17,11 @@ mTargetingSortPredicate([](std::weak_ptr<Pawn> &A_weak, std::weak_ptr<Pawn> &B_w
 			}
 			else {
 				//Sort by armour (lowest first)
-				return A->getArmour() < B->getArmour();
+				return A->getArmour().value < B->getArmour().value;
 			}
 		}
 	}
-	return false;
+	return true;
 })//end sort predicate
 {
 	mRange = atof(xmlDef->FirstChildElement("Range")->GetText());
@@ -81,21 +81,22 @@ bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> co
 			//Sort the targets
 			mTargetList.sort(mTargetingSortPredicate);
 
-			auto const& chosenTarget = mTargetList.begin()->lock();
-			float distance = thor::length(chosenTarget->getPosition() - this->getPosition());
+			if (auto const& chosenTarget = mTargetList.begin()->lock()) {
+				float distance = thor::length(chosenTarget->getPosition() - this->getPosition());
 
-			auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
+				auto projectile = std::make_shared<ArcProjectile>(mDamage, mDamageType, ResourceManager<sf::Texture>::instance()->get("./res/img/projectile.png"));
 
-			float ttl = distance / mRange;
+				float ttl = distance / mRange;
 
-			//Fire the newly created projectile at the target.
-			projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(chosenTarget.get(), ttl), ttl);
+				//Fire the newly created projectile at the target.
+				projectile->fire(getPosition() + mProjectileSpawnOffset, leadTarget(chosenTarget.get(), ttl), ttl);
 
-			//Give the projectile to the manager. We lost ownership of it.
-			mProjectileManager->give(projectile);
+				//Give the projectile to the manager. We lost ownership of it.
+				mProjectileManager->give(projectile);
 
-			mSecondsSinceLastAttack = 0.f;
-			targetAqcuired = true;
+				mSecondsSinceLastAttack = 0.f;
+				targetAqcuired = true;
+			}
 		}
 	}
 

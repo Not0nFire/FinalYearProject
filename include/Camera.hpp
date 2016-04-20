@@ -46,6 +46,8 @@ public:
 
 	void toggleLock();
 
+	void setBoundingArea(sf::Vector2f const& bounds);
+
 	/*!
 	\brief Moves the camera if the mouse is close to the screen edge.
 	Assumes that the mouse position is NOT translated from screen to game coordinates.

@@ -25,15 +25,15 @@
       </Animation>
       <Animation path="././res/xml/frog_walk.anim">
         <Name>idle</Name>
-        <Duration>10</Duration>
+        <Duration>100</Duration>
       </Animation>
       <Animation path="././res/xml/frog_attack.anim">
         <Name>attack</Name>
         <Duration>0.5</Duration>
       </Animation>
-      <Animation path="././res/xml/frog_walk.anim">
+      <Animation path="././res/xml/frog_death.anim">
         <Name>death</Name>
-        <Duration>0</Duration>
+        <Duration>1</Duration>
       </Animation>
 
       <Origin x="25" y="25"/>

@@ -94,6 +94,10 @@ void Camera::toggleLock() {
 	mLocked = !mLocked;
 }
 
+void Camera::setBoundingArea(sf::Vector2f const& bounds) {
+	mBoundingArea = bounds;
+}
+
 void Camera::doMouseMove(sf::Vector2f mousePos) {
 	auto const& screenSize = Constants::Vectors::getScreenSize();
 

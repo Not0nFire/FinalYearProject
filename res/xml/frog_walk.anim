@@ -1,14 +1,14 @@
 <Animation>
-	<Frame id="hop1">
-		<X>54</X>
-		<Y>54</Y>
+		<Frame id="hop1">
+		<X>108</X>
+		<Y>108</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.5</Duration>
 	</Frame>
 	<Frame id="hop2">
-		<X>108</X>
-		<Y>54</Y>
+		<X>54</X>
+		<Y>0</Y>
 		<Width>52</Width>
 		<Height>52</Height>
 		<Duration>1.5</Duration>
