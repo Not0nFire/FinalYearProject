@@ -19,7 +19,7 @@ void Level::onPawnDeath(Pawn* pawn) {
 		*mMoney += static_cast<Minion*>(pawn)->getMonetaryValue();
 	}
 
-	mBloodSystem.addSpurt(pawn->getPosition());
+	mBloodSystem.addSpurt(pawn->getPosition(), pawn->getBloodColor());
 }
 
 bool Level::compareDepth(shared_ptr<Actor> const &A, shared_ptr<Actor> const &B) {

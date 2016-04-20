@@ -16,9 +16,10 @@ mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
 mCombatTarget(nullptr),
-mSecondsSinceTurn(0.f),
+mStunDuration(sf::seconds(0.f)),
+mBloodColor(sf::Color::Red),
 mTurnCooldown(1.f),
-mStunDuration(sf::seconds(0.f))
+mSecondsSinceTurn(0.f)
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
@@ -42,6 +43,15 @@ mStunDuration(sf::seconds(0.f))
 
 	playAnimation("idle", true);
 	animate(sf::seconds(0.f));
+
+	auto bloodColorXml = xml->FirstChildElement("BloodColor");
+	if (nullptr != bloodColorXml) {
+		mBloodColor = sf::Color(
+			bloodColorXml->IntAttribute("r"),
+			bloodColorXml->IntAttribute("g"),
+			bloodColorXml->IntAttribute("b")
+			);
+	}
 }
 
 Pawn::~Pawn() {
@@ -369,6 +379,10 @@ Damage::Reduction const& Pawn::getArmour() const {
 
 Damage::Reduction const& Pawn::getMagicResist() const {
 	return mMagicResist;
+}
+
+sf::Color Pawn::getBloodColor() const {
+	return mBloodColor;
 }
 
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {

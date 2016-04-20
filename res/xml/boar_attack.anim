@@ -1,44 +1,44 @@
 <Animation>
 	<Frame id="boar_att1">
 		<X>0</X>
-		<Y>43</Y>
-		<Width>56</Width>
-		<Height>43</Height>
-		<Duration>1.f</Duration>
+		<Y>86</Y>
+		<Width>112</Width>
+		<Height>86</Height>
+		<Duration>1.25</Duration>
 	</Frame>
 	<Frame id="boar_att2">
 		<X>0</X>
-		<Y>134</Y>
-		<Width>51</Width>
-		<Height>45</Height>
-		<Duration>1.f</Duration>
+		<Y>268</Y>
+		<Width>102</Width>
+		<Height>90</Height>
+		<Duration>1.25</Duration>
 	</Frame>
 	<Frame id="boar_att3">
-		<X>101</X>
-		<Y>99</Y>
-		<Width>40</Width>
-		<Height>54</Height>
-		<Duration>1.f</Duration>
+		<X>202</X>
+		<Y>198</Y>
+		<Width>80</Width>
+		<Height>108</Height>
+		<Duration>1.25</Duration>
 	</Frame>
 	<Frame id="boar_att4">
-		<X>143</X>
-		<Y>99</Y>
-		<Width>40</Width>
-		<Height>54</Height>
-		<Duration>1.f</Duration>
+		<X>286</X>
+		<Y>198</Y>
+		<Width>80</Width>
+		<Height>108</Height>
+		<Duration>0.25</Duration>
 	</Frame>
 	<Frame id="boar_att5">
-		<X>60</X>
+		<X>120</X>
 		<Y>0</Y>
-		<Width>46</Width>
-		<Height>51</Height>
-		<Duration>1.f</Duration>
+		<Width>92</Width>
+		<Height>102</Height>
+		<Duration>0.25</Duration>
 	</Frame>
 	<Frame id="boar_att6">
 		<X>0</X>
 		<Y>0</Y>
-		<Width>58</Width>
-		<Height>41</Height>
-		<Duration>1.f</Duration>
+		<Width>116</Width>
+		<Height>82</Height>
+		<Duration>0.5</Duration>
 	</Frame>
 </Animation>

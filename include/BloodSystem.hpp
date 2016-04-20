@@ -11,8 +11,8 @@ public:
 	explicit BloodSystem(sf::Texture &texture, std::function<void(Drawable const&)> underlayDrawCallback);
 	~BloodSystem();
 
-	void addSpurt(sf::Vector2f const& position);
-	void addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, float speed = 40.f, float deflectionAngle = 30.f, float minTtl = 0.8f, float maxTtl = 1.2f);
+	void addSpurt(sf::Vector2f const& position, sf::Color const& color = sf::Color::Red);
+	void addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, sf::Color const& color = sf::Color::Red, float speed = 40.f, float deflectionAngle = 30.f, float minTtl = 0.8f, float maxTtl = 1.2f);
 
 	void update(sf::Time const& time);
 

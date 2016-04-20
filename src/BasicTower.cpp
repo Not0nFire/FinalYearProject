@@ -8,16 +8,20 @@ ProjectileTower::ProjectileTower(sf::Vector2f const &position, tinyxml2::XMLElem
 Tower(position, xmlDef),
 mTargetingSortPredicate([](std::weak_ptr<Pawn> &A_weak, std::weak_ptr<Pawn> &B_weak)
 {	
-	auto A = A_weak.lock();
-	auto B = B_weak.lock();
-	//if(A is alive but B is dead)
-	if (!A->isDead() && B->isDead()) {
-		return true;
+	if (auto A = A_weak.lock()) {
+		if (auto B = B_weak.lock()) {
+			
+			//if(A is alive but B is dead)
+			if (!A->isDead() && B->isDead()) {
+				return true;
+			}
+			else {
+				//Sort by armour (lowest first)
+				return A->getArmour() < B->getArmour();
+			}
+		}
 	}
-	else {
-		//Sort by armour (lowest first)
-		return A->getArmour() < B->getArmour();
-	}
+	return false;
 })//end sort predicate
 {
 	mRange = atof(xmlDef->FirstChildElement("Range")->GetText());

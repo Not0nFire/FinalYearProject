@@ -7,16 +7,19 @@ ProjectileTower(position, xmlDef)
 {
 	mTargetingSortPredicate = [](std::weak_ptr<Pawn> &A_weak, std::weak_ptr<Pawn> &B_weak)
 	{	
-		auto A = A_weak.lock();
-		auto B = B_weak.lock();
-		//if(A is alive but B is dead)
-		if (!A->isDead() && B->isDead()) {
-			return true;	//prioritise live prey
+		if (auto A = A_weak.lock()) {
+			if (auto B = B_weak.lock()) {
+				//if(A is alive but B is dead)
+				if (!A->isDead() && B->isDead()) {
+					return true;	//prioritise live prey
+				}
+				else {
+					//Sort by magic resist (lowest first)
+					return A->getMagicResist() < B->getMagicResist();
+				}
+			}
 		}
-		else {
-			//Sort by magic resist (lowest first)
-			return A->getMagicResist() < B->getMagicResist();
-		}
+		return false;
 	};
 }
 

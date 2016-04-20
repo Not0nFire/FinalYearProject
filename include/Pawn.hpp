@@ -168,6 +168,7 @@ public:
 	Damage::Reduction const& getArmour() const;
 	Damage::Reduction const& getMagicResist() const;
 
+	sf::Color getBloodColor() const;
 
 	/*!
 	\brief Called whenever the Pawn collides with something.
@@ -224,6 +225,8 @@ protected:
 #pragma endregion
 
 private:
+	sf::Color mBloodColor;
+
 	float mSecondsToWait;
 
 	//! The time to wait between flipping the sprite.
