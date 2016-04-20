@@ -15,7 +15,7 @@ mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
 mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mCombatTarget(nullptr),
+mCombatTarget(),
 mStunDuration(sf::seconds(0.f)),
 mBloodColor(sf::Color::Red),
 mTurnCooldown(1.f),
@@ -72,7 +72,14 @@ void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
 	if (mSecondsSinceTurn >= mTurnCooldown) {
 		const sf::Vector2f& scale = getScale();
 		const sf::Vector2f& pos = getPosition();
-		float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : dir.x;	//face target if attacking
+
+		float faceThis = dir.x;
+
+		if (mState == ATTACKING) {
+			if (auto target = mCombatTarget.lock()){
+				faceThis = target->getPosition().x;	//face target if attacking
+			}
+		}
 
 		//mirror the sprite, making it face the right way
 		if ((faceThis < pos.x && scale.x > 0) ||
@@ -117,14 +124,13 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 	if (mState != DEAD && mState != STUNNED) {
 
 		//attack if in range
-		if (mCombatTarget != nullptr &&
-			!mCombatTarget->isDead() &&
-			(thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange)
-			)
-		{
-			if (mState != ATTACKING) {
-				mState = ATTACKING;
-				mTimeSinceAttack = 0.f;
+		if (auto target = mCombatTarget.lock()) {
+			if (!target->isDead() && (thor::length(this->getPosition() - target->getPosition()) <= mAttackRange))
+			{
+				if (mState != ATTACKING) {
+					mState = ATTACKING;
+					mTimeSinceAttack = 0.f;
+				}
 			}
 		}
 
@@ -143,16 +149,16 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 void Pawn::doAttack(float secondsElapsed) {
 	_ASSERT(mState == State::ATTACKING);
 
-	turnToFaceDirection(mCombatTarget->getPosition());
-
 	//Check if we have a target
-	if (mCombatTarget) {
+	if (auto target = mCombatTarget.lock()) {
+		turnToFaceDirection(target->getPosition());
+
 		mTimeSinceAttack += secondsElapsed;
 
 		//Check if it's time to attack.
 		if (mTimeSinceAttack >= 1 / mAttacksPerSecond) {
 			//Deal damage to our target
-			mCombatTarget->takeDamage(mAttackDamage, mDamageType, self.lock());
+			target->takeDamage(mAttackDamage, mDamageType, self.lock());
 			mTimeSinceAttack = 0.0f;
 			mAttackSound.setPosition(sf::Vector3f(getPosition().x, getPosition().y, 0.f));
 			mAttackSound.play();
@@ -280,9 +286,11 @@ bool Pawn::takeDamage(int amount, Damage::Type type) {
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const &sender) {
-	if (mCombatTarget == nullptr) {
-		mCombatTarget = sender;
-	} else if (thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
+	if (auto target = mCombatTarget.lock()) {
+		if (thor::length(target->getPosition() - this->getPosition()) > mAttackRange) {
+			mCombatTarget = sender;
+		}
+	} else {
 		mCombatTarget = sender;
 	}
 
@@ -330,12 +338,14 @@ bool Pawn::offerTarget(std::shared_ptr<Pawn> const &target) {
 		//std::cout << "Offered self as target..." << std::endl;
 		acceptedTarget = false;
 	}
-	else if (mCombatTarget == nullptr) {
+	else if (mCombatTarget.expired()) {
 		beTaunted(target);
 	}
 	//if current target is dead or far away...
-	else if (mCombatTarget->isDead() || thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
-		beTaunted(target);
+	else if (auto target = mCombatTarget.lock()){
+		if (target->isDead() || thor::length(target->getPosition() - this->getPosition()) > mAttackRange) {
+			beTaunted(target);
+		}
 	}
 
 	return acceptedTarget;
@@ -344,9 +354,8 @@ bool Pawn::offerTarget(std::shared_ptr<Pawn> const &target) {
 bool Pawn::targetIsDead() const {
 	bool isDead = true;
 
-	//nullptr is good as dead
-	if (mCombatTarget) {	//	!= nullptr
-		isDead = mCombatTarget->isDead();
+	if (auto target = mCombatTarget.lock()) {
+		isDead = target->isDead();
 	}
 	return isDead;
 }
@@ -374,7 +383,7 @@ Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
 }
 
-std::shared_ptr<Pawn> const& Pawn::getCombatTarget() const {
+std::weak_ptr<Pawn> const& Pawn::getCombatTarget() const {
 	return mCombatTarget;
 }
 

@@ -114,7 +114,7 @@ sf::Vector2f Minion::seekEnemy() {
 	sf::Vector2f result = sf::Vector2f();
 
 	//if combat target is null, dead or far away: find a new target
-	if (nullptr == mCombatTarget || mCombatTarget->isDead() || thor::length(mCombatTarget->getPosition() - getPosition()) > range) {
+	if (mCombatTarget.expired()|| mCombatTarget.lock()->isDead() || thor::length(mCombatTarget.lock()->getPosition() - getPosition()) > range) {
 
 		for (auto itr = mFlock->begin();
 			itr != mFlock->end();
@@ -124,7 +124,8 @@ sf::Vector2f Minion::seekEnemy() {
 			if (auto flockMember = itr->lock()) {
 				if (flockMember != self.lock()) {
 					auto displacement = flockMember->getPosition() - getPosition();
-					if (thor::length(displacement) <= range) {
+					auto distance = thor::length(displacement);
+					if (distance > 0 && distance <= range) {
 
 						stopWaiting();	//cancel out any remaining wait time
 
@@ -146,8 +147,9 @@ sf::Vector2f Minion::seekEnemy() {
 						{
 							//flockmember is an enemy. Attack them.
 							beTaunted(flockMember);
-							setDestination(mCombatTarget->getPosition());
+							setDestination(mCombatTarget.lock()->getPosition());
 							mState = MARCHING;
+							
 							result = thor::unitVector(displacement);
 						}
 					}//end if (length(displacement) <= range)
@@ -155,9 +157,9 @@ sf::Vector2f Minion::seekEnemy() {
 			}//end if (flockmember = itr->lock)
 		}//end for (itr)
 	}//end if (mCombatTarget)
-	else {
+	else if(auto target = mCombatTarget.lock()){
 		//return the direction to the our target
-		result = thor::unitVector(mCombatTarget->getPosition() - getPosition());
+		result = thor::unitVector(target->getPosition() - getPosition());
 	}
 
 	return result;

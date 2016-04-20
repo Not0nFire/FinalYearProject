@@ -1,0 +1,113 @@
+<Level id="1">
+  <Lives>8</Lives>
+	<Background>./res/img/bg.png</Background>
+	<TerrainData>./res/img/terrain.bmp</TerrainData>
+  <Music volume="10">./res/mus/level.ogg</Music>
+  <StartingMoney>300</StartingMoney>
+  <NextLevel>./res/xml/levelTwo.lvl</NextLevel>
+	<Path>
+    <Node>
+      <!-- start the path off to the right, so that units walk in instead of suddenly appearing on screen -->
+      <X>-100</X>
+      <Y>140</Y>
+      <Radius>100</Radius>
+    </Node>
+		<Node>
+			<X>51</X>
+			<Y>140</Y>
+			<Radius>50</Radius>
+		</Node>
+		<Node>
+			<X>230</X>
+			<Y>180</Y>
+			<Radius>50</Radius>
+		</Node>
+		<Node>
+			<X>375</X>
+			<Y>280</Y>
+			<Radius>75</Radius>
+		</Node>
+    <Node>
+      <X>585</X>
+      <Y>385</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>680</X>
+      <Y>215</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>885</X>
+      <Y>180</Y>
+      <Radius>100</Radius>
+    </Node>
+    <Node>
+      <X>1300</X>
+      <Y>400</Y>
+      <Radius>100</Radius>
+    </Node>
+	</Path>
+  <WaveController>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>10</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>30</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>2</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>60</SpawnDelay>
+      <NumberOfUnits>15</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+  </WaveController>
+	<Units>
+    <!--<Unit type="basic_enemy">
+      <X>100</X>
+      <Y>200</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>300</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>600</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>100</X>
+      <Y>300</Y>
+    </Unit>
+    <Unit type="fast_enemy">
+      <X>50</X>
+      <Y>50</Y>
+    </Unit>-->
+	<Unit type="hero">
+      <X>500</X>
+      <Y>400</Y>
+	</Unit>
+	</Units>
+</Level>

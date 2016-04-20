@@ -163,7 +163,7 @@ public:
 
 	void setOnDeath(std::function<void(Pawn*)> const& callback);
 
-	std::shared_ptr<Pawn> const& getCombatTarget() const;
+	std::weak_ptr<Pawn> const& getCombatTarget() const;
 
 	Damage::Reduction const& getArmour() const;
 	Damage::Reduction const& getMagicResist() const;
@@ -197,7 +197,7 @@ protected:
 	int mAttackDamage;
 	float mAttacksPerSecond; /*!< \remarks 1.0f == 1 attack per second */
 	float mTimeSinceAttack;	/*!< \remarks 1.0f == 1 second */
-	std::shared_ptr<Pawn> mCombatTarget;
+	std::weak_ptr<Pawn> mCombatTarget;
 
 	sf::Time mStunDuration;
 	sf::Time mTimeStunned;
