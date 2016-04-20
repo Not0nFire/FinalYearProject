@@ -19,7 +19,7 @@ mSpeedUp(false)
 		mBgMusic.play();
 	}
 
-	mRenderTex.create(800u, 4000u);
+	mRenderTex.create(700u, 8000u);
 	mRenderTex.clear(sf::Color::Transparent);
 
 	auto const& font = ResourceManager<sf::Font>::instance()->get("./res/fonts/NEVIS.TTF");
@@ -32,7 +32,6 @@ mSpeedUp(false)
 	{
 		const int yPos = 500 * index;
 
-		//`GET_ENTRY_VALUE(name)` === `entry->FirstChildElement(name)->GetText()`
 		std::string const author = entry->FirstChildElement("Author")->GetText();
 		std::string const link = entry->FirstChildElement("Link")->GetText();
 		std::string const work = entry->FirstChildElement("Work")->GetText();
@@ -111,7 +110,7 @@ bool Credits::handleEvent(sf::Event& evnt) {
 
 		case sf::Event::MouseWheelScrolled:
 			//Scroll the credits
-			mView.move(0.f, evnt.mouseWheelScroll.delta * -20.f);
+			mView.move(0.f, evnt.mouseWheelScroll.delta * -50.f);
 			break;
 
 		case sf::Event::MouseMoved:
