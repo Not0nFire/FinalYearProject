@@ -11,7 +11,8 @@ mBackButton(
 mBackdrop(ResourceManager<sf::Texture>::instance()->get(root->Attribute("backdrop"))),
 mBaseScrollSpeed(root->FloatAttribute("baseScrollSpeed")),
 mSpeedMultiplier(root->FloatAttribute("speedMultiplier")),
-mSpeedUp(false)
+mSpeedUp(false),
+mAutoscroll(true)
 {
 	if (mBgMusic.openFromFile(root->Attribute("music"))) {
 		//mBgMusic.setVolume(Settings::getInt("MusicVolume"));
@@ -101,6 +102,9 @@ bool Credits::handleEvent(sf::Event& evnt) {
 			if (evnt.key.code == sf::Keyboard::Escape) {
 				SceneManager::instance()->navigateToScene("MainMenu");
 			}
+			else if (evnt.key.code == sf::Keyboard::Space) {
+				mAutoscroll = !mAutoscroll;	//toggle autoscroll
+			}
 			mSpeedUp = true;
 			break;
 
@@ -139,7 +143,7 @@ bool Credits::handleEvent(sf::Event& evnt) {
 void Credits::update(sf::Time const& elapsedTime) {
 
 	//scroll until credits are done
-	if (mView.getCenter().y < mCredits.getGlobalBounds().height) {
+	if (mAutoscroll && mView.getCenter().y < mCredits.getGlobalBounds().height) {
 		//Scroll the view (and apply multipier if we should speed up)
 		if (mSpeedUp) {
 			mView.move(0.f, mBaseScrollSpeed * mSpeedMultiplier * elapsedTime.asSeconds());

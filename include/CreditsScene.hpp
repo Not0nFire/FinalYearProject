@@ -23,5 +23,6 @@ private:
 	sf::View mView;
 	const float mBaseScrollSpeed, mSpeedMultiplier;
 	bool mSpeedUp;
+	bool mAutoscroll;
 };
 #endif

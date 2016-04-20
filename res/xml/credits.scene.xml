@@ -13,7 +13,7 @@
     <Author>Alexander Meuer</Author>
     <Link>AlexMeuer.github.io</Link>
     <Work>You're playing the game I made.</Work>
-    <Licence>(These credits are scrollable)</Licence>
+    <Licence>(These credits are scrollable. Spacebar toggles autoscroll)</Licence>
   </Entry>
   
   <Entry>
@@ -53,6 +53,7 @@
     <Link>opengameart.org/content/snowfall</Link>
     <Work>Snowfall (Settings music)</Work>
     <Licence>CC-BY 3.0</Licence>
+    <Image>./res/credits/snowfall_waveform.png</Image>
   </Entry>
   
   <Entry>
@@ -74,6 +75,7 @@
     <Link>opengameart.org/users/matthewpablo</Link>
     <Work>Soliloquy (Credits music)</Work>
     <Licence>CC-BY 3.0</Licence>
+    <Image>./res/credits/soliloquy_waveform.png</Image>
   </Entry>
 
   <Entry>
