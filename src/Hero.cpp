@@ -5,8 +5,8 @@
 Hero::Hero(tinyxml2::XMLElement* xml) :
 Pawn(xml->FirstChildElement("Pawn")),
 mSecondsSinceRegen(0.f),
-M_HEALTH_REGEN(atoi(xml->FirstChildElement("HealthRegen")->GetText())),
-M_REGEN_INTERVAL(1.f / atof(xml->FirstChildElement("HealthRegen")->Attribute("rate")))
+M_REGEN_INTERVAL(1.f / xml->FirstChildElement("HealthRegen")->FloatAttribute("rate")),
+M_HEALTH_REGEN(atoi(xml->FirstChildElement("HealthRegen")->GetText()))
 {
 	_ASSERT(std::string(xml->Name()) == "Hero");
 
@@ -21,7 +21,7 @@ M_REGEN_INTERVAL(1.f / atof(xml->FirstChildElement("HealthRegen")->Attribute("ra
 		moveSfxXml = moveSfxXml->NextSiblingElement("Sound"))
 	{
 		mMoveSounds.emplace_back(ResourceManager<sf::SoundBuffer>::instance()->get(moveSfxXml->Attribute("path")));
-		//mMoveSounds.rbegin()->setVolume(Settings::getInt("EffectsVolume"));
+		mMoveSounds.rbegin()->setVolume(Settings::getInt("EffectsVolume"));
 	}
 }
 

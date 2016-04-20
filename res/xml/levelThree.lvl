@@ -1,115 +1,120 @@
 <Level id="1">
   <Lives>8</Lives>
-	<Background>./res/img/bg3.png</Background>
-	<TerrainData>./res/img/terrain3.bmp</TerrainData>
+	<Background>./res/img/bg5.png</Background>
+	<TerrainData>./res/img/terrain5.bmp</TerrainData>
   <Music volume="10">./res/mus/level.ogg</Music>
-  <StartingMoney>120</StartingMoney>
-  <NextLevel>./res/xml/levelTwo.lvl</NextLevel>
+  <StartingMoney>0</StartingMoney>
+  <NextLevel>NONE</NextLevel>
 	<Path>
     <Node>
       <!-- start the path off to the right, so that units walk in instead of suddenly appearing on screen -->
-      <X>530</X>
-      <Y>-100</Y>
+      <X>-50</X>
+      <Y>880</Y>
       <Radius>75</Radius>
     </Node>
 		<Node>
-			<X>300</X>
-			<Y>600</Y>
+			<X>205</X>
+			<Y>745</Y>
 			<Radius>75</Radius>
 		</Node>
 		<Node>
-			<X>310</X>
-			<Y>975</Y>
+			<X>420</X>
+			<Y>615</Y>
 			<Radius>75</Radius>
 		</Node>
 		<Node>
-			<X>445</X>
-			<Y>1080</Y>
+			<X>525</X>
+			<Y>395</Y>
 			<Radius>75</Radius>
 		</Node>
     <Node>
-      <X>640</X>
-      <Y>1055</Y>
+      <X>685</X>
+      <Y>225</Y>
       <Radius>75</Radius>
     </Node>
     <Node>
-      <X>755</X>
-      <Y>950</Y>
+      <X>895</X>
+      <Y>230</Y>
       <Radius>75</Radius>
     </Node>
     <Node>
-      <X>765</X>
-      <Y>745</Y>
+      <X>940</X>
+      <Y>480</Y>
       <Radius>75</Radius>
     </Node>
     <Node>
-      <X>700</X>
-      <Y>640</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>720</X>
-      <Y>470</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>1115</X>
-      <Y>470</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>1380</X>
+      <X>1290</X>
       <Y>570</Y>
       <Radius>75</Radius>
     </Node>
 	 <Node>
-      <X>1650</X>
+      <X>1500</X>
+      <Y>440</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1735</X>
+      <Y>380</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2160</X>
+      <Y>330</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2370</X>
+      <Y>145</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2565</X>
+      <Y>185</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2545</X>
+      <Y>470</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2410</X>
+      <Y>650</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2595</X>
+      <Y>800</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2980</X>
+      <Y>750</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>3195</X>
+      <Y>555</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>3410</X>
       <Y>700</Y>
       <Radius>75</Radius>
     </Node>
 	 <Node>
-      <X>1530</X>
-      <Y>965</Y>
+      <X>3660</X>
+      <Y>360</Y>
       <Radius>75</Radius>
     </Node>
 	 <Node>
-      <X>1355</X>
-      <Y>1220</Y>
+      <X>3950</X>
+      <Y>135</Y>
       <Radius>75</Radius>
     </Node>
 	 <Node>
-      <X>1115</X>
-      <Y>1360</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>1025</X>
-      <Y>1170</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>730</X>
-      <Y>1275</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>610</X>
-      <Y>1470</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>835</X>
-      <Y>1620</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>1200</X>
-      <Y>1720</Y>
-      <Radius>75</Radius>
-    </Node>
-	 <Node>
-      <X>1470</X>
-      <Y>2000</Y>
+      <X>4050</X>
+      <Y>130</Y>
       <Radius>75</Radius>
     </Node>
 	</Path>
@@ -121,18 +126,13 @@
     </Wave>
     <Wave>
       <UnitType>basic_enemy</UnitType>
-      <SpawnDelay>10</SpawnDelay>
-      <NumberOfUnits>2</NumberOfUnits>
-    </Wave>
-	    <Wave>
-      <UnitType>frog_enemy</UnitType>
-      <SpawnDelay>2</SpawnDelay>
-      <NumberOfUnits>2</NumberOfUnits>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>boar_enemy</UnitType>
-      <SpawnDelay>10</SpawnDelay>
-      <NumberOfUnits>1</NumberOfUnits>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>30</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>fast_enemy</UnitType>
@@ -145,14 +145,9 @@
       <NumberOfUnits>15</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>frog_enemy</UnitType>
-      <SpawnDelay>0</SpawnDelay>
-      <NumberOfUnits>3</NumberOfUnits>
-    </Wave>
-	    <Wave>
       <UnitType>fast_enemy</UnitType>
       <SpawnDelay>0</SpawnDelay>
-      <NumberOfUnits>2</NumberOfUnits>
+      <NumberOfUnits>5</NumberOfUnits>
     </Wave>
   </WaveController>
 	<Units>

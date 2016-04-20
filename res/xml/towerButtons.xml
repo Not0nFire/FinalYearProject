@@ -10,7 +10,7 @@
 		<Scale x="0.25" y="0.25"/>
 	  </Arrow>
 	  
-	<Magic x="864" y="650" cost="100">
+	<Magic x="864" y="650" cost="120">
     <CostLabelOffset x="-28" y="12"/>
 		<Texture path="./res/img/magic_icon_2.png"/>
 		<HoverSound path="./res/sfx/menu_selection.ogg"/>

@@ -97,8 +97,7 @@ bool Level::updatePawns(sf::Time const& elapsedTime) {
 			if (!p->isPlayingAnimation() && p->isDead())
 			{
 				//draw to underlay and erase
-				mUnderlayTex.draw(*p);
-				mUnderlayTex.display();
+				drawToUnderlay(*p);
 
 				//award money for enemies that die
 				if (p->getFaction() != Pawn::Faction::PLAYER) {

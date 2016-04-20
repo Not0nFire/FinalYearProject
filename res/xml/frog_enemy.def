@@ -1,5 +1,5 @@
 <Minion name="frog_enemy">
-  <MoneyValue>25</MoneyValue>
+  <MoneyValue>6</MoneyValue>
   <PathingWeights destination="1.2" separation="0.9" cohesion="0.3" enemy_seek="1"/>
   <Pawn>
     <Faction>ENEMY</Faction>
