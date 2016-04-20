@@ -91,6 +91,10 @@ public:
 	*/
 	void setSpawnCallback(std::function<void(std::shared_ptr<Minion>)> const& callback);
 
+	bool checkHotkey(char key) const;
+	char getHotkey() const;
+	void setHotkey(char hotkey);
+
 protected:
 	void activate();
 	void deactivate();
@@ -145,6 +149,9 @@ private:
 
 	//! The sound played when the ability is executed.
 	sf::Sound mExecutionSound;
+
+	//! Keyboard shortcut to activate this ability
+	char mHotkey;
 
 	std::shared_ptr<const std::list<std::shared_ptr<Pawn>>> mPawnList;
 	std::shared_ptr<ProjectileManager> mProjectileManager;

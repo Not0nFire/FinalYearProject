@@ -45,13 +45,16 @@ void RaiseDead::doUpdateLogic(sf::Time const& deltaTime) {
 		//Spawn units around the user.
 		for (auto const& spawnPoint : mSpawnPoints) {
 			auto unit = std::make_shared<Minion>(mUnitPrototype);
-			unit->playAnimation("Spawn");
 
 			auto actualSpawnPosition = position + spawnPoint;
 			unit->setPosition(actualSpawnPosition);
 			unit->setDestination(actualSpawnPosition);
 
 			spawnMinion(unit);
+
+			//make units do their spawn animation
+			unit->stun(sf::seconds(0.5f));
+			unit->playAnimation("spawn");
 		}
 
 		deactivate();

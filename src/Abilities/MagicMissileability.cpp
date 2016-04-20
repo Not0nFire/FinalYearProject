@@ -1,4 +1,5 @@
 #include <include/Abilities/MagicMissileAbility.hpp>
+#include <include/Settings.hpp>
 
 using namespace abilities;
 
@@ -23,6 +24,7 @@ mCastGraphics(xml->FirstChildElement("Actor"))
 	std::string launchSoundPath = xml->FirstChildElement("MissileLaunchSound")->Attribute("path");
 	auto &buffer = ResourceManager<sf::SoundBuffer>::instance()->get(launchSoundPath);
 	mLaunchSound.setBuffer(buffer);
+	mLaunchSound.setVolume(Settings::getInt("EffectsVolume"));
 }
 
 MagicMisile::~MagicMisile() {

@@ -3,12 +3,12 @@
 
 #include <include/Scene.hpp>
 #include <include/Gui/DialogueBox.hpp>
-#include <functional>
 #include <map>
 #include <thread>
 #include <condition_variable>
 #include <atomic>
 #include <queue>
+#include <iostream>
 
 namespace detail
 {
@@ -44,6 +44,8 @@ private:
 	Each scene is identified by its name.
 	*/
 	std::map<std::string, std::unique_ptr<SceneProxy>> mScenes;
+
+	bool mTranslateMouseEvents;	//!< True if we should translate mouse positions from screen to game
 
 	gui::DialogueBox* mActiveDialogue;
 
@@ -123,6 +125,12 @@ public:
 	*/
 	void navigateToScene( std::string const &path );
 
+	/*!
+	\brief Stops translating mouse until the scene is changed.
+	Be default, the manager translates mouse posititions from screen coordinates to game coordinates.
+	*/
+	void stopTranslatingMouse();
+
 	void showDialogueBox(gui::DialogueBox* dialogueBox);
 
 	//! Destroys the instance.
@@ -132,6 +140,8 @@ public:
 template <class SceneType>
 void SceneManager::createScene(std::string const& name, std::string const& xmlPath, bool goToScene) {
 	std::unique_lock<std::mutex> lock(mRequestMutex);
+
+	std::cout << "-[Adding creation request]=" << std::endl;
 
 	//Construct the scene from the name. It defaults to a navigation request.
 	detail::SceneRequest request = name;
@@ -148,5 +158,7 @@ void SceneManager::createScene(std::string const& name, std::string const& xmlPa
 	mRequests.push(request);
 
 	mRequestPending.notify_all();
+
+	std::cout << "-[Added creation request]=" << std::endl;
 }
 #endif

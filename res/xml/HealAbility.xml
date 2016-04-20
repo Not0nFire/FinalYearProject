@@ -1,4 +1,4 @@
-<Ability>
+<Ability hotkey="e">
   <!-- User-friendly name of the ability -->
   <Name>Heal</Name>
   

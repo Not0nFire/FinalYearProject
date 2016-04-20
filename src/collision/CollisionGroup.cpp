@@ -11,7 +11,7 @@ namespace collision {
 		
 	}
 
-	bool CollisionGroup::checkPair(std::shared_ptr<Collidable> const &first, std::shared_ptr<Collidable> const &second, sf::Vector2f &minTranslation) const {
+	bool CollisionGroup::checkPair(Collidable* first, Collidable* second, sf::Vector2f &minTranslation) const {
 		if (first == second) {
 			return false;	//don't check the same object against itself
 		}
@@ -72,19 +72,32 @@ namespace collision {
 		return collisionOccured;
 	}
 
-	void CollisionGroup::check() {
+	void CollisionGroup::cullExpiredMembers() {
+		auto itr = std::remove_if(mMembers.begin(), mMembers.end(), [](std::weak_ptr<Collidable>& ptr){ return ptr.expired(); });
+		if (mMembers.end() != itr) {
+			mMembers.erase(itr, mMembers.end());
+		}
+	}
+
+	void CollisionGroup::check(float deltaTime) {
+		cullExpiredMembers();
 
 		sf::Vector2f mtv;	//minimum translation vector
-		for (auto &first : mMembers)
+		for (auto &first_weak : mMembers)
 		{
-			for (auto &second : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
-			{
-				if (checkPair(first, second, mtv))
+			if (auto first = first_weak.lock()) {
+				for (auto &second_weak : mMembers)	//Inefficient, pairs are checked twice and each axis is used at least twice.
 				{
-					first->onCollide(second, -mtv);
-					second->onCollide(first, mtv);
-				}
-			}//for second
+					if (auto second = second_weak.lock()) {
+						if (checkPair(first.get(), second.get(), mtv))
+						{
+							mtv *= deltaTime * 4.f;	//take a quarter second
+							first->onCollide(second, mtv * 0.5f);
+							second->onCollide(first, -mtv * 0.5f);
+						}
+					}
+				}//for second
+			}
 		}//for first
 	}
 
@@ -92,27 +105,21 @@ namespace collision {
 		mMembers.push_back(entry);
 	}
 
-	void CollisionGroup::remove(std::shared_ptr<Collidable> const &entry) {
-		auto end = mMembers.end();
-		auto itr = std::remove(mMembers.begin(), end, entry);
-		if (itr != end) {
-			mMembers.erase(itr);
-		}
-		else
-		{
-			std::cout << "CollisionGroup: Tried to erase list element, but could not find it." << std::endl;
-		}
-	}
-
-	void CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
+	bool CollisionGroup::checkAgainst(std::shared_ptr<Collidable> &other) {
 		sf::Vector2f mtv;
-		for (auto &member : mMembers)
+		bool collisionOccured = false;
+		for (auto &member_weak : mMembers)
 		{
-			if (checkPair(other, member, mtv))
-			{
-				member->onCollide(other, mtv);
-				other->onCollide(member, -mtv);
+			if (auto member = member_weak.lock()) {
+				collisionOccured = checkPair(other.get(), member.get(), mtv);
+				if (collisionOccured)
+				{
+					member->onCollide(other, mtv * 0.5f);
+					other->onCollide(member, -mtv * 0.5f);
+				}
 			}
 		}
+
+		return collisionOccured;
 	}
 }

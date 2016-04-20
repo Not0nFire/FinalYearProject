@@ -1,5 +1,5 @@
-#ifndef _UNIT_FACTORY_H
-#define _UNIT_FACOTRY_H
+#ifndef UNIT_FACTORY_H
+#define UNIT_FACOTRY_H
 
 #include <map>
 #include <list>

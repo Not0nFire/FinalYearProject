@@ -17,7 +17,6 @@ namespace tower {
 		virtual ~MageTower();
 
 		bool shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> const& possibleTargets) override;
-	protected:
 
 	};
 }

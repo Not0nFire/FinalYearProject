@@ -1,4 +1,5 @@
 #include "include/LevelSelect.hpp"
+#include <include/Settings.hpp>
 
 LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 	
@@ -15,6 +16,7 @@ LevelSelect::LevelSelect(tinyxml2::XMLElement* xml) {
 	);//end openFromFile()
 
 	mMusic.setLoop(true);
+	mMusic.setVolume(Settings::getInt("MusicVolume"));
 
 	auto backBtnXml = xml->FirstChildElement("BackButton");
 	mBackButton = std::make_unique<gui::Button>(
@@ -54,6 +56,8 @@ LevelSelect::~LevelSelect() {
 }
 
 bool LevelSelect::handleEvent(sf::Event& evnt) {
+	disableLockedLevels();
+
 	bool handled = false;
 	switch (evnt.type) {
 		case sf::Event::MouseButtonPressed:
@@ -84,6 +88,7 @@ bool LevelSelect::handleEvent(sf::Event& evnt) {
 
 void LevelSelect::update(sf::Time const& elapsedTime) {
 	if (mMusic.getStatus() != sf::Music::Status::Playing) {
+		mMusic.setVolume(Settings::getInt("MusicVolume"));
 		mMusic.play();
 	}
 }
@@ -108,6 +113,9 @@ void LevelSelect::disableLockedLevels() {
 		if (!profileRef.hasUnlockedLevel(entry.second)) {
 			//...disable the button.
 			entry.first->disable();
+		}
+		else {
+			entry.first->enable();
 		}
 	}
 }

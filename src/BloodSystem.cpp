@@ -24,7 +24,7 @@ mPersistDraw(underlayDrawCallback)
 		particle.velocity.y += gravity * time.asSeconds();
 
 		//If we think particle will be removed by next update...
-		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(50, 150))
+		if (getRemainingLifetime(particle) - time < noTime || particle.velocity.y > rangedRandom(60, 140))
 		{
 			//...make the particle persist
 			persistParticle(particle);
@@ -38,17 +38,18 @@ mPersistDraw(underlayDrawCallback)
 
 BloodSystem::~BloodSystem() {}
 
-void BloodSystem::addSpurt(sf::Vector2f const& position) {
-	addSpurt(position, mRandomDirection());
+void BloodSystem::addSpurt(sf::Vector2f const& position, sf::Color const& color) {
+	addSpurt(position, mRandomDirection(), color);
 }
 
-void BloodSystem::addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, float speed, float deflectionAngle, float minTtl, float maxTtl) {
+void BloodSystem::addSpurt(sf::Vector2f const& position, sf::Vector2f const& direction, sf::Color const& color, float speed, float deflectionAngle, float minTtl, float maxTtl) {
 	thor::UniversalEmitter emitter;
 
 	emitter.setParticleLifetime(uniform(sf::seconds(5), sf::seconds(10)));
 	emitter.setParticlePosition(position);
 	emitter.setEmissionRate(500.f);
 	emitter.setParticleVelocity(deflect(direction * speed, deflectionAngle));
+	emitter.setParticleColor(color);
 	
 	mSpurtSystem.addEmitter(emitter, uniform(sf::seconds(0.1f), sf::seconds(0.8f))());
 }

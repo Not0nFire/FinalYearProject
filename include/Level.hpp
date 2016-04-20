@@ -16,9 +16,9 @@
 #include <include/Pathing/Path.hpp>
 #include <include/Camera.hpp>
 #include <SFML/Audio.hpp>
-#include <include/UnitFactory.hpp>
 #include <include/TinyXML2/tinyxml2.h>
 #include <include/Towers/UnitTower.hpp>
+#include <include/WaveController.hpp>
 #include <include/ResourceManager.hpp>
 #include <include/Abilities/MagicMissileAbility.hpp>
 #include <include/Abilities/RaiseDeadAbility.hpp>
@@ -27,25 +27,28 @@
 #include <include/BloodSystem.hpp>
 #include <include/HUD.hpp>
 #include <include/Gui/DialogueBox.hpp>
+#include "Gui/CostButton.hpp"
+#include <include/Constants.h>
 
 using std::shared_ptr;
-class SceneManager;
 
 /*!
 \brief Playable level of the game.
 */
 class Level : public I_Scene{
 private:
-	gui::DialogueBox mPauseDialogue;
+	gui::DialogueBox mPauseDialogue, mCompleteDialogue, mFailDialogue;
 
 	//Each button is paired with an ability, which will be executed when the button is clicked
 	std::list<std::pair<gui::AbilityButton, shared_ptr<Ability>>> mAbilityList;
+
+	std::map<TowerPlacer::TowerType, std::unique_ptr<gui::CostButton>> mTowerButtons;
 
 	shared_ptr<Pawn> mHero;
 	shared_ptr<std::list<shared_ptr<Pawn>>> mPawns;
 	shared_ptr<collision::CollisionGroup> mCollisionGroup;
 
-	//! List of ranged towers in the level
+	//! List of towers in the level
 	std::vector<shared_ptr<tower::Tower>> mTowers;
 
 	//std::mutex mMutex;
@@ -63,13 +66,13 @@ private:
 
 	shared_ptr<ProjectileManager> mProjectileManager;
 
-	//! Tool for placing ranged towers.
+	//! Tool for placing towers.
 	std::unique_ptr<TowerPlacer> mTowerPlacer;
 
 	//! Path that Minions will follow.
 	shared_ptr<Path> mPath;
 
-	//! Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers.
+	//! Amount of money at the player's disposal. Earned by killing Minions, spent on building towers.
 	shared_ptr<int> mMoney;
 	//! Number of enemies that can make it through the level alive before losing.
 	shared_ptr<int> mLivesRemaining;
@@ -85,19 +88,17 @@ private:
 	//! Draws an object to the underlay texture.
 	void drawToUnderlay(sf::Drawable const& drawable);
 
-	bool mIsLost, mIsWon;
-
 	//! Background music of the level.
 	sf::Music mBgMusic;
 
-	//! Level id. CURRENTLY UNUSED.
-	const int mId;
-
-	//! Scene to go to if player completes this level.
-	const std::string mNextScene;
+	//! Level to unlock if the player completes this level
+	const std::string mNextLevel;
 
 	//! Flock of enemy minions.
-	shared_ptr<std::list<Minion*>> mMinionFlock;
+	shared_ptr<std::list<std::weak_ptr<Pawn>>> mFlock;
+
+	//! Controller for spawning groups of units units after delays
+	WaveController mWaveController;
 
 	BloodSystem mBloodSystem;
 
@@ -118,17 +119,24 @@ private:
 	*/
 	void setupAbilities();
 
+	void setupTowerButtons();
+
 	
-	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath = true, bool addFlock = true, bool addCollision = true) const;
+	void spawnMinion(shared_ptr<Minion> const& unit, bool setPath=true, bool addFlock=true, bool addCollision=true);
 
 	void processPauseMenuResult();
+	void processFailDialogueResult();
+	void processCompletionDialogueResult();
+
+	bool updatePawns(sf::Time const& elapsedTime);
+	//! Calls update and shoot on all towers.
+	void updateTowers(sf::Time const& elapsedTime);
+	//! Plays the background music if it is not playing.
+	void ensureMusicPlaying();
+	//! Removes expired weak_ptrs from the list.
+	void cleanPawnFlock() const;
 	
 public:
-	/*!
-	\param _relWindow RenderWindow to be used for getting relative mouse position.
-	*/
-	/*Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui);
-	Level(sf::RenderWindow const* _relWindow, std::shared_ptr<sfg::SFGUI> sfgui, const char* xmlPath);*/
 	Level(XMLElement* root);
 	~Level();
 	
@@ -136,15 +144,5 @@ public:
 	void update(sf::Time const &elapsedTime) override;
 	void draw(sf::RenderWindow &w) override;
 	void cleanup() override;
-
-	//signal<void()> onWin, onLose;
-	bool isWon() const;
-	bool isLost() const;
-
-	int getID() const;
-	std::string getNextScene() const;
-
-	//bool loadFromXML(const char *path); //returns true if no errors
 };
-#include "SceneManager.hpp"
 #endif

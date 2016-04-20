@@ -1,0 +1,44 @@
+<Animation>
+		<Frame id="hop1">
+		<X>108</X>
+		<Y>108</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>1.5</Duration>
+	</Frame>
+	<Frame id="hop2">
+		<X>54</X>
+		<Y>0</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>1.5</Duration>
+	</Frame>
+	<Frame id="hop3">
+		<X>0</X>
+		<Y>162</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>0.5</Duration>
+	</Frame>
+	<Frame id="hop4">
+		<X>0</X>
+		<Y>108</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>0.5</Duration>
+	</Frame>
+	<Frame id="hop5">
+		<X>0</X>
+		<Y>54</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>0.5</Duration>
+	</Frame>
+	<Frame id="hop6">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>52</Width>
+		<Height>52</Height>
+		<Duration>1.5</Duration>
+	</Frame>
+</Animation>

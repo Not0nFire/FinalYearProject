@@ -44,6 +44,6 @@ std::shared_ptr<Node> Path::getNext(std::shared_ptr<Node> current) {
 	return current->getNext();
 }
 
-std::shared_ptr<Node> Path::begin() const {
+std::shared_ptr<const Node> Path::begin() const {
 	return mRoot;
 }

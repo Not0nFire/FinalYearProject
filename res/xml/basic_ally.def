@@ -1,48 +1,55 @@
 <Minion name="basic_ally">
   <MoneyValue>0</MoneyValue>
+  <PathingWeights destination="0.5" separation="2" cohesion="0.1" enemy_seek="2"/>
   <Pawn>
     <Faction>PLAYER</Faction>
     <Health>100</Health>
     <Armour>0.25</Armour>
-    <MagicResist>0.0</MagicResist>
+    <MagicResist>0.25</MagicResist>
     <DamageType>PHYSICAL</DamageType>
     <AttackRange>60</AttackRange>
     <AttackDamage>10</AttackDamage>
-    <AttacksPerSecond>1</AttacksPerSecond>
-    <MovementSpeed>30</MovementSpeed>
+    <AttacksPerSecond>3</AttacksPerSecond>
+    <MovementSpeed>40</MovementSpeed>
 
-    <AttackSound minDistance="50" attenuation="2">./res/sfx/hit01.ogg</AttackSound>
+    <BloodColor r="0" g="50" b="50"/>
+
+    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
-      <Texture>././res/img/ally.png</Texture>
-      <Animation path="././res/xml/hero_run.anim">
+      <Texture>././res/img/skeleton.png</Texture>
+      <Animation path="././res/xml/skeleton_walk.anim">
         <Name>walk</Name>
-        <Duration>3.f</Duration>
+        <Duration>1</Duration>
       </Animation>
-      <Animation path="././res/xml/hero_idle.anim">
+      <Animation path="././res/xml/skeleton_walk.anim">
         <Name>idle</Name>
-        <Duration>1.5f</Duration>
+        <Duration>10</Duration>
       </Animation>
-      <Animation path="././res/xml/hero_attack.anim">
+      <Animation path="././res/xml/skeleton_attack.anim">
         <Name>attack</Name>
-        <Duration>1.f</Duration>
+        <Duration>0.3</Duration>
       </Animation>
-      <Animation path="././res/xml/hero_death.anim">
+      <Animation path="././res/xml/skeleton_death.anim">
         <Name>death</Name>
-        <Duration>1.f</Duration>
+        <Duration>1</Duration>
+      </Animation>
+      <Animation path="././res/xml/skeleton_spawn.anim">
+        <Name>spawn</Name>
+        <Duration>0.5</Duration>
       </Animation>
 
-      <Origin x="25.f" y="25.f"/>
-      
+      <Origin x="12" y="20"/>
+
       <!--
       Used to check for collisions.
       Options for type are "Circle" and "Convex";
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="5" type="Circle">
-        <Offset x="0" y="20"/>
-        <Radius>25.f</Radius>
+        <Offset x="0" y="5"/>
+        <Radius>15</Radius>
       </Collidable>
     </Actor>
   </Pawn>

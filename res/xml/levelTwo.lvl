@@ -1,43 +1,187 @@
 <Level id="2">
-  <Lives>3</Lives>
-	<Background>./res/img/bg2.png</Background>
-	<TerrainData>./res/img/terrain2.bmp</TerrainData>
-  <Music volume="50">./res/mus/Heroic_Demise.ogg</Music>
-  <StartingMoney>100</StartingMoney>
-  <NextLevel>Menu</NextLevel>
+  <Lives>8</Lives>
+	<Background>./res/img/bg4.png</Background>
+	<TerrainData>./res/img/terrain4.bmp</TerrainData>
+  <Music volume="10">./res/mus/level.ogg</Music>
+  <StartingMoney>50</StartingMoney>
+  <NextLevel>./res/xml/levelThree.lvl</NextLevel>
 	<Path>
+    <Node>
+      <X>770</X>
+      <Y>-100</Y>
+      <Radius>75</Radius>
+    </Node>
 		<Node>
-			<X>180</X>
-			<Y>220</Y>
-			<Radius>80</Radius>
-		</Node>
-		<Node>
-			<X>400</X>
-			<Y>530</Y>
+			<X>1700</X>
+			<Y>330</Y>
 			<Radius>75</Radius>
 		</Node>
 		<Node>
-			<X>150</X>
-			<Y>850</Y>
-			<Radius>100</Radius>
+			<X>1435</X>
+			<Y>460</Y>
+			<Radius>75</Radius>
 		</Node>
-	</Path>
-	<Units>
-    <Unit type="basic_enemy">
+		<Node>
+			<X>1040</X>
+			<Y>420</Y>
+			<Radius>75</Radius>
+		</Node>
+    <Node>
+      <X>640</X>
+      <Y>140</Y>
+      <Radius>75</Radius>
+    </Node>
+    <Node>
+      <X>330</X>
+      <Y>190</Y>
+      <Radius>75</Radius>
+    </Node>
+    <Node>
       <X>250</X>
+      <Y>710</Y>
+      <Radius>75</Radius>
+    </Node>
+    <Node>
+      <X>360</X>
+      <Y>1400</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>615</X>
+      <Y>1410</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>755</X>
+      <Y>890</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1265</X>
+      <Y>910</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1200</X>
+      <Y>1350</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>970</X>
+      <Y>1480</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>680</X>
+      <Y>1620</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>510</X>
+      <Y>1880</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>975</X>
+      <Y>1815</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1335</X>
+      <Y>1610</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1505</X>
+      <Y>1350</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1550</X>
+      <Y>815</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1740</X>
+      <Y>800</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1840</X>
+      <Y>1335</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>1825</X>
+      <Y>1800</Y>
+      <Radius>75</Radius>
+    </Node>
+	 <Node>
+      <X>2010</X>
+      <Y>2005</Y>
+      <Radius>75</Radius>
+    </Node>
+	</Path>
+  <WaveController>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>1</SpawnDelay>
+      <NumberOfUnits>1</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>30</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>2</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>60</SpawnDelay>
+      <NumberOfUnits>15</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>fast_enemy</UnitType>
+      <SpawnDelay>0</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+  </WaveController>
+	<Units>
+    <!--<Unit type="basic_enemy">
+      <X>100</X>
+      <Y>200</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>300</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>600</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>300</X>
+      <Y>600</Y>
+    </Unit>
+    <Unit type="basic_enemy">
+      <X>100</X>
+      <Y>300</Y>
+    </Unit>
+    <Unit type="fast_enemy">
+      <X>50</X>
       <Y>50</Y>
-    </Unit>
-	<Unit type="basic_enemy">
-      <X>200</X>
-      <Y>30</Y>
-    </Unit>
-	<Unit type="basic_enemy">
-      <X>260</X>
-      <Y>70</Y>
-    </Unit>
+    </Unit>-->
 	<Unit type="hero">
-      <X>400</X>
-      <Y>500</Y>
+      <X>500</X>
+      <Y>400</Y>
 	</Unit>
 	</Units>
 </Level>

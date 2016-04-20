@@ -1,5 +1,5 @@
-#ifndef _TOWER_PLACER_H
-#define _TOWER_PLACER_H
+#ifndef TOWER_PLACER_H
+#define TOWER_PLACER_H
 
 #include <memory>
 
@@ -13,7 +13,9 @@
 #include "MageTower.hpp"
 #include "UnitTower.hpp"
 
-#include "include/ProjectileManager.hpp"
+#include <include/ProjectileManager.hpp>
+
+#include <include/Collision/CollisionGroup.hpp>
 
 typedef Quadtree<unsigned char> TerrainTree;
 
@@ -32,7 +34,7 @@ public:
 	\param	terrainTree	Quadtree used to determine where is valid for tower placement.
 	\param	projectileMgr	Shared pointer to a ProjectileManager. Created towers will add their projectiles to this.
 	\param	path Path onto which UnitTowers will send their spawned units.
-	\param	flock Flock into which UnitTowers will add their spawned units.
+	\param	unitSpawnCallback Given to unit towers so that they can spawn units.
 	*/
 	TowerPlacer(shared_ptr<TerrainTree> const &terrainTree, shared_ptr<ProjectileManager> const &projectileMgr, shared_ptr<Path> const &path, std::function<void(shared_ptr<Minion>)> const &unitSpawnCallback);
 	virtual ~TowerPlacer();
@@ -46,7 +48,7 @@ public:
 	/*!
 	\brief	Updates position to match mouse and calculates validity.
 	*/
-	virtual void update(sf::Vector2i mousePosition);
+	virtual void update(sf::Vector2f const& mousePosition);
 
 	/*!
 	\brief	Sets the TowerPlacer to be active.
@@ -56,10 +58,17 @@ public:
 	void activate(TowerType type);
 
 	/*!
+	\brief If true, placing a tower will not remove the tower placer form the cursor.
+	*/
+	void setSticky(bool sticky);
+
+	/*!
 	\brief	Draws the tower overlay to the render target.
 	\remarks If debugging, also draws the collision mask.
 	*/
 	void draw(sf::RenderTarget &renderTarget) const;
+
+	bool isActive() const;
 
 protected:
 	//! The type of tower that will be placed
@@ -80,6 +89,9 @@ protected:
 	//! Shape used to test for validity with the terrain tree.
 	sf::Shape* mMask;
 
+	//! If true, placing a tower will not deactivate the placer.
+	bool mIsSticky;
+
 	/*!
 	\brief Checks if the current location is valid for placement.
 	*/
@@ -98,8 +110,12 @@ private:
 	static const std::string mMagicTowerDefPath;
 	static const std::string mUnitTowerDefPath;
 
+	//! Used to prevent the player from placing towers on top of each other.
+	collision::CollisionGroup mTowerCollisionGroup;
+
 	const shared_ptr<ProjectileManager> mProjectileManager;
 	const shared_ptr<Path> mPath;
 	const std::function<void(shared_ptr<Minion>)> mUnitSpawnCallback;
+
 };
 #endif

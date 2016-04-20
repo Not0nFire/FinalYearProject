@@ -1,4 +1,5 @@
 #include <include\Pawn.hpp>
+#include <include/Settings.hpp>
 
 #define GET_ELEMENT(str) xml->FirstChildElement(str)->GetText()
 Pawn::Pawn(tinyxml2::XMLElement* xml) :
@@ -14,8 +15,11 @@ mMovementSpeed(atoi(GET_ELEMENT("MovementSpeed"))),
 mAttackDamage(atoi(GET_ELEMENT("AttackDamage"))),
 mAttacksPerSecond(atof(GET_ELEMENT("AttacksPerSecond"))),
 mTimeSinceAttack(FLT_MAX),
-mCombatTarget(nullptr),
-mStunDuration(sf::seconds(0.f))
+mCombatTarget(),
+mStunDuration(sf::seconds(0.f)),
+mBloodColor(sf::Color::Red),
+mTurnCooldown(1.f),
+mSecondsSinceTurn(0.f)
 {
 	_ASSERT(std::string(xml->Name()) == "Pawn");
 
@@ -35,11 +39,28 @@ mStunDuration(sf::seconds(0.f))
 		mAttackSound.setAttenuation(atof(attenuationXml));
 	}
 
+	mAttackSound.setVolume(Settings::getInt("EffectsVolume"));
+
 	playAnimation("idle", true);
+	animate(sf::seconds(0.f));
+
+	auto bloodColorXml = xml->FirstChildElement("BloodColor");
+	if (nullptr != bloodColorXml) {
+		mBloodColor = sf::Color(
+			bloodColorXml->IntAttribute("r"),
+			bloodColorXml->IntAttribute("g"),
+			bloodColorXml->IntAttribute("b")
+			);
+	}
 }
 
 Pawn::~Pawn() {
+	mAttackSound.stop();
+}
 
+void Pawn::makeSelfAware(std::shared_ptr<Pawn> const& smartThis) {
+	assert(smartThis.get() == this);
+	self = smartThis;
 }
 
 //bool Pawn::decay(sf::Time const &elapsedTime) {
@@ -47,16 +68,27 @@ Pawn::~Pawn() {
 //	return mDecayTime > sf::Time::Zero;
 //}
 
-void Pawn::turnToFaceDestination() {
-	sf::Vector2f scale = getScale();
-	float posX = getPosition().x;
-	float faceThis = mState == ATTACKING ? mCombatTarget->getPosition().x : mDestination.x;	//face target if attacking
+void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
+	if (mSecondsSinceTurn >= mTurnCooldown) {
+		const sf::Vector2f& scale = getScale();
+		const sf::Vector2f& pos = getPosition();
 
-	//mirror the sprite, making it face the right way
-	if ((faceThis < posX && scale.x > 0) ||
-		faceThis > posX && scale.x < 0)
-	{
-		setScale(scale.x * -1, scale.y);
+		float faceThis = dir.x;
+
+		if (mState == ATTACKING) {
+			if (auto target = mCombatTarget.lock()){
+				faceThis = target->getPosition().x;	//face target if attacking
+			}
+		}
+
+		//mirror the sprite, making it face the right way
+		if ((faceThis < pos.x && scale.x > 0) ||
+			faceThis > pos.x && scale.x < 0)
+		{
+			setScale(scale.x * -1, scale.y);
+
+			mSecondsSinceTurn = 0.f;
+		}
 	}
 }
 
@@ -75,7 +107,10 @@ void Pawn::calculateAnimation() {
 		if (isPlayingAnimation() && getPlayingAnimation() != "attack")
 			playAnimation("attack", true);
 		break;
-	case STUNNED: break;
+	case STUNNED:
+		if (isPlayingAnimation() && (getPlayingAnimation() != "idle" && getPlayingAnimation() != "spawn"))
+			playAnimation("idle", false);
+		break;
 	case DEAD:
 		if (isPlayingAnimation() && getPlayingAnimation() != "death")
 			playAnimation("death", false);
@@ -86,25 +121,27 @@ void Pawn::calculateAnimation() {
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 	//don't bother updating state if dead
-	if (mState != State::DEAD && mState != State::STUNNED) {
+	if (mState != DEAD && mState != STUNNED) {
 
 		//attack if in range
-		if (mCombatTarget != nullptr &&
-			!mCombatTarget->isDead() &&
-			(thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange)
-			)
-		{
-				mState = State::ATTACKING;
+		if (auto target = mCombatTarget.lock()) {
+			if (!target->isDead() && (thor::length(this->getPosition() - target->getPosition()) <= mAttackRange))
+			{
+				if (mState != ATTACKING) {
+					mState = ATTACKING;
+					mTimeSinceAttack = 0.f;
+				}
+			}
 		}
 
 		//proceed toward goal
-		else if (thor::length(goalDisplacement) > 5) {
-			mState = State::MARCHING;
+		else if (mSecondsToWait <= 0.f && thor::length(goalDisplacement) > 5) {
+			mState = MARCHING;
 
 		}
 
 		else {
-			mState = State::IDLE;
+			mState = IDLE;
 		}
 	}
 }
@@ -113,13 +150,15 @@ void Pawn::doAttack(float secondsElapsed) {
 	_ASSERT(mState == State::ATTACKING);
 
 	//Check if we have a target
-	if (mCombatTarget) {
+	if (auto target = mCombatTarget.lock()) {
+		turnToFaceDirection(target->getPosition());
+
 		mTimeSinceAttack += secondsElapsed;
 
 		//Check if it's time to attack.
 		if (mTimeSinceAttack >= 1 / mAttacksPerSecond) {
 			//Deal damage to our target
-			mCombatTarget->takeDamage(mAttackDamage, mDamageType);
+			target->takeDamage(mAttackDamage, mDamageType, self.lock());
 			mTimeSinceAttack = 0.0f;
 			mAttackSound.setPosition(sf::Vector3f(getPosition().x, getPosition().y, 0.f));
 			mAttackSound.play();
@@ -143,6 +182,10 @@ void Pawn::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed) {
 	}
 }
 
+void Pawn::stopWaiting() {
+	mSecondsToWait = 0.f;
+}
+
 sf::Vector2f Pawn::getDestination() const {
 	return mDestination;
 }
@@ -158,7 +201,14 @@ void Pawn::setMovementSpeed(int newSpeed) {
 }
 
 void Pawn::update(sf::Time const &elapsedTime) {
-//	boost::lock_guard<boost::mutex> lock(mMutex);
+	const float elapsedSeconds = elapsedTime.asSeconds();
+
+	mSecondsSinceTurn += elapsedSeconds;
+
+	//Decrease the time to wait. While this is above zero
+	if (mSecondsToWait > 0) {
+		mSecondsToWait -= elapsedSeconds;
+	}
 
 	sf::Vector2f distanceToGoal = mDestination - getPosition();
 
@@ -169,11 +219,11 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		setDebugColour(sf::Color::Black);
 		break;
 	case MARCHING:
-		doMarch(distanceToGoal, elapsedTime.asSeconds());
+		doMarch(distanceToGoal, elapsedSeconds);
 		setDebugColour(sf::Color::Cyan);
 		break;
 	case ATTACKING:
-		doAttack(elapsedTime.asSeconds());
+		doAttack(elapsedSeconds);
 		break;
 	case STUNNED:
 		setDebugColour(sf::Color::Red);
@@ -191,8 +241,6 @@ void Pawn::update(sf::Time const &elapsedTime) {
 		break;
 	}
 
-	turnToFaceDestination();
-
 	calculateAnimation();
 
 	animate(elapsedTime);
@@ -201,44 +249,48 @@ void Pawn::update(sf::Time const &elapsedTime) {
 }
 
 void Pawn::kill() {
-	mHealth = 0;
-	mState = State::DEAD;
-	if (mOnDeathFunction) {
-		mOnDeathFunction(this);
+	if (mState != DEAD) {
+		mHealth = 0;
+		mState = DEAD;
+		if (mOnDeathFunction) {
+			mOnDeathFunction(this);
+		}
 	}
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type) {
-	//apply relevent damage reduction
-	switch (type) {
+	if (mState != DEAD) {
+		//apply relevent damage reduction
+		switch (type) {
 		case Damage::PHYSICAL:
 			amount *= mArmour;
 			break;
 		case Damage::MAGICAL:
 			amount *= mMagicResist;
 			break;
-	}//switch
+		}//switch
 
-	//apply damage
-	mHealth -= amount;
+		//apply damage
+		mHealth -= amount;
 
-	bool isDead = mHealth <= 0;
-
-	if (isDead) {
-		mState = State::DEAD;
-		if (mOnDeathFunction) {
-			mOnDeathFunction(this);
+		if (mHealth <= 0) {
+			mState = DEAD;
+			if (mOnDeathFunction) {
+				mOnDeathFunction(this);
+			}
 		}
 	}
 
 	//return true if damage killed us
-	return isDead;
+	return isDead();
 }
 
 bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const &sender) {
-	if (mCombatTarget == nullptr) {
-		mCombatTarget = sender;
-	} else if (thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
+	if (auto target = mCombatTarget.lock()) {
+		if (thor::length(target->getPosition() - this->getPosition()) > mAttackRange) {
+			mCombatTarget = sender;
+		}
+	} else {
 		mCombatTarget = sender;
 	}
 
@@ -246,12 +298,14 @@ bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const
 }
 
 void Pawn::heal(int healAmount) {
-	//apply heal
-	mHealth += healAmount;
+	if (mState != DEAD) {
+		//apply heal
+		mHealth += healAmount;
 
-	//cap health
-	if (mHealth > M_MAX_HEALTH) {
-		mHealth = M_MAX_HEALTH;
+		//cap health
+		if (mHealth > M_MAX_HEALTH) {
+			mHealth = M_MAX_HEALTH;
+		}
 	}
 }
 void Pawn::stun(sf::Time const& duration) {
@@ -284,12 +338,14 @@ bool Pawn::offerTarget(std::shared_ptr<Pawn> const &target) {
 		//std::cout << "Offered self as target..." << std::endl;
 		acceptedTarget = false;
 	}
-	else if (mCombatTarget == nullptr) {
+	else if (mCombatTarget.expired()) {
 		beTaunted(target);
 	}
 	//if current target is dead or far away...
-	else if (mCombatTarget->isDead() || thor::length(mCombatTarget->getPosition() - this->getPosition()) > mAttackRange) {
-		beTaunted(target);
+	else if (auto target = mCombatTarget.lock()){
+		if (target->isDead() || thor::length(target->getPosition() - this->getPosition()) > mAttackRange) {
+			beTaunted(target);
+		}
 	}
 
 	return acceptedTarget;
@@ -298,11 +354,17 @@ bool Pawn::offerTarget(std::shared_ptr<Pawn> const &target) {
 bool Pawn::targetIsDead() const {
 	bool isDead = true;
 
-	//nullptr is good as dead
-	if (mCombatTarget) {	//	!= nullptr
-		isDead = mCombatTarget->isDead();
+	if (auto target = mCombatTarget.lock()) {
+		isDead = target->isDead();
 	}
 	return isDead;
+}
+
+void Pawn::wait(float seconds) {
+	//Don't let a shorter wait time cancel out the current one
+	if (seconds > mSecondsToWait) {
+		mSecondsToWait = seconds;
+	}
 }
 
 int Pawn::getHealth() const {
@@ -314,18 +376,34 @@ Pawn::State Pawn::getState() const {
 }
 
 bool Pawn::isDead() const {
-	return mState == State::DEAD;
+	return mState == DEAD;
 }
 
 Pawn::Faction Pawn::getFaction() const {
 	return mFaction;
 }
 
+std::weak_ptr<Pawn> const& Pawn::getCombatTarget() const {
+	return mCombatTarget;
+}
+
+Damage::Reduction const& Pawn::getArmour() const {
+	return mArmour;
+}
+
+Damage::Reduction const& Pawn::getMagicResist() const {
+	return mMagicResist;
+}
+
+sf::Color Pawn::getBloodColor() const {
+	return mBloodColor;
+}
+
 void Pawn::onCollide(std::shared_ptr<Collidable> &other, sf::Vector2f const& mtv) {
 	auto projectile = std::dynamic_pointer_cast<Projectile, Collidable>(other);
 	if (projectile) {
 		takeDamage(projectile->getDamage(), projectile->getDamageType());
-		printf("Projectile hit me! %p\n", other.get());
+		//printf("Projectile hit me! %p\n", other.get());
 	} else {
 		auto pawn = std::dynamic_pointer_cast<Pawn, Collidable>(other);
 		if (pawn)

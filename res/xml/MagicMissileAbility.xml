@@ -1,4 +1,4 @@
-<Ability>
+<Ability hotkey="q">
   <!-- User-friendly name of the ability -->
   <Name>Magic Missile</Name>
   

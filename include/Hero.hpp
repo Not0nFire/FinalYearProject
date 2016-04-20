@@ -8,6 +8,14 @@
 \brief Pawn that can move and attack simultaneously and regenerates health.
 */
 class Hero : public Pawn {
+public:
+	Hero(tinyxml2::XMLElement* xml);
+	~Hero();
+
+	void update(sf::Time const& elapsedTime) override;
+
+	void setDestination(sf::Vector2f const& destination) final override;
+
 protected:
 
 	//! Override of Pawn::doAttack that allows Hero to attack and move at the same time.
@@ -21,11 +29,10 @@ protected:
 	//! Amount of health to regenerate per second
 	const unsigned int M_HEALTH_REGEN;
 
-	//Ability mAbility;
-public:
-	Hero(tinyxml2::XMLElement* xml);
-	~Hero();
+	std::vector<sf::Sound> mMoveSounds;
+	static bool shouldPlayMoveSound();
+	void playMoveSound();
 
-	void update(sf::Time const& elapsedTime) override;
+	//Ability mAbility;
 };
 #endif

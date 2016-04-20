@@ -23,6 +23,7 @@ mMask([]()
       }()),
 mProjectileManager(projectileMgr),
 mPath(path),
+mTowerCollisionGroup(),
 mUnitSpawnCallback(unitSpawnCallback)
 {
 	mMask->setFillColor(sf::Color::Yellow);
@@ -86,15 +87,32 @@ shared_ptr<tower::Tower> TowerPlacer::place() {
 			std::cout << "INVALID TOWER TYPE (TowerPlacer::place())" << std::endl;
 		}
 
-		mIsActive = false;
+		//Check if the tower placement intersects another tower...
+		auto collidable = std::static_pointer_cast<collision::Collidable, tower::Tower>(placed);
+		if (mTowerCollisionGroup.checkAgainst(collidable)) {
+			//... if it does: don't place it.
+			std::cout << "Tower placement intersects another tower!" << std::endl;
+			placed = nullptr;
+			mIsValid = false;
+			calculateColor();
+		}
+		else {
+			//... if it doesn't, add it to the collision group so that future towers can be tested against it.
+			mTowerCollisionGroup.add(collidable);
+		}
+
+		//Deactivate if we're not sticky (i.e. if we don't want to place more towers)
+		if (!mIsSticky) {
+			mIsActive = false;
+		}
 	}
 
 	return placed;
 }
 
-void TowerPlacer::update(sf::Vector2i mousePosition) {
+void TowerPlacer::update(sf::Vector2f const &mousePosition) {
 	if (mIsActive) {
-		mMask->setPosition(mousePosition.x, mousePosition.y);
+		mMask->setPosition(mousePosition);
 		mOverlay.setPosition(mMask->getPosition());
 
 		checkValidity();
@@ -106,6 +124,10 @@ void TowerPlacer::activate(TowerType type) {
 	mTowerType = type;
 }
 
+void TowerPlacer::setSticky(bool sticky) {
+	mIsSticky = sticky;
+}
+
 void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {
 	if (mIsActive) {
 		renderTarget.draw(mOverlay);
@@ -114,6 +136,10 @@ void TowerPlacer::draw(sf::RenderTarget& renderTarget) const {
 		renderTarget.draw(*mMask);
 #endif
 	}
+}
+
+bool TowerPlacer::isActive() const {
+	return mIsActive;
 }
 
 void TowerPlacer::checkValidity() {

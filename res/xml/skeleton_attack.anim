@@ -1,0 +1,23 @@
+<Animation>
+	<Frame id="ske_atk1">
+		<X>29</X>
+		<Y>98</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1</Duration>
+	</Frame>
+	<Frame id="ske_atk2">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>28</Width>
+		<Height>28</Height>
+		<Duration>1</Duration>
+	</Frame>
+	<Frame id="ske_atk3">
+		<X>87</X>
+		<Y>66</Y>
+		<Width>23</Width>
+		<Height>31</Height>
+		<Duration>1</Duration>
+	</Frame>
+</Animation>

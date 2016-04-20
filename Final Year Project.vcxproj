@@ -96,7 +96,11 @@ xcopy "$(SFGUI)\bin\*-d.dll" "$(TargetDir)" /Y /D</Command>
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(SFML)\bin\*.dll" "$(TargetDir)" /EXCLUDE:"$(ProjectDir)releaseBuild_dllExcludeList.txt" /Y /D
+      <Command>xcopy "$(SFML)\bin\sfml-audio-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFML)\bin\sfml-graphics-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFML)\bin\sfml-network-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFML)\bin\sfml-system-2.dll" "$(TargetDir)" /Y /D
+xcopy "$(SFML)\bin\sfml-window-2.dll" "$(TargetDir)" /Y /D
 xcopy "$(SFML)\bin\openal32.dll" "$(TargetDir)" /Y /D
 xcopy "$(THOR)\bin\thor.dll" "$(TargetDir)" /Y /D
 xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
@@ -121,6 +125,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\collision\Collidable.cpp" />
     <ClCompile Include="src\collision\CollisionGroup.cpp" />
     <ClCompile Include="src\CreditsScene.cpp" />
+    <ClCompile Include="src\CostButton.cpp" />
+    <ClCompile Include="src\Constants.cpp" />
     <ClCompile Include="src\Cursor.cpp" />
     <ClCompile Include="src\Damage.cpp" />
     <ClCompile Include="src\FancyProjectile.cpp" />
@@ -142,12 +148,16 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Settings.cpp" />
+    <ClCompile Include="src\SettingsMenu.cpp" />
+    <ClCompile Include="src\Slider.cpp" />
     <ClCompile Include="src\TerrainInterpreter.cpp" />
     <ClCompile Include="src\TextButton.cpp" />
     <ClCompile Include="src\Tower.cpp" />
     <ClCompile Include="src\TowerPlacer.cpp" />
     <ClCompile Include="src\UnitFactory.cpp" />
     <ClCompile Include="src\UnitTower.cpp" />
+    <ClCompile Include="src\WaveController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Abilities\HealAbility.hpp" />
@@ -162,6 +172,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Collision\Collidable.hpp" />
     <ClInclude Include="include\Collision\CollisionGroup.hpp" />
     <ClInclude Include="include\CreditsScene.hpp" />
+    <ClInclude Include="include\Constants.h" />
     <ClInclude Include="include\Cursor.h" />
     <ClInclude Include="include\Damage.h" />
     <ClInclude Include="include\Damage.hpp" />
@@ -169,7 +180,9 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Gui\AbilityButton.hpp" />
     <ClInclude Include="include\Gui\Button.hpp" />
+    <ClInclude Include="include\Gui\CostButton.hpp" />
     <ClInclude Include="include\Gui\DialogueBox.hpp" />
+    <ClInclude Include="include\Gui\Slider.hpp" />
     <ClInclude Include="include\Gui\TextButton.hpp" />
     <ClInclude Include="include\Hero.h" />
     <ClInclude Include="include\Hero.hpp" />
@@ -177,7 +190,6 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Abilities\Ability.hpp" />
     <ClInclude Include="include\Level.hpp" />
     <ClInclude Include="include\LevelSelect.hpp" />
-    <ClInclude Include="include\MenuFunctions.h" />
     <ClInclude Include="include\Minion.h" />
     <ClInclude Include="include\Minion.hpp" />
     <ClInclude Include="include\FancyProjectile.hpp" />
@@ -198,6 +210,8 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Scene.hpp" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SceneManager.hpp" />
+    <ClInclude Include="include\Settings.hpp" />
+    <ClInclude Include="include\SettingsMenu.hpp" />
     <ClInclude Include="include\TerrainInterpreter.h" />
     <ClInclude Include="include\TinyXML2\tinyxml2.h" />
     <ClInclude Include="include\Towers\BasicTower.h" />
@@ -207,6 +221,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <ClInclude Include="include\Towers\UnitTower.hpp" />
     <ClInclude Include="include\UnitFactory.hpp" />
     <ClInclude Include="include\MainMenu.hpp" />
+    <ClInclude Include="include\WaveController.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\img\placeholderActor.png" />
@@ -215,6 +230,7 @@ xcopy "$(SFGUI)\bin\sfgui.dll" "$(TargetDir)" /Y /D</Command>
     <Image Include="res\img\tower.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\Settings.inl" />
     <None Include="res\sfx\hit01.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
