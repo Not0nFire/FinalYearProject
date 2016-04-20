@@ -144,6 +144,10 @@
     <ClCompile Include="src\TextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
+    <ClCompile Include="src\CreditsScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CostButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -327,6 +331,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Gui\TextButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CreditsScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Gui\CostButton.hpp">
