@@ -79,7 +79,7 @@ bool ProjectileTower::shoot(std::shared_ptr<std::list<std::shared_ptr<Pawn>>> co
 		if (!mTargetList.empty()) {
 
 			//Sort the targets
-			mTargetList.sort(mTargetingSortPredicate);
+			//mTargetList.sort(mTargetingSortPredicate);
 
 			if (auto const& chosenTarget = mTargetList.begin()->lock()) {
 				float distance = thor::length(chosenTarget->getPosition() - this->getPosition());
