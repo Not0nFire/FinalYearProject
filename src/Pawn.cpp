@@ -101,7 +101,7 @@ void Pawn::calculateAnimation() {
 			playAnimation("attack", true);
 		break;
 	case STUNNED:
-		if (isPlayingAnimation() && getPlayingAnimation() != "idle")
+		if (isPlayingAnimation() && (getPlayingAnimation() != "idle" && getPlayingAnimation() != "spawn"))
 			playAnimation("idle", false);
 		break;
 	case DEAD:
@@ -114,7 +114,7 @@ void Pawn::calculateAnimation() {
 
 void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 	//don't bother updating state if dead
-	if (mState != State::DEAD && mState != State::STUNNED) {
+	if (mState != DEAD && mState != STUNNED) {
 
 		//attack if in range
 		if (mCombatTarget != nullptr &&
@@ -122,17 +122,20 @@ void Pawn::calculateState(sf::Vector2f const &goalDisplacement) {
 			(thor::length(this->getPosition() - mCombatTarget->getPosition()) <= mAttackRange)
 			)
 		{
-				mState = State::ATTACKING;
+			if (mState != ATTACKING) {
+				mState = ATTACKING;
+				mTimeSinceAttack = 0.f;
+			}
 		}
 
 		//proceed toward goal
 		else if (mSecondsToWait <= 0.f && thor::length(goalDisplacement) > 5) {
-			mState = State::MARCHING;
+			mState = MARCHING;
 
 		}
 
 		else {
-			mState = State::IDLE;
+			mState = IDLE;
 		}
 	}
 }

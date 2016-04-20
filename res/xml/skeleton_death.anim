@@ -1,0 +1,37 @@
+<Animation>
+	<Frame id="ske_death1">
+		<X>87</X>
+		<Y>0</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_death2">
+		<X>58</X>
+		<Y>68</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_death3">
+		<X>58</X>
+		<Y>34</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_death4">
+		<X>58</X>
+		<Y>0</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_death5">
+		<X>0</X>
+		<Y>30</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

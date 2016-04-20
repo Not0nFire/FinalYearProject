@@ -1,0 +1,30 @@
+<Animation>
+<Frame id="ske_spawn1">
+		<X>29</X>
+		<Y>64</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_spawn2">
+		<X>29</X>
+		<Y>30</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_spawn3">
+		<X>0</X>
+		<Y>98</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="ske_spawn4">
+		<X>0</X>
+		<Y>64</Y>
+		<Width>27</Width>
+		<Height>32</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

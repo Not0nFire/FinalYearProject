@@ -1,42 +1,42 @@
-<Minion name="boar_enemy">
+<Minion name="skeleton_enemy">
   <MoneyValue>25</MoneyValue>
-  <PathingWeights destination="2" separation="1" cohesion="0" enemy_seek="0"/>
+  <PathingWeights destination="1.2" separation="1" cohesion="0.1" enemy_seek="0.8"/>
   <Pawn>
     <Faction>ENEMY</Faction>
-    <Health>500</Health>
-    <Armour>0.5</Armour>
+    <Health>100</Health>
+    <Armour>0.25</Armour>
     <MagicResist>0.25</MagicResist>
     <DamageType>PHYSICAL</DamageType>
     <AttackRange>60</AttackRange>
-    <AttackDamage>50</AttackDamage>
-    <AttacksPerSecond>0.25</AttacksPerSecond>
-    <MovementSpeed>35</MovementSpeed>
-	
-	<BloodColor r="200" g="0" b="200"/>
+    <AttackDamage>10</AttackDamage>
+    <AttacksPerSecond>1.5</AttacksPerSecond>
+    <MovementSpeed>60</MovementSpeed>
 
-    <AttackSound minDistance="100" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
+    <BloodColor r="0" g="50" b="50"/>
+
+    <AttackSound minDistance="50" attenuation="2">./res/sfx/hit01.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
-      <Texture>././res/img/boar.png</Texture>
-      <Animation path="././res/xml/boar_walk.anim">
+      <Texture>././res/img/skeleton.png</Texture>
+      <Animation path="././res/xml/skeleton_walk.anim">
         <Name>walk</Name>
-        <Duration>2</Duration>
+        <Duration>0.3</Duration>
       </Animation>
-      <Animation path="././res/xml/boar_walk.anim">
+      <Animation path="././res/xml/skeleton_walk.anim">
         <Name>idle</Name>
         <Duration>10</Duration>
       </Animation>
-      <Animation path="././res/xml/boar_attack.anim">
+      <Animation path="././res/xml/skeleton_attack.anim">
         <Name>attack</Name>
-        <Duration>4</Duration>
+        <Duration>0.75</Duration>
       </Animation>
-      <Animation path="././res/xml/boar_walk.anim">
+      <Animation path="././res/xml/skeleton_walk.anim">
         <Name>death</Name>
         <Duration>0</Duration>
       </Animation>
 
-      <Origin x="40" y="60"/>
+      <Origin x="25.f" y="25.f"/>
       
       <!--
       Used to check for collisions.

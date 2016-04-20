@@ -51,7 +51,7 @@
   <WaveController>
     <Wave>
       <UnitType>boar_enemy</UnitType>
-      <SpawnDelay>1</SpawnDelay>
+      <SpawnDelay>0</SpawnDelay>
       <NumberOfUnits>1</NumberOfUnits>
     </Wave>
     <Wave>

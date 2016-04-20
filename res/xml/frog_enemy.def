@@ -1,4 +1,4 @@
-<Minion name="forg_enemy">
+<Minion name="frog_enemy">
   <MoneyValue>25</MoneyValue>
   <PathingWeights destination="1.2" separation="0.9" cohesion="0.3" enemy_seek="1"/>
   <Pawn>
@@ -14,7 +14,7 @@
 
     <BloodColor r="0" g="255" b="0"/>
 
-    <AttackSound minDistance="50" attenuation="2">./res/sfx/hit01.ogg</AttackSound>
+    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
