@@ -93,26 +93,34 @@ void Pawn::turnToFaceDirection(sf::Vector2f const& dir) {
 }
 
 void Pawn::calculateAnimation() {
+	bool playingAnimation = isPlayingAnimation();
+
 	switch (mState)
 	{
 	case IDLE:
-		if (isPlayingAnimation() && getPlayingAnimation() != "idle")
+		if (!playingAnimation || (playingAnimation && getPlayingAnimation() != "idle"))
 			playAnimation("idle", true);
 		break;
 	case MARCHING:
-		if (isPlayingAnimation() && getPlayingAnimation() != "walk")
+		if (!playingAnimation || (playingAnimation && getPlayingAnimation() != "walk"))
 			playAnimation("walk", true);
 		break;
 	case ATTACKING:
-		if (isPlayingAnimation() && getPlayingAnimation() != "attack")
+		if (!playingAnimation || (playingAnimation && getPlayingAnimation() != "attack"))
 			playAnimation("attack", true);
 		break;
 	case STUNNED:
-		if (isPlayingAnimation() && (getPlayingAnimation() != "idle" && getPlayingAnimation() != "spawn"))
-			playAnimation("idle", false);
+		if (isPlayingAnimation()) {
+			if (getPlayingAnimation() == "spawn") {
+				//do nothing
+			}
+			else if (getPlayingAnimation() != "idle") {
+				playAnimation("idle", false);
+			}
+		}
 		break;
 	case DEAD:
-		if (isPlayingAnimation() && getPlayingAnimation() != "death")
+		if (!playingAnimation || (playingAnimation && getPlayingAnimation() != "death"))
 			playAnimation("death", false);
 		break;
 	default: break;

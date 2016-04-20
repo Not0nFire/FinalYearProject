@@ -1,5 +1,5 @@
 <Level id="2">
-  <Lives>8</Lives>
+  <Lives>5</Lives>
 	<Background>./res/img/bg4.png</Background>
 	<TerrainData>./res/img/terrain4.bmp</TerrainData>
   <Music volume="10">./res/mus/level.ogg</Music>
@@ -7,7 +7,7 @@
   <NextLevel>./res/xml/levelThree.lvl</NextLevel>
 	<Path>
     <Node>
-      <X>770</X>
+      <X>1700</X>
       <Y>-100</Y>
       <Radius>75</Radius>
     </Node>
@@ -124,33 +124,58 @@
 	</Path>
   <WaveController>
     <Wave>
-      <UnitType>basic_enemy</UnitType>
+      <UnitType>boar_enemy</UnitType>
       <SpawnDelay>1</SpawnDelay>
       <NumberOfUnits>1</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>basic_enemy</UnitType>
-      <SpawnDelay>15</SpawnDelay>
+      <SpawnDelay>10</SpawnDelay>
       <NumberOfUnits>5</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>basic_enemy</UnitType>
-      <SpawnDelay>30</SpawnDelay>
-      <NumberOfUnits>5</NumberOfUnits>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>10</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>fast_enemy</UnitType>
       <SpawnDelay>0</SpawnDelay>
-      <NumberOfUnits>2</NumberOfUnits>
+      <NumberOfUnits>4</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>basic_enemy</UnitType>
-      <SpawnDelay>60</SpawnDelay>
+      <SpawnDelay>45</SpawnDelay>
       <NumberOfUnits>15</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>fast_enemy</UnitType>
-      <SpawnDelay>0</SpawnDelay>
+      <UnitType>boar_enemy</UnitType>
+      <SpawnDelay>20</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>5</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>5</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>5</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>5</SpawnDelay>
+      <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>boar_enemy</UnitType>
+      <SpawnDelay>5</SpawnDelay>
       <NumberOfUnits>5</NumberOfUnits>
     </Wave>
   </WaveController>

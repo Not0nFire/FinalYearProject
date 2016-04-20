@@ -76,7 +76,7 @@ void ProjectileManager::draw(sf::RenderTarget& w) {
 	for (auto& projectile : mProjectiles)
 	{
 		projectile->draw(w);
-		projectile->debug_draw(w);
+		//projectile->debug_draw(w);
 	}
 }
 

@@ -11,13 +11,13 @@
   <CastTime>1.5</CastTime>
 
   <!-- The number of seconds that must be waited before the ability can be used again -->
-  <Cooldown seconds="1">
+  <Cooldown seconds="10">
     <!-- actor to show visual cooldown timer-->
     <Actor>
       <Texture>././res/img/cooldown_timer.png</Texture>
       <Animation path="././res/xml/cooldown_timer.anim">
         <Name>Cast</Name>
-        <Duration>1</Duration>
+        <Duration>10</Duration>
       </Animation>
 
       <Origin x="40" y="50"/>

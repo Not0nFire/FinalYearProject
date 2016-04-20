@@ -120,34 +120,89 @@
 	</Path>
   <WaveController>
     <Wave>
-      <UnitType>basic_enemy</UnitType>
+      <UnitType>boss_enemy</UnitType>
       <SpawnDelay>1</SpawnDelay>
       <NumberOfUnits>1</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>basic_enemy</UnitType>
+      <UnitType>boar_enemy</UnitType>
       <SpawnDelay>15</SpawnDelay>
-      <NumberOfUnits>5</NumberOfUnits>
+      <NumberOfUnits>3</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>basic_enemy</UnitType>
+      <UnitType>frog_enemy</UnitType>
       <SpawnDelay>30</SpawnDelay>
       <NumberOfUnits>5</NumberOfUnits>
     </Wave>
     <Wave>
-      <UnitType>fast_enemy</UnitType>
+      <UnitType>boar_enemy</UnitType>
       <SpawnDelay>0</SpawnDelay>
       <NumberOfUnits>2</NumberOfUnits>
     </Wave>
     <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>20</SpawnDelay>
+      <NumberOfUnits>10</NumberOfUnits>
+    </Wave>
+    <Wave>
       <UnitType>basic_enemy</UnitType>
-      <SpawnDelay>60</SpawnDelay>
-      <NumberOfUnits>15</NumberOfUnits>
+      <SpawnDelay>2</SpawnDelay>
+      <NumberOfUnits>4</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>8</SpawnDelay>
+      <NumberOfUnits>7</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>fast_enemy</UnitType>
-      <SpawnDelay>0</SpawnDelay>
+      <SpawnDelay>2</SpawnDelay>
+      <NumberOfUnits>12</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>15</SpawnDelay>
+      <NumberOfUnits>12</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>2</SpawnDelay>
+      <NumberOfUnits>6</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>boar_enemy</UnitType>
+      <SpawnDelay>4</SpawnDelay>
+      <NumberOfUnits>1</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>4</SpawnDelay>
+      <NumberOfUnits>4</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>4</SpawnDelay>
+      <NumberOfUnits>4</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>boar_enemy</UnitType>
+      <SpawnDelay>10</SpawnDelay>
       <NumberOfUnits>5</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>basic_enemy</UnitType>
+      <SpawnDelay>2</SpawnDelay>
+      <NumberOfUnits>12</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>frog_enemy</UnitType>
+      <SpawnDelay>20</SpawnDelay>
+      <NumberOfUnits>8</NumberOfUnits>
+    </Wave>
+    <Wave>
+      <UnitType>boar_enemy</UnitType>
+      <SpawnDelay>20</SpawnDelay>
+      <NumberOfUnits>10</NumberOfUnits>
     </Wave>
   </WaveController>
 	<Units>
