@@ -1,14 +1,14 @@
 <Tower>
-  <AttacksPerSecond>1.f</AttacksPerSecond>
-  <Cost>100</Cost>
-  <Range>150</Range>
-  <Damage>10</Damage>
+  <AttacksPerSecond>0.6</AttacksPerSecond>
+  <Cost>120</Cost>
+  <Range>200</Range>
+  <Damage>6</Damage>
   <DamageType>MAGICAL</DamageType>
-  <ProjectileSpawnOffset x="0" y="-100"/>
+  <ProjectileSpawnOffset x="0" y="-50"/>
 
   <Actor>
     <Texture>./res/img/tower_m.png</Texture>"
-    <Origin x="54" y="150"/>
+    <Origin x="40" y="115"/>
 
     <Collidable pointCount="4" type="Convex">
       <Offset x="0" y="0"/>

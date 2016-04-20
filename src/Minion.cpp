@@ -95,13 +95,13 @@ void Minion::doMarch(sf::Vector2f const& goalDisplacement, float secondsElapsed)
 	if (mFlock) {
 		sf::Vector2f sep = separation();
 		sf::Vector2f coh = cohesion();
-
+	
 		steer += sep * M_SEPARATION_WEIGHT;
 		steer += coh * M_COHESION_WEIGHT;
-
-
+	
+	
 		steer += seekEnemy() * M_SEEK_WEIGHT;
-
+	
 		turnToFaceDirection(getPosition() + steer);
 	}
 	

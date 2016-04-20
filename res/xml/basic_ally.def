@@ -7,12 +7,14 @@
     <Armour>0.25</Armour>
     <MagicResist>0.25</MagicResist>
     <DamageType>PHYSICAL</DamageType>
-    <AttackRange>50</AttackRange>
+    <AttackRange>60</AttackRange>
     <AttackDamage>10</AttackDamage>
     <AttacksPerSecond>3</AttacksPerSecond>
     <MovementSpeed>40</MovementSpeed>
 
-    <AttackSound minDistance="50" attenuation="2">./res/sfx/hit01.ogg</AttackSound>
+    <BloodColor r="0" g="50" b="50"/>
+
+    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->
@@ -35,19 +37,19 @@
       </Animation>
       <Animation path="././res/xml/skeleton_spawn.anim">
         <Name>spawn</Name>
-        <Duration>1</Duration>
+        <Duration>0.5</Duration>
       </Animation>
 
       <Origin x="12" y="20"/>
-      
+
       <!--
       Used to check for collisions.
       Options for type are "Circle" and "Convex";
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="5" type="Circle">
-        <Offset x="0" y="10"/>
-        <Radius>10</Radius>
+        <Offset x="0" y="5"/>
+        <Radius>15</Radius>
       </Collidable>
     </Actor>
   </Pawn>

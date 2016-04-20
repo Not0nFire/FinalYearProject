@@ -7,8 +7,8 @@
     <Armour>0.5</Armour>
     <MagicResist>0.25</MagicResist>
     <DamageType>PHYSICAL</DamageType>
-    <AttackRange>60</AttackRange>
-    <AttackDamage>50</AttackDamage>
+    <AttackRange>80</AttackRange>
+    <AttackDamage>60</AttackDamage>
     <AttacksPerSecond>0.25</AttacksPerSecond>
     <MovementSpeed>35</MovementSpeed>
 	
@@ -31,12 +31,12 @@
         <Name>attack</Name>
         <Duration>4</Duration>
       </Animation>
-      <Animation path="././res/xml/boar_walk.anim">
+      <Animation path="././res/xml/boar_death.anim">
         <Name>death</Name>
-        <Duration>0</Duration>
+        <Duration>1</Duration>
       </Animation>
 
-      <Origin x="40" y="60"/>
+      <Origin x="40" y="50"/>
       
       <!--
       Used to check for collisions.
@@ -44,8 +44,8 @@
       Circle requires a radius, whereas Convex requires the x, y and index of each point.
       -->
       <Collidable pointCount="6" type="Circle">
-        <Offset x="0" y="20"/>
-        <Radius>25.f</Radius>
+        <Offset x="0" y="30"/>
+        <Radius>40</Radius>
       </Collidable>
     </Actor>
   </Pawn>

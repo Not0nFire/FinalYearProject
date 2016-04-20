@@ -290,12 +290,14 @@ bool Pawn::takeDamage(int amount, Damage::Type type, std::shared_ptr<Pawn> const
 }
 
 void Pawn::heal(int healAmount) {
-	//apply heal
-	mHealth += healAmount;
+	if (mState != DEAD) {
+		//apply heal
+		mHealth += healAmount;
 
-	//cap health
-	if (mHealth > M_MAX_HEALTH) {
-		mHealth = M_MAX_HEALTH;
+		//cap health
+		if (mHealth > M_MAX_HEALTH) {
+			mHealth = M_MAX_HEALTH;
+		}
 	}
 }
 void Pawn::stun(sf::Time const& duration) {

@@ -50,9 +50,9 @@
 	</Path>
   <WaveController>
     <Wave>
-      <UnitType>boar_enemy</UnitType>
+      <UnitType>basic_enemy</UnitType>
       <SpawnDelay>0</SpawnDelay>
-      <NumberOfUnits>1</NumberOfUnits>
+      <NumberOfUnits>10</NumberOfUnits>
     </Wave>
     <Wave>
       <UnitType>frog_enemy</UnitType>

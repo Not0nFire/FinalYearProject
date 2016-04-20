@@ -1,0 +1,23 @@
+<Animation>
+	<Frame id="boar_death1">
+		<X>0</X>
+		<Y>86</Y>
+		<Width>112</Width>
+		<Height>86</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="boar_death2">
+		<X>0</X>
+		<Y>266</Y>
+		<Width>112</Width>
+		<Height>86</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="boar_death3">
+		<X>0</X>
+		<Y>176</Y>
+		<Width>112</Width>
+		<Height>86</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

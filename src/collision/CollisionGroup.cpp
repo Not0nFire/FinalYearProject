@@ -91,9 +91,9 @@ namespace collision {
 					if (auto second = second_weak.lock()) {
 						if (checkPair(first.get(), second.get(), mtv))
 						{
-							mtv *= deltaTime * 8.f;	//take a quarter second
-							first->onCollide(second, mtv);
-							second->onCollide(first, -mtv);
+							mtv *= deltaTime * 4.f;	//take a quarter second
+							first->onCollide(second, mtv * 0.5f);
+							second->onCollide(first, -mtv * 0.5f);
 						}
 					}
 				}//for second
@@ -114,8 +114,8 @@ namespace collision {
 				collisionOccured = checkPair(other.get(), member.get(), mtv);
 				if (collisionOccured)
 				{
-					member->onCollide(other, mtv);
-					other->onCollide(member, -mtv);
+					member->onCollide(other, mtv * 0.5f);
+					other->onCollide(member, -mtv * 0.5f);
 				}
 			}
 		}
