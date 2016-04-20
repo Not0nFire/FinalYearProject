@@ -1,8 +1,8 @@
 <Level id="1">
-  <Lives>8</Lives>
+  <Lives>1</Lives>
 	<Background>./res/img/bg5.png</Background>
 	<TerrainData>./res/img/terrain5.bmp</TerrainData>
-  <Music volume="10">./res/mus/level.ogg</Music>
+  <Music volume="10">./res/mus/Vilified.ogg</Music>
   <StartingMoney>0</StartingMoney>
   <NextLevel>NONE</NextLevel>
 	<Path>

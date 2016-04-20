@@ -49,3 +49,8 @@ void UnitFactory::loadDefinition(std::string const& name) {
 	//Push the root node onto the map with the name as the key
 	mDefinitionMap[name] = doc;
 }
+
+
+
+
+

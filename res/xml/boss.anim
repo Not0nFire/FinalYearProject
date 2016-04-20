@@ -1,0 +1,44 @@
+<Animation>
+<Frame id="1">
+		<X>155</X>
+		<Y>0</Y>
+		<Width>69</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="2">
+		<X>154</X>
+		<Y>96</Y>
+		<Width>69</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="3">
+		<X>0</X>
+		<Y>0</Y>
+		<Width>78</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="4">
+		<X>80</X>
+		<Y>0</Y>
+		<Width>73</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="5">
+		<X>0</X>
+		<Y>96</Y>
+		<Width>76</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+	<Frame id="6">
+		<X>78</X>
+		<Y>96</Y>
+		<Width>74</Width>
+		<Height>94</Height>
+		<Duration>1.f</Duration>
+	</Frame>
+</Animation>

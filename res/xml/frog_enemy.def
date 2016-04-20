@@ -14,7 +14,7 @@
 
     <BloodColor r="0" g="255" b="0"/>
 
-    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
+    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit04.ogg</AttackSound>
 
     <Actor>
       <!-- Texture path, this will be the texture's key in the ResourceManager -->

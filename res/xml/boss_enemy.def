@@ -1,0 +1,50 @@
+<Minion name="boss_enemy">
+  <MoneyValue>666</MoneyValue>
+  <PathingWeights destination="10" separation="0" cohesion="0" enemy_seek="0"/>
+  <Pawn>
+    <Faction>ENEMY</Faction>
+    <Health>2000</Health>
+    <Armour>0.75</Armour>
+    <MagicResist>0.75</MagicResist>
+    <DamageType>MAGICAL</DamageType>
+    <AttackRange>60</AttackRange>
+    <AttackDamage>5</AttackDamage>
+    <AttacksPerSecond>10</AttacksPerSecond>
+    <MovementSpeed>20</MovementSpeed>
+
+    <AttackSound minDistance="50" attenuation="1">./res/sfx/hit01.ogg</AttackSound>
+
+    <Actor>
+      <!-- Texture path, this will be the texture's key in the ResourceManager -->
+      <Texture>././res/img/boss.png</Texture>
+      <Animation path="././res/xml/boss.anim">
+        <Name>walk</Name>
+        <Duration>1</Duration>
+      </Animation>
+      <Animation path="././res/xml/boss.anim">
+        <Name>idle</Name>
+        <Duration>5</Duration>
+      </Animation>
+      <Animation path="././res/xml/boss.anim">
+        <Name>attack</Name>
+        <Duration>0.8</Duration>
+      </Animation>
+      <Animation path="././res/xml/boss.anim">
+        <Name>death</Name>
+        <Duration>3</Duration>
+      </Animation>
+
+      <Origin x="25.f" y="25.f"/>
+      
+      <!--
+      Used to check for collisions.
+      Options for type are "Circle" and "Convex";
+      Circle requires a radius, whereas Convex requires the x, y and index of each point.
+      -->
+      <Collidable pointCount="6" type="Circle">
+        <Offset x="0" y="20"/>
+        <Radius>25.f</Radius>
+      </Collidable>
+    </Actor>
+  </Pawn>
+</Minion>
