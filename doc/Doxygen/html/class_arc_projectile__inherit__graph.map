@@ -1,0 +1,5 @@
+<map id="ArcProjectile" name="ArcProjectile">
+<area shape="rect" id="node2" href="$class_projectile.html" title="{Projectile\n|# mActive\l# mVelocity\l# mTimeToLive\l# mImpactOccurred\l&#45; mDamageType\l&#45; mDamage\l|+ Projectile()\l+ ~Projectile()\l+ fire()\l+ update()\l+ isActive()\l+ impactOccured()\l+ onCollide()\l+ getDamage()\l+ getDamageType()\l}" alt="" coords="47,608,183,876"/>
+<area shape="rect" id="node3" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="34,321,195,560"/>
+<area shape="rect" id="node5" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="104,5,272,273"/>
+</map>

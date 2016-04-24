@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -126,14 +126,15 @@ Collaboration diagram for Renderer:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_renderer__coll__graph.png" border="0" usemap="#_renderer_coll__map" alt="Collaboration graph"/></div>
 <map name="_renderer_coll__map" id="_renderer_coll__map">
-<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="8,5,77,32"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ba0ddcb6c8e9dfa55597ce954904658"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a2ba0ddcb6c8e9dfa55597ce954904658">Renderer</a> (<a class="el" href="class_i___scene.html">I_Scene</a> *sceneToRender, sf::VideoMode mode, std::string const &amp;title, sf::Uint32 style=sf::Style::Titlebar, sf::ContextSettings &amp;settings=sf::ContextSettings())</td></tr>
-<tr class="separator:a2ba0ddcb6c8e9dfa55597ce954904658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e245fdbc81bc95b9378446f88ddf56a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e245fdbc81bc95b9378446f88ddf56a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a6e245fdbc81bc95b9378446f88ddf56a">Renderer</a> (std::string const &amp;title, sf::VideoMode mode=sf::VideoMode::getDesktopMode(), sf::Uint32 style=sf::Style::Fullscreen, sf::ContextSettings settings=sf::ContextSettings())</td></tr>
+<tr class="memdesc:a6e245fdbc81bc95b9378446f88ddf56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a render window. <br /></td></tr>
+<tr class="separator:a6e245fdbc81bc95b9378446f88ddf56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accec1290b82472463245b2b0951f9b7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="accec1290b82472463245b2b0951f9b7e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">startRenderLoop</a> (const unsigned int framesPerSecond)</td></tr>
 <tr class="memdesc:accec1290b82472463245b2b0951f9b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins rendering on a seperate thread. Starts the render loop, creating a thread that runs the render() method until <a class="el" href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1" title="Stops render loop. Sets render loop condition to false and waits for thread to join. ">stopRenderLoop()</a> is called. <br /></td></tr>
@@ -142,15 +143,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1">stopRenderLoop</a> ()</td></tr>
 <tr class="memdesc:a2b74ad924c28903c23b4a56a5dd1f1c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops render loop. Sets render loop condition to false and waits for thread to join. <br /></td></tr>
 <tr class="separator:a2b74ad924c28903c23b4a56a5dd1f1c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a440b735e8aaca3dd33bd101645d1ba2f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a440b735e8aaca3dd33bd101645d1ba2f"></a>
-boost::thread &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getThread</b> ()</td></tr>
-<tr class="separator:a440b735e8aaca3dd33bd101645d1ba2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac64266bb9d37cd875d76e0fc9cb024f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac64266bb9d37cd875d76e0fc9cb024f5"></a>
-const sf::RenderWindow &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getWindow</b> () const </td></tr>
-<tr class="separator:ac64266bb9d37cd875d76e0fc9cb024f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07f9d81cf31450ffbb843ba507401818"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07f9d81cf31450ffbb843ba507401818"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setScene</b> (<a class="el" href="class_i___scene.html">I_Scene</a> *newScene)</td></tr>
-<tr class="separator:a07f9d81cf31450ffbb843ba507401818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5028c74e7757482b91f9767b7ccbce3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5028c74e7757482b91f9767b7ccbce3"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>pollEvent</b> (sf::Event &amp;event)</td></tr>
 <tr class="separator:ad5028c74e7757482b91f9767b7ccbce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,112 +158,24 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae64bb4fa5de4bfe30047d54d8c913bff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae64bb4fa5de4bfe30047d54d8c913bff"></a>
 sf::RenderWindow&#160;</td><td class="memItemRight" valign="bottom"><b>mWindow</b></td></tr>
 <tr class="separator:ae64bb4fa5de4bfe30047d54d8c913bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae73908a54fe098945cef14bff997cd48"><td class="memItemLeft" align="right" valign="top">atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">mLoopOngoing</a></td></tr>
-<tr class="separator:ae73908a54fe098945cef14bff997cd48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cfb6b9809edf362090ee6ea4d199e55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cfb6b9809edf362090ee6ea4d199e55"></a>
-std::chrono::milliseconds&#160;</td><td class="memItemRight" valign="bottom"><b>frameDelay</b></td></tr>
-<tr class="separator:a7cfb6b9809edf362090ee6ea4d199e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1fdde6af5647b1dcd0776b1ac757619"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1fdde6af5647b1dcd0776b1ac757619"></a>
-<a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mSceneToRender</b></td></tr>
-<tr class="separator:ab1fdde6af5647b1dcd0776b1ac757619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02e83f34768e82d91d79805f5de108cb"><td class="memItemLeft" align="right" valign="top">thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">mThread</a></td></tr>
-<tr class="separator:a02e83f34768e82d91d79805f5de108cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac27e24e5d8bc7171c9a94d1edaa9e9ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac27e24e5d8bc7171c9a94d1edaa9e9ad"></a>
-boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mMutex</b></td></tr>
-<tr class="separator:ac27e24e5d8bc7171c9a94d1edaa9e9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d08c19eb732b2c5e7d2f1c96d069313"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d08c19eb732b2c5e7d2f1c96d069313"></a>
+std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a9d08c19eb732b2c5e7d2f1c96d069313">mLoopOngoing</a></td></tr>
+<tr class="memdesc:a9d08c19eb732b2c5e7d2f1c96d069313"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if want to keep rendering, false if we want rendering to stop. <br /></td></tr>
+<tr class="separator:a9d08c19eb732b2c5e7d2f1c96d069313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a010a7088707dba3ab0a963193d0daa4f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a010a7088707dba3ab0a963193d0daa4f"></a>
+std::chrono::milliseconds&#160;</td><td class="memItemRight" valign="bottom"><b>mFrameDelay</b></td></tr>
+<tr class="separator:a010a7088707dba3ab0a963193d0daa4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54c2f5da35913c0978b699c51a84c2b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a54c2f5da35913c0978b699c51a84c2b6"></a>
+std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_renderer.html#a54c2f5da35913c0978b699c51a84c2b6">mThread</a></td></tr>
+<tr class="memdesc:a54c2f5da35913c0978b699c51a84c2b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread that rendering takes place on. <br /></td></tr>
+<tr class="separator:a54c2f5da35913c0978b699c51a84c2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76fccc42f23bfb798e7948ceb1ef13b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad76fccc42f23bfb798e7948ceb1ef13b"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mMutex</b></td></tr>
+<tr class="separator:ad76fccc42f23bfb798e7948ceb1ef13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages rendering in it's own thread. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a2ba0ddcb6c8e9dfa55597ce954904658"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Renderer::Renderer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td>
-          <td class="paramname"><em>sceneToRender</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sf::VideoMode&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>title</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sf::Uint32&#160;</td>
-          <td class="paramname"><em>style</em> = <code>sf::Style::Titlebar</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sf::ContextSettings &amp;&#160;</td>
-          <td class="paramname"><em>settings</em> = <code>sf::ContextSettings()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Creates a render window and sets the scene to be rendered. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ae73908a54fe098945cef14bff997cd48"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">atomic&lt;bool&gt; Renderer::mLoopOngoing</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>True if want to keep rendering, false if we want rendering to stop. </p>
-
-</div>
-</div>
-<a class="anchor" id="a02e83f34768e82d91d79805f5de108cb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">thread Renderer::mThread</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Thread that rendering takes place on. </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_renderer_8hpp_source.html">Renderer.hpp</a></li>
 </ul>
 </div><!-- contents -->

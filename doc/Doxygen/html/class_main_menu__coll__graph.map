@@ -1,0 +1,4 @@
+<map id="MainMenu" name="MainMenu">
+<area shape="rect" id="node2" href="$class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,213,117,349"/>
+<area shape="rect" id="node3" href="$classgui_1_1_dialogue_box.html" title="{gui::DialogueBox\n|&#45; mResult\l&#45; mTitle\l&#45; mMessage\l&#45; mButtonMap\l&#45; mIsOpen\l&#45; mBoxGraphic\l&#45; mResultProcessed\l|+ DialogueBox()\l+ ~DialogueBox()\l+ open()\l+ isOpen()\l+ resultProcessed()\l+ handleEvent()\l+ getResult()\l&#45; draw()\l&#45; updateButtons()\l&#45; updateResult()\l}" alt="" coords="142,132,282,429"/>
+</map>

@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,21 +108,24 @@ $(document).ready(function(){initNavTree('class_scene_proxy.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneProxy&lt; SceneType &gt; Member List</div>  </div>
+<div class="title">SceneProxy Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="class_scene_proxy.html">SceneProxy</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>draw</b>(sf::RenderWindow &amp;w) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scene_proxy.html#ad3eb7ebc9220f6a34ae44acd8ca8cbe6">getScene</a>() const </td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>handleEvent</b>(sf::Event &amp;event) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>loadNow</b>() (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_scene_proxy.html#a598026a52282790b47e83262fae922c1">mScene</a></td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_scene_proxy.html#a38f77ef0e458528946abf77dd84d750e">mXmlPath</a></td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SceneProxy</b>(const char *xmlPath) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>update</b>(sf::Time const &amp;elapsedTime) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~SceneProxy</b>() (defined in <a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy&lt; SceneType &gt;</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>cleanup</b>() (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scene_proxy.html#ad6c87cfa048db856c1ced446a90922ef">create</a>(std::string const &amp;xmlPath)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>draw</b>(sf::RenderWindow &amp;w) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scene_proxy.html#ab98a6d9d5d0cea5b99fb322447ad72f5">getScene</a>()</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>handleEvent</b>(sf::Event &amp;event) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>loadNow</b>() (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scene_proxy.html#a97a8c835769aa1b4de0ef44dbfebea5b">mCreatSceneFunc</a></td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>mMutex</b> (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scene_proxy.html#a8b593bbfde46ec4e973ddde309690b9d">mScene</a></td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>SceneProxy</b>(std::function&lt; I_Scene *()&gt; const &amp;sceneCreationFunc) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>update</b>(sf::Time const &amp;elapsedTime) (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~SceneProxy</b>() (defined in <a class="el" href="class_scene_proxy.html">SceneProxy</a>)</td><td class="entry"><a class="el" href="class_scene_proxy.html">SceneProxy</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

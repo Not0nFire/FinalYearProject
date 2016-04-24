@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -116,39 +116,40 @@ $(document).ready(function(){initNavTree('classcollision_1_1_collision_group.htm
 <div class="title">collision::CollisionGroup Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for collision::CollisionGroup:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcollision_1_1_collision_group__coll__graph.png" border="0" usemap="#collision_1_1_collision_group_coll__map" alt="Collaboration graph"/></div>
+<map name="collision_1_1_collision_group_coll__map" id="collision_1_1_collision_group_coll__map">
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad15ac7665871c1860c90c82911a27b4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad15ac7665871c1860c90c82911a27b4d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>check</b> ()</td></tr>
-<tr class="separator:ad15ac7665871c1860c90c82911a27b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70cb9c98b802edd530f14854e2589221"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70cb9c98b802edd530f14854e2589221"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *entry)</td></tr>
-<tr class="separator:a70cb9c98b802edd530f14854e2589221"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56c2f03573545ca1508199511a45b00c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56c2f03573545ca1508199511a45b00c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *entry)</td></tr>
-<tr class="separator:a56c2f03573545ca1508199511a45b00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab90f333c016c808931d2866dfcb4a67f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab90f333c016c808931d2866dfcb4a67f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>checkAgainst</b> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *other)</td></tr>
-<tr class="separator:ab90f333c016c808931d2866dfcb4a67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b1f6eb5beec460819414d2bd035222"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0b1f6eb5beec460819414d2bd035222"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>check</b> (float deltaTime)</td></tr>
+<tr class="separator:ab0b1f6eb5beec460819414d2bd035222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f7317d8565aa9c06cea53ca05cdd739"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f7317d8565aa9c06cea53ca05cdd739"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (std::shared_ptr&lt; <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> &gt; const &amp;entry)</td></tr>
+<tr class="separator:a0f7317d8565aa9c06cea53ca05cdd739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd5c416bf42570c79da17b571fa24bf5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd5c416bf42570c79da17b571fa24bf5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>checkAgainst</b> (std::shared_ptr&lt; <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> &gt; &amp;other)</td></tr>
+<tr class="separator:abd5c416bf42570c79da17b571fa24bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a58bd2f90bf10c148e0df3199ef6be5de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58bd2f90bf10c148e0df3199ef6be5de"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cullNullMembers</b> ()</td></tr>
-<tr class="separator:a58bd2f90bf10c148e0df3199ef6be5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4612a3981b509301b7790038249d3e18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4612a3981b509301b7790038249d3e18"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>checkPair</b> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *first, <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *second, sf::Vector2f &amp;minTranslation)</td></tr>
-<tr class="separator:a4612a3981b509301b7790038249d3e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd3a15cb6ff9b4216afaa6eb1930b032"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd3a15cb6ff9b4216afaa6eb1930b032"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>checkPair</b> (<a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *first, <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> *second, sf::Vector2f &amp;minTranslation) const </td></tr>
+<tr class="separator:acd3a15cb6ff9b4216afaa6eb1930b032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1eb62afb24e3a79e80a4548fe480218"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1eb62afb24e3a79e80a4548fe480218"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cullExpiredMembers</b> ()</td></tr>
+<tr class="separator:af1eb62afb24e3a79e80a4548fe480218"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aa9f2fa42ae4611efdaff71547185c8f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9f2fa42ae4611efdaff71547185c8f9"></a>
-std::vector&lt; <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mMembers</b></td></tr>
-<tr class="separator:aa9f2fa42ae4611efdaff71547185c8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f8e396339b77c49eb271ae1ab9d01a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f8e396339b77c49eb271ae1ab9d01a6"></a>
-std::vector&lt; <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>mItr</b></td></tr>
-<tr class="separator:a8f8e396339b77c49eb271ae1ab9d01a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb8deca5b9ef59c03a67aea5c3e9643"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acdb8deca5b9ef59c03a67aea5c3e9643"></a>
+std::vector&lt; std::weak_ptr&lt; <a class="el" href="classcollision_1_1_collidable.html">Collidable</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mMembers</b></td></tr>
+<tr class="separator:acdb8deca5b9ef59c03a67aea5c3e9643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/Collision/<a class="el" href="_collision_group_8hpp_source.html">CollisionGroup.hpp</a></li>

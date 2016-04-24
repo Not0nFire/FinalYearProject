@@ -1,0 +1,35 @@
+var class_settings =
+[
+    [ "settingValue", "class_settings.html#ae2b57002ff2baf75f01ba8939d50ac85", null ],
+    [ "ValueTypes", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43", [
+      [ "STRING", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43a1981c436d894ce2737da993dd8646785", null ],
+      [ "BOOL", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43ac4dee54ad917d903120d9d32aa6740be", null ],
+      [ "INTEGER", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43a53f3695afde1b2c45f17009fe119e830", null ],
+      [ "UNSIGNED", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43a2f32c78d3d98cbbd6ff250d7d1e723b8", null ],
+      [ "FLOAT", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43a1038a01e9ea87ea466a06716181ba1d0", null ],
+      [ "VECTOR2", "class_settings.html#a9110683809e4ca2e44a240f51d6f1d43a833f70a9aa9ca4c56abcbec2cae67612", null ]
+    ] ],
+    [ "~Settings", "class_settings.html#a4a65be5921dfc9fddc476e5320541d89", null ],
+    [ "Settings", "class_settings.html#ab7169a6eefce79566dd07db3b1e5e967", null ],
+    [ "commit", "class_settings.html#acebee35d2406c81be468b797054e9d68", null ],
+    [ "get", "class_settings.html#ae88ab106bae38f2da0e4c0446281fdd5", null ],
+    [ "getBool", "class_settings.html#a8c3afedf93452d0044addfc3a7c11e32", null ],
+    [ "getFloat", "class_settings.html#a73f31e4af445d2a30efe44de68aa6dd7", null ],
+    [ "getInt", "class_settings.html#aa2a1199028e9837806d36d2c775cea69", null ],
+    [ "getString", "class_settings.html#a6c16f050f64c11a772de8a70dc9e3783", null ],
+    [ "getUnsigned", "class_settings.html#a96b5c3974ff99da096399b5021f59a9f", null ],
+    [ "getVector2i", "class_settings.html#a96cbf76ec654fa3b7472aded4d2b5966", null ],
+    [ "instance", "class_settings.html#ae17ba3f2f301bb95863e8a3fc9500d74", null ],
+    [ "parse", "class_settings.html#a5cabf4628d92bb268c99e8d9663e80fa", null ],
+    [ "printError", "class_settings.html#a93775a670077f7d2e1f64586b60ea4be", null ],
+    [ "save", "class_settings.html#a4c9ad04224150077c9356b24b95df08a", null ],
+    [ "set", "class_settings.html#a3a5bd849cec8aac58337d9fbd8414728", null ],
+    [ "writeBool", "class_settings.html#a387aeaa9d8d4a81efc20830bf787126c", null ],
+    [ "writeFloat", "class_settings.html#ac68c65302cd6c207067fe0801686fb10", null ],
+    [ "writeInteger", "class_settings.html#a85ab0e3d551efa6581f75dbdf96be052", null ],
+    [ "writeString", "class_settings.html#a25fbdc75cafca63b3808d7daa691a35c", null ],
+    [ "writeUnsigned", "class_settings.html#ae964d4262c7213ac2de9e95757f9d794", null ],
+    [ "writeVector2", "class_settings.html#a66aa30e3c40d567b49aea0241539261c", null ],
+    [ "mInstance", "class_settings.html#a248137dfd9751499fb9ecb062a15b07c", null ],
+    [ "mMap", "class_settings.html#a294fcabf0a787b58e53611a3c2281888", null ]
+];

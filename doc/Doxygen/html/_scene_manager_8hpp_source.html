@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,51 +108,151 @@ $(document).ready(function(){initNavTree('_scene_manager_8hpp_source.html','');}
 <div class="title">SceneManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _SCENE_MANAGER_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _SCENE_MANAGER_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SCENE_MANAGER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SCENE_MANAGER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;include/Scene.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;boost/signals2.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;include/Gui/DialogueBox.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceboost_1_1signals2.html">boost::signals2</a>;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_scene_manager.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scene_manager.html">SceneManager</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">   18</a></span>&#160;    std::map&lt;std::string, I_Scene*&gt; <a class="code" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">mScenes</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    std::string mCurrentScene;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_scene_manager.html">SceneManager</a> *mInstance;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_scene_manager.html">SceneManager</a>();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ~<a class="code" href="class_scene_manager.html">SceneManager</a>();</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacedetail.html">detail</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structdetail_1_1_scene_request.html">   15</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structdetail_1_1_scene_request.html">SceneRequest</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structdetail_1_1_scene_request.html#a0379acd22963b93b806d229b4e4b768c">   17</a></span>&#160;        <a class="code" href="structdetail_1_1_scene_request.html#a0379acd22963b93b806d229b4e4b768c">SceneRequest</a>(std::string <span class="keyword">const</span>&amp; _name) : type(NAVIGATE), <a class="code" href="structdetail_1_1_scene_request.html#aa18a975219745817d1f4c77949aa6f65">name</a>(_name), <a class="code" href="structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8">scene</a>(nullptr) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="structdetail_1_1_scene_request.html">SceneRequest</a>() : type(DUMMY) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">enum</span> Type {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            DUMMY,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            NAVIGATE,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            ADD_TO_MANAGER,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            ADD_AND_NAVIGATE,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            SHOW_DIALOGUE</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        } type;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structdetail_1_1_scene_request.html#aa18a975219745817d1f4c77949aa6f65">   27</a></span>&#160;        std::string <a class="code" href="structdetail_1_1_scene_request.html#aa18a975219745817d1f4c77949aa6f65">name</a>;   </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_scene_manager.html">SceneManager</a>* instance();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::string getCurrentScene() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="comment">//No request should ever have both a scene and dialogue</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8">   31</a></span>&#160;            <a class="code" href="class_scene_proxy.html">SceneProxy</a>* <a class="code" href="structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8">scene</a>;  </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <a class="code" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>* dialogue; <span class="comment">//&lt;! Dialog box to be shown</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        };</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_i___scene.html">I_Scene</a> * getEditableScene() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> createScene(std::string <span class="keyword">const</span> &amp;name, <a class="code" href="class_i___scene.html">I_Scene</a>* derivedSceneObject, <span class="keywordtype">bool</span> goToScene = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_scene_manager.html">   40</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scene_manager.html">SceneManager</a> {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ad630f61522c7a6114b3bf5bf782df22b">   46</a></span>&#160;    std::map&lt;std::string, std::unique_ptr&lt;SceneProxy&gt;&gt; <a class="code" href="class_scene_manager.html#ad630f61522c7a6114b3bf5bf782df22b">mScenes</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a37e2b6f5a5a3131b3eac12aa31d2956a">   48</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_scene_manager.html#a37e2b6f5a5a3131b3eac12aa31d2956a">mTranslateMouseEvents</a>; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>* mActiveDialogue;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> updateCurrentScene( sf::Time <span class="keyword">const</span> &amp;elapsedTime);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> drawCurrentScene( sf::RenderWindow &amp;w );</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> passEventToCurrentScene( sf::Event &amp;theEvent );</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">bool</span> navigateToScene( std::string <span class="keyword">const</span> &amp;path );</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">   80</a></span>&#160;    signal&lt;void(I_Scene* newScene)&gt; <a class="code" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">onSceneChange</a>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdoc">Interface for scene objects, such as levels and menus. </div><div class="ttdef"><b>Definition:</b> Scene.hpp:11</div></div>
-<div class="ttc" id="class_scene_manager_html"><div class="ttname"><a href="class_scene_manager.html">SceneManager</a></div><div class="ttdoc">Singleton class to handle scenes and the navigation between them. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:12</div></div>
-<div class="ttc" id="namespaceboost_1_1signals2_html"><div class="ttname"><a href="namespaceboost_1_1signals2.html">signals2</a></div></div>
-<div class="ttc" id="class_scene_manager_html_ada0204db410e7ebef136c3762e912436"><div class="ttname"><a href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">SceneManager::mScenes</a></div><div class="ttdeci">std::map&lt; std::string, I_Scene * &gt; mScenes</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:18</div></div>
-<div class="ttc" id="class_scene_manager_html_ae1768cf1a2da5736571da6516d512379"><div class="ttname"><a href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">SceneManager::onSceneChange</a></div><div class="ttdeci">signal&lt; void(I_Scene *newScene)&gt; onSceneChange</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:80</div></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ae82d42d7481e9a0e1dec5421563230d8">   53</a></span>&#160;    std::string <a class="code" href="class_scene_manager.html#ae82d42d7481e9a0e1dec5421563230d8">mCurrentSceneName</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="class_scene_proxy.html">SceneProxy</a>* mCurrentScene;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> std::unique_ptr&lt;SceneManager&gt; mInstance;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a321ab456c68873f56423ec2692a6ae0d">   59</a></span>&#160;    std::atomic_bool <a class="code" href="class_scene_manager.html#a321ab456c68873f56423ec2692a6ae0d">mStopRequestThread</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_scene_manager.html#ab317162042a92bb9f0e22fa08b9d7426">   64</a></span>&#160;    std::thread <a class="code" href="class_scene_manager.html#ab317162042a92bb9f0e22fa08b9d7426">mRequestThread</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a4625025c1dc80f04e8983c155ff5aa41">   65</a></span>&#160;    std::mutex <a class="code" href="class_scene_manager.html#a4625025c1dc80f04e8983c155ff5aa41">mSceneMutex</a>; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a46f934da215bdf2701441253e6343329">   66</a></span>&#160;    std::mutex <a class="code" href="class_scene_manager.html#a46f934da215bdf2701441253e6343329">mRequestMutex</a>;   </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a44c0ef6f1596c35317c6b9c9f368d83e">   67</a></span>&#160;    std::condition_variable <a class="code" href="class_scene_manager.html#a44c0ef6f1596c35317c6b9c9f368d83e">mRequestPending</a>;    </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a7a0faa4d8629a6b05a4b5934cdde0211">   68</a></span>&#160;    std::queue&lt;detail::SceneRequest&gt; <a class="code" href="class_scene_manager.html#a7a0faa4d8629a6b05a4b5934cdde0211">mRequests</a>; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_scene_manager.html">SceneManager</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#ac8c34810c4b116081fb7e2e0e379d0a4">handleSceneRequests</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#aa7731c908db3bd31cec51b530897c685">processAddRequest</a>(<a class="code" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> <span class="keyword">const</span>&amp; request);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a574e40eba9f9e5ad5da0ae6686a52a5b">processNavigateRequest</a>(<a class="code" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> <span class="keyword">const</span>&amp; request);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a997b8e54b88c46a306b30467d6c0c7e5">processDialogueRequest</a>(<a class="code" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> <span class="keyword">const</span>&amp; request);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    ~<a class="code" href="class_scene_manager.html">SceneManager</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">static</span> std::unique_ptr&lt;SceneManager&gt; <span class="keyword">const</span>&amp; instance();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::string <a class="code" href="class_scene_manager.html#a08aad246f11d500dda797b1a7f86bb7b">getCurrentScene</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> SceneType&gt;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a02cdcff266662fe4f4f5863ba9995dd5">createScene</a>(std::string <span class="keyword">const</span> &amp;name, std::string <span class="keyword">const</span>&amp; xmlPath, <span class="keywordtype">bool</span> goToScene = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a95303770a6b44a29e137605c46b777e7">updateCurrentScene</a>( sf::Time <span class="keyword">const</span> &amp;elapsedTime );</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a1d3facb4a9f1e172c30fc1981cde325c">drawCurrentScene</a>( sf::RenderWindow &amp;w );</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_scene_manager.html#a8540e64a3c1c0d369b853ff393b59822">passEventToCurrentScene</a>( sf::Event &amp;theEvent );</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#aaa55c0d7dbdc1c1655017446d3d5a88e">navigateToScene</a>( std::string <span class="keyword">const</span> &amp;path );</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a7826a96bdf319f93a710409192c769d5">stopTranslatingMouse</a>();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> showDialogueBox(<a class="code" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>* dialogueBox);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#ad6e9efdd903d26c99a96d35ad1580968">destruct</a>();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;};</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SceneType&gt;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="class_scene_manager.html#a02cdcff266662fe4f4f5863ba9995dd5">  141</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_scene_manager.html#a02cdcff266662fe4f4f5863ba9995dd5">SceneManager::createScene</a>(std::string <span class="keyword">const</span>&amp; name, std::string <span class="keyword">const</span>&amp; xmlPath, <span class="keywordtype">bool</span> goToScene) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    std::unique_lock&lt;std::mutex&gt; lock(<a class="code" href="class_scene_manager.html#a46f934da215bdf2701441253e6343329">mRequestMutex</a>);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;-[Adding creation request]=&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">//Construct the scene from the name. It defaults to a navigation request.</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> request = name;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="comment">//Decide whether we need to just add the scene or if we should navigate to it too.</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    request.type = goToScene ?</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        detail::SceneRequest::ADD_AND_NAVIGATE :</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        detail::SceneRequest::ADD_TO_MANAGER;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">//Create the scene proxy</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    request.<a class="code" href="structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8">scene</a> = SceneProxy::create&lt;SceneType&gt;(xmlPath);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="comment">//Add the request to the queue.</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <a class="code" href="class_scene_manager.html#a7a0faa4d8629a6b05a4b5934cdde0211">mRequests</a>.push(request);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="class_scene_manager.html#a44c0ef6f1596c35317c6b9c9f368d83e">mRequestPending</a>.notify_all();</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;-[Added creation request]=&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_scene_manager_html_a46f934da215bdf2701441253e6343329"><div class="ttname"><a href="class_scene_manager.html#a46f934da215bdf2701441253e6343329">SceneManager::mRequestMutex</a></div><div class="ttdeci">std::mutex mRequestMutex</div><div class="ttdoc">Locked whenever we need to access the request queue. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:66</div></div>
+<div class="ttc" id="class_scene_manager_html_a08aad246f11d500dda797b1a7f86bb7b"><div class="ttname"><a href="class_scene_manager.html#a08aad246f11d500dda797b1a7f86bb7b">SceneManager::getCurrentScene</a></div><div class="ttdeci">std::string getCurrentScene()</div></div>
+<div class="ttc" id="structdetail_1_1_scene_request_html_a0379acd22963b93b806d229b4e4b768c"><div class="ttname"><a href="structdetail_1_1_scene_request.html#a0379acd22963b93b806d229b4e4b768c">detail::SceneRequest::SceneRequest</a></div><div class="ttdeci">SceneRequest(std::string const &amp;_name)</div><div class="ttdoc">Converting ctor for easy navigation requests. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:17</div></div>
+<div class="ttc" id="class_scene_manager_html_aa7731c908db3bd31cec51b530897c685"><div class="ttname"><a href="class_scene_manager.html#aa7731c908db3bd31cec51b530897c685">SceneManager::processAddRequest</a></div><div class="ttdeci">void processAddRequest(detail::SceneRequest const &amp;request)</div><div class="ttdoc">Adds a scene to the map. </div></div>
+<div class="ttc" id="class_scene_manager_html_a44c0ef6f1596c35317c6b9c9f368d83e"><div class="ttname"><a href="class_scene_manager.html#a44c0ef6f1596c35317c6b9c9f368d83e">SceneManager::mRequestPending</a></div><div class="ttdeci">std::condition_variable mRequestPending</div><div class="ttdoc">Notified whenever a request is pushed onto the queue. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:67</div></div>
+<div class="ttc" id="structdetail_1_1_scene_request_html_a0c250775ccdd82f49d837d2e72e330b8"><div class="ttname"><a href="structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8">detail::SceneRequest::scene</a></div><div class="ttdeci">SceneProxy * scene</div><div class="ttdoc">Scene to add to the manager. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:31</div></div>
+<div class="ttc" id="class_scene_manager_html_a02cdcff266662fe4f4f5863ba9995dd5"><div class="ttname"><a href="class_scene_manager.html#a02cdcff266662fe4f4f5863ba9995dd5">SceneManager::createScene</a></div><div class="ttdeci">void createScene(std::string const &amp;name, std::string const &amp;xmlPath, bool goToScene=true)</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:141</div></div>
+<div class="ttc" id="class_scene_manager_html_ac8c34810c4b116081fb7e2e0e379d0a4"><div class="ttname"><a href="class_scene_manager.html#ac8c34810c4b116081fb7e2e0e379d0a4">SceneManager::handleSceneRequests</a></div><div class="ttdeci">void handleSceneRequests()</div><div class="ttdoc">Waits to be notified about a pending scene change, then does cleanup and assignment. </div></div>
+<div class="ttc" id="class_scene_manager_html_a997b8e54b88c46a306b30467d6c0c7e5"><div class="ttname"><a href="class_scene_manager.html#a997b8e54b88c46a306b30467d6c0c7e5">SceneManager::processDialogueRequest</a></div><div class="ttdeci">void processDialogueRequest(detail::SceneRequest const &amp;request)</div><div class="ttdoc">Show a dialog box on top of the current scene. </div></div>
+<div class="ttc" id="class_scene_manager_html_a95303770a6b44a29e137605c46b777e7"><div class="ttname"><a href="class_scene_manager.html#a95303770a6b44a29e137605c46b777e7">SceneManager::updateCurrentScene</a></div><div class="ttdeci">void updateCurrentScene(sf::Time const &amp;elapsedTime)</div></div>
+<div class="ttc" id="class_scene_manager_html_a7a0faa4d8629a6b05a4b5934cdde0211"><div class="ttname"><a href="class_scene_manager.html#a7a0faa4d8629a6b05a4b5934cdde0211">SceneManager::mRequests</a></div><div class="ttdeci">std::queue&lt; detail::SceneRequest &gt; mRequests</div><div class="ttdoc">Queue of pending requests. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:68</div></div>
+<div class="ttc" id="class_scene_manager_html"><div class="ttname"><a href="class_scene_manager.html">SceneManager</a></div><div class="ttdoc">Singleton class to handle scenes and the navigation between them. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:40</div></div>
+<div class="ttc" id="class_scene_manager_html_ae82d42d7481e9a0e1dec5421563230d8"><div class="ttname"><a href="class_scene_manager.html#ae82d42d7481e9a0e1dec5421563230d8">SceneManager::mCurrentSceneName</a></div><div class="ttdeci">std::string mCurrentSceneName</div><div class="ttdoc">The current scenes map key. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:53</div></div>
+<div class="ttc" id="namespacedetail_html"><div class="ttname"><a href="namespacedetail.html">detail</a></div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:13</div></div>
+<div class="ttc" id="classgui_1_1_dialogue_box_html"><div class="ttname"><a href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a></div><div class="ttdef"><b>Definition:</b> DialogueBox.hpp:9</div></div>
+<div class="ttc" id="class_scene_manager_html_a8540e64a3c1c0d369b853ff393b59822"><div class="ttname"><a href="class_scene_manager.html#a8540e64a3c1c0d369b853ff393b59822">SceneManager::passEventToCurrentScene</a></div><div class="ttdeci">bool passEventToCurrentScene(sf::Event &amp;theEvent)</div></div>
+<div class="ttc" id="class_scene_manager_html_ab317162042a92bb9f0e22fa08b9d7426"><div class="ttname"><a href="class_scene_manager.html#ab317162042a92bb9f0e22fa08b9d7426">SceneManager::mRequestThread</a></div><div class="ttdeci">std::thread mRequestThread</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:64</div></div>
+<div class="ttc" id="class_scene_manager_html_a321ab456c68873f56423ec2692a6ae0d"><div class="ttname"><a href="class_scene_manager.html#a321ab456c68873f56423ec2692a6ae0d">SceneManager::mStopRequestThread</a></div><div class="ttdeci">std::atomic_bool mStopRequestThread</div><div class="ttdoc">Must be set to true before we try and join switcher thread. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:59</div></div>
+<div class="ttc" id="class_scene_manager_html_a7826a96bdf319f93a710409192c769d5"><div class="ttname"><a href="class_scene_manager.html#a7826a96bdf319f93a710409192c769d5">SceneManager::stopTranslatingMouse</a></div><div class="ttdeci">void stopTranslatingMouse()</div><div class="ttdoc">Stops translating mouse until the scene is changed. Be default, the manager translates mouse posititi...</div></div>
+<div class="ttc" id="class_scene_manager_html_a37e2b6f5a5a3131b3eac12aa31d2956a"><div class="ttname"><a href="class_scene_manager.html#a37e2b6f5a5a3131b3eac12aa31d2956a">SceneManager::mTranslateMouseEvents</a></div><div class="ttdeci">bool mTranslateMouseEvents</div><div class="ttdoc">True if we should translate mouse positions from screen to game. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:48</div></div>
+<div class="ttc" id="class_scene_proxy_html"><div class="ttname"><a href="class_scene_proxy.html">SceneProxy</a></div><div class="ttdef"><b>Definition:</b> Scene.hpp:42</div></div>
+<div class="ttc" id="class_scene_manager_html_a1d3facb4a9f1e172c30fc1981cde325c"><div class="ttname"><a href="class_scene_manager.html#a1d3facb4a9f1e172c30fc1981cde325c">SceneManager::drawCurrentScene</a></div><div class="ttdeci">void drawCurrentScene(sf::RenderWindow &amp;w)</div></div>
+<div class="ttc" id="class_scene_manager_html_ad6e9efdd903d26c99a96d35ad1580968"><div class="ttname"><a href="class_scene_manager.html#ad6e9efdd903d26c99a96d35ad1580968">SceneManager::destruct</a></div><div class="ttdeci">static void destruct()</div><div class="ttdoc">Destroys the instance. </div></div>
+<div class="ttc" id="structdetail_1_1_scene_request_html"><div class="ttname"><a href="structdetail_1_1_scene_request.html">detail::SceneRequest</a></div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:15</div></div>
+<div class="ttc" id="class_scene_manager_html_aaa55c0d7dbdc1c1655017446d3d5a88e"><div class="ttname"><a href="class_scene_manager.html#aaa55c0d7dbdc1c1655017446d3d5a88e">SceneManager::navigateToScene</a></div><div class="ttdeci">void navigateToScene(std::string const &amp;path)</div></div>
+<div class="ttc" id="class_scene_manager_html_a4625025c1dc80f04e8983c155ff5aa41"><div class="ttname"><a href="class_scene_manager.html#a4625025c1dc80f04e8983c155ff5aa41">SceneManager::mSceneMutex</a></div><div class="ttdeci">std::mutex mSceneMutex</div><div class="ttdoc">Locked whenever we need to do something involving the current scene. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:65</div></div>
+<div class="ttc" id="structdetail_1_1_scene_request_html_aa18a975219745817d1f4c77949aa6f65"><div class="ttname"><a href="structdetail_1_1_scene_request.html#aa18a975219745817d1f4c77949aa6f65">detail::SceneRequest::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Name of scene. </div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:27</div></div>
+<div class="ttc" id="class_scene_manager_html_a574e40eba9f9e5ad5da0ae6686a52a5b"><div class="ttname"><a href="class_scene_manager.html#a574e40eba9f9e5ad5da0ae6686a52a5b">SceneManager::processNavigateRequest</a></div><div class="ttdeci">void processNavigateRequest(detail::SceneRequest const &amp;request)</div><div class="ttdoc">Transitions to a scene. </div></div>
+<div class="ttc" id="class_scene_manager_html_ad630f61522c7a6114b3bf5bf782df22b"><div class="ttname"><a href="class_scene_manager.html#ad630f61522c7a6114b3bf5bf782df22b">SceneManager::mScenes</a></div><div class="ttdeci">std::map&lt; std::string, std::unique_ptr&lt; SceneProxy &gt; &gt; mScenes</div><div class="ttdef"><b>Definition:</b> SceneManager.hpp:46</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

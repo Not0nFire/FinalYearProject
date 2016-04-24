@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -109,7 +109,9 @@ $(document).ready(function(){initNavTree('class_camera.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_camera-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -125,65 +127,139 @@ $(document).ready(function(){initNavTree('class_camera.html','');});
 Inheritance diagram for Camera:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_camera__inherit__graph.png" border="0" usemap="#_camera_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<map name="_camera_inherit__map" id="_camera_inherit__map">
+</map>
+</div>
 <div class="dynheader">
 Collaboration diagram for Camera:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_camera__coll__graph.png" border="0" usemap="#_camera_coll__map" alt="Collaboration graph"/></div>
 <map name="_camera_coll__map" id="_camera_coll__map">
-<area shape="rect" id="node3" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="98,81,151,108"/>
-<area shape="rect" id="node5" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="122,5,255,32"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af0c13f354e1dc86d84108cf49ab71a80"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af0c13f354e1dc86d84108cf49ab71a80"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (sf::Vector2u const &amp;screenSize, sf::Vector2f const &amp;boundingArea)</td></tr>
-<tr class="separator:af0c13f354e1dc86d84108cf49ab71a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c3ad0caa98da7efb99d76dfe040101"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4c3ad0caa98da7efb99d76dfe040101"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (sf::Vector2u const &amp;screenSize, sf::Vector2f const &amp;boundingArea, <a class="el" href="class_actor.html">Actor</a> *target)</td></tr>
-<tr class="separator:af4c3ad0caa98da7efb99d76dfe040101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45df27b14402978ad0a13785af0c009b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a45df27b14402978ad0a13785af0c009b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTarget</b> (<a class="el" href="class_actor.html">Actor</a> *target)</td></tr>
-<tr class="separator:a45df27b14402978ad0a13785af0c009b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac736b820cc491405f415bd9980985b06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac736b820cc491405f415bd9980985b06"></a>
-<a class="el" href="class_actor.html">Actor</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getTarget</b> () const </td></tr>
-<tr class="separator:ac736b820cc491405f415bd9980985b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6e24ebda00f42452f89602113d3aba8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa6e24ebda00f42452f89602113d3aba8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (sf::Vector2f const &amp;viewportSize, sf::Vector2f const &amp;boundingArea=sf::Vector2f(FLT_MAX, FLT_MAX))</td></tr>
+<tr class="separator:aa6e24ebda00f42452f89602113d3aba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d9889727356cd6c3d9c3f6f5ca8f5f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d9889727356cd6c3d9c3f6f5ca8f5f2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (sf::Vector2f const &amp;viewportSize, sf::Vector2f const &amp;boundingArea, std::shared_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt; const &amp;target)</td></tr>
+<tr class="separator:a4d9889727356cd6c3d9c3f6f5ca8f5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0f29c91d8531b15265502e3d7d2ae16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0f29c91d8531b15265502e3d7d2ae16"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTarget</b> (std::shared_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt; target)</td></tr>
+<tr class="separator:ac0f29c91d8531b15265502e3d7d2ae16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01a111a5fa5c0c80797ef0b612609e0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01a111a5fa5c0c80797ef0b612609e0c"></a>
+std::weak_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getTarget</b> () const </td></tr>
+<tr class="separator:a01a111a5fa5c0c80797ef0b612609e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c2eb9907441db681f3fbd34694d415e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c2eb9907441db681f3fbd34694d415e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clearTarget</b> ()</td></tr>
 <tr class="separator:a2c2eb9907441db681f3fbd34694d415e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a336970eccb29e9d882d6b3fdda71605f"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a336970eccb29e9d882d6b3fdda71605f">getDisplacement</a> () const </td></tr>
 <tr class="memdesc:a336970eccb29e9d882d6b3fdda71605f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the top left corner of the camera.  <a href="#a336970eccb29e9d882d6b3fdda71605f">More...</a><br /></td></tr>
 <tr class="separator:a336970eccb29e9d882d6b3fdda71605f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42cda7239981a5618660d04bd5893556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a42cda7239981a5618660d04bd5893556">update</a> ()</td></tr>
-<tr class="memdesc:a42cda7239981a5618660d04bd5893556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates camera's center to where the target is. Clamps camera edges to stay inside of bounding area.  <a href="#a42cda7239981a5618660d04bd5893556">More...</a><br /></td></tr>
-<tr class="separator:a42cda7239981a5618660d04bd5893556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5986d1793d76b510273e39a03b3452"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aec5986d1793d76b510273e39a03b3452">update</a> (float deltaSeconds)</td></tr>
+<tr class="memdesc:aec5986d1793d76b510273e39a03b3452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates camera's center to where the target is. Clamps camera edges to stay inside of bounding area.  <a href="#aec5986d1793d76b510273e39a03b3452">More...</a><br /></td></tr>
+<tr class="separator:aec5986d1793d76b510273e39a03b3452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae03c5b5d99889b54a8014129228d59e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae03c5b5d99889b54a8014129228d59e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ae03c5b5d99889b54a8014129228d59e7">lock</a> ()</td></tr>
+<tr class="memdesc:ae03c5b5d99889b54a8014129228d59e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks the camera to its current position or target. Does nothing if already locked. <br /></td></tr>
+<tr class="separator:ae03c5b5d99889b54a8014129228d59e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99f935c628b80d7dcbd77ac124a612b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a99f935c628b80d7dcbd77ac124a612b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a99f935c628b80d7dcbd77ac124a612b9">unlock</a> ()</td></tr>
+<tr class="memdesc:a99f935c628b80d7dcbd77ac124a612b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlocks the camera, allowing the player to move it. Does nothing if already unlocked. <br /></td></tr>
+<tr class="separator:a99f935c628b80d7dcbd77ac124a612b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6807f55a42205ba41fe0e076b717654e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6807f55a42205ba41fe0e076b717654e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>toggleLock</b> ()</td></tr>
+<tr class="separator:a6807f55a42205ba41fe0e076b717654e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273c3d1f9c7daa8103b69a8056957885"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a273c3d1f9c7daa8103b69a8056957885"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setBoundingArea</b> (sf::Vector2f const &amp;bounds)</td></tr>
+<tr class="separator:a273c3d1f9c7daa8103b69a8056957885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92313446ac0fff76935a9245c4cfadb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a92313446ac0fff76935a9245c4cfadb3">doMouseMove</a> (sf::Vector2f mousePos)</td></tr>
+<tr class="memdesc:a92313446ac0fff76935a9245c4cfadb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the camera if the mouse is close to the screen edge. Assumes that the mouse position is NOT translated from screen to game coordinates.  <a href="#a92313446ac0fff76935a9245c4cfadb3">More...</a><br /></td></tr>
+<tr class="separator:a92313446ac0fff76935a9245c4cfadb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866be8298a481483c7a9229a1a864ee4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a866be8298a481483c7a9229a1a864ee4"></a>
+sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>screenPositionToGamePosition</b> (const int x, const int y) const </td></tr>
+<tr class="separator:a866be8298a481483c7a9229a1a864ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a1e41fd9329951d28010045c71530b9da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e41fd9329951d28010045c71530b9da"></a>
+static <a class="el" href="class_camera.html">Camera</a> const &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getDefaultCamera</b> ()</td></tr>
+<tr class="separator:a1e41fd9329951d28010045c71530b9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a2f98f5e39706239b6a38dd088682d956"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f98f5e39706239b6a38dd088682d956"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a2f98f5e39706239b6a38dd088682d956">clamp</a> (sf::Vector2f &amp;value, sf::Vector2f const &amp;min, sf::Vector2f const &amp;max) const </td></tr>
-<tr class="memdesc:a2f98f5e39706239b6a38dd088682d956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a vector2f to a min and max value. <br /></td></tr>
-<tr class="separator:a2f98f5e39706239b6a38dd088682d956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d77c6ddd8f2ec0d5391ccfafb80f3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75d77c6ddd8f2ec0d5391ccfafb80f3c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calculateScalingFactor</b> ()</td></tr>
+<tr class="separator:a75d77c6ddd8f2ec0d5391ccfafb80f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfd95f0e4f5591d4ebc84a72bd788d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afbfd95f0e4f5591d4ebc84a72bd788d6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#afbfd95f0e4f5591d4ebc84a72bd788d6">setClampedCenter</a> (sf::Vector2f newCenter)</td></tr>
+<tr class="memdesc:afbfd95f0e4f5591d4ebc84a72bd788d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the center of the view, accounting for bounds. Also sets sf::Listener position. <br /></td></tr>
+<tr class="separator:afbfd95f0e4f5591d4ebc84a72bd788d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a458f48cf046e136e4c22fe5d85961658"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a458f48cf046e136e4c22fe5d85961658"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a458f48cf046e136e4c22fe5d85961658">clamp</a> (sf::Vector2f &amp;value, sf::Vector2f const &amp;min, sf::Vector2f const &amp;max)</td></tr>
+<tr class="memdesc:a458f48cf046e136e4c22fe5d85961658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps a vector2f to a min and max value. <br /></td></tr>
+<tr class="separator:a458f48cf046e136e4c22fe5d85961658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:afe6ca52ee15c51a6fddfbd9846340f36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe6ca52ee15c51a6fddfbd9846340f36"></a>
-<a class="el" href="class_actor.html">Actor</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mTarget</b></td></tr>
-<tr class="separator:afe6ca52ee15c51a6fddfbd9846340f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45de355addd37526a76efc28ec7a6abe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a45de355addd37526a76efc28ec7a6abe"></a>
-sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a45de355addd37526a76efc28ec7a6abe">mScreenSize</a></td></tr>
-<tr class="memdesc:a45de355addd37526a76efc28ec7a6abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keep a record of the screen size for resets. <br /></td></tr>
-<tr class="separator:a45de355addd37526a76efc28ec7a6abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66032ea0d20e029a36dbcae3125e414a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66032ea0d20e029a36dbcae3125e414a"></a>
+std::weak_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mTarget</b></td></tr>
+<tr class="separator:a66032ea0d20e029a36dbcae3125e414a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b4653f0169af1b49fb3b1b8967ebc3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b4653f0169af1b49fb3b1b8967ebc3b"></a>
 sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">mBoundingArea</a></td></tr>
 <tr class="memdesc:a7b4653f0169af1b49fb3b1b8967ebc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position. <br /></td></tr>
 <tr class="separator:a7b4653f0169af1b49fb3b1b8967ebc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4e025c71569b93993596d3e6f186b90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4e025c71569b93993596d3e6f186b90"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aa4e025c71569b93993596d3e6f186b90">mLocked</a></td></tr>
+<tr class="memdesc:aa4e025c71569b93993596d3e6f186b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the camera cannot be moved by the player. <br /></td></tr>
+<tr class="separator:aa4e025c71569b93993596d3e6f186b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c8bcf38da70c641b497fdd8674a7ffb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c8bcf38da70c641b497fdd8674a7ffb"></a>
+const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a7c8bcf38da70c641b497fdd8674a7ffb">mEdgeMoveThreshold</a></td></tr>
+<tr class="memdesc:a7c8bcf38da70c641b497fdd8674a7ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">How close the mouse needs to be to the edge of the viewport before the camera moves. <br /></td></tr>
+<tr class="separator:a7c8bcf38da70c641b497fdd8674a7ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b404bb2d891d2c14078eb5a4994d20c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b404bb2d891d2c14078eb5a4994d20c"></a>
+const float&#160;</td><td class="memItemRight" valign="bottom"><b>mMoveSpeed</b></td></tr>
+<tr class="separator:a5b404bb2d891d2c14078eb5a4994d20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0490f8b7a1174607ba9724f4fa6f4fba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0490f8b7a1174607ba9724f4fa6f4fba"></a>
+sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>mMoveDirection</b></td></tr>
+<tr class="separator:a0490f8b7a1174607ba9724f4fa6f4fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf338ad1c4835e51fa18ee71439dcaf8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf338ad1c4835e51fa18ee71439dcaf8"></a>
+sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#adf338ad1c4835e51fa18ee71439dcaf8">mScalingFactor</a></td></tr>
+<tr class="memdesc:adf338ad1c4835e51fa18ee71439dcaf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to convert a point from screen coords to game coords. <br /></td></tr>
+<tr class="separator:adf338ad1c4835e51fa18ee71439dcaf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Follow camera that can target an <a class="el" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision...">Actor</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a92313446ac0fff76935a9245c4cfadb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::doMouseMove </td>
+          <td>(</td>
+          <td class="paramtype">sf::Vector2f&#160;</td>
+          <td class="paramname"><em>mousePos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves the camera if the mouse is close to the screen edge. Assumes that the mouse position is NOT translated from screen to game coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mousePos</td><td>The position of the mouse </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a336970eccb29e9d882d6b3fdda71605f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -202,21 +278,22 @@ sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a class="anchor" id="a42cda7239981a5618660d04bd5893556"></a>
+<a class="anchor" id="aec5986d1793d76b510273e39a03b3452"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Camera::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>deltaSeconds</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Updates camera's center to where the target is. Clamps camera edges to stay inside of bounding area. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_camera.html#a2f98f5e39706239b6a38dd088682d956" title="Clamps a vector2f to a min and max value. ">clamp()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_camera.html#a458f48cf046e136e4c22fe5d85961658" title="Clamps a vector2f to a min and max value. ">clamp()</a> </dd></dl>
 
 </div>
 </div>

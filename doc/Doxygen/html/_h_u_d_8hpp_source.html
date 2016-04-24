@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,111 +108,120 @@ $(document).ready(function(){initNavTree('_h_u_d_8hpp_source.html','');});
 <div class="title">HUD.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _HUD_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _HUD_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef HUD_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define HUD_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;include/Pawn.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Pawn.hpp&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;SFGUI/SFGUI.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;SFGUI/Widgets.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_h_u_d___detail.html">HUD_Detail</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_h_u_d___detail_1_1_health_bar_static.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_h_u_d___detail_1_1_health_bar_static.html">HealthBarStatic</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <a class="code" href="class_pawn.html">Pawn</a>* mPawnToTrack;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        sfg::ProgressBar::Ptr mBar;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> M_MAX_HEALTH;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="class_h_u_d___detail_1_1_health_bar_static.html">HealthBarStatic</a>(<a class="code" href="class_pawn.html">Pawn</a>* pwn, sf::Vector2f <span class="keyword">const</span> &amp;location, sf::Vector2f <span class="keyword">const</span> &amp;size, sfg::Desktop &amp;desktop);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">void</span> hide();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">void</span> show();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_h_u_d___detail_1_1_health_bar_following.html">   30</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_h_u_d___detail_1_1_health_bar_following.html">HealthBarFollowing</a> : <span class="keyword">public</span> <a class="code" href="class_h_u_d___detail_1_1_health_bar_static.html">HealthBarStatic</a>{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        sf::Vector2f mOffset;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="class_h_u_d___detail_1_1_health_bar_following.html">HealthBarFollowing</a>(<a class="code" href="class_pawn.html">Pawn</a>* pwn, sf::Vector2f <span class="keyword">const</span> &amp;offset, sf::Vector2f <span class="keyword">const</span> &amp;size, sfg::Desktop &amp;desktop);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> update() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    };</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_h_u_d___detail_1_1_label_image_pair.html">   39</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_h_u_d___detail_1_1_label_image_pair.html">LabelImagePair</a> {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sf::Sprite mImage;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        sf::Text mText;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::shared_ptr&lt;int&gt; mValueToTrack;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="class_h_u_d___detail_1_1_label_image_pair.html">LabelImagePair</a>(std::shared_ptr&lt;int&gt; valueToTrack, sf::Texture <span class="keyword">const</span> &amp; tex, sf::Font <span class="keyword">const</span> &amp;fnt, sf::Vector2f <span class="keyword">const</span> &amp;position, sf::Vector2f offset, <span class="keywordtype">bool</span> imageFirst = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> draw(sf::RenderWindow &amp;w);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    };</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_h_u_d.html">   51</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_h_u_d.html">HUD</a> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_h_u_d.html">HUD</a>(std::shared_ptr&lt;sfg::SFGUI&gt; sfgui); <span class="comment">//Construct from xml when tinyXML implemented [hardcoded for now]</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    ~<a class="code" href="class_h_u_d.html">HUD</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#ad38353d494df9a5f91f661d43ec62a70">update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#a13cd6f2072d538ca4350f977e5543d70">draw</a>(sf::RenderWindow &amp;window) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#a1bd01a033db28ad30bd5bfe977a3d298">addHealthBar</a>(<a class="code" href="class_pawn.html">Pawn</a>* pawn, sf::Vector2f <span class="keyword">const</span> &amp;offset, sf::Vector2f <span class="keyword">const</span> &amp;size = sf::Vector2f(50.f, 5.f));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#adce50086d96ce6dabce6b6b8ce739093">addHealthBarStatic</a>(<a class="code" href="class_pawn.html">Pawn</a>* pawn, sf::Vector2f <span class="keyword">const</span> &amp;location, sf::Vector2f <span class="keyword">const</span> &amp;size);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#aca5e2e8502d6144050922a7382594179">addImage</a>(sf::Texture <span class="keyword">const</span> &amp;tex, sf::Vector2f position);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#addb89f27ac58c70595c2d67b506e7fd1">addImageArray</a>(std::string <span class="keyword">const</span> &amp;filePath, sf::Vector2u location, sf::Vector2u widthAndHeight);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> ValueType&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#a896220e0a9216a459a40510d4741884c">addImageWithLabel</a>(sf::Texture <span class="keyword">const</span> &amp; tex, sf::Font <span class="keyword">const</span> &amp;fnt, sf::Vector2f <span class="keyword">const</span> &amp;position, sf::Vector2f <span class="keyword">const</span> &amp;offset, std::shared_ptr&lt;ValueType&gt; labelValue);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> show();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> hide();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> isShown() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="class_h_u_d.html">HUD</a>(<a class="code" href="class_h_u_d.html">HUD</a> <span class="keyword">const</span> &amp;other) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::shared_ptr&lt;sfg::SFGUI&gt; mSFGUI;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    std::list&lt;sfg::Widget::Ptr&gt; mWidgets;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    std::list&lt;HUD_Detail::HealthBarStatic*&gt; mHealthBars;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::list&lt;HUD_Detail::LabelImagePair*&gt; mLabelImagePairs;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    std::list&lt;sf::Sprite*&gt; mImages;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    sfg::Desktop mDesktop;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacegui.html">gui</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classgui_1_1_hud_item.html">   17</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_hud_item.html">HudItem</a> : <span class="keyword">public</span> sf::Drawable {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="classgui_1_1_hud_item.html">HudItem</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> deltaSeconds);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">bool</span> isFlaggedForRemoval() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> flagForRemoval();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">bool</span> mRemovalFlag;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar_static.html">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_health_bar_static.html">HealthBarStatic</a> : <span class="keyword">public</span> <a class="code" href="classgui_1_1_hud_item.html">HudItem</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="classgui_1_1_health_bar_static.html">HealthBarStatic</a>(std::shared_ptr&lt;Pawn&gt; <span class="keyword">const</span>&amp; pawnToTrack, sf::Texture* texture, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Vector2f <span class="keyword">const</span>&amp; size);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> deltaSeconds) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar_static.html#ae851646987a29630545fe05a8ec09ff4">   35</a></span>&#160;        sf::RectangleShape <a class="code" href="classgui_1_1_health_bar_static.html#ae851646987a29630545fe05a8ec09ff4">mBar</a>;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar_static.html#aedb3567838e891aade2b8ceef16dff68">   36</a></span>&#160;        std::weak_ptr&lt;Pawn&gt; <a class="code" href="classgui_1_1_health_bar_static.html#aedb3567838e891aade2b8ceef16dff68">mTracked</a>;   </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar_static.html#a0131dcfeb9baf8b8eca83d451e8e631d">   37</a></span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="classgui_1_1_health_bar_static.html#a0131dcfeb9baf8b8eca83d451e8e631d">M_MAX_HEALTH</a>;   </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_health_bar.html">HealthBar</a> : <span class="keyword">public</span> <a class="code" href="classgui_1_1_health_bar_static.html">HealthBarStatic</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classgui_1_1_health_bar.html">HealthBar</a>(std::shared_ptr&lt;Pawn&gt; <span class="keyword">const</span>&amp; pawnToTrack, sf::Texture* texture, sf::Vector2f <span class="keyword">const</span>&amp; offset, sf::Vector2f <span class="keyword">const</span>&amp; size);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> deltaSeconds) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classgui_1_1_health_bar.html#ad5bb62fe7a55102ebeb11ebbfe7a47ba">   46</a></span>&#160;        <span class="keyword">const</span> sf::Vector2f <a class="code" href="classgui_1_1_health_bar.html#ad5bb62fe7a55102ebeb11ebbfe7a47ba">M_OFFSET</a>;    </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classgui_1_1_life_tracker.html">   50</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_life_tracker.html">LifeTracker</a> : <span class="keyword">public</span> <a class="code" href="classgui_1_1_hud_item.html">HudItem</a> {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classgui_1_1_life_tracker.html">LifeTracker</a>(std::shared_ptr&lt;int&gt; lives, sf::Texture&amp; texture, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f }, sf::Vector2f <span class="keyword">const</span>&amp; spacing = {0.f, 0.f});</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        sf::Sprite mSprite;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classgui_1_1_life_tracker.html#ae8d17538e2022e964439420496f7935d">   57</a></span>&#160;        <span class="keyword">const</span> sf::Vector2f <a class="code" href="classgui_1_1_life_tracker.html#ae8d17538e2022e964439420496f7935d">M_SPACING</a>;   </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classgui_1_1_life_tracker.html#afd9ebdf5e68c3fb03ffdc753e1749688">   58</a></span>&#160;        std::shared_ptr&lt;int&gt; <a class="code" href="classgui_1_1_life_tracker.html#afd9ebdf5e68c3fb03ffdc753e1749688">mLives</a>;    </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classgui_1_1_image.html">   62</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_image.html">Image</a> : <span class="keyword">public</span> <a class="code" href="classgui_1_1_hud_item.html">HudItem</a> {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="classgui_1_1_image.html">Image</a>(sf::Texture&amp; texture, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f });</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        sf::Sprite mSprite;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    };</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classgui_1_1_number_tracker.html">   72</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgui_1_1_number_tracker.html">NumberTracker</a> : <span class="keyword">public</span> <a class="code" href="classgui_1_1_hud_item.html">HudItem</a> {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classgui_1_1_number_tracker.html">NumberTracker</a>(std::shared_ptr&lt;int&gt; <span class="keyword">const</span>&amp; numberToTrack, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Font <span class="keyword">const</span>&amp; font, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize = 30u, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f });</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> deltaSeconds) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">void</span> draw(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::shared_ptr&lt;int&gt; <span class="keyword">const</span>&amp; mNumber;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        sf::Text mText;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    };</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}<span class="comment">//end namespace hud_detail</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_hud.html">   84</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_hud.html">Hud</a> : <span class="keyword">public</span> sf::Drawable {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="class_hud.html">Hud</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ~<a class="code" href="class_hud.html">Hud</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#a0819106fc37900d8b4811cd1fea41d3a">addHealthBar</a>(std::shared_ptr&lt;Pawn&gt; <span class="keyword">const</span>&amp; pawnToTrack, sf::Vector2f <span class="keyword">const</span>&amp; offsetOrPosition, sf::Vector2f <span class="keyword">const</span>&amp; size, sf::Texture* texture = <span class="keyword">nullptr</span>, <span class="keywordtype">bool</span> stationary = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">bool</span> mIsShown;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> ValueType&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="class_h_u_d.html#a896220e0a9216a459a40510d4741884c">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_h_u_d.html#a896220e0a9216a459a40510d4741884c">HUD::addImageWithLabel</a>(sf::Texture <span class="keyword">const</span> &amp; tex, sf::Font <span class="keyword">const</span> &amp;fnt, sf::Vector2f <span class="keyword">const</span> &amp;position, sf::Vector2f <span class="keyword">const</span> &amp;offset, std::shared_ptr&lt;ValueType&gt; labelValue) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    mLabelImagePairs.push_back(<span class="keyword">new</span> <a class="code" href="class_h_u_d___detail_1_1_label_image_pair.html">HUD_Detail::LabelImagePair</a>(labelValue, tex, fnt, position, offset));</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_h_u_d___detail_1_1_health_bar_following_html"><div class="ttname"><a href="class_h_u_d___detail_1_1_health_bar_following.html">HUD_Detail::HealthBarFollowing</a></div><div class="ttdoc">Healthbar that follows the position of the Pawn that is tracks. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:30</div></div>
-<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:17</div></div>
-<div class="ttc" id="class_h_u_d_html_a1bd01a033db28ad30bd5bfe977a3d298"><div class="ttname"><a href="class_h_u_d.html#a1bd01a033db28ad30bd5bfe977a3d298">HUD::addHealthBar</a></div><div class="ttdeci">void addHealthBar(Pawn *pawn, sf::Vector2f const &amp;offset, sf::Vector2f const &amp;size=sf::Vector2f(50.f, 5.f))</div><div class="ttdoc">Adds a health bar that follows a pawn. </div></div>
-<div class="ttc" id="class_h_u_d_html_aca5e2e8502d6144050922a7382594179"><div class="ttname"><a href="class_h_u_d.html#aca5e2e8502d6144050922a7382594179">HUD::addImage</a></div><div class="ttdeci">void addImage(sf::Texture const &amp;tex, sf::Vector2f position)</div></div>
-<div class="ttc" id="class_h_u_d_html_ad38353d494df9a5f91f661d43ec62a70"><div class="ttname"><a href="class_h_u_d.html#ad38353d494df9a5f91f661d43ec62a70">HUD::update</a></div><div class="ttdeci">void update(sf::Time const &amp;elapsedTime)</div><div class="ttdoc">Updates the HUD. Elapsed time is required to update sfg::Desktop. </div></div>
-<div class="ttc" id="class_h_u_d___detail_1_1_health_bar_static_html"><div class="ttname"><a href="class_h_u_d___detail_1_1_health_bar_static.html">HUD_Detail::HealthBarStatic</a></div><div class="ttdoc">Healthbar that tracks a Pawn and stays at a set position on the screen. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:14</div></div>
-<div class="ttc" id="class_h_u_d___detail_1_1_label_image_pair_html"><div class="ttname"><a href="class_h_u_d___detail_1_1_label_image_pair.html">HUD_Detail::LabelImagePair</a></div><div class="ttdef"><b>Definition:</b> HUD.hpp:39</div></div>
-<div class="ttc" id="class_h_u_d_html_adce50086d96ce6dabce6b6b8ce739093"><div class="ttname"><a href="class_h_u_d.html#adce50086d96ce6dabce6b6b8ce739093">HUD::addHealthBarStatic</a></div><div class="ttdeci">void addHealthBarStatic(Pawn *pawn, sf::Vector2f const &amp;location, sf::Vector2f const &amp;size)</div><div class="ttdoc">Adds a bar that tracks a pawns health. </div></div>
-<div class="ttc" id="namespace_h_u_d___detail_html"><div class="ttname"><a href="namespace_h_u_d___detail.html">HUD_Detail</a></div><div class="ttdef"><b>Definition:</b> HUD.hpp:11</div></div>
-<div class="ttc" id="class_h_u_d_html"><div class="ttname"><a href="class_h_u_d.html">HUD</a></div><div class="ttdef"><b>Definition:</b> HUD.hpp:51</div></div>
-<div class="ttc" id="class_h_u_d_html_a13cd6f2072d538ca4350f977e5543d70"><div class="ttname"><a href="class_h_u_d.html#a13cd6f2072d538ca4350f977e5543d70">HUD::draw</a></div><div class="ttdeci">void draw(sf::RenderWindow &amp;window) const </div><div class="ttdoc">Draws all HUD elements to the specified window. </div></div>
-<div class="ttc" id="class_h_u_d_html_addb89f27ac58c70595c2d67b506e7fd1"><div class="ttname"><a href="class_h_u_d.html#addb89f27ac58c70595c2d67b506e7fd1">HUD::addImageArray</a></div><div class="ttdeci">void addImageArray(std::string const &amp;filePath, sf::Vector2u location, sf::Vector2u widthAndHeight)</div></div>
-<div class="ttc" id="class_h_u_d_html_a896220e0a9216a459a40510d4741884c"><div class="ttname"><a href="class_h_u_d.html#a896220e0a9216a459a40510d4741884c">HUD::addImageWithLabel</a></div><div class="ttdeci">void addImageWithLabel(sf::Texture const &amp;tex, sf::Font const &amp;fnt, sf::Vector2f const &amp;position, sf::Vector2f const &amp;offset, std::shared_ptr&lt; ValueType &gt; labelValue)</div><div class="ttdoc">Adds an image with label that tracks a value (e.g. coin image and amount of money) ...</div><div class="ttdef"><b>Definition:</b> HUD.hpp:104</div></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#a2ff9244127cf91077f9fb22c16d8a7b0">addLifeTracker</a>(std::shared_ptr&lt;int&gt; <span class="keyword">const</span>&amp; livesToTrack, sf::Texture &amp;texture, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f }, sf::Vector2f <span class="keyword">const</span>&amp; spacing = { 0.f, 0.f });</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#a25bf3f49b59fc31a4032d486632b7193">addImage</a>(sf::Texture &amp;texture, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f });</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#a914c65fe00ed718b0ff3e5da0312fa2f">addNumberTracker</a>(std::shared_ptr&lt;int&gt; <span class="keyword">const</span>&amp; number, sf::Vector2f <span class="keyword">const</span>&amp; position, sf::Font <span class="keyword">const</span>&amp; font, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> charSize = 30u, sf::Vector2f <span class="keyword">const</span>&amp; scale = { 1.f, 1.f });</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#ad76583cb61a2c1092cf9ef465b344d84">update</a>(<span class="keywordtype">float</span> deltaSeconds);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hud.html#ac911cb2188262d238505fd1e6220672f">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="class_hud.html#aac3c4ffea8f6c355bac91216d60d1e79">  135</a></span>&#160;    std::list&lt;std::unique_ptr&lt;gui::HudItem&gt;&gt; <a class="code" href="class_hud.html#aac3c4ffea8f6c355bac91216d60d1e79">mItems</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_hud_html_aac3c4ffea8f6c355bac91216d60d1e79"><div class="ttname"><a href="class_hud.html#aac3c4ffea8f6c355bac91216d60d1e79">Hud::mItems</a></div><div class="ttdeci">std::list&lt; std::unique_ptr&lt; gui::HudItem &gt; &gt; mItems</div><div class="ttdoc">Container of hud item pointers. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:135</div></div>
+<div class="ttc" id="classgui_1_1_number_tracker_html"><div class="ttname"><a href="classgui_1_1_number_tracker.html">gui::NumberTracker</a></div><div class="ttdoc">Outputs a number from a shared pointer as text. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:72</div></div>
+<div class="ttc" id="classgui_1_1_health_bar_static_html_ae851646987a29630545fe05a8ec09ff4"><div class="ttname"><a href="classgui_1_1_health_bar_static.html#ae851646987a29630545fe05a8ec09ff4">gui::HealthBarStatic::mBar</a></div><div class="ttdeci">sf::RectangleShape mBar</div><div class="ttdoc">Rectangle to represent health. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:35</div></div>
+<div class="ttc" id="classgui_1_1_health_bar_html_ad5bb62fe7a55102ebeb11ebbfe7a47ba"><div class="ttname"><a href="classgui_1_1_health_bar.html#ad5bb62fe7a55102ebeb11ebbfe7a47ba">gui::HealthBar::M_OFFSET</a></div><div class="ttdeci">const sf::Vector2f M_OFFSET</div><div class="ttdoc">Displacement from pawn at which to draw the healthbar. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:46</div></div>
+<div class="ttc" id="classgui_1_1_life_tracker_html"><div class="ttname"><a href="classgui_1_1_life_tracker.html">gui::LifeTracker</a></div><div class="ttdoc">Draws a line of images, one for each life (or whatever other int it may be told to track)...</div><div class="ttdef"><b>Definition:</b> HUD.hpp:50</div></div>
+<div class="ttc" id="class_hud_html_ac911cb2188262d238505fd1e6220672f"><div class="ttname"><a href="class_hud.html#ac911cb2188262d238505fd1e6220672f">Hud::draw</a></div><div class="ttdeci">void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const  override</div><div class="ttdoc">Draws all hud items. </div></div>
+<div class="ttc" id="class_hud_html_a914c65fe00ed718b0ff3e5da0312fa2f"><div class="ttname"><a href="class_hud.html#a914c65fe00ed718b0ff3e5da0312fa2f">Hud::addNumberTracker</a></div><div class="ttdeci">void addNumberTracker(std::shared_ptr&lt; int &gt; const &amp;number, sf::Vector2f const &amp;position, sf::Font const &amp;font, unsigned int charSize=30u, sf::Vector2f const &amp;scale={1.f, 1.f})</div><div class="ttdoc">Adds a number to the hud. </div></div>
+<div class="ttc" id="classgui_1_1_life_tracker_html_ae8d17538e2022e964439420496f7935d"><div class="ttname"><a href="classgui_1_1_life_tracker.html#ae8d17538e2022e964439420496f7935d">gui::LifeTracker::M_SPACING</a></div><div class="ttdeci">const sf::Vector2f M_SPACING</div><div class="ttdoc">Space between lives on screen. Does not account for width of mSprite. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:57</div></div>
+<div class="ttc" id="namespacegui_html"><div class="ttname"><a href="namespacegui.html">gui</a></div><div class="ttdef"><b>Definition:</b> AbilityButton.hpp:8</div></div>
+<div class="ttc" id="class_hud_html_a2ff9244127cf91077f9fb22c16d8a7b0"><div class="ttname"><a href="class_hud.html#a2ff9244127cf91077f9fb22c16d8a7b0">Hud::addLifeTracker</a></div><div class="ttdeci">void addLifeTracker(std::shared_ptr&lt; int &gt; const &amp;livesToTrack, sf::Texture &amp;texture, sf::Vector2f const &amp;position, sf::Vector2f const &amp;scale={1.f, 1.f}, sf::Vector2f const &amp;spacing={0.f, 0.f})</div><div class="ttdoc">Adds a series of images to the hud. The number of images reflects the value of a shared int...</div></div>
+<div class="ttc" id="class_hud_html_a25bf3f49b59fc31a4032d486632b7193"><div class="ttname"><a href="class_hud.html#a25bf3f49b59fc31a4032d486632b7193">Hud::addImage</a></div><div class="ttdeci">void addImage(sf::Texture &amp;texture, sf::Vector2f const &amp;position, sf::Vector2f const &amp;scale={1.f, 1.f})</div><div class="ttdoc">Adds an image to the hud. </div></div>
+<div class="ttc" id="class_hud_html"><div class="ttname"><a href="class_hud.html">Hud</a></div><div class="ttdef"><b>Definition:</b> HUD.hpp:84</div></div>
+<div class="ttc" id="classgui_1_1_image_html"><div class="ttname"><a href="classgui_1_1_image.html">gui::Image</a></div><div class="ttdoc">Draws a sprite. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:62</div></div>
+<div class="ttc" id="classgui_1_1_health_bar_html"><div class="ttname"><a href="classgui_1_1_health_bar.html">gui::HealthBar</a></div><div class="ttdoc">Healthbar that follows a Pawn&#39;s position. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:41</div></div>
+<div class="ttc" id="class_hud_html_a0819106fc37900d8b4811cd1fea41d3a"><div class="ttname"><a href="class_hud.html#a0819106fc37900d8b4811cd1fea41d3a">Hud::addHealthBar</a></div><div class="ttdeci">void addHealthBar(std::shared_ptr&lt; Pawn &gt; const &amp;pawnToTrack, sf::Vector2f const &amp;offsetOrPosition, sf::Vector2f const &amp;size, sf::Texture *texture=nullptr, bool stationary=false)</div><div class="ttdoc">Adds a healthbar to the hud. </div></div>
+<div class="ttc" id="classgui_1_1_health_bar_static_html_a0131dcfeb9baf8b8eca83d451e8e631d"><div class="ttname"><a href="classgui_1_1_health_bar_static.html#a0131dcfeb9baf8b8eca83d451e8e631d">gui::HealthBarStatic::M_MAX_HEALTH</a></div><div class="ttdeci">const float M_MAX_HEALTH</div><div class="ttdoc">The amount of health the pawn has when the healthbar was constructed. mBar is scales according to thi...</div><div class="ttdef"><b>Definition:</b> HUD.hpp:37</div></div>
+<div class="ttc" id="classgui_1_1_hud_item_html"><div class="ttname"><a href="classgui_1_1_hud_item.html">gui::HudItem</a></div><div class="ttdoc">Interface for non-interactable hud elements. Non-interactable hud elements are for show...</div><div class="ttdef"><b>Definition:</b> HUD.hpp:17</div></div>
+<div class="ttc" id="classgui_1_1_health_bar_static_html_aedb3567838e891aade2b8ceef16dff68"><div class="ttname"><a href="classgui_1_1_health_bar_static.html#aedb3567838e891aade2b8ceef16dff68">gui::HealthBarStatic::mTracked</a></div><div class="ttdeci">std::weak_ptr&lt; Pawn &gt; mTracked</div><div class="ttdoc">The pawn whose health we&#39;re tracking. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:36</div></div>
+<div class="ttc" id="classgui_1_1_health_bar_static_html"><div class="ttname"><a href="classgui_1_1_health_bar_static.html">gui::HealthBarStatic</a></div><div class="ttdoc">Statically positioned bar that tracks a Pawn&#39;s health. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:29</div></div>
+<div class="ttc" id="class_hud_html_ad76583cb61a2c1092cf9ef465b344d84"><div class="ttname"><a href="class_hud.html#ad76583cb61a2c1092cf9ef465b344d84">Hud::update</a></div><div class="ttdeci">void update(float deltaSeconds)</div><div class="ttdoc">Updates all hud items. </div></div>
+<div class="ttc" id="classgui_1_1_life_tracker_html_afd9ebdf5e68c3fb03ffdc753e1749688"><div class="ttname"><a href="classgui_1_1_life_tracker.html#afd9ebdf5e68c3fb03ffdc753e1749688">gui::LifeTracker::mLives</a></div><div class="ttdeci">std::shared_ptr&lt; int &gt; mLives</div><div class="ttdoc">Shared pointer to an int. We&#39;ll draw this many lives on the screen. </div><div class="ttdef"><b>Definition:</b> HUD.hpp:58</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

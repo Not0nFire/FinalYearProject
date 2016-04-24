@@ -1,20 +1,5 @@
 var searchData=
 [
-  ['game',['Game',['../class_game.html',1,'Game'],['../class_game.html#ad59df6562a58a614fda24622d3715b65',1,'Game::Game()']]],
-  ['get',['get',['../class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b',1,'ResourceManager']]],
-  ['getaxies',['getAxies',['../classcollision_1_1_collidable.html#afca4351156e8e146db120e715c420c88',1,'collision::Collidable']]],
-  ['getcentre',['getCentre',['../class_node.html#a0c6f23c74f5b96c7480b6e95cde9b0e6',1,'Node']]],
-  ['getcost',['getCost',['../classtower_1_1_basic_tower.html#a4f152dc1121af8ab471e59db758d5a98',1,'tower::BasicTower']]],
-  ['getcurrentscene',['getCurrentScene',['../class_scene_manager.html#a77bd9095429893110454ccd716a9fff5',1,'SceneManager']]],
-  ['getdestination',['getDestination',['../class_pawn.html#a27c4b05b5e5dc303d5c9a838cc96a7cf',1,'Pawn']]],
-  ['getdisplacement',['getDisplacement',['../class_camera.html#a336970eccb29e9d882d6b3fdda71605f',1,'Camera']]],
-  ['geteditablescene',['getEditableScene',['../class_scene_manager.html#ac81727c53378eab091ff85d195b1c7ec',1,'SceneManager']]],
-  ['getfaction',['getFaction',['../class_pawn.html#a202e827fdd6eb2dca497292d9cfab653',1,'Pawn']]],
-  ['getmonetaryvalue',['getMonetaryValue',['../class_minion.html#ac76ac86d6ae9707b6856c5298edff005',1,'Minion']]],
-  ['getnext',['getNext',['../class_node.html#a6d27ab829f5125aeca7345d351ba4816',1,'Node::getNext()'],['../class_path.html#a41cfab5f7e40cad8434ed6fff9d93786',1,'Path::getNext()']]],
-  ['getplayinganimation',['getPlayingAnimation',['../class_actor.html#aa64bd84ff77dba6d46832821054493c0',1,'Actor']]],
-  ['getpoint',['getPoint',['../class_node.html#adc73720f74cd4bd53535179b0bfa9396',1,'Node']]],
-  ['getpointcount',['getPointCount',['../classcollision_1_1_collidable.html#a10c40bfb76a63c35f468fe0ec2eaf5bd',1,'collision::Collidable']]],
-  ['getscene',['getScene',['../class_scene_proxy.html#ad3eb7ebc9220f6a34ae44acd8ca8cbe6',1,'SceneProxy']]],
-  ['getstate',['getState',['../class_pawn.html#af4a26fde8785464645f6637347b1d568',1,'Pawn']]]
+  ['fancyprojectile',['FancyProjectile',['../class_fancy_projectile.html',1,'FancyProjectile'],['../class_fancy_projectile.html#a094c00873bfd08a2db95a98a9182f758',1,'FancyProjectile::FancyProjectile()']]],
+  ['fire',['fire',['../class_arc_projectile.html#aaf2f11be0477db824569862d3abd455b',1,'ArcProjectile::fire()'],['../class_fancy_projectile.html#a551a6ea82b9f7bb67f9d1afccd9b52e5',1,'FancyProjectile::fire()'],['../class_projectile.html#a49b3ce75e581027979f1201baf22905f',1,'Projectile::fire()']]]
 ];

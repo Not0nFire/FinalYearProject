@@ -1,0 +1,5 @@
+<map id="abilities::MagicMisile" name="abilities::MagicMisile">
+<area shape="rect" id="node2" href="$class_ability.html" title="Base class for usable abilities or spells. Abilities must be initialized through xml. " alt="" coords="5,323,183,811"/>
+<area shape="rect" id="node4" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="207,447,368,686"/>
+<area shape="rect" id="node6" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="301,5,469,273"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="gui::HudItem" name="gui::HudItem">
+<area shape="rect" id="node3" href="$classgui_1_1_health_bar_static.html" title="Statically positioned bar that tracks a Pawn&#39;s health. " alt="" coords="5,300,144,436"/>
+<area shape="rect" id="node5" href="$classgui_1_1_image.html" title="Draws a sprite. " alt="" coords="168,322,251,414"/>
+<area shape="rect" id="node6" href="$classgui_1_1_life_tracker.html" title="Draws a line of images, one for each life (or whatever other int it may be told to track)..." alt="" coords="275,307,386,429"/>
+<area shape="rect" id="node7" href="$classgui_1_1_number_tracker.html" title="Outputs a number from a shared pointer as text. " alt="" coords="410,307,545,429"/>
+<area shape="rect" id="node4" href="$classgui_1_1_health_bar.html" title="Healthbar that follows a Pawn&#39;s position. " alt="" coords="23,484,127,576"/>
+</map>

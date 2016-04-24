@@ -1,0 +1,3 @@
+<map id="abilities::MagicMisile" name="abilities::MagicMisile">
+<area shape="rect" id="node2" href="$class_ability.html" title="Base class for usable abilities or spells. Abilities must be initialized through xml. " alt="" coords="8,131,185,619"/>
+</map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['takedamage',['takeDamage',['../class_pawn.html#a33dbdacc56d2f0728d7485b508b6d28e',1,'Pawn::takeDamage(int amount, Damage::Type type)'],['../class_pawn.html#a3fe30c95134f87a7b91e3113b7c2c78b',1,'Pawn::takeDamage(int amount, Damage::Type type, Pawn *sender)']]],
-  ['targetisdead',['targetIsDead',['../class_pawn.html#a4c5bda155d7b73b8fe1f63d9aad423dc',1,'Pawn']]]
+  ['renderer',['Renderer',['../class_renderer.html#a6e245fdbc81bc95b9378446f88ddf56a',1,'Renderer']]],
+  ['run',['run',['../class_game.html#a99fb161fbbe87d25a8b73265a0611e58',1,'Game']]]
 ];

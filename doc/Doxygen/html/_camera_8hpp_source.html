@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,8 +108,8 @@ $(document).ready(function(){initNavTree('_camera_8hpp_source.html','');});
 <div class="title">Camera.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _CAMERA_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _CAMERA_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CAMERA_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CAMERA_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/View.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;include/Actor.hpp&gt;</span></div>
@@ -117,31 +117,60 @@ $(document).ready(function(){initNavTree('_camera_8hpp_source.html','');});
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_camera.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_camera.html">Camera</a> : <span class="keyword">public</span> sf::View</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_camera.html">Camera</a>(sf::Vector2u <span class="keyword">const</span> &amp;screenSize, sf::Vector2f <span class="keyword">const</span> &amp;boundingArea);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="class_camera.html">Camera</a>(sf::Vector2u <span class="keyword">const</span> &amp;screenSize, sf::Vector2f <span class="keyword">const</span> &amp;boundingArea, <a class="code" href="class_actor.html">Actor</a>* target);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_camera.html">Camera</a>(sf::Vector2f <span class="keyword">const</span>&amp; viewportSize, sf::Vector2f <span class="keyword">const</span> &amp;boundingArea = sf::Vector2f(FLT_MAX, FLT_MAX));</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="class_camera.html">Camera</a>(sf::Vector2f <span class="keyword">const</span>&amp; viewportSize, sf::Vector2f <span class="keyword">const</span> &amp;boundingArea, std::shared_ptr&lt;Actor&gt; <span class="keyword">const</span> &amp;target);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> setTarget(<a class="code" href="class_actor.html">Actor</a>* target);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="class_actor.html">Actor</a>* getTarget() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> clearTarget();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#a336970eccb29e9d882d6b3fdda71605f">getDisplacement</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#a42cda7239981a5618660d04bd5893556">update</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_actor.html">Actor</a>* mTarget;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_camera.html#a45de355addd37526a76efc28ec7a6abe">   34</a></span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#a45de355addd37526a76efc28ec7a6abe">mScreenSize</a>; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">   35</a></span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">mBoundingArea</a>; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#a2f98f5e39706239b6a38dd088682d956">clamp</a>(sf::Vector2f&amp; value, sf::Vector2f <span class="keyword">const</span> &amp;min, sf::Vector2f <span class="keyword">const</span> &amp;max) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_camera_html_a7b4653f0169af1b49fb3b1b8967ebc3b"><div class="ttname"><a href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">Camera::mBoundingArea</a></div><div class="ttdeci">sf::Vector2f mBoundingArea</div><div class="ttdoc">Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position...</div><div class="ttdef"><b>Definition:</b> Camera.hpp:35</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_camera.html">Camera</a> <span class="keyword">const</span>&amp; getDefaultCamera();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> setTarget(std::shared_ptr&lt;Actor&gt; target);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    std::weak_ptr&lt;Actor&gt; getTarget() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> clearTarget();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#a336970eccb29e9d882d6b3fdda71605f">getDisplacement</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#aec5986d1793d76b510273e39a03b3452">update</a>(<span class="keywordtype">float</span> deltaSeconds);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#ae03c5b5d99889b54a8014129228d59e7">lock</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#a99f935c628b80d7dcbd77ac124a612b9">unlock</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> toggleLock();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> setBoundingArea(sf::Vector2f <span class="keyword">const</span>&amp; bounds);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#a92313446ac0fff76935a9245c4cfadb3">doMouseMove</a>(sf::Vector2f mousePos);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    sf::Vector2f screenPositionToGamePosition(<span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::weak_ptr&lt;Actor&gt; mTarget;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">   61</a></span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">mBoundingArea</a>; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_camera.html#aa4e025c71569b93993596d3e6f186b90">   63</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_camera.html#aa4e025c71569b93993596d3e6f186b90">mLocked</a>;   </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_camera.html#a7c8bcf38da70c641b497fdd8674a7ffb">   64</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="class_camera.html#a7c8bcf38da70c641b497fdd8674a7ffb">mEdgeMoveThreshold</a>; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> mMoveSpeed;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    sf::Vector2f mMoveDirection;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_camera.html#a458f48cf046e136e4c22fe5d85961658">clamp</a>(sf::Vector2f&amp; value, sf::Vector2f <span class="keyword">const</span> &amp;min, sf::Vector2f <span class="keyword">const</span> &amp;max);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_camera.html#adf338ad1c4835e51fa18ee71439dcaf8">   72</a></span>&#160;    sf::Vector2f <a class="code" href="class_camera.html#adf338ad1c4835e51fa18ee71439dcaf8">mScalingFactor</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> calculateScalingFactor();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_camera.html#afbfd95f0e4f5591d4ebc84a72bd788d6">setClampedCenter</a>(sf::Vector2f newCenter);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_camera_html_a92313446ac0fff76935a9245c4cfadb3"><div class="ttname"><a href="class_camera.html#a92313446ac0fff76935a9245c4cfadb3">Camera::doMouseMove</a></div><div class="ttdeci">void doMouseMove(sf::Vector2f mousePos)</div><div class="ttdoc">Moves the camera if the mouse is close to the screen edge. Assumes that the mouse position is NOT tra...</div></div>
+<div class="ttc" id="class_camera_html_adf338ad1c4835e51fa18ee71439dcaf8"><div class="ttname"><a href="class_camera.html#adf338ad1c4835e51fa18ee71439dcaf8">Camera::mScalingFactor</a></div><div class="ttdeci">sf::Vector2f mScalingFactor</div><div class="ttdoc">Used to convert a point from screen coords to game coords. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:72</div></div>
+<div class="ttc" id="class_camera_html_ae03c5b5d99889b54a8014129228d59e7"><div class="ttname"><a href="class_camera.html#ae03c5b5d99889b54a8014129228d59e7">Camera::lock</a></div><div class="ttdeci">void lock()</div><div class="ttdoc">Locks the camera to its current position or target. Does nothing if already locked. </div></div>
+<div class="ttc" id="class_camera_html_a99f935c628b80d7dcbd77ac124a612b9"><div class="ttname"><a href="class_camera.html#a99f935c628b80d7dcbd77ac124a612b9">Camera::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Unlocks the camera, allowing the player to move it. Does nothing if already unlocked. </div></div>
+<div class="ttc" id="class_camera_html_a458f48cf046e136e4c22fe5d85961658"><div class="ttname"><a href="class_camera.html#a458f48cf046e136e4c22fe5d85961658">Camera::clamp</a></div><div class="ttdeci">static void clamp(sf::Vector2f &amp;value, sf::Vector2f const &amp;min, sf::Vector2f const &amp;max)</div><div class="ttdoc">Clamps a vector2f to a min and max value. </div></div>
+<div class="ttc" id="class_camera_html_a7b4653f0169af1b49fb3b1b8967ebc3b"><div class="ttname"><a href="class_camera.html#a7b4653f0169af1b49fb3b1b8967ebc3b">Camera::mBoundingArea</a></div><div class="ttdeci">sf::Vector2f mBoundingArea</div><div class="ttdoc">Edges of camera cannot go beyond this area (starting at 0,0) regardless of target position...</div><div class="ttdef"><b>Definition:</b> Camera.hpp:61</div></div>
+<div class="ttc" id="class_camera_html_a7c8bcf38da70c641b497fdd8674a7ffb"><div class="ttname"><a href="class_camera.html#a7c8bcf38da70c641b497fdd8674a7ffb">Camera::mEdgeMoveThreshold</a></div><div class="ttdeci">const float mEdgeMoveThreshold</div><div class="ttdoc">How close the mouse needs to be to the edge of the viewport before the camera moves. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:64</div></div>
 <div class="ttc" id="class_camera_html_a336970eccb29e9d882d6b3fdda71605f"><div class="ttname"><a href="class_camera.html#a336970eccb29e9d882d6b3fdda71605f">Camera::getDisplacement</a></div><div class="ttdeci">sf::Vector2f getDisplacement() const </div><div class="ttdoc">Gets the top left corner of the camera. </div></div>
-<div class="ttc" id="class_camera_html_a45de355addd37526a76efc28ec7a6abe"><div class="ttname"><a href="class_camera.html#a45de355addd37526a76efc28ec7a6abe">Camera::mScreenSize</a></div><div class="ttdeci">sf::Vector2f mScreenSize</div><div class="ttdoc">Keep a record of the screen size for resets. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:34</div></div>
 <div class="ttc" id="class_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdoc">Follow camera that can target an Actor. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:10</div></div>
-<div class="ttc" id="class_camera_html_a42cda7239981a5618660d04bd5893556"><div class="ttname"><a href="class_camera.html#a42cda7239981a5618660d04bd5893556">Camera::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Updates camera&#39;s center to where the target is. Clamps camera edges to stay inside of bounding area...</div></div>
-<div class="ttc" id="class_actor_html"><div class="ttname"><a href="class_actor.html">Actor</a></div><div class="ttdoc">Class for anything that animates and has a position. Animates and has position and collision...</div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
-<div class="ttc" id="class_camera_html_a2f98f5e39706239b6a38dd088682d956"><div class="ttname"><a href="class_camera.html#a2f98f5e39706239b6a38dd088682d956">Camera::clamp</a></div><div class="ttdeci">void clamp(sf::Vector2f &amp;value, sf::Vector2f const &amp;min, sf::Vector2f const &amp;max) const </div><div class="ttdoc">Clamps a vector2f to a min and max value. </div></div>
+<div class="ttc" id="class_camera_html_afbfd95f0e4f5591d4ebc84a72bd788d6"><div class="ttname"><a href="class_camera.html#afbfd95f0e4f5591d4ebc84a72bd788d6">Camera::setClampedCenter</a></div><div class="ttdeci">void setClampedCenter(sf::Vector2f newCenter)</div><div class="ttdoc">Sets the center of the view, accounting for bounds. Also sets sf::Listener position. </div></div>
+<div class="ttc" id="class_camera_html_aa4e025c71569b93993596d3e6f186b90"><div class="ttname"><a href="class_camera.html#aa4e025c71569b93993596d3e6f186b90">Camera::mLocked</a></div><div class="ttdeci">bool mLocked</div><div class="ttdoc">True if the camera cannot be moved by the player. </div><div class="ttdef"><b>Definition:</b> Camera.hpp:63</div></div>
+<div class="ttc" id="class_camera_html_aec5986d1793d76b510273e39a03b3452"><div class="ttname"><a href="class_camera.html#aec5986d1793d76b510273e39a03b3452">Camera::update</a></div><div class="ttdeci">void update(float deltaSeconds)</div><div class="ttdoc">Updates camera&#39;s center to where the target is. Clamps camera edges to stay inside of bounding area...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

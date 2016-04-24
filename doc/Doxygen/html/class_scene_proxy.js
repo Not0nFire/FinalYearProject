@@ -1,12 +1,15 @@
 var class_scene_proxy =
 [
-    [ "SceneProxy", "class_scene_proxy.html#a646220f60425bf466a7a99824ce81a8a", null ],
-    [ "~SceneProxy", "class_scene_proxy.html#ab4816d80cb12a0ebd13c6166de40e82f", null ],
-    [ "draw", "class_scene_proxy.html#a96f7b61f79a5038f3aa6978443e8f06d", null ],
-    [ "getScene", "class_scene_proxy.html#ad3eb7ebc9220f6a34ae44acd8ca8cbe6", null ],
-    [ "handleEvent", "class_scene_proxy.html#af134216f6d67a169fbd05f519388663e", null ],
-    [ "loadNow", "class_scene_proxy.html#a0a48644a90db117fef145a465dac8205", null ],
-    [ "update", "class_scene_proxy.html#a1967c0ca3286e8594d52faa71e0b7f32", null ],
-    [ "mScene", "class_scene_proxy.html#a598026a52282790b47e83262fae922c1", null ],
-    [ "mXmlPath", "class_scene_proxy.html#a38f77ef0e458528946abf77dd84d750e", null ]
+    [ "~SceneProxy", "class_scene_proxy.html#aa95c81a3c7c0e43f13de30202f0d9589", null ],
+    [ "SceneProxy", "class_scene_proxy.html#a68a3a5bcfcc8e0464a5573face069642", null ],
+    [ "cleanup", "class_scene_proxy.html#a8b0122cb9ac1ea8cbe0231913f74e6de", null ],
+    [ "create", "class_scene_proxy.html#ad6c87cfa048db856c1ced446a90922ef", null ],
+    [ "draw", "class_scene_proxy.html#a861db9f01efcd47b891bb849e426be02", null ],
+    [ "getScene", "class_scene_proxy.html#ab98a6d9d5d0cea5b99fb322447ad72f5", null ],
+    [ "handleEvent", "class_scene_proxy.html#a6f26e98c9102b9718a99fd05263f9cf5", null ],
+    [ "loadNow", "class_scene_proxy.html#ada36e98d0026ddb389a6cce742d71084", null ],
+    [ "update", "class_scene_proxy.html#a3bdb149e529d356094780c6a29d188d0", null ],
+    [ "mCreatSceneFunc", "class_scene_proxy.html#a97a8c835769aa1b4de0ef44dbfebea5b", null ],
+    [ "mMutex", "class_scene_proxy.html#a921c6ef5d3ac66e38ecb969e0e23cc7e", null ],
+    [ "mScene", "class_scene_proxy.html#a8b593bbfde46ec4e973ddde309690b9d", null ]
 ];

@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,8 +108,8 @@ $(document).ready(function(){initNavTree('_unit_factory_8hpp_source.html','');})
 <div class="title">UnitFactory.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _UNIT_FACTORY_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _UNIT_FACOTRY_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef UNIT_FACTORY_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define UNIT_FACOTRY_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('_unit_factory_8hpp_source.html','');})
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_unit_factory.html">UnitFactory</a>(std::string <span class="keyword">const</span> &amp;definitionFolderPath=<span class="stringliteral">&quot;./res/xml/&quot;</span>, std::string <span class="keyword">const</span>&amp; defFileExtension=<span class="stringliteral">&quot;.def&quot;</span>);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ~<a class="code" href="class_unit_factory.html">UnitFactory</a>();</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_pawn.html">Pawn</a>* produce(std::string <span class="keyword">const</span> &amp;name);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    std::shared_ptr&lt;Pawn&gt; produce(std::string <span class="keyword">const</span> &amp;name);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_unit_factory.html#a45604ebc894241ff783ee56693ebd6b7">   31</a></span>&#160;    std::map&lt;std::string, XMLDocument*&gt; <a class="code" href="class_unit_factory.html#a45604ebc894241ff783ee56693ebd6b7">mDefinitionMap</a>;</div>
@@ -135,10 +135,9 @@ $(document).ready(function(){initNavTree('_unit_factory_8hpp_source.html','');})
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_unit_factory.html#aa00c0e58de43bc5ea657904eb4b9aaec">   39</a></span>&#160;    std::string <a class="code" href="class_unit_factory.html#aa00c0e58de43bc5ea657904eb4b9aaec">mFileExt</a>;   </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:17</div></div>
 <div class="ttc" id="class_unit_factory_html"><div class="ttname"><a href="class_unit_factory.html">UnitFactory</a></div><div class="ttdoc">Factory for production of Hero and Minions from xml definition files. </div><div class="ttdef"><b>Definition:</b> UnitFactory.hpp:13</div></div>
 <div class="ttc" id="class_unit_factory_html_a45604ebc894241ff783ee56693ebd6b7"><div class="ttname"><a href="class_unit_factory.html#a45604ebc894241ff783ee56693ebd6b7">UnitFactory::mDefinitionMap</a></div><div class="ttdeci">std::map&lt; std::string, XMLDocument * &gt; mDefinitionMap</div><div class="ttdoc">Map of file paths to currently open xml documents. </div><div class="ttdef"><b>Definition:</b> UnitFactory.hpp:31</div></div>
-<div class="ttc" id="namespacetinyxml2_html"><div class="ttname"><a href="namespacetinyxml2.html">tinyxml2</a></div></div>
+<div class="ttc" id="namespacetinyxml2_html"><div class="ttname"><a href="namespacetinyxml2.html">tinyxml2</a></div><div class="ttdef"><b>Definition:</b> Settings.hpp:9</div></div>
 <div class="ttc" id="class_unit_factory_html_aa00c0e58de43bc5ea657904eb4b9aaec"><div class="ttname"><a href="class_unit_factory.html#aa00c0e58de43bc5ea657904eb4b9aaec">UnitFactory::mFileExt</a></div><div class="ttdeci">std::string mFileExt</div><div class="ttdoc">File extension of xml unit definitions. </div><div class="ttdef"><b>Definition:</b> UnitFactory.hpp:39</div></div>
 <div class="ttc" id="class_unit_factory_html_a1c20530baeeb0e2d5d91e8e5bd7f57f7"><div class="ttname"><a href="class_unit_factory.html#a1c20530baeeb0e2d5d91e8e5bd7f57f7">UnitFactory::mDefinitionFolderPath</a></div><div class="ttdeci">std::string mDefinitionFolderPath</div><div class="ttdoc">Path to folder containing xml unit definitions. </div><div class="ttdef"><b>Definition:</b> UnitFactory.hpp:38</div></div>
 </div><!-- fragment --></div><!-- contents -->

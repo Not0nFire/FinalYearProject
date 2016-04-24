@@ -1,0 +1,7 @@
+<map id="tower::Tower" name="tower::Tower">
+<area shape="rect" id="node5" href="$classtower_1_1_projectile_tower.html" title="Tower that fires a projectile toward a target. Fires in an arc and takes account for moving targets..." alt="" coords="5,821,181,1045"/>
+<area shape="rect" id="node7" href="$classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="205,829,355,1038"/>
+<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="106,321,267,560"/>
+<area shape="rect" id="node4" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="176,5,344,273"/>
+<area shape="rect" id="node6" href="$classtower_1_1_mage_tower.html" title="Tower that fires magical projectiles that home in on their target. " alt="" coords="30,1093,157,1200"/>
+</map>

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['terraininterpreter',['TerrainInterpreter',['../class_terrain_interpreter.html',1,'']]],
-  ['towerplacer',['TowerPlacer',['../class_tower_placer.html',1,'']]]
+  ['raisedead',['RaiseDead',['../classabilities_1_1_raise_dead.html',1,'abilities']]],
+  ['reduction',['Reduction',['../struct_damage_1_1_reduction.html',1,'Damage']]],
+  ['renderer',['Renderer',['../class_renderer.html',1,'']]],
+  ['resourcemanager',['ResourceManager',['../class_resource_manager.html',1,'']]]
 ];

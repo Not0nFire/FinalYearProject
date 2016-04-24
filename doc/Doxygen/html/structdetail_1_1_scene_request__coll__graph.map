@@ -1,0 +1,5 @@
+<map id="detail::SceneRequest" name="detail::SceneRequest">
+<area shape="rect" id="node2" href="$classgui_1_1_dialogue_box.html" title="{gui::DialogueBox\n|&#45; mResult\l&#45; mTitle\l&#45; mMessage\l&#45; mButtonMap\l&#45; mIsOpen\l&#45; mBoxGraphic\l&#45; mResultProcessed\l|+ DialogueBox()\l+ ~DialogueBox()\l+ open()\l+ isOpen()\l+ resultProcessed()\l+ handleEvent()\l+ getResult()\l&#45; draw()\l&#45; updateButtons()\l&#45; updateResult()\l}" alt="" coords="5,204,145,501"/>
+<area shape="rect" id="node4" href="$class_scene_proxy.html" title="{SceneProxy\n|&#45; mCreatSceneFunc\l&#45; mMutex\l|+ ~SceneProxy()\l+ handleEvent()\l+ update()\l+ draw()\l+ cleanup()\l+ loadNow()\l+ getScene()\l+ create()\l&#45; SceneProxy()\l}" alt="" coords="170,248,309,457"/>
+<area shape="rect" id="node5" href="$class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="183,5,295,141"/>
+</map>

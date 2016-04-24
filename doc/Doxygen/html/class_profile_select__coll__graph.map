@@ -1,0 +1,4 @@
+<map id="ProfileSelect" name="ProfileSelect">
+<area shape="rect" id="node2" href="$class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,249,117,385"/>
+<area shape="rect" id="node3" href="$classgui_1_1_button.html" title="Clickable sprite. " alt="" coords="141,132,280,503"/>
+</map>

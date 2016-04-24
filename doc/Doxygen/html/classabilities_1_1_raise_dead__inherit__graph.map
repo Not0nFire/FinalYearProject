@@ -1,0 +1,3 @@
+<map id="abilities::RaiseDead" name="abilities::RaiseDead">
+<area shape="rect" id="node2" href="$class_ability.html" title="Base class for usable abilities or spells. Abilities must be initialized through xml. " alt="" coords="5,131,183,619"/>
+</map>

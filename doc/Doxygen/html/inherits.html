@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -114,109 +114,183 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <div class="textblock">
 <p><a href="hierarchy.html">Go to the textual class hierarchy</a></p>
 </div><table border="0" cellspacing="10" cellpadding="0">
-<tr><td><img src="inherit_graph_0.png" border="0" alt="" usemap="#_actor"/>
-<map name="_actor" id="_actor">
-<area shape="rect" id="node1" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="5,81,139,108"/>
-<area shape="rect" id="node2" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="187,107,240,133"/>
-<area shape="rect" id="node3" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="325,31,379,57"/>
-<area shape="rect" id="node6" href="class_projectile.html" title="Object that follows a pro&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="314,81,390,108"/>
-<area shape="rect" id="node7" href="classtower_1_1_basic_tower.html" title="Tower that fires a projectile toward a target. Takes account for moving targets. " alt="" coords="288,132,416,159"/>
-<area shape="rect" id="node8" href="classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="293,183,411,209"/>
-<area shape="rect" id="node4" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="469,5,519,32"/>
-<area shape="rect" id="node5" href="class_minion.html" title="Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing ..." alt="" coords="464,56,524,83"/>
+<tr><td><img src="inherit_graph_0.png" border="0" alt="" usemap="#_ability"/>
+<map name="_ability" id="_ability">
+<area shape="rect" id="node2" href="class_ability.html" title="Base class for usable abilities or spells. Abilities must be initialized through xml. " alt="" coords="159,81,217,108"/>
+<area shape="rect" id="node6" href="class_blood_system.html" title="BloodSystem" alt="" coords="138,183,238,209"/>
+<area shape="rect" id="node7" href="classgui_1_1_button.html" title="Clickable sprite. " alt="" coords="145,233,231,260"/>
+<area shape="rect" id="node11" href="classgui_1_1_dialogue_box.html" title="gui::DialogueBox" alt="" coords="128,284,248,311"/>
+<area shape="rect" id="node12" href="classgui_1_1_hud_item.html" title="Interface for non&#45;interactable hud elements. Non&#45;interactable hud elements are for show..." alt="" coords="141,335,235,361"/>
+<area shape="rect" id="node18" href="classgui_1_1_slider.html" title="gui::Slider" alt="" coords="148,385,228,412"/>
+<area shape="rect" id="node19" href="class_hud.html" title="Hud" alt="" coords="165,436,211,463"/>
+<area shape="rect" id="node3" href="classabilities_1_1_heal.html" title="abilities::Heal" alt="" coords="317,5,417,32"/>
+<area shape="rect" id="node4" href="classabilities_1_1_magic_misile.html" title="abilities::MagicMisile" alt="" coords="296,56,439,83"/>
+<area shape="rect" id="node5" href="classabilities_1_1_raise_dead.html" title="abilities::RaiseDead" alt="" coords="299,107,436,133"/>
+<area shape="rect" id="node8" href="classgui_1_1_ability_button.html" title="Button with an Ability and cooldown visualization. " alt="" coords="307,157,428,184"/>
+<area shape="rect" id="node9" href="classgui_1_1_cost_button.html" title="gui::CostButton" alt="" coords="311,208,423,235"/>
+<area shape="rect" id="node10" href="classgui_1_1_text_button.html" title="gui::TextButton" alt="" coords="312,259,423,285"/>
+<area shape="rect" id="node13" href="classgui_1_1_health_bar_static.html" title="Statically positioned bar that tracks a Pawn&#39;s health. " alt="" coords="298,309,437,336"/>
+<area shape="rect" id="node15" href="classgui_1_1_image.html" title="Draws a sprite. " alt="" coords="326,360,409,387"/>
+<area shape="rect" id="node16" href="classgui_1_1_life_tracker.html" title="Draws a line of images, one for each life (or whatever other int it may be told to track)..." alt="" coords="312,411,423,437"/>
+<area shape="rect" id="node17" href="classgui_1_1_number_tracker.html" title="Outputs a number from a shared pointer as text. " alt="" coords="300,461,435,488"/>
+<area shape="rect" id="node14" href="classgui_1_1_health_bar.html" title="Healthbar that follows a Pawn&#39;s position. " alt="" coords="487,309,591,336"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_1.png" border="0" alt="" usemap="#_camera"/>
+<tr><td><img src="inherit_graph_1.png" border="0" alt="" usemap="#_actor"/>
+<map name="_actor" id="_actor">
+<area shape="rect" id="node1" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="5,107,139,133"/>
+<area shape="rect" id="node2" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="187,132,240,159"/>
+<area shape="rect" id="node3" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="308,56,363,83"/>
+<area shape="rect" id="node6" href="class_projectile.html" title="Projectile" alt="" coords="297,132,373,159"/>
+<area shape="rect" id="node9" href="classtower_1_1_tower.html" title="Interface for derived tower types. " alt="" coords="288,208,383,235"/>
+<area shape="rect" id="node4" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="481,5,530,32"/>
+<area shape="rect" id="node5" href="class_minion.html" title="Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing ..." alt="" coords="475,56,535,83"/>
+<area shape="rect" id="node7" href="class_arc_projectile.html" title="Object that follows a pre&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="457,107,553,133"/>
+<area shape="rect" id="node8" href="class_fancy_projectile.html" title="Projectile that emits particles as it travels and homes in on its target. " alt="" coords="449,157,561,184"/>
+<area shape="rect" id="node10" href="classtower_1_1_projectile_tower.html" title="Tower that fires a projectile toward a target. Fires in an arc and takes account for moving targets..." alt="" coords="431,208,580,235"/>
+<area shape="rect" id="node12" href="classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="446,259,565,285"/>
+<area shape="rect" id="node11" href="classtower_1_1_mage_tower.html" title="Tower that fires magical projectiles that home in on their target. " alt="" coords="628,208,755,235"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#_camera"/>
 <map name="_camera" id="_camera">
 <area shape="rect" id="node2" href="class_camera.html" title="Follow camera that can target an Actor. " alt="" coords="104,5,171,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#collision_1_1_collision_group"/>
+<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#collision_1_1_collision_group"/>
 <map name="collision_1_1_collision_group" id="collision_1_1_collision_group">
 <area shape="rect" id="node1" href="classcollision_1_1_collision_group.html" title="collision::CollisionGroup" alt="" coords="5,5,167,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#_damage_1_1_reduction"/>
+<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_constants_1_1_misc"/>
+<map name="_constants_1_1_misc" id="_constants_1_1_misc">
+<area shape="rect" id="node1" href="class_constants_1_1_misc.html" title="Constants::Misc" alt="" coords="5,5,123,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_constants_1_1_numbers"/>
+<map name="_constants_1_1_numbers" id="_constants_1_1_numbers">
+<area shape="rect" id="node1" href="class_constants_1_1_numbers.html" title="Constants::Numbers" alt="" coords="5,5,147,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_constants_1_1_strings"/>
+<map name="_constants_1_1_strings" id="_constants_1_1_strings">
+<area shape="rect" id="node1" href="class_constants_1_1_strings.html" title="Constants::Strings" alt="" coords="5,5,136,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_constants_1_1_vectors"/>
+<map name="_constants_1_1_vectors" id="_constants_1_1_vectors">
+<area shape="rect" id="node1" href="class_constants_1_1_vectors.html" title="Constants::Vectors" alt="" coords="5,5,140,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_8.png" border="0" alt="" usemap="#_cursor"/>
+<map name="_cursor" id="_cursor">
+<area shape="rect" id="node1" href="class_cursor.html" title="Cursor" alt="" coords="5,5,65,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_9.png" border="0" alt="" usemap="#_damage_1_1_reduction"/>
 <map name="_damage_1_1_reduction" id="_damage_1_1_reduction">
 <area shape="rect" id="node1" href="struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="5,5,141,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_game"/>
+<tr><td><img src="inherit_graph_10.png" border="0" alt="" usemap="#detail_1_1_scene_request"/>
+<map name="detail_1_1_scene_request" id="detail_1_1_scene_request">
+<area shape="rect" id="node1" href="structdetail_1_1_scene_request.html" title="detail::SceneRequest" alt="" coords="5,5,152,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_11.png" border="0" alt="" usemap="#detail_1_1_wave"/>
+<map name="detail_1_1_wave" id="detail_1_1_wave">
+<area shape="rect" id="node1" href="structdetail_1_1_wave.html" title="Stores information about a single wave. " alt="" coords="5,5,99,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_12.png" border="0" alt="" usemap="#_game"/>
 <map name="_game" id="_game">
 <area shape="rect" id="node1" href="class_game.html" title="Game" alt="" coords="5,5,63,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_h_u_d"/>
-<map name="_h_u_d" id="_h_u_d">
-<area shape="rect" id="node1" href="class_h_u_d.html" title="HUD" alt="" coords="5,5,55,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_h_u_d___detail_1_1_health_bar_static"/>
-<map name="_h_u_d___detail_1_1_health_bar_static" id="_h_u_d___detail_1_1_health_bar_static">
-<area shape="rect" id="node1" href="class_h_u_d___detail_1_1_health_bar_static.html" title="Healthbar that tracks a Pawn and stays at a set position on the screen. " alt="" coords="5,5,193,32"/>
-<area shape="rect" id="node2" href="class_h_u_d___detail_1_1_health_bar_following.html" title="Healthbar that follows the position of the Pawn that is tracks. " alt="" coords="241,5,449,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_h_u_d___detail_1_1_label_image_pair"/>
-<map name="_h_u_d___detail_1_1_label_image_pair" id="_h_u_d___detail_1_1_label_image_pair">
-<area shape="rect" id="node1" href="class_h_u_d___detail_1_1_label_image_pair.html" title="HUD_Detail::LabelImagePair" alt="" coords="5,5,192,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_8.png" border="0" alt="" usemap="#_i___scene"/>
+<tr><td><img src="inherit_graph_13.png" border="0" alt="" usemap="#_i___scene"/>
 <map name="_i___scene" id="_i___scene">
-<area shape="rect" id="node1" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,31,75,57"/>
-<area shape="rect" id="node2" href="class_level.html" title="Playable level of the game. " alt="" coords="125,5,175,32"/>
-<area shape="rect" id="node3" href="class_menu.html" title="Menu implemented using SFGUI " alt="" coords="123,56,177,83"/>
+<area shape="rect" id="node1" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,132,75,159"/>
+<area shape="rect" id="node2" href="class_credits.html" title="Credits" alt="" coords="143,5,205,32"/>
+<area shape="rect" id="node3" href="class_level.html" title="Playable level of the game. " alt="" coords="149,56,199,83"/>
+<area shape="rect" id="node4" href="class_level_select.html" title="LevelSelect" alt="" coords="130,107,218,133"/>
+<area shape="rect" id="node5" href="class_main_menu.html" title="First menu shown to the user. " alt="" coords="133,157,215,184"/>
+<area shape="rect" id="node6" href="class_profile_select.html" title="Scene for selecting which player profile to use. " alt="" coords="127,208,221,235"/>
+<area shape="rect" id="node7" href="class_settings_menu.html" title="SettingsMenu" alt="" coords="123,259,225,285"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_9.png" border="0" alt="" usemap="#_node"/>
+<tr><td><img src="inherit_graph_14.png" border="0" alt="" usemap="#_magic_missile"/>
+<map name="_magic_missile" id="_magic_missile">
+<area shape="rect" id="node1" href="class_magic_missile.html" title="Launches homing projectiles at enemies. " alt="" coords="5,5,104,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_15.png" border="0" alt="" usemap="#_node"/>
 <map name="_node" id="_node">
 <area shape="rect" id="node1" href="class_node.html" title="Node" alt="" coords="5,5,57,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_10.png" border="0" alt="" usemap="#_path"/>
+<tr><td><img src="inherit_graph_16.png" border="0" alt="" usemap="#_path"/>
 <map name="_path" id="_path">
 <area shape="rect" id="node1" href="class_path.html" title="A one&#45;way path of nodes. Uses a recursive structure. " alt="" coords="5,5,55,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_11.png" border="0" alt="" usemap="#_quadtree_3_01_t_01_4"/>
+<tr><td><img src="inherit_graph_17.png" border="0" alt="" usemap="#_player_profile"/>
+<map name="_player_profile" id="_player_profile">
+<area shape="rect" id="node1" href="class_player_profile.html" title="Record of how far a player has progressed through the game. Used to save/load to/from file..." alt="" coords="5,5,100,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_18.png" border="0" alt="" usemap="#_projectile_manager"/>
+<map name="_projectile_manager" id="_projectile_manager">
+<area shape="rect" id="node1" href="class_projectile_manager.html" title="Updates a collection of projectiles. Projectiles are stored in unique_ptrs. " alt="" coords="5,5,132,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_19.png" border="0" alt="" usemap="#_quadtree_3_01_t_01_4"/>
 <map name="_quadtree_3_01_t_01_4" id="_quadtree_3_01_t_01_4">
 <area shape="rect" id="node1" href="class_quadtree.html" title="Simple Quadtree implementation using templates. " alt="" coords="5,5,112,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_12.png" border="0" alt="" usemap="#_renderer"/>
+<tr><td><img src="inherit_graph_20.png" border="0" alt="" usemap="#_renderer"/>
 <map name="_renderer" id="_renderer">
 <area shape="rect" id="node1" href="class_renderer.html" title="Manages rendering in it&#39;s own thread. " alt="" coords="5,5,80,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_13.png" border="0" alt="" usemap="#_resource_manager_3_01_t_01_4"/>
+<tr><td><img src="inherit_graph_21.png" border="0" alt="" usemap="#_resource_manager_3_01_t_01_4"/>
 <map name="_resource_manager_3_01_t_01_4" id="_resource_manager_3_01_t_01_4">
 <area shape="rect" id="node1" href="class_resource_manager.html" title="Simple SFML resource manager. " alt="" coords="5,5,164,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_14.png" border="0" alt="" usemap="#_scene_manager"/>
+<tr><td><img src="inherit_graph_22.png" border="0" alt="" usemap="#_scene_manager"/>
 <map name="_scene_manager" id="_scene_manager">
 <area shape="rect" id="node1" href="class_scene_manager.html" title="Singleton class to handle scenes and the navigation between them. " alt="" coords="5,5,115,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_15.png" border="0" alt="" usemap="#_scene_proxy_3_01_scene_type_01_4"/>
-<map name="_scene_proxy_3_01_scene_type_01_4" id="_scene_proxy_3_01_scene_type_01_4">
-<area shape="rect" id="node1" href="class_scene_proxy.html" title="SceneProxy\&lt; SceneType \&gt;" alt="" coords="5,5,188,32"/>
+<tr><td><img src="inherit_graph_23.png" border="0" alt="" usemap="#_scene_proxy"/>
+<map name="_scene_proxy" id="_scene_proxy">
+<area shape="rect" id="node1" href="class_scene_proxy.html" title="SceneProxy" alt="" coords="5,5,99,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_16.png" border="0" alt="" usemap="#_terrain_interpreter"/>
+<tr><td><img src="inherit_graph_24.png" border="0" alt="" usemap="#_settings"/>
+<map name="_settings" id="_settings">
+<area shape="rect" id="node1" href="class_settings.html" title="Settings" alt="" coords="5,5,76,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_25.png" border="0" alt="" usemap="#_terrain_interpreter"/>
 <map name="_terrain_interpreter" id="_terrain_interpreter">
 <area shape="rect" id="node1" href="class_terrain_interpreter.html" title="Parses pixels of an image into bitflags. " alt="" coords="5,5,124,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_17.png" border="0" alt="" usemap="#_tower_placer"/>
+<tr><td><img src="inherit_graph_26.png" border="0" alt="" usemap="#_tower_placer"/>
 <map name="_tower_placer" id="_tower_placer">
 <area shape="rect" id="node1" href="class_tower_placer.html" title="TowerPlacer" alt="" coords="5,5,99,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_18.png" border="0" alt="" usemap="#_unit_factory"/>
+<tr><td><img src="inherit_graph_27.png" border="0" alt="" usemap="#_unit_factory"/>
 <map name="_unit_factory" id="_unit_factory">
 <area shape="rect" id="node1" href="class_unit_factory.html" title="Factory for production of Hero and Minions from xml definition files. " alt="" coords="5,5,95,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_28.png" border="0" alt="" usemap="#_wave_controller"/>
+<map name="_wave_controller" id="_wave_controller">
+<area shape="rect" id="node1" href="class_wave_controller.html" title="Spawns units in waves. " alt="" coords="5,5,115,32"/>
 </map>
 </td></tr>
 </table>

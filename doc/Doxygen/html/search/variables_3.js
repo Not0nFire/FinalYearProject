@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['terraintree',['terrainTree',['../class_level.html#ac679f35372255300b4c44349ddadb96c',1,'Level']]],
-  ['testunittower',['testUnitTower',['../class_level.html#aef73921d8e5fb1f7ee636cf0410249f5',1,'Level']]]
+  ['terraintree',['terrainTree',['../class_level.html#a662db0bd77b4994a3bf36aa4670d7ca6',1,'Level']]]
 ];

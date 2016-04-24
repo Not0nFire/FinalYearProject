@@ -1,0 +1,5 @@
+<map id="Ability" name="Ability">
+<area shape="rect" id="node3" href="$classabilities_1_1_heal.html" title="{abilities::Heal\n|&#45; mCastGraphics\l&#45; mHealAmount\l&#45; mParticleSystem\l&#45; mEmitter\l|+ Heal()\l+ ~Heal()\l# doExecuteLogic()\l# doUpdateLogic()\l# doDraw()\l}" alt="" coords="5,696,140,876"/>
+<area shape="rect" id="node4" href="$classabilities_1_1_magic_misile.html" title="{abilities::MagicMisile\n|&#45; M_NUM_MISSILES\l&#45; mDamageType\l&#45; M_MISSILE_DAMAGE\l&#45; mMissilesSpawned\l&#45; mMissileSpawnInterval\l&#45; mTimeSinceMissileSpawn\l&#45; mCastGraphics\l&#45; mLaunchSound\l|+ MagicMisile()\l+ ~MagicMisile()\l# doExecuteLogic()\l# doUpdateLogic()\l# doDraw()\l}" alt="" coords="164,667,347,905"/>
+<area shape="rect" id="node5" href="$classabilities_1_1_raise_dead.html" title="{abilities::RaiseDead\n|&#45; mUnitPrototype\l&#45; mSpawnPoints\l&#45; mCastGraphics\l|+ RaiseDead()\l+ ~RaiseDead()\l# doExecuteLogic()\l# doUpdateLogic()\l# doDraw()\l}" alt="" coords="371,703,508,869"/>
+</map>

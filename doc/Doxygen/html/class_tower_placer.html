@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('class_tower_placer.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -123,45 +124,74 @@ Collaboration diagram for TowerPlacer:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_tower_placer__coll__graph.png" border="0" usemap="#_tower_placer_coll__map" alt="Collaboration graph"/></div>
 <map name="_tower_placer_coll__map" id="_tower_placer_coll__map">
-<area shape="rect" id="node2" href="classcollision_1_1_collision_group.html" title="collision::CollisionGroup" alt="" coords="5,5,167,32"/>
+<area shape="rect" id="node2" href="classcollision_1_1_collision_group.html" title="{collision::CollisionGroup\n|&#45; mMembers\l|+ CollisionGroup()\l+ ~CollisionGroup()\l+ check()\l+ add()\l+ checkAgainst()\l&#45; checkPair()\l&#45; cullExpiredMembers()\l}" alt="" coords="5,5,167,171"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a947ad7f685a545b89ead7b8f94b2a752"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a947ad7f685a545b89ead7b8f94b2a752"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>TowerType</b> { <b>ARROW</b>, 
+<b>MAGIC</b>, 
+<b>UNIT</b>
+ }<tr class="separator:a947ad7f685a545b89ead7b8f94b2a752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a20aed4dc9076674142e2cfecc243082d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20aed4dc9076674142e2cfecc243082d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TowerPlacer</b> (std::shared_ptr&lt; <a class="el" href="class_quadtree.html">TerrainTree</a> &gt; terrainTree, std::vector&lt; <a class="el" href="classtower_1_1_basic_tower.html">tower::BasicTower</a> * &gt; *towerContainer, <a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> *collisionGroup)</td></tr>
-<tr class="separator:a20aed4dc9076674142e2cfecc243082d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f8562bcd1288d5e9e4a1d7d1768343b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a0f8562bcd1288d5e9e4a1d7d1768343b">place</a> ()</td></tr>
-<tr class="separator:a0f8562bcd1288d5e9e4a1d7d1768343b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad57b1a63f3550b721b987c764f21b7d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ad57b1a63f3550b721b987c764f21b7d8">update</a> (sf::Vector2i mousePosition)</td></tr>
-<tr class="separator:ad57b1a63f3550b721b987c764f21b7d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a705fb5b98325fd26af1eaffc9ca330a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a705fb5b98325fd26af1eaffc9ca330a3">activate</a> ()</td></tr>
-<tr class="separator:a705fb5b98325fd26af1eaffc9ca330a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac152e9df4abba6acdf6187bcd333cb62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ac152e9df4abba6acdf6187bcd333cb62">TowerPlacer</a> (shared_ptr&lt; <a class="el" href="class_quadtree.html">TerrainTree</a> &gt; const &amp;terrainTree, shared_ptr&lt; <a class="el" href="class_projectile_manager.html">ProjectileManager</a> &gt; const &amp;projectileMgr, shared_ptr&lt; <a class="el" href="class_path.html">Path</a> &gt; const &amp;path, std::function&lt; void(shared_ptr&lt; <a class="el" href="class_minion.html">Minion</a> &gt;)&gt; const &amp;unitSpawnCallback)</td></tr>
+<tr class="memdesc:ac152e9df4abba6acdf6187bcd333cb62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="class_tower_placer.html">TowerPlacer</a>.  <a href="#ac152e9df4abba6acdf6187bcd333cb62">More...</a><br /></td></tr>
+<tr class="separator:ac152e9df4abba6acdf6187bcd333cb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e6b4de7ea99115eadd090a3def5005c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e6b4de7ea99115eadd090a3def5005c"></a>
+shared_ptr&lt; <a class="el" href="classtower_1_1_tower.html">tower::Tower</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a8e6b4de7ea99115eadd090a3def5005c">place</a> ()</td></tr>
+<tr class="memdesc:a8e6b4de7ea99115eadd090a3def5005c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If location is valid for tower placement, puts a tower into the container. <br /></td></tr>
+<tr class="separator:a8e6b4de7ea99115eadd090a3def5005c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b20f3f763c5b03da1176b7f64e9a73"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9b20f3f763c5b03da1176b7f64e9a73"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ae9b20f3f763c5b03da1176b7f64e9a73">update</a> (sf::Vector2f const &amp;mousePosition)</td></tr>
+<tr class="memdesc:ae9b20f3f763c5b03da1176b7f64e9a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates position to match mouse and calculates validity. <br /></td></tr>
+<tr class="separator:ae9b20f3f763c5b03da1176b7f64e9a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad31f79659d7982dd40217eb2c942ee4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ad31f79659d7982dd40217eb2c942ee4f">activate</a> (TowerType type)</td></tr>
+<tr class="memdesc:ad31f79659d7982dd40217eb2c942ee4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_tower_placer.html">TowerPlacer</a> to be active. Must be called before update, draw or place do anything.  <a href="#ad31f79659d7982dd40217eb2c942ee4f">More...</a><br /></td></tr>
+<tr class="separator:ad31f79659d7982dd40217eb2c942ee4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3924d6e0354f8c41760caa62142a64d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3924d6e0354f8c41760caa62142a64d0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a3924d6e0354f8c41760caa62142a64d0">setSticky</a> (bool sticky)</td></tr>
+<tr class="memdesc:a3924d6e0354f8c41760caa62142a64d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, placing a tower will not remove the tower placer form the cursor. <br /></td></tr>
+<tr class="separator:a3924d6e0354f8c41760caa62142a64d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab71b3763e1816bd5bb9bad8719413d14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ab71b3763e1816bd5bb9bad8719413d14">draw</a> (sf::RenderTarget &amp;renderTarget) const </td></tr>
+<tr class="memdesc:ab71b3763e1816bd5bb9bad8719413d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the tower overlay to the render target.  <a href="#ab71b3763e1816bd5bb9bad8719413d14">More...</a><br /></td></tr>
 <tr class="separator:ab71b3763e1816bd5bb9bad8719413d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae483eee4ffad7011036af611f64810e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae483eee4ffad7011036af611f64810e2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isActive</b> () const </td></tr>
+<tr class="separator:ae483eee4ffad7011036af611f64810e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a20c5d849a01048d6b07094a02a35eac1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a20c5d849a01048d6b07094a02a35eac1">checkValidity</a> ()</td></tr>
+<tr class="memitem:a20c5d849a01048d6b07094a02a35eac1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20c5d849a01048d6b07094a02a35eac1"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a20c5d849a01048d6b07094a02a35eac1">checkValidity</a> ()</td></tr>
+<tr class="memdesc:a20c5d849a01048d6b07094a02a35eac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current location is valid for placement. <br /></td></tr>
 <tr class="separator:a20c5d849a01048d6b07094a02a35eac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abde2f2da667522f718b74bfde5c0e705"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#abde2f2da667522f718b74bfde5c0e705">calculateColor</a> ()</td></tr>
+<tr class="memitem:abde2f2da667522f718b74bfde5c0e705"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abde2f2da667522f718b74bfde5c0e705"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#abde2f2da667522f718b74bfde5c0e705">calculateColor</a> ()</td></tr>
+<tr class="memdesc:abde2f2da667522f718b74bfde5c0e705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the overlay to red or green depending on validity. <br /></td></tr>
 <tr class="separator:abde2f2da667522f718b74bfde5c0e705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:aa0b16eafcf428c836d959270d9be5061"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0b16eafcf428c836d959270d9be5061"></a>
+TowerType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#aa0b16eafcf428c836d959270d9be5061">mTowerType</a></td></tr>
+<tr class="memdesc:aa0b16eafcf428c836d959270d9be5061"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of tower that will be placed. <br /></td></tr>
+<tr class="separator:aa0b16eafcf428c836d959270d9be5061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8549d48788586acaf90e7bcac308cb6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8549d48788586acaf90e7bcac308cb6"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ad8549d48788586acaf90e7bcac308cb6">mIsActive</a></td></tr>
-<tr class="memdesc:ad8549d48788586acaf90e7bcac308cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this is false, calls to methods other than <a class="el" href="class_tower_placer.html#a705fb5b98325fd26af1eaffc9ca330a3">activate()</a> will do nothing. <br /></td></tr>
+<tr class="memdesc:ad8549d48788586acaf90e7bcac308cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">If this is false, calls to methods other than <a class="el" href="class_tower_placer.html#ad31f79659d7982dd40217eb2c942ee4f" title="Sets the TowerPlacer to be active. Must be called before update, draw or place do anything...">activate()</a> will do nothing. <br /></td></tr>
 <tr class="separator:ad8549d48788586acaf90e7bcac308cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36c3d5dd5273484b13fbaeeee6ded350"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36c3d5dd5273484b13fbaeeee6ded350"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a36c3d5dd5273484b13fbaeeee6ded350">mIsValid</a></td></tr>
 <tr class="memdesc:a36c3d5dd5273484b13fbaeeee6ded350"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the current location is valid for tower placement. <br /></td></tr>
 <tr class="separator:a36c3d5dd5273484b13fbaeeee6ded350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac10ec86a330c9cee2333b35cea77f0eb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac10ec86a330c9cee2333b35cea77f0eb"></a>
-std::shared_ptr&lt; <a class="el" href="class_quadtree.html">TerrainTree</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#ac10ec86a330c9cee2333b35cea77f0eb">mTerrainTree</a></td></tr>
-<tr class="memdesc:ac10ec86a330c9cee2333b35cea77f0eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Quadtree&lt;unsigned char&gt; that will be used to check points against terrain for validity. <br /></td></tr>
-<tr class="separator:ac10ec86a330c9cee2333b35cea77f0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f34151719d4129eef748c3bd8e4c037"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f34151719d4129eef748c3bd8e4c037"></a>
+shared_ptr&lt; <a class="el" href="class_quadtree.html">TerrainTree</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a6f34151719d4129eef748c3bd8e4c037">mTerrainTree</a></td></tr>
+<tr class="memdesc:a6f34151719d4129eef748c3bd8e4c037"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Quadtree&lt;unsigned char&gt; that will be used to check points against terrain for validity. <br /></td></tr>
+<tr class="separator:a6f34151719d4129eef748c3bd8e4c037"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08e390c0b06676690583efdec0923471"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08e390c0b06676690583efdec0923471"></a>
 sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a08e390c0b06676690583efdec0923471">mOverlay</a></td></tr>
 <tr class="memdesc:a08e390c0b06676690583efdec0923471"><td class="mdescLeft">&#160;</td><td class="mdescRight">A ghost tower that show where the tower would be placed and colored to show validity. <br /></td></tr>
@@ -170,16 +200,26 @@ sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 sf::Shape *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a6bf00a7e3123bdc0f8ce67a296f1b071">mMask</a></td></tr>
 <tr class="memdesc:a6bf00a7e3123bdc0f8ce67a296f1b071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape used to test for validity with the terrain tree. <br /></td></tr>
 <tr class="separator:a6bf00a7e3123bdc0f8ce67a296f1b071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaad3cb52e8bf321c7afc8c3b63e893a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaad3cb52e8bf321c7afc8c3b63e893a6"></a>
-std::vector&lt; <a class="el" href="classtower_1_1_basic_tower.html">tower::BasicTower</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#aaad3cb52e8bf321c7afc8c3b63e893a6">mTowerContainer</a></td></tr>
-<tr class="memdesc:aaad3cb52e8bf321c7afc8c3b63e893a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The (ptr to) container of tower pointers, into which we will put new towers. <br /></td></tr>
-<tr class="separator:aaad3cb52e8bf321c7afc8c3b63e893a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847aef4b1c7cc5b0a28f5c418d1c511a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a847aef4b1c7cc5b0a28f5c418d1c511a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#a847aef4b1c7cc5b0a28f5c418d1c511a">mIsSticky</a></td></tr>
+<tr class="memdesc:a847aef4b1c7cc5b0a28f5c418d1c511a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, placing a tower will not deactivate the placer. <br /></td></tr>
+<tr class="separator:a847aef4b1c7cc5b0a28f5c418d1c511a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a03ffb148543a436858e980f5c319b199"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03ffb148543a436858e980f5c319b199"></a>
-<a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>towerProjectileCollisionGroup</b></td></tr>
-<tr class="separator:a03ffb148543a436858e980f5c319b199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca25cae44a8171f16455b40996d115e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca25cae44a8171f16455b40996d115e2"></a>
+<a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tower_placer.html#aca25cae44a8171f16455b40996d115e2">mTowerCollisionGroup</a></td></tr>
+<tr class="memdesc:aca25cae44a8171f16455b40996d115e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to prevent the player from placing towers on top of each other. <br /></td></tr>
+<tr class="separator:aca25cae44a8171f16455b40996d115e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acedd8e48b256ef9d071ae30d7248e5f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acedd8e48b256ef9d071ae30d7248e5f2"></a>
+const shared_ptr&lt; <a class="el" href="class_projectile_manager.html">ProjectileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectileManager</b></td></tr>
+<tr class="separator:acedd8e48b256ef9d071ae30d7248e5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2eac0ebb3951e07f43dc39ef514f46"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c2eac0ebb3951e07f43dc39ef514f46"></a>
+const shared_ptr&lt; <a class="el" href="class_path.html">Path</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPath</b></td></tr>
+<tr class="separator:a0c2eac0ebb3951e07f43dc39ef514f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87796808e72fb5b519004805c61dfda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac87796808e72fb5b519004805c61dfda"></a>
+const std::function&lt; void(shared_ptr&lt; <a class="el" href="class_minion.html">Minion</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mUnitSpawnCallback</b></td></tr>
+<tr class="separator:ac87796808e72fb5b519004805c61dfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -189,69 +229,88 @@ static const sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>mVa
 <tr class="memitem:ace2612fe3911ceb461d7ebb792889c51"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace2612fe3911ceb461d7ebb792889c51"></a>
 static const sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>mInvalidColor</b></td></tr>
 <tr class="separator:ace2612fe3911ceb461d7ebb792889c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b8bcc5bd45c00b700db1768fd408c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18b8bcc5bd45c00b700db1768fd408c3"></a>
+static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mArrowTowerDefPath</b></td></tr>
+<tr class="separator:a18b8bcc5bd45c00b700db1768fd408c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e0160b09c9c5f7c112da586a72dcd3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32e0160b09c9c5f7c112da586a72dcd3"></a>
+static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mMagicTowerDefPath</b></td></tr>
+<tr class="separator:a32e0160b09c9c5f7c112da586a72dcd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf53b42148d1f195c0efb55042fcc376"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf53b42148d1f195c0efb55042fcc376"></a>
+static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mUnitTowerDefPath</b></td></tr>
+<tr class="separator:abf53b42148d1f195c0efb55042fcc376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ac152e9df4abba6acdf6187bcd333cb62"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TowerPlacer::TowerPlacer </td>
+          <td>(</td>
+          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_quadtree.html">TerrainTree</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>terrainTree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_projectile_manager.html">ProjectileManager</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>projectileMgr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_path.html">Path</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; void(shared_ptr&lt; <a class="el" href="class_minion.html">Minion</a> &gt;)&gt; const &amp;&#160;</td>
+          <td class="paramname"><em>unitSpawnCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs an instance of <a class="el" href="class_tower_placer.html">TowerPlacer</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">terrainTree</td><td><a class="el" href="class_quadtree.html" title="Simple Quadtree implementation using templates. ">Quadtree</a> used to determine where is valid for tower placement. </td></tr>
+    <tr><td class="paramname">projectileMgr</td><td>Shared pointer to a <a class="el" href="class_projectile_manager.html" title="Updates a collection of projectiles. Projectiles are stored in unique_ptrs. ">ProjectileManager</a>. Created towers will add their projectiles to this. </td></tr>
+    <tr><td class="paramname">path</td><td><a class="el" href="class_path.html" title="A one-way path of nodes. Uses a recursive structure. ">Path</a> onto which UnitTowers will send their spawned units. </td></tr>
+    <tr><td class="paramname">unitSpawnCallback</td><td>Given to unit towers so that they can spawn units. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a705fb5b98325fd26af1eaffc9ca330a3"></a>
+<a class="anchor" id="ad31f79659d7982dd40217eb2c942ee4f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void TowerPlacer::activate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">TowerType&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Sets the <a class="el" href="class_tower_placer.html">TowerPlacer</a> to be active. Must be called before update, draw or place do anything. </p>
-
-</div>
-</div>
-<a class="anchor" id="abde2f2da667522f718b74bfde5c0e705"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TowerPlacer::calculateColor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Sets the color of the overlay to red or green depending on validity. </p>
-
-</div>
-</div>
-<a class="anchor" id="a20c5d849a01048d6b07094a02a35eac1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void TowerPlacer::checkValidity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Checks if the current location is valid for placement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of tower to be placed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -268,48 +327,9 @@ static const sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>mIn
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Draws the tower overlay to the render target. </p><dl class="section remark"><dt>Remarks</dt><dd>If debugging, also draws the collision mask. </dd></dl>
 
-</div>
-</div>
-<a class="anchor" id="a0f8562bcd1288d5e9e4a1d7d1768343b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool TowerPlacer::place </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>If location is valid for tower placement, puts a tower into the container. </p>
-
-</div>
-</div>
-<a class="anchor" id="ad57b1a63f3550b721b987c764f21b7d8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void TowerPlacer::update </td>
-          <td>(</td>
-          <td class="paramtype">sf::Vector2i&#160;</td>
-          <td class="paramname"><em>mousePosition</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Updates position to match mouse and calculates validity. </p>
+<p>Draws the tower overlay to the render target. </p>
+<dl class="section remark"><dt>Remarks</dt><dd>If debugging, also draws the collision mask. </dd></dl>
 
 </div>
 </div>

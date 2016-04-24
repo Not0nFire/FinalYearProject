@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -114,27 +114,27 @@ $(document).ready(function(){initNavTree('_path_8hpp_source.html','');});
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;include/TinyXML2/tinyxml2.h&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;Node.hpp&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_path.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_path.html">Path</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path</a>(<span class="keyword">const</span> tinyxml2::XMLElement* <span class="keyword">const</span> xml);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    ~<a class="code" href="class_path.html">Path</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_node.html">Node</a>* <a class="code" href="class_path.html#a41cfab5f7e40cad8434ed6fff9d93786">getNext</a>(<a class="code" href="class_node.html">Node</a>* current);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_node.html">Node</a>* <a class="code" href="class_path.html#a103983fc0642313ce93eb69068d03c99">begin</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_node.html">Node</a>* mRoot;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_node_html"><div class="ttname"><a href="class_node.html">Node</a></div><div class="ttdef"><b>Definition:</b> Node.hpp:6</div></div>
-<div class="ttc" id="class_path_html_a103983fc0642313ce93eb69068d03c99"><div class="ttname"><a href="class_path.html#a103983fc0642313ce93eb69068d03c99">Path::begin</a></div><div class="ttdeci">Node * begin() const </div><div class="ttdoc">Returns the starting node of the path. </div></div>
-<div class="ttc" id="class_path_html"><div class="ttname"><a href="class_path.html">Path</a></div><div class="ttdoc">A one-way path of nodes. Uses a recursive structure. </div><div class="ttdef"><b>Definition:</b> Path.hpp:12</div></div>
-<div class="ttc" id="class_path_html_a41cfab5f7e40cad8434ed6fff9d93786"><div class="ttname"><a href="class_path.html#a41cfab5f7e40cad8434ed6fff9d93786">Path::getNext</a></div><div class="ttdeci">static Node * getNext(Node *current)</div><div class="ttdoc">Returns the next node in the path after current. </div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_path.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_path.html">Path</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path</a>(tinyxml2::XMLElement* xml);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ~<a class="code" href="class_path.html">Path</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> std::shared_ptr&lt;Node&gt; <a class="code" href="class_path.html#a69e0a0d952badda2013aea6699452c5b">getNext</a>(std::shared_ptr&lt;Node&gt; current);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::shared_ptr&lt;const Node&gt; <a class="code" href="class_path.html#aa7c4e65648f6cdca4efc57048b67e5b3">begin</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::shared_ptr&lt;Node&gt; mRoot;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_path_html_aa7c4e65648f6cdca4efc57048b67e5b3"><div class="ttname"><a href="class_path.html#aa7c4e65648f6cdca4efc57048b67e5b3">Path::begin</a></div><div class="ttdeci">std::shared_ptr&lt; const Node &gt; begin() const </div><div class="ttdoc">Returns the starting node of the path. </div></div>
+<div class="ttc" id="class_path_html_a69e0a0d952badda2013aea6699452c5b"><div class="ttname"><a href="class_path.html#a69e0a0d952badda2013aea6699452c5b">Path::getNext</a></div><div class="ttdeci">static std::shared_ptr&lt; Node &gt; getNext(std::shared_ptr&lt; Node &gt; current)</div><div class="ttdoc">Returns the next node in the path after current. </div></div>
+<div class="ttc" id="class_path_html"><div class="ttname"><a href="class_path.html">Path</a></div><div class="ttdoc">A one-way path of nodes. Uses a recursive structure. </div><div class="ttdef"><b>Definition:</b> Path.hpp:13</div></div>
 <div class="ttc" id="class_path_html_af26cfab021ddf49af73da3b2beca85ac"><div class="ttname"><a href="class_path.html#af26cfab021ddf49af73da3b2beca85ac">Path::Path</a></div><div class="ttdeci">Path()</div><div class="ttdoc">Constructs a hard-coded path. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

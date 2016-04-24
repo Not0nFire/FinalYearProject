@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>FYP: SceneProxy&lt; SceneType &gt; Class Template Reference</title>
+<title>FYP: SceneProxy Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -109,46 +109,107 @@ $(document).ready(function(){initNavTree('class_scene_proxy.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_scene_proxy-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">SceneProxy&lt; SceneType &gt; Class Template Reference</div>  </div>
+<div class="title">SceneProxy Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for SceneProxy:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_scene_proxy__coll__graph.png" border="0" usemap="#_scene_proxy_coll__map" alt="Collaboration graph"/></div>
+<map name="_scene_proxy_coll__map" id="_scene_proxy_coll__map">
+<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="19,5,131,141"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a646220f60425bf466a7a99824ce81a8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a646220f60425bf466a7a99824ce81a8a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SceneProxy</b> (const char *xmlPath)</td></tr>
-<tr class="separator:a646220f60425bf466a7a99824ce81a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af134216f6d67a169fbd05f519388663e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af134216f6d67a169fbd05f519388663e"></a>
+<tr class="memitem:a6f26e98c9102b9718a99fd05263f9cf5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f26e98c9102b9718a99fd05263f9cf5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>handleEvent</b> (sf::Event &amp;event)</td></tr>
-<tr class="separator:af134216f6d67a169fbd05f519388663e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1967c0ca3286e8594d52faa71e0b7f32"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1967c0ca3286e8594d52faa71e0b7f32"></a>
+<tr class="separator:a6f26e98c9102b9718a99fd05263f9cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bdb149e529d356094780c6a29d188d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bdb149e529d356094780c6a29d188d0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (sf::Time const &amp;elapsedTime)</td></tr>
-<tr class="separator:a1967c0ca3286e8594d52faa71e0b7f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96f7b61f79a5038f3aa6978443e8f06d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96f7b61f79a5038f3aa6978443e8f06d"></a>
+<tr class="separator:a3bdb149e529d356094780c6a29d188d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a861db9f01efcd47b891bb849e426be02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a861db9f01efcd47b891bb849e426be02"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderWindow &amp;w)</td></tr>
-<tr class="separator:a96f7b61f79a5038f3aa6978443e8f06d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a48644a90db117fef145a465dac8205"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a48644a90db117fef145a465dac8205"></a>
+<tr class="separator:a861db9f01efcd47b891bb849e426be02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b0122cb9ac1ea8cbe0231913f74e6de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b0122cb9ac1ea8cbe0231913f74e6de"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> ()</td></tr>
+<tr class="separator:a8b0122cb9ac1ea8cbe0231913f74e6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada36e98d0026ddb389a6cce742d71084"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada36e98d0026ddb389a6cce742d71084"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loadNow</b> ()</td></tr>
-<tr class="separator:a0a48644a90db117fef145a465dac8205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3eb7ebc9220f6a34ae44acd8ca8cbe6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3eb7ebc9220f6a34ae44acd8ca8cbe6"></a>
-SceneType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#ad3eb7ebc9220f6a34ae44acd8ca8cbe6">getScene</a> () const </td></tr>
-<tr class="memdesc:ad3eb7ebc9220f6a34ae44acd8ca8cbe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a pointer to the contained scene. <br /></td></tr>
-<tr class="separator:ad3eb7ebc9220f6a34ae44acd8ca8cbe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ada36e98d0026ddb389a6cce742d71084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab98a6d9d5d0cea5b99fb322447ad72f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab98a6d9d5d0cea5b99fb322447ad72f5"></a>
+<a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#ab98a6d9d5d0cea5b99fb322447ad72f5">getScene</a> ()</td></tr>
+<tr class="memdesc:ab98a6d9d5d0cea5b99fb322447ad72f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a pointer to the contained scene. <br /></td></tr>
+<tr class="separator:ab98a6d9d5d0cea5b99fb322447ad72f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad6c87cfa048db856c1ced446a90922ef"><td class="memTemplParams" colspan="2">template&lt;class SceneType &gt; </td></tr>
+<tr class="memitem:ad6c87cfa048db856c1ced446a90922ef"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="class_scene_proxy.html">SceneProxy</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#ad6c87cfa048db856c1ced446a90922ef">create</a> (std::string const &amp;xmlPath)</td></tr>
+<tr class="memdesc:ad6c87cfa048db856c1ced446a90922ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="class_scene_proxy.html">SceneProxy</a>, whose contained scene can be constructed by the file specified by xmlPath. Creates a lambda function that constructs a new instance of SceneType using the xmlPath, this function is then called later on when the scene needs to be constructed.  <a href="#ad6c87cfa048db856c1ced446a90922ef">More...</a><br /></td></tr>
+<tr class="separator:ad6c87cfa048db856c1ced446a90922ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a68a3a5bcfcc8e0464a5573face069642"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68a3a5bcfcc8e0464a5573face069642"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SceneProxy</b> (std::function&lt; <a class="el" href="class_i___scene.html">I_Scene</a> *()&gt; const &amp;sceneCreationFunc)</td></tr>
+<tr class="separator:a68a3a5bcfcc8e0464a5573face069642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a598026a52282790b47e83262fae922c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a598026a52282790b47e83262fae922c1"></a>
-std::unique_ptr&lt; <a class="el" href="class_i___scene.html">I_Scene</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#a598026a52282790b47e83262fae922c1">mScene</a></td></tr>
-<tr class="memdesc:a598026a52282790b47e83262fae922c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual scene object owned by proxy. <br /></td></tr>
-<tr class="separator:a598026a52282790b47e83262fae922c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38f77ef0e458528946abf77dd84d750e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38f77ef0e458528946abf77dd84d750e"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#a38f77ef0e458528946abf77dd84d750e">mXmlPath</a></td></tr>
-<tr class="memdesc:a38f77ef0e458528946abf77dd84d750e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the xml file used to create the scene when needed. <br /></td></tr>
-<tr class="separator:a38f77ef0e458528946abf77dd84d750e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b593bbfde46ec4e973ddde309690b9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b593bbfde46ec4e973ddde309690b9d"></a>
+<a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#a8b593bbfde46ec4e973ddde309690b9d">mScene</a></td></tr>
+<tr class="memdesc:a8b593bbfde46ec4e973ddde309690b9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actual scene object owned by proxy. <br /></td></tr>
+<tr class="separator:a8b593bbfde46ec4e973ddde309690b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97a8c835769aa1b4de0ef44dbfebea5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97a8c835769aa1b4de0ef44dbfebea5b"></a>
+std::function&lt; <a class="el" href="class_i___scene.html">I_Scene</a> *()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_proxy.html#a97a8c835769aa1b4de0ef44dbfebea5b">mCreatSceneFunc</a></td></tr>
+<tr class="memdesc:a97a8c835769aa1b4de0ef44dbfebea5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The location of the xml file used to create the scene when needed. <br /></td></tr>
+<tr class="separator:a97a8c835769aa1b4de0ef44dbfebea5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a921c6ef5d3ac66e38ecb969e0e23cc7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a921c6ef5d3ac66e38ecb969e0e23cc7e"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mMutex</b></td></tr>
+<tr class="separator:a921c6ef5d3ac66e38ecb969e0e23cc7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ad6c87cfa048db856c1ced446a90922ef"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class SceneType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scene_proxy.html">SceneProxy</a> * SceneProxy::create </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>xmlPath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a <a class="el" href="class_scene_proxy.html">SceneProxy</a>, whose contained scene can be constructed by the file specified by xmlPath. Creates a lambda function that constructs a new instance of SceneType using the xmlPath, this function is then called later on when the scene needs to be constructed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xmlPath</td><td><a class="el" href="class_path.html" title="A one-way path of nodes. Uses a recursive structure. ">Path</a> to the xml file used to create the scene. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="_scene_8hpp_source.html">Scene.hpp</a></li>
 </ul>

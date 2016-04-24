@@ -1,4 +1,8 @@
 <map id="I_Scene" name="I_Scene">
-<area shape="rect" id="node2" href="$class_level.html" title="Playable level of the game. " alt="" coords="5,80,56,107"/>
-<area shape="rect" id="node3" href="$class_menu.html" title="Menu implemented using SFGUI " alt="" coords="81,80,135,107"/>
+<area shape="rect" id="node2" href="$class_credits.html" title="{Credits\n|&#45; mBackButton\l&#45; mBgMusic\l&#45; mRenderTex\l&#45; mCredits\l&#45; mBackdrop\l&#45; mView\l&#45; mBaseScrollSpeed\l&#45; mSpeedMultiplier\l&#45; mSpeedUp\l&#45; mAutoscroll\l|+ Credits()\l+ ~Credits()\l+ handleEvent()\l+ update()\l+ draw()\l+ cleanup()\l}" alt="" coords="5,307,147,589"/>
+<area shape="rect" id="node3" href="$class_level.html" title="Playable level of the game. " alt="" coords="171,189,363,707"/>
+<area shape="rect" id="node4" href="$class_level_select.html" title="{LevelSelect\n|&#45; mBackground\l&#45; mMusic\l&#45; mLevelButtons\l&#45; mBackButton\l|+ LevelSelect()\l+ ~LevelSelect()\l+ handleEvent()\l+ update()\l+ draw()\l+ cleanup()\l&#45; disableLockedLevels()\l}" alt="" coords="387,343,544,553"/>
+<area shape="rect" id="node5" href="$class_main_menu.html" title="First menu shown to the user. " alt="" coords="569,329,727,567"/>
+<area shape="rect" id="node6" href="$class_profile_select.html" title="Scene for selecting which player profile to use. " alt="" coords="751,351,881,545"/>
+<area shape="rect" id="node7" href="$class_settings_menu.html" title="{SettingsMenu\n|&#45; mSaveChangesDialogueBox\l&#45; mSettingsChanged\l&#45; mBackdrop\l&#45; mBgMusic\l&#45; mBackButton\l&#45; mSliders\l&#45; mLabels\l|+ SettingsMenu()\l+ ~SettingsMenu()\l+ handleEvent()\l+ update()\l+ draw()\l+ cleanup()\l&#45; updateAll()\l}" alt="" coords="905,321,1098,575"/>
 </map>

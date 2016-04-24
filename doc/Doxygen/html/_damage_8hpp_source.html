@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -113,24 +113,41 @@ $(document).ready(function(){initNavTree('_damage_8hpp_source.html','');});
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_damage.html">Damage</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="struct_damage_1_1_reduction.html">   10</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="struct_damage_1_1_reduction.html">Reduction</a> {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> NONE, LIGHT, MEDIUM, HEAVY, IMMUNE;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordtype">float</span> value;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordtype">float</span> grant() { <span class="keywordflow">if</span> (value &gt; IMMUNE) value -= 0.25f; <span class="keywordflow">return</span> value; }</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordtype">float</span> strip() { <span class="keywordflow">if</span> (value &lt; NONE) value += 0.25f; <span class="keywordflow">return</span> value; }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="struct_damage_1_1_reduction.html#a2c5177a2bfce39ab27f6154cf0940c93">   14</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="struct_damage_1_1_reduction.html#a2c5177a2bfce39ab27f6154cf0940c93">value</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> _value);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">float</span> operator*(<span class="keywordtype">float</span> x) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">float</span> operator*=(<span class="keywordtype">float</span> num, <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a> &amp;red);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a>&amp; operator=(<span class="keywordtype">float</span> newValue);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    };</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">enum</span> Type {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        PHYSICAL, MAGICAL</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    };</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_damage_1_1_reduction.html#aa7f0b5e96bf553f45c6fcd9570425c32">   17</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="struct_damage_1_1_reduction.html#aa7f0b5e96bf553f45c6fcd9570425c32">grant</a>() { <span class="keywordflow">if</span> (value &gt; IMMUNE) value -= 0.25f; <span class="keywordflow">return</span> <a class="code" href="struct_damage_1_1_reduction.html#a2c5177a2bfce39ab27f6154cf0940c93">value</a>; }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_damage_1_1_reduction.html#ac40456ba67edd30f3e950da25b5be3a1">   20</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="struct_damage_1_1_reduction.html#ac40456ba67edd30f3e950da25b5be3a1">strip</a>() { <span class="keywordflow">if</span> (value &lt; NONE) value += 0.25f; <span class="keywordflow">return</span> <a class="code" href="struct_damage_1_1_reduction.html#a2c5177a2bfce39ab27f6154cf0940c93">value</a>; }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> _value);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">float</span> <a class="code" href="struct_damage_1_1_reduction.html#a679f36307ea8237e8dcf32441a10d3a8">operator*</a>(<span class="keywordtype">float</span> damage) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">float</span> <a class="code" href="struct_damage_1_1_reduction.html#a1e5e8114fb59580f69b199798cc597c8">operator*=</a>(<span class="keywordtype">float</span> num, <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a> &amp;red);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="struct_damage_1_1_reduction.html">Reduction</a>&amp; <a class="code" href="struct_damage_1_1_reduction.html#a034047f09ed5236387e55157907bc16a">operator=</a>(<span class="keywordtype">float</span> newValue);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="struct_damage_1_1_reduction.html#ab27bd4992aabd55f3820da012cea2cd6">operator&lt;</a>(<a class="code" href="struct_damage_1_1_reduction.html">Reduction</a> <span class="keyword">const</span>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="struct_damage_1_1_reduction.html#aaed673266dd00ec3a5713a3551432af8">operator&lt;=</a>(<a class="code" href="struct_damage_1_1_reduction.html">Reduction</a> <span class="keyword">const</span>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">enum</span> Type {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        PHYSICAL, MAGICAL</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    };</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_a679f36307ea8237e8dcf32441a10d3a8"><div class="ttname"><a href="struct_damage_1_1_reduction.html#a679f36307ea8237e8dcf32441a10d3a8">Damage::Reduction::operator*</a></div><div class="ttdeci">float operator*(float damage) const </div><div class="ttdoc">Applies the reduction to the float passed. </div></div>
 <div class="ttc" id="struct_damage_1_1_reduction_html"><div class="ttname"><a href="struct_damage_1_1_reduction.html">Damage::Reduction</a></div><div class="ttdoc">Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount...</div><div class="ttdef"><b>Definition:</b> Damage.hpp:10</div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_a1e5e8114fb59580f69b199798cc597c8"><div class="ttname"><a href="struct_damage_1_1_reduction.html#a1e5e8114fb59580f69b199798cc597c8">Damage::Reduction::operator*=</a></div><div class="ttdeci">friend float operator*=(float num, Reduction &amp;red)</div><div class="ttdoc">Applies the reduction to the float passed. </div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_a034047f09ed5236387e55157907bc16a"><div class="ttname"><a href="struct_damage_1_1_reduction.html#a034047f09ed5236387e55157907bc16a">Damage::Reduction::operator=</a></div><div class="ttdeci">Reduction &amp; operator=(float newValue)</div><div class="ttdoc">Assigns a new reduction value. </div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_ac40456ba67edd30f3e950da25b5be3a1"><div class="ttname"><a href="struct_damage_1_1_reduction.html#ac40456ba67edd30f3e950da25b5be3a1">Damage::Reduction::strip</a></div><div class="ttdeci">float strip()</div><div class="ttdoc">Strips a level of reduction if above none. </div><div class="ttdef"><b>Definition:</b> Damage.hpp:20</div></div>
 <div class="ttc" id="namespace_damage_html"><div class="ttname"><a href="namespace_damage.html">Damage</a></div><div class="ttdef"><b>Definition:</b> Damage.hpp:3</div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_a2c5177a2bfce39ab27f6154cf0940c93"><div class="ttname"><a href="struct_damage_1_1_reduction.html#a2c5177a2bfce39ab27f6154cf0940c93">Damage::Reduction::value</a></div><div class="ttdeci">float value</div><div class="ttdoc">Damage reduction multiplier. </div><div class="ttdef"><b>Definition:</b> Damage.hpp:14</div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_aaed673266dd00ec3a5713a3551432af8"><div class="ttname"><a href="struct_damage_1_1_reduction.html#aaed673266dd00ec3a5713a3551432af8">Damage::Reduction::operator&lt;=</a></div><div class="ttdeci">bool operator&lt;=(Reduction const &amp;other) const </div><div class="ttdoc">Returns true if we have a lower or equal value. </div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_ab27bd4992aabd55f3820da012cea2cd6"><div class="ttname"><a href="struct_damage_1_1_reduction.html#ab27bd4992aabd55f3820da012cea2cd6">Damage::Reduction::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(Reduction const &amp;other) const </div><div class="ttdoc">Returns true if we have a lower value. </div></div>
+<div class="ttc" id="struct_damage_1_1_reduction_html_aa7f0b5e96bf553f45c6fcd9570425c32"><div class="ttname"><a href="struct_damage_1_1_reduction.html#aa7f0b5e96bf553f45c6fcd9570425c32">Damage::Reduction::grant</a></div><div class="ttdeci">float grant()</div><div class="ttdoc">Grants a level of reduction if below the max. </div><div class="ttdef"><b>Definition:</b> Damage.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

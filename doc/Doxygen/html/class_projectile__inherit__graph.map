@@ -1,4 +1,6 @@
 <map id="Projectile" name="Projectile">
-<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,80,133,107"/>
-<area shape="rect" id="node4" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+<area shape="rect" id="node5" href="$class_arc_projectile.html" title="Object that follows a pre&#45;computed arc toward a target and checks for collision on impact..." alt="" coords="5,968,129,1089"/>
+<area shape="rect" id="node6" href="$class_fancy_projectile.html" title="Projectile that emits particles as it travels and homes in on its target. " alt="" coords="154,924,335,1133"/>
+<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="75,321,236,560"/>
+<area shape="rect" id="node4" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="145,5,313,273"/>
 </map>

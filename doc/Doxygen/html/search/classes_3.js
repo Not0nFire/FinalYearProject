@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['game',['Game',['../class_game.html',1,'']]]
+  ['dialoguebox',['DialogueBox',['../classgui_1_1_dialogue_box.html',1,'gui']]]
 ];

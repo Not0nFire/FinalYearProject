@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,34 +108,34 @@ $(document).ready(function(){initNavTree('_resource_manager_8hpp_source.html',''
 <div class="title">ResourceManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _RESOURCE_MANAGER_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _RESOURCE_MANAGER_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;boost/thread.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RESOURCE_MANAGER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RESOURCE_MANAGER_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Thor/Animations.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;include/TinyXML2/tinyxml2.h&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_resource_manager.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_resource_manager.html">ResourceManager</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>* mInstance;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> std::unique_ptr&lt;ResourceManager&lt;T&gt;&gt; mInstance;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>();</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_resource_manager.html#aa4a6e3f1a28947576e75067c342f33d8">   21</a></span>&#160;    std::map&lt; std::string, std::unique_ptr&lt;T&gt;&gt; <a class="code" href="class_resource_manager.html#aa4a6e3f1a28947576e75067c342f33d8">mResources</a>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    boost::mutex mResourceMutex;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::mutex mResourceMutex;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ~<a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>();</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>* <a class="code" href="class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1">instance</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> std::unique_ptr&lt;ResourceManager&lt;T&gt;&gt; <span class="keyword">const</span>&amp; <a class="code" href="class_resource_manager.html#adaac576028cad7be2a532c36c6ac1460">instance</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    T&amp; <span class="keyword">get</span>(std::string <span class="keyword">const</span> &amp;path);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>* <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;::mInstance</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;std::unique_ptr&lt;ResourceManager&lt;T&gt;&gt; <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;::mInstance</a> = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;::ResourceManager</a>() {</div>
@@ -148,9 +148,9 @@ $(document).ready(function(){initNavTree('_resource_manager_8hpp_source.html',''
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1">   60</a></span>&#160;<a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>* <a class="code" href="class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1">ResourceManager&lt;T&gt;::instance</a>() {</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_resource_manager.html#adaac576028cad7be2a532c36c6ac1460">   60</a></span>&#160;std::unique_ptr&lt;ResourceManager&lt;T&gt;&gt; <span class="keyword">const</span>&amp; <a class="code" href="class_resource_manager.html#adaac576028cad7be2a532c36c6ac1460">ResourceManager&lt;T&gt;::instance</a>() {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> (!mInstance) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        mInstance = <span class="keyword">new</span> <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        mInstance = std::unique_ptr&lt;ResourceManager&lt;T&gt;&gt;(<span class="keyword">new</span> <a class="code" href="class_resource_manager.html">ResourceManager&lt;T&gt;</a>());</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> mInstance;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
@@ -158,74 +158,77 @@ $(document).ready(function(){initNavTree('_resource_manager_8hpp_source.html',''
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">   68</a></span>&#160;T&amp; <a class="code" href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">ResourceManager&lt;T&gt;::get</a>(std::string <span class="keyword">const</span> &amp;path) {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">//lock the mutex</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    boost::lock_guard&lt;boost::mutex&gt; lock(mResourceMutex);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock(mResourceMutex);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">//if path does not exist as a key in the map</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (!mResources.count(path)) {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="comment">//load resource from path</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        std::unique_ptr&lt;T&gt; res(<span class="keyword">new</span> T);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        res-&gt;loadFromFile(path);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="comment">//put the resource into the map (move it instead of copying)</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        mResources.insert(std::make_pair(path, std::move(res)));</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">//return reference to the texture</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> *mResources.at(path);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}<span class="comment">//unlock the mutex here when lock_guard goes out of scope</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">//Specialized template for Thor&#39;s FrameAnimations.</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">inline</span> thor::FrameAnimation&amp; <a class="code" href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">ResourceManager&lt;thor::FrameAnimation&gt;::get</a>(std::string <span class="keyword">const</span> &amp;path) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">//Lock the mutex</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    boost::lock_guard&lt;boost::mutex&gt; lock(mResourceMutex);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">//If path does not exist as a key in the map</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (!mResources.count(path)) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        std::unique_ptr&lt;thor::FrameAnimation&gt; anim(<span class="keyword">new</span> thor::FrameAnimation());</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">//Load animation from path</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">using namespace </span><a class="code" href="namespacetinyxml2.html">tinyxml2</a>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        XMLDocument doc;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        XMLError result = doc.LoadFile(path.c_str());</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (result != XML_NO_ERROR) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">throw</span> result;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        XMLElement* root = doc.FirstChildElement(<span class="stringliteral">&quot;Animation&quot;</span>);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">//For each &lt;Frame&gt; element under &lt;Animation&gt;</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">for</span> (XMLElement* frameElement = root-&gt;FirstChildElement(<span class="stringliteral">&quot;Frame&quot;</span>);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            frameElement != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            frameElement = frameElement-&gt;NextSiblingElement(<span class="stringliteral">&quot;Frame&quot;</span>))</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="comment">//Get relative duration of frame</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordtype">float</span> duration = atof(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Duration&quot;</span>)-&gt;GetText());</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="comment">//Get rectangle to be used as frame</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            sf::IntRect subrect = sf::IntRect(</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;X&quot;</span>)-&gt;GetText()),</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Y&quot;</span>)-&gt;GetText()),</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Width&quot;</span>)-&gt;GetText()),</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Height&quot;</span>)-&gt;GetText())</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                );</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="comment">//Add the frame to the animation</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            anim-&gt;addFrame(duration, subrect);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="comment">//Put the animation into the map (move it instead of copying)</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        mResources.insert(std::make_pair(path, std::move(anim)));</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">//return reference to the animation</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> *mResources.at(path);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}<span class="comment">//Unlock the mutex here when lock_guard goes out of scope</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (!res-&gt;loadFromFile(path))</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            printf(<span class="stringliteral">&quot;ResourceManager ERROR: Could not load resource at %s\n&quot;</span>, path.c_str());</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment">//put the resource into the map (move it instead of copying)</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        mResources.insert(std::make_pair(path, std::move(res)));</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">//return reference to the texture</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> *mResources.at(path);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}<span class="comment">//unlock the mutex here when lock_guard goes out of scope</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">//Specialized template for Thor&#39;s FrameAnimations.</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">inline</span> thor::FrameAnimation&amp; <a class="code" href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">ResourceManager&lt;thor::FrameAnimation&gt;::get</a>(std::string <span class="keyword">const</span> &amp;path) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">//Lock the mutex</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::lock_guard&lt;std::mutex&gt; lock(mResourceMutex);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">//If path does not exist as a key in the map</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (!mResources.count(path)) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::unique_ptr&lt;thor::FrameAnimation&gt; anim(<span class="keyword">new</span> thor::FrameAnimation());</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">//Load animation from path</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">using namespace </span><a class="code" href="namespacetinyxml2.html">tinyxml2</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        XMLDocument doc;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        XMLError result = doc.LoadFile(path.c_str());</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (result != XML_NO_ERROR) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">throw</span> result;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        XMLElement* root = doc.FirstChildElement(<span class="stringliteral">&quot;Animation&quot;</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="comment">//For each &lt;Frame&gt; element under &lt;Animation&gt;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordflow">for</span> (XMLElement* frameElement = root-&gt;FirstChildElement(<span class="stringliteral">&quot;Frame&quot;</span>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            frameElement != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            frameElement = frameElement-&gt;NextSiblingElement(<span class="stringliteral">&quot;Frame&quot;</span>))</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="comment">//Get relative duration of frame</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordtype">float</span> duration = atof(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Duration&quot;</span>)-&gt;GetText());</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="comment">//Get rectangle to be used as frame</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            sf::IntRect subrect = sf::IntRect(</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;X&quot;</span>)-&gt;GetText()),</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Y&quot;</span>)-&gt;GetText()),</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Width&quot;</span>)-&gt;GetText()),</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                atoi(frameElement-&gt;FirstChildElement(<span class="stringliteral">&quot;Height&quot;</span>)-&gt;GetText())</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                );</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="comment">//Add the frame to the animation</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            anim-&gt;addFrame(duration, subrect);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="comment">//Put the animation into the map (move it instead of copying)</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        mResources.insert(make_pair(path, move(anim)));</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="comment">//return reference to the animation</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">return</span> *mResources.at(path);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}<span class="comment">//Unlock the mutex here when lock_guard goes out of scope</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_resource_manager_html_aa4a6e3f1a28947576e75067c342f33d8"><div class="ttname"><a href="class_resource_manager.html#aa4a6e3f1a28947576e75067c342f33d8">ResourceManager::mResources</a></div><div class="ttdeci">std::map&lt; std::string, std::unique_ptr&lt; T &gt; &gt; mResources</div><div class="ttdef"><b>Definition:</b> ResourceManager.hpp:21</div></div>
-<div class="ttc" id="class_resource_manager_html_a3dcdce6201a938ee51be3d23879e46e1"><div class="ttname"><a href="class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1">ResourceManager::instance</a></div><div class="ttdeci">static ResourceManager&lt; T &gt; * instance()</div><div class="ttdoc">Instanciates (or returns the instance of) the ResourceManager. Instanciates (or gets the existing ins...</div><div class="ttdef"><b>Definition:</b> ResourceManager.hpp:60</div></div>
-<div class="ttc" id="namespacetinyxml2_html"><div class="ttname"><a href="namespacetinyxml2.html">tinyxml2</a></div></div>
+<div class="ttc" id="namespacetinyxml2_html"><div class="ttname"><a href="namespacetinyxml2.html">tinyxml2</a></div><div class="ttdef"><b>Definition:</b> Settings.hpp:9</div></div>
 <div class="ttc" id="class_resource_manager_html_af81db2d9fe19a0d848fbf81e68efcd8b"><div class="ttname"><a href="class_resource_manager.html#af81db2d9fe19a0d848fbf81e68efcd8b">ResourceManager::get</a></div><div class="ttdeci">T &amp; get(std::string const &amp;path)</div><div class="ttdoc">Gets a resource by its path in the file system. If the resource specified by path has not already bee...</div><div class="ttdef"><b>Definition:</b> ResourceManager.hpp:68</div></div>
+<div class="ttc" id="class_resource_manager_html_adaac576028cad7be2a532c36c6ac1460"><div class="ttname"><a href="class_resource_manager.html#adaac576028cad7be2a532c36c6ac1460">ResourceManager::instance</a></div><div class="ttdeci">static std::unique_ptr&lt; ResourceManager&lt; T &gt; &gt; const &amp; instance()</div><div class="ttdoc">Instanciates (or returns the instance of) the ResourceManager. Instanciates (or gets the existing ins...</div><div class="ttdef"><b>Definition:</b> ResourceManager.hpp:60</div></div>
 <div class="ttc" id="class_resource_manager_html"><div class="ttname"><a href="class_resource_manager.html">ResourceManager</a></div><div class="ttdoc">Simple SFML resource manager. </div><div class="ttdef"><b>Definition:</b> ResourceManager.hpp:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

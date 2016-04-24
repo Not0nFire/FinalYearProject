@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['relwindow',['relWindow',['../class_level.html#a94114555b2359264be240a9dfaf95254',1,'Level']]]
+  ['scene',['scene',['../structdetail_1_1_scene_request.html#a0c250775ccdd82f49d837d2e72e330b8',1,'detail::SceneRequest']]],
+  ['spawndelay',['spawnDelay',['../structdetail_1_1_wave.html#a29500c8ad2889b006e323508f09c97f4',1,'detail::Wave']]]
 ];

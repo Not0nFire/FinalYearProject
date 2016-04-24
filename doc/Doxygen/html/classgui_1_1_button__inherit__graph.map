@@ -1,0 +1,5 @@
+<map id="gui::Button" name="gui::Button">
+<area shape="rect" id="node3" href="$classgui_1_1_ability_button.html" title="Button with an Ability and cooldown visualization. " alt="" coords="5,549,185,715"/>
+<area shape="rect" id="node4" href="$classgui_1_1_cost_button.html" title="{gui::CostButton\n|&#45; mCost\l&#45; mCostText\l&#45; mResource\l|+ CostButton()\l+ ~CostButton()\l+ update()\l&#45; draw()\l}" alt="" coords="210,557,325,707"/>
+<area shape="rect" id="node5" href="$classgui_1_1_text_button.html" title="{gui::TextButton\n|&#45; mText\l|+ TextButton()\l+ TextButton()\l+ setText()\l+ getText()\l# draw()\l&#45; centreText()\l}" alt="" coords="349,557,460,707"/>
+</map>

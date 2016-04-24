@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('class_scene_manager.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_scene_manager-members.html">List of all members</a>  </div>
@@ -127,56 +127,120 @@ $(document).ready(function(){initNavTree('class_scene_manager.html','');});
 Collaboration diagram for SceneManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_scene_manager__coll__graph.png" border="0" usemap="#_scene_manager_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<map name="_scene_manager_coll__map" id="_scene_manager_coll__map">
+<area shape="rect" id="node2" href="classgui_1_1_dialogue_box.html" title="{gui::DialogueBox\n|&#45; mResult\l&#45; mTitle\l&#45; mMessage\l&#45; mButtonMap\l&#45; mIsOpen\l&#45; mBoxGraphic\l&#45; mResultProcessed\l|+ DialogueBox()\l+ ~DialogueBox()\l+ open()\l+ isOpen()\l+ resultProcessed()\l+ handleEvent()\l+ getResult()\l&#45; draw()\l&#45; updateButtons()\l&#45; updateResult()\l}" alt="" coords="5,204,145,501"/>
+<area shape="rect" id="node4" href="class_scene_proxy.html" title="{SceneProxy\n|&#45; mCreatSceneFunc\l&#45; mMutex\l|+ ~SceneProxy()\l+ handleEvent()\l+ update()\l+ draw()\l+ cleanup()\l+ loadNow()\l+ getScene()\l+ create()\l&#45; SceneProxy()\l}" alt="" coords="170,248,309,457"/>
+<area shape="rect" id="node5" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="183,5,295,141"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a77bd9095429893110454ccd716a9fff5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a77bd9095429893110454ccd716a9fff5">getCurrentScene</a> () const </td></tr>
-<tr class="separator:a77bd9095429893110454ccd716a9fff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac81727c53378eab091ff85d195b1c7ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ac81727c53378eab091ff85d195b1c7ec">getEditableScene</a> () const </td></tr>
-<tr class="separator:ac81727c53378eab091ff85d195b1c7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c5918c732cedd929db77c37da2bf3b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a2c5918c732cedd929db77c37da2bf3b5">createScene</a> (std::string const &amp;name, <a class="el" href="class_i___scene.html">I_Scene</a> *derivedSceneObject, bool goToScene=true)</td></tr>
-<tr class="separator:a2c5918c732cedd929db77c37da2bf3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08aad246f11d500dda797b1a7f86bb7b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a08aad246f11d500dda797b1a7f86bb7b">getCurrentScene</a> ()</td></tr>
+<tr class="separator:a08aad246f11d500dda797b1a7f86bb7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02cdcff266662fe4f4f5863ba9995dd5"><td class="memTemplParams" colspan="2">template&lt;class SceneType &gt; </td></tr>
+<tr class="memitem:a02cdcff266662fe4f4f5863ba9995dd5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a02cdcff266662fe4f4f5863ba9995dd5">createScene</a> (std::string const &amp;name, std::string const &amp;xmlPath, bool goToScene=true)</td></tr>
+<tr class="separator:a02cdcff266662fe4f4f5863ba9995dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95303770a6b44a29e137605c46b777e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a95303770a6b44a29e137605c46b777e7">updateCurrentScene</a> (sf::Time const &amp;elapsedTime)</td></tr>
 <tr class="separator:a95303770a6b44a29e137605c46b777e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d3facb4a9f1e172c30fc1981cde325c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a1d3facb4a9f1e172c30fc1981cde325c">drawCurrentScene</a> (sf::RenderWindow &amp;w)</td></tr>
 <tr class="separator:a1d3facb4a9f1e172c30fc1981cde325c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8540e64a3c1c0d369b853ff393b59822"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a8540e64a3c1c0d369b853ff393b59822">passEventToCurrentScene</a> (sf::Event &amp;theEvent)</td></tr>
 <tr class="separator:a8540e64a3c1c0d369b853ff393b59822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe3f30d22a5a781e719d2fc881f00ef3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#abe3f30d22a5a781e719d2fc881f00ef3">navigateToScene</a> (std::string const &amp;path)</td></tr>
-<tr class="separator:abe3f30d22a5a781e719d2fc881f00ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa55c0d7dbdc1c1655017446d3d5a88e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#aaa55c0d7dbdc1c1655017446d3d5a88e">navigateToScene</a> (std::string const &amp;path)</td></tr>
+<tr class="separator:aaa55c0d7dbdc1c1655017446d3d5a88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7826a96bdf319f93a710409192c769d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7826a96bdf319f93a710409192c769d5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a7826a96bdf319f93a710409192c769d5">stopTranslatingMouse</a> ()</td></tr>
+<tr class="memdesc:a7826a96bdf319f93a710409192c769d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops translating mouse until the scene is changed. Be default, the manager translates mouse posititions from screen coordinates to game coordinates. <br /></td></tr>
+<tr class="separator:a7826a96bdf319f93a710409192c769d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48c0b1b5e83b0f6140a021f24d2cbfdd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48c0b1b5e83b0f6140a021f24d2cbfdd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showDialogueBox</b> (<a class="el" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a> *dialogueBox)</td></tr>
+<tr class="separator:a48c0b1b5e83b0f6140a021f24d2cbfdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a08e82505e6575e00bc33097678030fa9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08e82505e6575e00bc33097678030fa9"></a>
-static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> ()</td></tr>
-<tr class="separator:a08e82505e6575e00bc33097678030fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa91bc17d89d58b13d876195a8e4b30c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa91bc17d89d58b13d876195a8e4b30c9"></a>
+static std::unique_ptr&lt; <a class="el" href="class_scene_manager.html">SceneManager</a> &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> ()</td></tr>
+<tr class="separator:aa91bc17d89d58b13d876195a8e4b30c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6e9efdd903d26c99a96d35ad1580968"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6e9efdd903d26c99a96d35ad1580968"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ad6e9efdd903d26c99a96d35ad1580968">destruct</a> ()</td></tr>
+<tr class="memdesc:ad6e9efdd903d26c99a96d35ad1580968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the instance. <br /></td></tr>
+<tr class="separator:ad6e9efdd903d26c99a96d35ad1580968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ae1768cf1a2da5736571da6516d512379"><td class="memItemLeft" align="right" valign="top">signal&lt; void(<a class="el" href="class_i___scene.html">I_Scene</a> *newScene)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ae1768cf1a2da5736571da6516d512379">onSceneChange</a></td></tr>
-<tr class="separator:ae1768cf1a2da5736571da6516d512379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac8c34810c4b116081fb7e2e0e379d0a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac8c34810c4b116081fb7e2e0e379d0a4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ac8c34810c4b116081fb7e2e0e379d0a4">handleSceneRequests</a> ()</td></tr>
+<tr class="memdesc:ac8c34810c4b116081fb7e2e0e379d0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits to be notified about a pending scene change, then does cleanup and assignment. <br /></td></tr>
+<tr class="separator:ac8c34810c4b116081fb7e2e0e379d0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7731c908db3bd31cec51b530897c685"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7731c908db3bd31cec51b530897c685"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#aa7731c908db3bd31cec51b530897c685">processAddRequest</a> (<a class="el" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> const &amp;request)</td></tr>
+<tr class="memdesc:aa7731c908db3bd31cec51b530897c685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a scene to the map. <br /></td></tr>
+<tr class="separator:aa7731c908db3bd31cec51b530897c685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a574e40eba9f9e5ad5da0ae6686a52a5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a574e40eba9f9e5ad5da0ae6686a52a5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a574e40eba9f9e5ad5da0ae6686a52a5b">processNavigateRequest</a> (<a class="el" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> const &amp;request)</td></tr>
+<tr class="memdesc:a574e40eba9f9e5ad5da0ae6686a52a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transitions to a scene. <br /></td></tr>
+<tr class="separator:a574e40eba9f9e5ad5da0ae6686a52a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a997b8e54b88c46a306b30467d6c0c7e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a997b8e54b88c46a306b30467d6c0c7e5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a997b8e54b88c46a306b30467d6c0c7e5">processDialogueRequest</a> (<a class="el" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> const &amp;request)</td></tr>
+<tr class="memdesc:a997b8e54b88c46a306b30467d6c0c7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show a dialog box on top of the current scene. <br /></td></tr>
+<tr class="separator:a997b8e54b88c46a306b30467d6c0c7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ada0204db410e7ebef136c3762e912436"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <a class="el" href="class_i___scene.html">I_Scene</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ada0204db410e7ebef136c3762e912436">mScenes</a></td></tr>
-<tr class="separator:ada0204db410e7ebef136c3762e912436"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace084d26b83a93dbacc7f66d3a942be2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace084d26b83a93dbacc7f66d3a942be2"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mCurrentScene</b></td></tr>
-<tr class="separator:ace084d26b83a93dbacc7f66d3a942be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad630f61522c7a6114b3bf5bf782df22b"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::unique_ptr&lt; <a class="el" href="class_scene_proxy.html">SceneProxy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ad630f61522c7a6114b3bf5bf782df22b">mScenes</a></td></tr>
+<tr class="separator:ad630f61522c7a6114b3bf5bf782df22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37e2b6f5a5a3131b3eac12aa31d2956a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37e2b6f5a5a3131b3eac12aa31d2956a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a37e2b6f5a5a3131b3eac12aa31d2956a">mTranslateMouseEvents</a></td></tr>
+<tr class="memdesc:a37e2b6f5a5a3131b3eac12aa31d2956a"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if we should translate mouse positions from screen to game. <br /></td></tr>
+<tr class="separator:a37e2b6f5a5a3131b3eac12aa31d2956a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc7b16f810e777c4ffc44e389972027f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc7b16f810e777c4ffc44e389972027f"></a>
+<a class="el" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mActiveDialogue</b></td></tr>
+<tr class="separator:afc7b16f810e777c4ffc44e389972027f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae82d42d7481e9a0e1dec5421563230d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae82d42d7481e9a0e1dec5421563230d8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ae82d42d7481e9a0e1dec5421563230d8">mCurrentSceneName</a></td></tr>
+<tr class="memdesc:ae82d42d7481e9a0e1dec5421563230d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current scenes map key. <br /></td></tr>
+<tr class="separator:ae82d42d7481e9a0e1dec5421563230d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7706a69a72e7b11b07b56ff6cfc43fd2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7706a69a72e7b11b07b56ff6cfc43fd2"></a>
+<a class="el" href="class_scene_proxy.html">SceneProxy</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mCurrentScene</b></td></tr>
+<tr class="separator:a7706a69a72e7b11b07b56ff6cfc43fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321ab456c68873f56423ec2692a6ae0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a321ab456c68873f56423ec2692a6ae0d"></a>
+std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a321ab456c68873f56423ec2692a6ae0d">mStopRequestThread</a></td></tr>
+<tr class="memdesc:a321ab456c68873f56423ec2692a6ae0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Must be set to true before we try and join switcher thread. <br /></td></tr>
+<tr class="separator:a321ab456c68873f56423ec2692a6ae0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab317162042a92bb9f0e22fa08b9d7426"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#ab317162042a92bb9f0e22fa08b9d7426">mRequestThread</a></td></tr>
+<tr class="separator:ab317162042a92bb9f0e22fa08b9d7426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4625025c1dc80f04e8983c155ff5aa41"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4625025c1dc80f04e8983c155ff5aa41"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a4625025c1dc80f04e8983c155ff5aa41">mSceneMutex</a></td></tr>
+<tr class="memdesc:a4625025c1dc80f04e8983c155ff5aa41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locked whenever we need to do something involving the current scene. <br /></td></tr>
+<tr class="separator:a4625025c1dc80f04e8983c155ff5aa41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f934da215bdf2701441253e6343329"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46f934da215bdf2701441253e6343329"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a46f934da215bdf2701441253e6343329">mRequestMutex</a></td></tr>
+<tr class="memdesc:a46f934da215bdf2701441253e6343329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locked whenever we need to access the request queue. <br /></td></tr>
+<tr class="separator:a46f934da215bdf2701441253e6343329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44c0ef6f1596c35317c6b9c9f368d83e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44c0ef6f1596c35317c6b9c9f368d83e"></a>
+std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a44c0ef6f1596c35317c6b9c9f368d83e">mRequestPending</a></td></tr>
+<tr class="memdesc:a44c0ef6f1596c35317c6b9c9f368d83e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notified whenever a request is pushed onto the queue. <br /></td></tr>
+<tr class="separator:a44c0ef6f1596c35317c6b9c9f368d83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0faa4d8629a6b05a4b5934cdde0211"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a0faa4d8629a6b05a4b5934cdde0211"></a>
+std::queue&lt; <a class="el" href="structdetail_1_1_scene_request.html">detail::SceneRequest</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scene_manager.html#a7a0faa4d8629a6b05a4b5934cdde0211">mRequests</a></td></tr>
+<tr class="memdesc:a7a0faa4d8629a6b05a4b5934cdde0211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue of pending requests. <br /></td></tr>
+<tr class="separator:a7a0faa4d8629a6b05a4b5934cdde0211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:ab601cece2433e647129431542a9f247b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab601cece2433e647129431542a9f247b"></a>
-static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mInstance</b></td></tr>
-<tr class="separator:ab601cece2433e647129431542a9f247b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d4c304eb6fca755a71ec5f96b72f38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9d4c304eb6fca755a71ec5f96b72f38"></a>
+static std::unique_ptr&lt; <a class="el" href="class_scene_manager.html">SceneManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mInstance</b></td></tr>
+<tr class="separator:ae9d4c304eb6fca755a71ec5f96b72f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Singleton class to handle scenes and the navigation between them. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a2c5918c732cedd929db77c37da2bf3b5"></a>
+<a class="anchor" id="a02cdcff266662fe4f4f5863ba9995dd5"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class SceneType &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void SceneManager::createScene </td>
@@ -187,8 +251,8 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_i___scene.html">I_Scene</a> *&#160;</td>
-          <td class="paramname"><em>derivedSceneObject</em>, </td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>xmlPath</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -231,7 +295,7 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
 
 </div>
 </div>
-<a class="anchor" id="a77bd9095429893110454ccd716a9fff5"></a>
+<a class="anchor" id="a08aad246f11d500dda797b1a7f86bb7b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -239,7 +303,7 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
           <td class="memname">std::string SceneManager::getCurrentScene </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -247,28 +311,12 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
 
 </div>
 </div>
-<a class="anchor" id="ac81727c53378eab091ff85d195b1c7ec"></a>
+<a class="anchor" id="aaa55c0d7dbdc1c1655017446d3d5a88e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_i___scene.html">I_Scene</a>* SceneManager::getEditableScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Gets a pointer to the current scene, allowing it to be edited. Use <a class="el" href="class_scene_manager.html#a77bd9095429893110454ccd716a9fff5">getCurrentScene()</a> in place of this method wherever possible. </p><dl class="section return"><dt>Returns</dt><dd>A pointer to the current scene. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="abe3f30d22a5a781e719d2fc881f00ef3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool SceneManager::navigateToScene </td>
+          <td class="memname">void SceneManager::navigateToScene </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
@@ -327,7 +375,7 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ada0204db410e7ebef136c3762e912436"></a>
+<a class="anchor" id="ab317162042a92bb9f0e22fa08b9d7426"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -335,7 +383,28 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt;std::string, <a class="el" href="class_i___scene.html">I_Scene</a>*&gt; SceneManager::mScenes</td>
+          <td class="memname">std::thread SceneManager::mRequestThread</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Thread for handling scene requests. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_scene_manager.html#ac8c34810c4b116081fb7e2e0e379d0a4" title="Waits to be notified about a pending scene change, then does cleanup and assignment. ">handleSceneRequests()</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad630f61522c7a6114b3bf5bf782df22b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::unique_ptr&lt;<a class="el" href="class_scene_proxy.html">SceneProxy</a>&gt; &gt; SceneManager::mScenes</td>
         </tr>
       </table>
   </td>
@@ -345,19 +414,6 @@ static <a class="el" href="class_scene_manager.html">SceneManager</a> *&#160;</t
 </table>
 </div><div class="memdoc">
 <p>A map of all scenes managed by the <a class="el" href="class_scene_manager.html" title="Singleton class to handle scenes and the navigation between them. ">SceneManager</a>. Each scene is identified by its name. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae1768cf1a2da5736571da6516d512379"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">signal&lt;void(<a class="el" href="class_i___scene.html">I_Scene</a>* newScene)&gt; SceneManager::onSceneChange</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Signal that is invoked whenever the scene changes. The scene pointer passed is the new current scene. </p>
 
 </div>
 </div>

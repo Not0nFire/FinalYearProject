@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -112,36 +112,34 @@ $(document).ready(function(){initNavTree('_collision_group_8hpp_source.html','')
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _COLLISION_GROUP_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Collidable.hpp&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//#include &quot;CollisionInfo.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacecollision.html">collision</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classcollision_1_1_collision_group.html">    9</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classcollision_1_1_collision_group.html">CollisionGroup</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        std::vector&lt;Collidable*&gt; mMembers;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        std::vector&lt;Collidable*&gt;::iterator mItr;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordtype">void</span> cullNullMembers();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="comment">//Checks first against second using SAT, setting minTranslation to be the seperating force and returning true if collision occurred.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="comment">//In the case that no collision occurrs, minTranslation is untouched.</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">bool</span> checkPair(<a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* first, <a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* second, sf::Vector2f &amp;minTranslation);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="classcollision_1_1_collision_group.html">CollisionGroup</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        ~<a class="code" href="classcollision_1_1_collision_group.html">CollisionGroup</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">void</span> check();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">void</span> add(<a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* entry);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">void</span> <span class="keyword">remove</span>(<a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* entry);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> checkAgainst(<a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* other);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="namespacecollision_html"><div class="ttname"><a href="namespacecollision.html">collision</a></div><div class="ttdef"><b>Definition:</b> Collidable.hpp:7</div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        std::vector&lt;std::weak_ptr&lt;Collidable&gt;&gt; mMembers;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="comment">//Checks first against second using SAT, setting minTranslation to be the seperating force and returning true if collision occurred.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="comment">//In the case that no collision occurrs, minTranslation is untouched.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordtype">bool</span> checkPair(<a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* first, <a class="code" href="classcollision_1_1_collidable.html">Collidable</a>* second, sf::Vector2f &amp;minTranslation) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">void</span> cullExpiredMembers();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="classcollision_1_1_collision_group.html">CollisionGroup</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        ~<a class="code" href="classcollision_1_1_collision_group.html">CollisionGroup</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> check(<span class="keywordtype">float</span> deltaTime);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">void</span> add(std::shared_ptr&lt;Collidable&gt; <span class="keyword">const</span> &amp;entry);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">bool</span> checkAgainst(std::shared_ptr&lt;Collidable&gt; &amp;other);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="namespacecollision_html"><div class="ttname"><a href="namespacecollision.html">collision</a></div><div class="ttdef"><b>Definition:</b> Collidable.hpp:8</div></div>
 <div class="ttc" id="classcollision_1_1_collision_group_html"><div class="ttname"><a href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a></div><div class="ttdef"><b>Definition:</b> CollisionGroup.hpp:9</div></div>
-<div class="ttc" id="classcollision_1_1_collidable_html"><div class="ttname"><a href="classcollision_1_1_collidable.html">collision::Collidable</a></div><div class="ttdef"><b>Definition:</b> Collidable.hpp:9</div></div>
+<div class="ttc" id="classcollision_1_1_collidable_html"><div class="ttname"><a href="classcollision_1_1_collidable.html">collision::Collidable</a></div><div class="ttdef"><b>Definition:</b> Collidable.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

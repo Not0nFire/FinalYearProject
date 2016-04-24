@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -108,58 +108,61 @@ $(document).ready(function(){initNavTree('_renderer_8hpp_source.html','');});
 <div class="title">Renderer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _RENDERER_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _RENDERER_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RENDERER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RENDERER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;include/Actor.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;boost/atomic.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;boost/thread.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Scene.hpp&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceboost.html">boost</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;SceneManager.hpp&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Cursor.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_renderer.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_renderer.html">Renderer</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    sf::RenderWindow mWindow;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">   19</a></span>&#160;    atomic&lt;bool&gt; <a class="code" href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">mLoopOngoing</a>;  </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    std::chrono::milliseconds frameDelay;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_i___scene.html">I_Scene</a>* mSceneToRender;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">   24</a></span>&#160;    thread <a class="code" href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">mThread</a>; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    boost::mutex mMutex;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> render();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_renderer.html">Renderer</a>(<a class="code" href="class_i___scene.html">I_Scene</a>* sceneToRender,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            sf::VideoMode mode, <span class="comment">//RenderWindow ctor arguments</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            std::string <span class="keyword">const</span> &amp;title,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            sf::Uint32 style = sf::Style::Titlebar,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            sf::ContextSettings&amp; settings = sf::ContextSettings()</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    );</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ~<a class="code" href="class_renderer.html">Renderer</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#if defined _DEBUG //Default to fullscreen windowed while debugging</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_renderer.html#a6e245fdbc81bc95b9378446f88ddf56a">Renderer</a>(std::string <span class="keyword">const</span> &amp;title,  <span class="comment">//RenderWindow ctor arguments</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        sf::VideoMode mode = sf::VideoMode::getDesktopMode(),</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        sf::Uint32 style = sf::Style::None,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        sf::ContextSettings settings = sf::ContextSettings()</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_renderer.html#a6e245fdbc81bc95b9378446f88ddf56a">Renderer</a>(std::string <span class="keyword">const</span> &amp;title,  <span class="comment">//RenderWindow ctor arguments</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        sf::VideoMode mode = sf::VideoMode::getDesktopMode(),</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        sf::Uint32 style = sf::Style::Fullscreen,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        sf::ContextSettings settings = sf::ContextSettings()</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    ~<a class="code" href="class_renderer.html">Renderer</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">startRenderLoop</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> framesPerSecond);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> startRenderLoop(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> framesPerSecond);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1">stopRenderLoop</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> stopRenderLoop();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    boost::thread&amp; getThread();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> sf::RenderWindow&amp; getWindow() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> setScene(<a class="code" href="class_i___scene.html">I_Scene</a>* newScene);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">bool</span> pollEvent(sf::Event &amp;event);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_i___scene_html"><div class="ttname"><a href="class_i___scene.html">I_Scene</a></div><div class="ttdoc">Interface for scene objects, such as levels and menus. </div><div class="ttdef"><b>Definition:</b> Scene.hpp:11</div></div>
-<div class="ttc" id="namespaceboost_html"><div class="ttname"><a href="namespaceboost.html">boost</a></div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> pollEvent(sf::Event &amp;event);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    sf::RenderWindow mWindow;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_renderer.html#a9d08c19eb732b2c5e7d2f1c96d069313">   54</a></span>&#160;    std::atomic&lt;bool&gt; <a class="code" href="class_renderer.html#a9d08c19eb732b2c5e7d2f1c96d069313">mLoopOngoing</a>; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::chrono::milliseconds mFrameDelay;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_renderer.html#a54c2f5da35913c0978b699c51a84c2b6">   57</a></span>&#160;    std::thread <a class="code" href="class_renderer.html#a54c2f5da35913c0978b699c51a84c2b6">mThread</a>;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::mutex mMutex;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> render();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_renderer_html_accec1290b82472463245b2b0951f9b7e"><div class="ttname"><a href="class_renderer.html#accec1290b82472463245b2b0951f9b7e">Renderer::startRenderLoop</a></div><div class="ttdeci">void startRenderLoop(const unsigned int framesPerSecond)</div><div class="ttdoc">Begins rendering on a seperate thread. Starts the render loop, creating a thread that runs the render...</div></div>
 <div class="ttc" id="class_renderer_html"><div class="ttname"><a href="class_renderer.html">Renderer</a></div><div class="ttdoc">Manages rendering in it&#39;s own thread. </div><div class="ttdef"><b>Definition:</b> Renderer.hpp:15</div></div>
-<div class="ttc" id="class_renderer_html_ae73908a54fe098945cef14bff997cd48"><div class="ttname"><a href="class_renderer.html#ae73908a54fe098945cef14bff997cd48">Renderer::mLoopOngoing</a></div><div class="ttdeci">atomic&lt; bool &gt; mLoopOngoing</div><div class="ttdef"><b>Definition:</b> Renderer.hpp:19</div></div>
-<div class="ttc" id="class_renderer_html_a02e83f34768e82d91d79805f5de108cb"><div class="ttname"><a href="class_renderer.html#a02e83f34768e82d91d79805f5de108cb">Renderer::mThread</a></div><div class="ttdeci">thread mThread</div><div class="ttdef"><b>Definition:</b> Renderer.hpp:24</div></div>
+<div class="ttc" id="class_renderer_html_a6e245fdbc81bc95b9378446f88ddf56a"><div class="ttname"><a href="class_renderer.html#a6e245fdbc81bc95b9378446f88ddf56a">Renderer::Renderer</a></div><div class="ttdeci">Renderer(std::string const &amp;title, sf::VideoMode mode=sf::VideoMode::getDesktopMode(), sf::Uint32 style=sf::Style::Fullscreen, sf::ContextSettings settings=sf::ContextSettings())</div><div class="ttdoc">Creates a render window. </div></div>
+<div class="ttc" id="class_renderer_html_a2b74ad924c28903c23b4a56a5dd1f1c1"><div class="ttname"><a href="class_renderer.html#a2b74ad924c28903c23b4a56a5dd1f1c1">Renderer::stopRenderLoop</a></div><div class="ttdeci">void stopRenderLoop()</div><div class="ttdoc">Stops render loop. Sets render loop condition to false and waits for thread to join. </div></div>
+<div class="ttc" id="class_renderer_html_a54c2f5da35913c0978b699c51a84c2b6"><div class="ttname"><a href="class_renderer.html#a54c2f5da35913c0978b699c51a84c2b6">Renderer::mThread</a></div><div class="ttdeci">std::thread mThread</div><div class="ttdoc">Thread that rendering takes place on. </div><div class="ttdef"><b>Definition:</b> Renderer.hpp:57</div></div>
+<div class="ttc" id="class_renderer_html_a9d08c19eb732b2c5e7d2f1c96d069313"><div class="ttname"><a href="class_renderer.html#a9d08c19eb732b2c5e7d2f1c96d069313">Renderer::mLoopOngoing</a></div><div class="ttdeci">std::atomic&lt; bool &gt; mLoopOngoing</div><div class="ttdoc">True if want to keep rendering, false if we want rendering to stop. </div><div class="ttdef"><b>Definition:</b> Renderer.hpp:54</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

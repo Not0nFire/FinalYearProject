@@ -1,12 +1,14 @@
 var classtower_1_1_unit_tower =
 [
-    [ "UnitTower", "classtower_1_1_unit_tower.html#a51d3552cdc5b30dde66959c1337a8695", null ],
+    [ "UnitTower", "classtower_1_1_unit_tower.html#aa62798ba59f894fda6ea785734838489", null ],
     [ "~UnitTower", "classtower_1_1_unit_tower.html#ab6662ec711b799a57c8286552ede3656", null ],
-    [ "spawnUnit", "classtower_1_1_unit_tower.html#afe8d1e187abcc19fa33a0919cd4e04fe", null ],
-    [ "update", "classtower_1_1_unit_tower.html#afcbde962b95e3ca8f78b647cbb189a0e", null ],
-    [ "M_TICKS_PER_SPAWN", "classtower_1_1_unit_tower.html#a5eac8f845ec1c8a754230b00470620eb", null ],
-    [ "mNearestPathNode", "classtower_1_1_unit_tower.html#a24e0ede3d291407ad70498ab94083676", null ],
-    [ "mSpawnCallback", "classtower_1_1_unit_tower.html#a1f7556b91ca447dfb19a8e2a51321ba0", null ],
-    [ "mTicks", "classtower_1_1_unit_tower.html#a5becb5e1b82bac8d552830e093efc11a", null ],
+    [ "setPath", "classtower_1_1_unit_tower.html#af5e6ba11393c24cc0ecf51a3dd5f2090", null ],
+    [ "setSpawnCallback", "classtower_1_1_unit_tower.html#ac32e87cd7b643e0be9988ce551db2293", null ],
+    [ "shoot", "classtower_1_1_unit_tower.html#ae29d302d88588a892e4dfd924a792d51", null ],
+    [ "spawnUnit", "classtower_1_1_unit_tower.html#aefe4e5eeb6eb1e8d945845f30a3e454c", null ],
+    [ "update", "classtower_1_1_unit_tower.html#a6e9056d3efbe194d1c4e903ef071118b", null ],
+    [ "mNearestPathNode", "classtower_1_1_unit_tower.html#a144675faa2637cc0742f801266a79b3c", null ],
+    [ "mSpawnCallback", "classtower_1_1_unit_tower.html#a1b3aac1f32f8c59a7a32a3ca62fac930", null ],
+    [ "mSpawnedUnits", "classtower_1_1_unit_tower.html#a9bd90d243738567d6d6d836e9b376ca4", null ],
     [ "mUnitDefPath", "classtower_1_1_unit_tower.html#ab914b919cfcc0d8f8cc0b99d125d6352", null ]
 ];

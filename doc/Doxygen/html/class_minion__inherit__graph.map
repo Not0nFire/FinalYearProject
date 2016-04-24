@@ -1,5 +1,5 @@
 <map id="Minion" name="Minion">
-<area shape="rect" id="node2" href="$class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="79,155,134,181"/>
-<area shape="rect" id="node3" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,80,133,107"/>
-<area shape="rect" id="node5" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
+<area shape="rect" id="node2" href="$class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="36,608,193,1140"/>
+<area shape="rect" id="node3" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="34,321,195,560"/>
+<area shape="rect" id="node5" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="104,5,272,273"/>
 </map>

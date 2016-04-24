@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -115,32 +115,38 @@ $(document).ready(function(){initNavTree('_hero_8hpp_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;include/ResourceManager.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_hero.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_hero.html">Hero</a> : <span class="keyword">public</span> <a class="code" href="class_pawn.html">Pawn</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_hero.html#a2c4268e6e02a48138f84500011858dbc">doAttack</a>(<span class="keywordtype">float</span> secondsElapsed) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_hero.html#a0e147e55fe9f22e2dce13120ccd1b1fb">   17</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_hero.html#a0e147e55fe9f22e2dce13120ccd1b1fb">mTicks</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_hero.html#aec02c414c448ac4fd4fae2edc5204be6">   19</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_hero.html#aec02c414c448ac4fd4fae2edc5204be6">M_TICKS_PER_REGEN</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_hero.html#a23e8d64d7092d6adf5ef0ee9f6bb0f25">   21</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="class_hero.html#a23e8d64d7092d6adf5ef0ee9f6bb0f25">mHealthRegen</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">//Ability mAbility;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_hero.html">Hero</a>(tinyxml2::XMLElement* xml);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ~<a class="code" href="class_hero.html">Hero</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hero.html#a84db22ca98ee16809c93f543f871891f">update</a>(sf::Time <span class="keyword">const</span>&amp; elapsedTime) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_hero.html#aa33f73dece9883667b178a784c905cd0">onCollide</a>(Collidable* other, sf::Vector2f <span class="keyword">const</span> &amp;mtv) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:17</div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="class_hero.html">Hero</a>(tinyxml2::XMLElement* xml);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ~<a class="code" href="class_hero.html">Hero</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hero.html#a84db22ca98ee16809c93f543f871891f">update</a>(sf::Time <span class="keyword">const</span>&amp; elapsedTime) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_hero.html#a3c3644a1449a56feb0aec6129710c3a7">setDestination</a>(sf::Vector2f <span class="keyword">const</span>&amp; destination) <span class="keyword">final</span> <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_hero.html#a2c4268e6e02a48138f84500011858dbc">doAttack</a>(<span class="keywordtype">float</span> secondsElapsed) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">float</span> mSecondsSinceRegen;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_hero.html#a384ec0d5b81de0376bf5baa8952d6063">   27</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="class_hero.html#a384ec0d5b81de0376bf5baa8952d6063">M_REGEN_INTERVAL</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_hero.html#aa53e4ec7fb1f4c70f7ed23a067b816de">   30</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_hero.html#aa53e4ec7fb1f4c70f7ed23a067b816de">M_HEALTH_REGEN</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::vector&lt;sf::Sound&gt; mMoveSounds;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> shouldPlayMoveSound();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> playMoveSound();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">//Ability mAbility;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:15</div></div>
+<div class="ttc" id="class_hero_html_a3c3644a1449a56feb0aec6129710c3a7"><div class="ttname"><a href="class_hero.html#a3c3644a1449a56feb0aec6129710c3a7">Hero::setDestination</a></div><div class="ttdeci">void setDestination(sf::Vector2f const &amp;destination) final override</div><div class="ttdoc">Sets the Pawn&#39;s destination. </div></div>
 <div class="ttc" id="class_hero_html"><div class="ttname"><a href="class_hero.html">Hero</a></div><div class="ttdoc">Pawn that can move and attack simultaneously and regenerates health. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:10</div></div>
-<div class="ttc" id="class_hero_html_a23e8d64d7092d6adf5ef0ee9f6bb0f25"><div class="ttname"><a href="class_hero.html#a23e8d64d7092d6adf5ef0ee9f6bb0f25">Hero::mHealthRegen</a></div><div class="ttdeci">unsigned mHealthRegen</div><div class="ttdoc">Amount of health to regenerate. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:21</div></div>
-<div class="ttc" id="class_hero_html_a0e147e55fe9f22e2dce13120ccd1b1fb"><div class="ttname"><a href="class_hero.html#a0e147e55fe9f22e2dce13120ccd1b1fb">Hero::mTicks</a></div><div class="ttdeci">unsigned int mTicks</div><div class="ttdoc">Counter of update ticks. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:17</div></div>
-<div class="ttc" id="class_hero_html_aa33f73dece9883667b178a784c905cd0"><div class="ttname"><a href="class_hero.html#aa33f73dece9883667b178a784c905cd0">Hero::onCollide</a></div><div class="ttdeci">virtual void onCollide(Collidable *other, sf::Vector2f const &amp;mtv) override</div><div class="ttdoc">Called whenever the Pawn collides with something. Virtual method that is invoked whenver this Pawn co...</div></div>
-<div class="ttc" id="class_hero_html_a84db22ca98ee16809c93f543f871891f"><div class="ttname"><a href="class_hero.html#a84db22ca98ee16809c93f543f871891f">Hero::update</a></div><div class="ttdeci">void update(sf::Time const &amp;elapsedTime) override</div><div class="ttdoc">Heals mHealthRegen amount every M_TICKS_PER_REGEN ticks. </div></div>
-<div class="ttc" id="class_hero_html_aec02c414c448ac4fd4fae2edc5204be6"><div class="ttname"><a href="class_hero.html#aec02c414c448ac4fd4fae2edc5204be6">Hero::M_TICKS_PER_REGEN</a></div><div class="ttdeci">const unsigned int M_TICKS_PER_REGEN</div><div class="ttdoc">Number of ticks before mHealthRegen is applied. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:19</div></div>
+<div class="ttc" id="class_hero_html_a84db22ca98ee16809c93f543f871891f"><div class="ttname"><a href="class_hero.html#a84db22ca98ee16809c93f543f871891f">Hero::update</a></div><div class="ttdeci">void update(sf::Time const &amp;elapsedTime) override</div><div class="ttdoc">Updates the Pawn. State becomes MARCHING is goal is further than attack range. State becomes ATTACKIN...</div></div>
+<div class="ttc" id="class_hero_html_aa53e4ec7fb1f4c70f7ed23a067b816de"><div class="ttname"><a href="class_hero.html#aa53e4ec7fb1f4c70f7ed23a067b816de">Hero::M_HEALTH_REGEN</a></div><div class="ttdeci">const unsigned int M_HEALTH_REGEN</div><div class="ttdoc">Amount of health to regenerate per second. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:30</div></div>
 <div class="ttc" id="class_hero_html_a2c4268e6e02a48138f84500011858dbc"><div class="ttname"><a href="class_hero.html#a2c4268e6e02a48138f84500011858dbc">Hero::doAttack</a></div><div class="ttdeci">virtual void doAttack(float secondsElapsed) override</div><div class="ttdoc">Override of Pawn::doAttack that allows Hero to attack and move at the same time. </div></div>
+<div class="ttc" id="class_hero_html_a384ec0d5b81de0376bf5baa8952d6063"><div class="ttname"><a href="class_hero.html#a384ec0d5b81de0376bf5baa8952d6063">Hero::M_REGEN_INTERVAL</a></div><div class="ttdeci">const float M_REGEN_INTERVAL</div><div class="ttdoc">Seconds to wait between applying health regen. </div><div class="ttdef"><b>Definition:</b> Hero.hpp:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

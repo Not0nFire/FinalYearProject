@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -122,6 +122,13 @@ $(document).ready(function(){initNavTree('class_resource_manager.html','');});
  <a href="class_resource_manager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_resource_manager_8hpp_source.html">ResourceManager.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for ResourceManager&lt; T &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_resource_manager__coll__graph.png" border="0" usemap="#_resource_manager_3_01_t_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="_resource_manager_3_01_t_01_4_coll__map" id="_resource_manager_3_01_t_01_4_coll__map">
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -135,24 +142,24 @@ template&lt;&gt; </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3dcdce6201a938ee51be3d23879e46e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3dcdce6201a938ee51be3d23879e46e1"></a>
-static <a class="el" href="class_resource_manager.html">ResourceManager</a>&lt; T &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_resource_manager.html#a3dcdce6201a938ee51be3d23879e46e1">instance</a> ()</td></tr>
-<tr class="memdesc:a3dcdce6201a938ee51be3d23879e46e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instanciates (or returns the instance of) the <a class="el" href="class_resource_manager.html" title="Simple SFML resource manager. ">ResourceManager</a>. Instanciates (or gets the existing instance of) the ResourceManager&lt;T&gt; where T = an SFML resource type. Each instance of <a class="el" href="class_resource_manager.html" title="Simple SFML resource manager. ">ResourceManager</a> manages a different type of resource (e.g. ResourceManager&lt;Texture&gt;, ResourceManager&lt;Font&gt;). <br /></td></tr>
-<tr class="separator:a3dcdce6201a938ee51be3d23879e46e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaac576028cad7be2a532c36c6ac1460"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adaac576028cad7be2a532c36c6ac1460"></a>
+static std::unique_ptr&lt; <a class="el" href="class_resource_manager.html">ResourceManager</a>&lt; T &gt; &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_resource_manager.html#adaac576028cad7be2a532c36c6ac1460">instance</a> ()</td></tr>
+<tr class="memdesc:adaac576028cad7be2a532c36c6ac1460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instanciates (or returns the instance of) the <a class="el" href="class_resource_manager.html" title="Simple SFML resource manager. ">ResourceManager</a>. Instanciates (or gets the existing instance of) the ResourceManager&lt;T&gt; where T = an SFML resource type. Each instance of <a class="el" href="class_resource_manager.html" title="Simple SFML resource manager. ">ResourceManager</a> manages a different type of resource (e.g. ResourceManager&lt;Texture&gt;, ResourceManager&lt;Font&gt;). <br /></td></tr>
+<tr class="separator:adaac576028cad7be2a532c36c6ac1460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aa4a6e3f1a28947576e75067c342f33d8"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::unique_ptr&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_resource_manager.html#aa4a6e3f1a28947576e75067c342f33d8">mResources</a></td></tr>
 <tr class="separator:aa4a6e3f1a28947576e75067c342f33d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a62e0789c0914271d1b5c66540310db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a62e0789c0914271d1b5c66540310db"></a>
-boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mResourceMutex</b></td></tr>
-<tr class="separator:a2a62e0789c0914271d1b5c66540310db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc14acd10bca90e670f253946748575"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6dc14acd10bca90e670f253946748575"></a>
+std::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mResourceMutex</b></td></tr>
+<tr class="separator:a6dc14acd10bca90e670f253946748575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:aa5f4086c3bbf156b8e803c2304c890d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5f4086c3bbf156b8e803c2304c890d8"></a>
-static <a class="el" href="class_resource_manager.html">ResourceManager</a>&lt; T &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>mInstance</b> = nullptr</td></tr>
-<tr class="separator:aa5f4086c3bbf156b8e803c2304c890d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99bea1c081e919421052545a869880d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac99bea1c081e919421052545a869880d"></a>
+static std::unique_ptr&lt; <a class="el" href="class_resource_manager.html">ResourceManager</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mInstance</b> = nullptr</td></tr>
+<tr class="separator:ac99bea1c081e919421052545a869880d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -192,7 +199,7 @@ template&lt;typename T &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

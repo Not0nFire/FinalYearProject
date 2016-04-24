@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('class_level.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_level-members.html">List of all members</a>  </div>
@@ -126,94 +127,123 @@ Inheritance diagram for Level:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_level__inherit__graph.png" border="0" usemap="#_level_inherit__map" alt="Inheritance graph"/></div>
 <map name="_level_inherit__map" id="_level_inherit__map">
-<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,5,75,32"/>
+<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="45,5,157,141"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <div class="dynheader">
 Collaboration diagram for Level:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_level__coll__graph.png" border="0" usemap="#_level_coll__map" alt="Collaboration graph"/></div>
 <map name="_level_coll__map" id="_level_coll__map">
-<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,275,75,301"/>
-<area shape="rect" id="node3" href="classcollision_1_1_collision_group.html" title="collision::CollisionGroup" alt="" coords="99,275,261,301"/>
-<area shape="rect" id="node4" href="class_path.html" title="A one&#45;way path of nodes. Uses a recursive structure. " alt="" coords="285,275,334,301"/>
-<area shape="rect" id="node5" href="class_node.html" title="Node" alt="" coords="259,185,311,212"/>
-<area shape="rect" id="node14" href="classtower_1_1_unit_tower.html" title="Tower that produces Minions and sends them to the nearest path node. Uses an xml Minion definition to..." alt="" coords="358,275,477,301"/>
-<area shape="rect" id="node6" href="class_camera.html" title="Follow camera that can target an Actor. " alt="" coords="699,185,765,212"/>
-<area shape="rect" id="node8" href="class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="467,81,520,108"/>
-<area shape="rect" id="node12" href="class_pawn.html" title="Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio..." alt="" coords="498,185,553,212"/>
-<area shape="rect" id="node10" href="classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="491,5,624,32"/>
-<area shape="rect" id="node11" href="class_hero.html" title="Pawn that can move and attack simultaneously and regenerates health. " alt="" coords="501,275,550,301"/>
-<area shape="rect" id="node13" href="struct_damage_1_1_reduction.html" title="Damage Reduction, such as Armour or Magic Resistance. Used to reduce damage by an appropriate amount..." alt="" coords="552,81,688,108"/>
+<area shape="rect" id="node2" href="class_i___scene.html" title="Interface for scene objects, such as levels and menus. " alt="" coords="5,351,117,487"/>
+<area shape="rect" id="node4" href="class_wave_controller.html" title="Spawns units in waves. " alt="" coords="314,329,475,509"/>
+<area shape="rect" id="node5" href="class_unit_factory.html" title="Factory for production of Hero and Minions from xml definition files. " alt="" coords="316,5,473,156"/>
+<area shape="rect" id="node6" href="class_hud.html" title="{Hud\n|&#45; mItems\l|+ Hud()\l+ ~Hud()\l+ addHealthBar()\l+ addLifeTracker()\l+ addImage()\l+ addNumberTracker()\l+ update()\l# draw()\l}" alt="" coords="499,329,650,509"/>
+<area shape="rect" id="node9" href="class_blood_system.html" title="{BloodSystem\n|&#45; mSpurtSystem\l&#45; mPersistDraw\l&#45; mPersistantParticle\l&#45; mRandomDirection\l|+ BloodSystem()\l+ ~BloodSystem()\l+ addSpurt()\l+ addSpurt()\l+ update()\l&#45; draw()\l&#45; persistParticle()\l}" alt="" coords="675,314,819,523"/>
+<area shape="rect" id="node16" href="classgui_1_1_dialogue_box.html" title="{gui::DialogueBox\n|&#45; mResult\l&#45; mTitle\l&#45; mMessage\l&#45; mButtonMap\l&#45; mIsOpen\l&#45; mBoxGraphic\l&#45; mResultProcessed\l|+ DialogueBox()\l+ ~DialogueBox()\l+ open()\l+ isOpen()\l+ resultProcessed()\l+ handleEvent()\l+ getResult()\l&#45; draw()\l&#45; updateButtons()\l&#45; updateResult()\l}" alt="" coords="843,270,983,567"/>
+<area shape="rect" id="node10" href="class_camera.html" title="Follow camera that can target an Actor. " alt="" coords="1207,219,1431,619"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a25ac82a4759777169da1620dc1ecc2c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a25ac82a4759777169da1620dc1ecc2c1">Level</a> (tinyxml2::XMLElement *root, sf::RenderWindow const *_relWindow, std::shared_ptr&lt; sfg::SFGUI &gt; sfgui)</td></tr>
-<tr class="separator:a25ac82a4759777169da1620dc1ecc2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5e0fc9d0ccf1929bd30dd86e6177253"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5e0fc9d0ccf1929bd30dd86e6177253"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::handleEvent</b> (sf::Event &amp;Event) override</td></tr>
-<tr class="separator:ad5e0fc9d0ccf1929bd30dd86e6177253"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0effca981113957b8c3ae05d1a333ce8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0effca981113957b8c3ae05d1a333ce8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::update</b> (sf::Time const &amp;elapsedTime) override</td></tr>
-<tr class="separator:a0effca981113957b8c3ae05d1a333ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa509bef4114cc07f7e119ea36a75a2d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa509bef4114cc07f7e119ea36a75a2d5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::draw</b> (sf::RenderWindow &amp;w) override</td></tr>
-<tr class="separator:aa509bef4114cc07f7e119ea36a75a2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67088a1af11f1b8a51fedec1c99cc921"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67088a1af11f1b8a51fedec1c99cc921"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>I_Scene::cleanup</b> () override</td></tr>
-<tr class="separator:a67088a1af11f1b8a51fedec1c99cc921"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adafd86fcf2013cb9f396e6341edbf148"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adafd86fcf2013cb9f396e6341edbf148"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isWon</b> () const </td></tr>
-<tr class="separator:adafd86fcf2013cb9f396e6341edbf148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a401af8b9e3de7e13d8fd4b596a57a175"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a401af8b9e3de7e13d8fd4b596a57a175"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLost</b> () const </td></tr>
-<tr class="separator:a401af8b9e3de7e13d8fd4b596a57a175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718e88ac9d29083bcc2f8113207fbbe9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a718e88ac9d29083bcc2f8113207fbbe9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getID</b> () const </td></tr>
-<tr class="separator:a718e88ac9d29083bcc2f8113207fbbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3abc5c8208c9a9fc05c6de5100fa41c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3abc5c8208c9a9fc05c6de5100fa41c2"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getNextScene</b> () const </td></tr>
-<tr class="separator:a3abc5c8208c9a9fc05c6de5100fa41c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_i___scene"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i___scene')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i___scene.html">I_Scene</a></td></tr>
-<tr class="memitem:a5e7cb2bc39ea754e521d65d0881d4dd4 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">handleEvent</a> (sf::Event &amp;Event)=0</td></tr>
-<tr class="separator:a5e7cb2bc39ea754e521d65d0881d4dd4 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada171bbf373154e624f87aa8b7b52f84 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">update</a> (sf::Time const &amp;elapsedTime)=0</td></tr>
-<tr class="separator:ada171bbf373154e624f87aa8b7b52f84 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af21a22b1c85f99443cdf64b12ad57c36 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">draw</a> (sf::RenderWindow &amp;w)=0</td></tr>
-<tr class="separator:af21a22b1c85f99443cdf64b12ad57c36 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab95d445937aeaf0e3fc2ff618a6e7130 inherit pub_methods_class_i___scene"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab95d445937aeaf0e3fc2ff618a6e7130"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> ()=0</td></tr>
-<tr class="separator:ab95d445937aeaf0e3fc2ff618a6e7130 inherit pub_methods_class_i___scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38dbda8eff892e3e2d409e7cb905fb04"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38dbda8eff892e3e2d409e7cb905fb04"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Level</b> (XMLElement *root)</td></tr>
+<tr class="separator:a38dbda8eff892e3e2d409e7cb905fb04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea368b30aa6a16207973e7fca9d66ac5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aea368b30aa6a16207973e7fca9d66ac5">handleEvent</a> (sf::Event &amp;Event) override</td></tr>
+<tr class="separator:aea368b30aa6a16207973e7fca9d66ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ec89e4f913e2b0c4aeaea952e6fceb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a01ec89e4f913e2b0c4aeaea952e6fceb">update</a> (sf::Time const &amp;elapsedTime) override</td></tr>
+<tr class="separator:a01ec89e4f913e2b0c4aeaea952e6fceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b97d264637f038114930b40a18d1d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ae7b97d264637f038114930b40a18d1d9">draw</a> (sf::RenderWindow &amp;w) override</td></tr>
+<tr class="separator:ae7b97d264637f038114930b40a18d1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a30c250d4edff01fa9f9da6a0fa1f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14a30c250d4edff01fa9f9da6a0fa1f5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> () override</td></tr>
+<tr class="separator:a14a30c250d4edff01fa9f9da6a0fa1f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aad27ad55f07b3dc5e650b79e03ab73c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad27ad55f07b3dc5e650b79e03ab73c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aad27ad55f07b3dc5e650b79e03ab73c5">drawToUnderlay</a> (sf::Drawable const &amp;drawable)</td></tr>
+<tr class="memdesc:aad27ad55f07b3dc5e650b79e03ab73c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws an object to the underlay texture. <br /></td></tr>
+<tr class="separator:aad27ad55f07b3dc5e650b79e03ab73c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd61c6f1c66767ee7863a300490b7f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affd61c6f1c66767ee7863a300490b7f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>onPawnDeath</b> (<a class="el" href="class_pawn.html">Pawn</a> *pawn)</td></tr>
+<tr class="separator:affd61c6f1c66767ee7863a300490b7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a595e3f0c510131cae0bc6b1b6937a9ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a595e3f0c510131cae0bc6b1b6937a9ed">autofireProjectile</a> (shared_ptr&lt; <a class="el" href="class_projectile.html">Projectile</a> &gt; const &amp;projectile) const </td></tr>
+<tr class="memdesc:a595e3f0c510131cae0bc6b1b6937a9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to handle unfired projectile that are given to the projectile manager. Fires the projectile at the nearest enemy pawn.  <a href="#a595e3f0c510131cae0bc6b1b6937a9ed">More...</a><br /></td></tr>
+<tr class="separator:a595e3f0c510131cae0bc6b1b6937a9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2675eca53a1c25d27564b27df1b17d2e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2675eca53a1c25d27564b27df1b17d2e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a2675eca53a1c25d27564b27df1b17d2e">setupAbilities</a> ()</td></tr>
+<tr class="memdesc:a2675eca53a1c25d27564b27df1b17d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes abilities and their buttons. <br /></td></tr>
+<tr class="separator:a2675eca53a1c25d27564b27df1b17d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a231434cda94def3aa2d1e66c0fb3d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a231434cda94def3aa2d1e66c0fb3d6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setupTowerButtons</b> ()</td></tr>
+<tr class="separator:a1a231434cda94def3aa2d1e66c0fb3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b96f9a6a6e00e4d36802d6661b674ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b96f9a6a6e00e4d36802d6661b674ca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>spawnMinion</b> (shared_ptr&lt; <a class="el" href="class_minion.html">Minion</a> &gt; const &amp;unit, bool setPath=true, bool addFlock=true, bool addCollision=true)</td></tr>
+<tr class="separator:a0b96f9a6a6e00e4d36802d6661b674ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c2037a07c2f8a2707e01ef6b98ed057"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c2037a07c2f8a2707e01ef6b98ed057"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>processPauseMenuResult</b> ()</td></tr>
+<tr class="separator:a5c2037a07c2f8a2707e01ef6b98ed057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e416703d26574c1d79753c914ccf131"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e416703d26574c1d79753c914ccf131"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>processFailDialogueResult</b> ()</td></tr>
+<tr class="separator:a7e416703d26574c1d79753c914ccf131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47e025fbdaec4be197e5ef042c704ff4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47e025fbdaec4be197e5ef042c704ff4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>processCompletionDialogueResult</b> ()</td></tr>
+<tr class="separator:a47e025fbdaec4be197e5ef042c704ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343c717e3c0d0668afe7d5c99763756f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a343c717e3c0d0668afe7d5c99763756f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>updatePawns</b> (sf::Time const &amp;elapsedTime)</td></tr>
+<tr class="separator:a343c717e3c0d0668afe7d5c99763756f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e71c1d6dd9c81d8c48ad7122b4a1caf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e71c1d6dd9c81d8c48ad7122b4a1caf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a4e71c1d6dd9c81d8c48ad7122b4a1caf">updateTowers</a> (sf::Time const &amp;elapsedTime)</td></tr>
+<tr class="memdesc:a4e71c1d6dd9c81d8c48ad7122b4a1caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls update and shoot on all towers. <br /></td></tr>
+<tr class="separator:a4e71c1d6dd9c81d8c48ad7122b4a1caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f5ac3594f7d073e59bb0b117b6f90fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f5ac3594f7d073e59bb0b117b6f90fa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a8f5ac3594f7d073e59bb0b117b6f90fa">ensureMusicPlaying</a> ()</td></tr>
+<tr class="memdesc:a8f5ac3594f7d073e59bb0b117b6f90fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the background music if it is not playing. <br /></td></tr>
+<tr class="separator:a8f5ac3594f7d073e59bb0b117b6f90fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20d3f249fa62b290455a195f689237eb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20d3f249fa62b290455a195f689237eb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a20d3f249fa62b290455a195f689237eb">cleanPawnFlock</a> () const </td></tr>
+<tr class="memdesc:a20d3f249fa62b290455a195f689237eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes expired weak_ptrs from the list. <br /></td></tr>
+<tr class="separator:a20d3f249fa62b290455a195f689237eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a8da64c1bfe5a6ab56e9445184845bc44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8da64c1bfe5a6ab56e9445184845bc44"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a8da64c1bfe5a6ab56e9445184845bc44">compareDepth</a> (<a class="el" href="class_actor.html">Actor</a> *A, <a class="el" href="class_actor.html">Actor</a> *B)</td></tr>
-<tr class="memdesc:a8da64c1bfe5a6ab56e9445184845bc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the y position of two actors for the purpose of sorting the draw order. <br /></td></tr>
-<tr class="separator:a8da64c1bfe5a6ab56e9445184845bc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adef8c2a6f78e923327b48fedc1bf7700"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adef8c2a6f78e923327b48fedc1bf7700"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#adef8c2a6f78e923327b48fedc1bf7700">compareDepth</a> (shared_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt; const &amp;A, shared_ptr&lt; <a class="el" href="class_actor.html">Actor</a> &gt; const &amp;B)</td></tr>
+<tr class="memdesc:adef8c2a6f78e923327b48fedc1bf7700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the y position of two actors for the purpose of sorting the draw order. <br /></td></tr>
+<tr class="separator:adef8c2a6f78e923327b48fedc1bf7700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a31bf9d2defce76a0b98022308dd2cbea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31bf9d2defce76a0b98022308dd2cbea"></a>
-<a class="el" href="class_hero.html">Hero</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mHero</b></td></tr>
-<tr class="separator:a31bf9d2defce76a0b98022308dd2cbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac470001f99834e3337d3a7e85fdd8447"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac470001f99834e3337d3a7e85fdd8447"></a>
-std::list&lt; <a class="el" href="class_pawn.html">Pawn</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPawns</b></td></tr>
-<tr class="separator:ac470001f99834e3337d3a7e85fdd8447"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a004c295bc163bb153c3d3da39c4c23ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a004c295bc163bb153c3d3da39c4c23ae"></a>
-<a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mCollisionGroup</b></td></tr>
-<tr class="separator:a004c295bc163bb153c3d3da39c4c23ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94114555b2359264be240a9dfaf95254"><td class="memItemLeft" align="right" valign="top">sf::RenderWindow const *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a94114555b2359264be240a9dfaf95254">relWindow</a></td></tr>
-<tr class="separator:a94114555b2359264be240a9dfaf95254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3302029bf928a206f85e5b5c688056d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3302029bf928a206f85e5b5c688056d8"></a>
-std::vector&lt; <a class="el" href="classtower_1_1_basic_tower.html">tower::BasicTower</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a3302029bf928a206f85e5b5c688056d8">mTowers</a></td></tr>
-<tr class="memdesc:a3302029bf928a206f85e5b5c688056d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of ranged towers in the level. <br /></td></tr>
-<tr class="separator:a3302029bf928a206f85e5b5c688056d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa691769159c31952ca1f69e2bffa14e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa691769159c31952ca1f69e2bffa14e"></a>
-boost::mutex&#160;</td><td class="memItemRight" valign="bottom"><b>mMutex</b></td></tr>
-<tr class="separator:aaa691769159c31952ca1f69e2bffa14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bb4a4d923299927ddd6554911d6e051"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bb4a4d923299927ddd6554911d6e051"></a>
+<a class="el" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mPauseDialogue</b></td></tr>
+<tr class="separator:a2bb4a4d923299927ddd6554911d6e051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a615e727c9748388eacec63325aae7568"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a615e727c9748388eacec63325aae7568"></a>
+<a class="el" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mCompleteDialogue</b></td></tr>
+<tr class="separator:a615e727c9748388eacec63325aae7568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a328329817fffa91412af1618c1e38721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a328329817fffa91412af1618c1e38721"></a>
+<a class="el" href="classgui_1_1_dialogue_box.html">gui::DialogueBox</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mFailDialogue</b></td></tr>
+<tr class="separator:a328329817fffa91412af1618c1e38721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad7bc05a763661ab165ff9ec158cb06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ad7bc05a763661ab165ff9ec158cb06"></a>
+std::list&lt; std::pair&lt; <a class="el" href="classgui_1_1_ability_button.html">gui::AbilityButton</a>, shared_ptr&lt; <a class="el" href="class_ability.html">Ability</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mAbilityList</b></td></tr>
+<tr class="separator:a8ad7bc05a763661ab165ff9ec158cb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76c739d6969589daeac880d0395b906"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad76c739d6969589daeac880d0395b906"></a>
+std::map&lt; TowerPlacer::TowerType, std::unique_ptr&lt; <a class="el" href="classgui_1_1_cost_button.html">gui::CostButton</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mTowerButtons</b></td></tr>
+<tr class="separator:ad76c739d6969589daeac880d0395b906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3cd79832a5fcc986940990afb86f9bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3cd79832a5fcc986940990afb86f9bd"></a>
+shared_ptr&lt; <a class="el" href="class_pawn.html">Pawn</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mHero</b></td></tr>
+<tr class="separator:ad3cd79832a5fcc986940990afb86f9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88690e16465800af3e9c5ac1b54256fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88690e16465800af3e9c5ac1b54256fa"></a>
+shared_ptr&lt; std::list&lt; shared_ptr&lt; <a class="el" href="class_pawn.html">Pawn</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mPawns</b></td></tr>
+<tr class="separator:a88690e16465800af3e9c5ac1b54256fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82292672e9ed0a38ce44f1abe055a9f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82292672e9ed0a38ce44f1abe055a9f6"></a>
+shared_ptr&lt; <a class="el" href="classcollision_1_1_collision_group.html">collision::CollisionGroup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mCollisionGroup</b></td></tr>
+<tr class="separator:a82292672e9ed0a38ce44f1abe055a9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af358cb0fa1bf62e8fa1894f4c8ae8532"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af358cb0fa1bf62e8fa1894f4c8ae8532"></a>
+std::vector&lt; shared_ptr&lt; <a class="el" href="classtower_1_1_tower.html">tower::Tower</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#af358cb0fa1bf62e8fa1894f4c8ae8532">mTowers</a></td></tr>
+<tr class="memdesc:af358cb0fa1bf62e8fa1894f4c8ae8532"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of towers in the level. <br /></td></tr>
+<tr class="separator:af358cb0fa1bf62e8fa1894f4c8ae8532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a541fc0f6d6f51ef7a34c2316e0df6a38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a541fc0f6d6f51ef7a34c2316e0df6a38"></a>
 sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a541fc0f6d6f51ef7a34c2316e0df6a38">mBackground</a></td></tr>
 <tr class="memdesc:a541fc0f6d6f51ef7a34c2316e0df6a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visual backdrop of level. <br /></td></tr>
@@ -222,111 +252,68 @@ sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <a class="el" href="class_camera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a8d5860310a79ad7a24715fed1db2c0da">mCamera</a></td></tr>
 <tr class="memdesc:a8d5860310a79ad7a24715fed1db2c0da"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_camera.html" title="Follow camera that can target an Actor. ">Camera</a> that follows mHero. <br /></td></tr>
 <tr class="separator:a8d5860310a79ad7a24715fed1db2c0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37ef078f61ea65f8ef46ee6e0ea86bae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37ef078f61ea65f8ef46ee6e0ea86bae"></a>
-std::unique_ptr&lt; <a class="el" href="class_h_u_d.html">HUD</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mHud</b></td></tr>
-<tr class="separator:a37ef078f61ea65f8ef46ee6e0ea86bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac679f35372255300b4c44349ddadb96c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac679f35372255300b4c44349ddadb96c"></a>
-std::shared_ptr&lt; <a class="el" href="class_quadtree.html">Quadtree</a>&lt; unsigned char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ac679f35372255300b4c44349ddadb96c">terrainTree</a></td></tr>
-<tr class="memdesc:ac679f35372255300b4c44349ddadb96c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_quadtree.html" title="Simple Quadtree implementation using templates. ">Quadtree</a> used to decide where towers can be placed. <br /></td></tr>
-<tr class="separator:ac679f35372255300b4c44349ddadb96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a526138f1e3f8bc931f1d8329bdb01e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a526138f1e3f8bc931f1d8329bdb01e"></a>
+<a class="el" href="class_hud.html">Hud</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mHud</b></td></tr>
+<tr class="separator:a1a526138f1e3f8bc931f1d8329bdb01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a662db0bd77b4994a3bf36aa4670d7ca6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a662db0bd77b4994a3bf36aa4670d7ca6"></a>
+shared_ptr&lt; <a class="el" href="class_quadtree.html">Quadtree</a>&lt; unsigned char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a662db0bd77b4994a3bf36aa4670d7ca6">terrainTree</a></td></tr>
+<tr class="memdesc:a662db0bd77b4994a3bf36aa4670d7ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_quadtree.html" title="Simple Quadtree implementation using templates. ">Quadtree</a> used to decide where towers can be placed. <br /></td></tr>
+<tr class="separator:a662db0bd77b4994a3bf36aa4670d7ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecf972f089236ce96d3363af450a3f40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aecf972f089236ce96d3363af450a3f40"></a>
+shared_ptr&lt; <a class="el" href="class_projectile_manager.html">ProjectileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mProjectileManager</b></td></tr>
+<tr class="separator:aecf972f089236ce96d3363af450a3f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc5f363808a956193255d3c7d1e6fd3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc5f363808a956193255d3c7d1e6fd3f"></a>
 std::unique_ptr&lt; <a class="el" href="class_tower_placer.html">TowerPlacer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#acc5f363808a956193255d3c7d1e6fd3f">mTowerPlacer</a></td></tr>
-<tr class="memdesc:acc5f363808a956193255d3c7d1e6fd3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tool for placing ranged towers. <br /></td></tr>
+<tr class="memdesc:acc5f363808a956193255d3c7d1e6fd3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tool for placing towers. <br /></td></tr>
 <tr class="separator:acc5f363808a956193255d3c7d1e6fd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad896bc008684f42a671fa3ca3c129f2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad896bc008684f42a671fa3ca3c129f2a"></a>
-<a class="el" href="class_path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ad896bc008684f42a671fa3ca3c129f2a">mPath</a></td></tr>
-<tr class="memdesc:ad896bc008684f42a671fa3ca3c129f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_path.html" title="A one-way path of nodes. Uses a recursive structure. ">Path</a> that Minions will follow. <br /></td></tr>
-<tr class="separator:ad896bc008684f42a671fa3ca3c129f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a086e8328bae124144d6a3d884dbd45e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a086e8328bae124144d6a3d884dbd45e4"></a>
-std::shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a086e8328bae124144d6a3d884dbd45e4">mMoney</a></td></tr>
-<tr class="memdesc:a086e8328bae124144d6a3d884dbd45e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount of money at the player's disposal. Earned by killing Minions, spent onbuilding towers. <br /></td></tr>
-<tr class="separator:a086e8328bae124144d6a3d884dbd45e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a770fd500349985800386ab70bb31d977"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a770fd500349985800386ab70bb31d977"></a>
-std::shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a770fd500349985800386ab70bb31d977">mLivesRemaining</a></td></tr>
-<tr class="memdesc:a770fd500349985800386ab70bb31d977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of enemies that can make it through the level alive before losing. <br /></td></tr>
-<tr class="separator:a770fd500349985800386ab70bb31d977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50b689be42342a5251e96fe310ada57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac50b689be42342a5251e96fe310ada57"></a>
+shared_ptr&lt; <a class="el" href="class_path.html">Path</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ac50b689be42342a5251e96fe310ada57">mPath</a></td></tr>
+<tr class="memdesc:ac50b689be42342a5251e96fe310ada57"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_path.html" title="A one-way path of nodes. Uses a recursive structure. ">Path</a> that Minions will follow. <br /></td></tr>
+<tr class="separator:ac50b689be42342a5251e96fe310ada57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c03ef5e5ff3e6b027d7a1bbd8793c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07c03ef5e5ff3e6b027d7a1bbd8793c0"></a>
+shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a07c03ef5e5ff3e6b027d7a1bbd8793c0">mMoney</a></td></tr>
+<tr class="memdesc:a07c03ef5e5ff3e6b027d7a1bbd8793c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amount of money at the player's disposal. Earned by killing Minions, spent on building towers. <br /></td></tr>
+<tr class="separator:a07c03ef5e5ff3e6b027d7a1bbd8793c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa93afd577eed598c155c7b7ee4294e3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa93afd577eed598c155c7b7ee4294e3a"></a>
+shared_ptr&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aa93afd577eed598c155c7b7ee4294e3a">mLivesRemaining</a></td></tr>
+<tr class="memdesc:aa93afd577eed598c155c7b7ee4294e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of enemies that can make it through the level alive before losing. <br /></td></tr>
+<tr class="separator:aa93afd577eed598c155c7b7ee4294e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acefc6983d7850282578d65f059c38fc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acefc6983d7850282578d65f059c38fc5"></a>
 sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#acefc6983d7850282578d65f059c38fc5">mBounds</a></td></tr>
 <tr class="memdesc:acefc6983d7850282578d65f059c38fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounds of the level. Pawns outside this are killed outright and mLivesRemaining is decremented every time it happens. <br /></td></tr>
 <tr class="separator:acefc6983d7850282578d65f059c38fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a280d436fb42f1f27bc3fb8102cad4e36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a280d436fb42f1f27bc3fb8102cad4e36"></a>
 sf::RenderTexture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a280d436fb42f1f27bc3fb8102cad4e36">mUnderlayTex</a></td></tr>
-<tr class="memdesc:a280d436fb42f1f27bc3fb8102cad4e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderTexture used for persisting dead bodies without clogging the update. <br /></td></tr>
+<tr class="memdesc:a280d436fb42f1f27bc3fb8102cad4e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">RenderTexture used for persisting dead bodies and blood without clogging the update. <br /></td></tr>
 <tr class="separator:a280d436fb42f1f27bc3fb8102cad4e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4238351de07de42059e72ac7ca8e3a62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4238351de07de42059e72ac7ca8e3a62"></a>
 sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a4238351de07de42059e72ac7ca8e3a62">mUnderlaySpr</a></td></tr>
 <tr class="memdesc:a4238351de07de42059e72ac7ca8e3a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sprite used to draw mUnderlayTex to the screen. <br /></td></tr>
 <tr class="separator:a4238351de07de42059e72ac7ca8e3a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a542f7cd4365d04fd41bdf4ce24d2701f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a542f7cd4365d04fd41bdf4ce24d2701f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>mIsLost</b></td></tr>
-<tr class="separator:a542f7cd4365d04fd41bdf4ce24d2701f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa23c0b86e20037263f0a842e55d05d0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa23c0b86e20037263f0a842e55d05d0b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>mIsWon</b></td></tr>
-<tr class="separator:aa23c0b86e20037263f0a842e55d05d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabc2bd12a9f2a13af8bb09ac21c84dee"></a>
 sf::Music&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aabc2bd12a9f2a13af8bb09ac21c84dee">mBgMusic</a></td></tr>
 <tr class="memdesc:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background music of the level. <br /></td></tr>
 <tr class="separator:aabc2bd12a9f2a13af8bb09ac21c84dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93550186e9c372afd7f3b05d0156a4dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93550186e9c372afd7f3b05d0156a4dd"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a93550186e9c372afd7f3b05d0156a4dd">mId</a></td></tr>
-<tr class="memdesc:a93550186e9c372afd7f3b05d0156a4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_level.html" title="Playable level of the game. ">Level</a> id. CURRENTLY UNUSED. <br /></td></tr>
-<tr class="separator:a93550186e9c372afd7f3b05d0156a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad41f5ee9bbe8449fa1450eca5bba3bfa"></a>
-const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#ad41f5ee9bbe8449fa1450eca5bba3bfa">mNextScene</a></td></tr>
-<tr class="memdesc:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scene to go to if player completes this level. <br /></td></tr>
-<tr class="separator:ad41f5ee9bbe8449fa1450eca5bba3bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef73921d8e5fb1f7ee636cf0410249f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef73921d8e5fb1f7ee636cf0410249f5"></a>
-<a class="el" href="classtower_1_1_unit_tower.html">tower::UnitTower</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#aef73921d8e5fb1f7ee636cf0410249f5">testUnitTower</a></td></tr>
-<tr class="memdesc:aef73921d8e5fb1f7ee636cf0410249f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tower that produces player-friendly Minions. <br /></td></tr>
-<tr class="separator:aef73921d8e5fb1f7ee636cf0410249f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a7f531d9f0ed01a8b588e19ef0dbe30"></a>
-std::shared_ptr&lt; std::list&lt; <a class="el" href="class_minion.html">Minion</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a9a7f531d9f0ed01a8b588e19ef0dbe30">mMinionFlock</a></td></tr>
-<tr class="memdesc:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flock of enemy minions. <br /></td></tr>
-<tr class="separator:a9a7f531d9f0ed01a8b588e19ef0dbe30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e55d49a4f95fa2b047f4b70473033e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e55d49a4f95fa2b047f4b70473033e1"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a7e55d49a4f95fa2b047f4b70473033e1">mNextLevel</a></td></tr>
+<tr class="memdesc:a7e55d49a4f95fa2b047f4b70473033e1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_level.html" title="Playable level of the game. ">Level</a> to unlock if the player completes this level. <br /></td></tr>
+<tr class="separator:a7e55d49a4f95fa2b047f4b70473033e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d641f350c2fc5c4fddd6fe8a974545"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21d641f350c2fc5c4fddd6fe8a974545"></a>
+shared_ptr&lt; std::list&lt; std::weak_ptr&lt; <a class="el" href="class_pawn.html">Pawn</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a21d641f350c2fc5c4fddd6fe8a974545">mFlock</a></td></tr>
+<tr class="memdesc:a21d641f350c2fc5c4fddd6fe8a974545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flock of enemy minions. <br /></td></tr>
+<tr class="separator:a21d641f350c2fc5c4fddd6fe8a974545"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a609fd9b52c8e0e2a0dd7320449cd45e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a609fd9b52c8e0e2a0dd7320449cd45e0"></a>
+<a class="el" href="class_wave_controller.html">WaveController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_level.html#a609fd9b52c8e0e2a0dd7320449cd45e0">mWaveController</a></td></tr>
+<tr class="memdesc:a609fd9b52c8e0e2a0dd7320449cd45e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controller for spawning groups of units units after delays. <br /></td></tr>
+<tr class="separator:a609fd9b52c8e0e2a0dd7320449cd45e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f44cb2bda2df2234536794758266cb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f44cb2bda2df2234536794758266cb2"></a>
+<a class="el" href="class_blood_system.html">BloodSystem</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mBloodSystem</b></td></tr>
+<tr class="separator:a1f44cb2bda2df2234536794758266cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Playable level of the game. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a25ac82a4759777169da1620dc1ecc2c1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Level::Level </td>
-          <td>(</td>
-          <td class="paramtype">tinyxml2::XMLElement *&#160;</td>
-          <td class="paramname"><em>root</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sf::RenderWindow const *&#160;</td>
-          <td class="paramname"><em>_relWindow</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::shared_ptr&lt; sfg::SFGUI &gt;&#160;</td>
-          <td class="paramname"><em>sfgui</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_relWindow</td><td>RenderWindow to be used for getting relative mouse position. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a94114555b2359264be240a9dfaf95254"></a>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a595e3f0c510131cae0bc6b1b6937a9ed"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -334,7 +321,11 @@ std::shared_ptr&lt; std::list&lt; <a class="el" href="class_minion.html">Minion<
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sf::RenderWindow const* Level::relWindow</td>
+          <td class="memname">void Level::autofireProjectile </td>
+          <td>(</td>
+          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_projectile.html">Projectile</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>projectile</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -343,7 +334,111 @@ std::shared_ptr&lt; std::list&lt; <a class="el" href="class_minion.html">Minion<
   </tr>
 </table>
 </div><div class="memdoc">
-<p>for getting mouse position </p>
+
+<p>Used to handle unfired projectile that are given to the projectile manager. Fires the projectile at the nearest enemy pawn. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">projectile</td><td>The projectile to fire. Must be unfired. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7b97d264637f038114930b40a18d1d9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Level::draw </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderWindow &amp;&#160;</td>
+          <td class="paramname"><em>w</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Should draw the scene to the renderwindow </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">w</td><td>The RenderWindow that the scene should be drawn to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_i___scene.html#af21a22b1c85f99443cdf64b12ad57c36">I_Scene</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea368b30aa6a16207973e7fca9d66ac5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Level::handleEvent </td>
+          <td>(</td>
+          <td class="paramtype">sf::Event &amp;&#160;</td>
+          <td class="paramname"><em>Event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Event</td><td>The event to be handled. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the event has been processed, false if the event is not processed or required. </dd></dl>
+
+<p>Implements <a class="el" href="class_i___scene.html#a5e7cb2bc39ea754e521d65d0881d4dd4">I_Scene</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a01ec89e4f913e2b0c4aeaea952e6fceb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Level::update </td>
+          <td>(</td>
+          <td class="paramtype">sf::Time const &amp;&#160;</td>
+          <td class="paramname"><em>elapsedTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elapsedTime</td><td>The amount of time that has past since the last time update was called. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_i___scene.html#ada171bbf373154e624f87aa8b7b52f84">I_Scene</a>.</p>
 
 </div>
 </div>

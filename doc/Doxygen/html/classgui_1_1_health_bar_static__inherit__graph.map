@@ -1,0 +1,4 @@
+<map id="gui::HealthBarStatic" name="gui::HealthBarStatic">
+<area shape="rect" id="node4" href="$classgui_1_1_health_bar.html" title="Healthbar that follows a Pawn&#39;s position. " alt="" coords="37,484,141,576"/>
+<area shape="rect" id="node2" href="$classgui_1_1_hud_item.html" title="Interface for non&#45;interactable hud elements. Non&#45;interactable hud elements are for show..." alt="" coords="5,131,172,252"/>
+</map>

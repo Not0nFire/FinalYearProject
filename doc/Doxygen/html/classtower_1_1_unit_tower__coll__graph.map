@@ -1,5 +1,5 @@
 <map id="tower::UnitTower" name="tower::UnitTower">
-<area shape="rect" id="node2" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="80,81,133,108"/>
-<area shape="rect" id="node4" href="$classcollision_1_1_collidable.html" title="collision::Collidable" alt="" coords="104,5,237,32"/>
-<area shape="rect" id="node5" href="$class_node.html" title="Node" alt="" coords="158,81,210,108"/>
+<area shape="rect" id="node2" href="$classtower_1_1_tower.html" title="Interface for derived tower types. " alt="" coords="19,608,210,773"/>
+<area shape="rect" id="node3" href="$class_actor.html" title="Class for anything that animates and has a position. Animates and has position and collision..." alt="" coords="34,321,195,560"/>
+<area shape="rect" id="node5" href="$classcollision_1_1_collidable.html" title="{collision::Collidable\n|&#45; mMask\l&#45; mOffset\l|+ Collidable()\l+ Collidable()\l+ Collidable()\l+ ~Collidable()\l+ getMask()\l+ setMask()\l+ onCollide()\l+ setDebugColour()\l+ debug_draw()\l+ getAxies()\l+ getPointCount()\l+ projectOntoAxis()\l# updateCollidableMask()\l}" alt="" coords="104,5,272,273"/>
 </map>

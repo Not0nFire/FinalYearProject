@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygen_logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FYP
-   &#160;<span id="projectnumber">0.3.0</span>
+   &#160;<span id="projectnumber">1.0.0</span>
    </div>
    <div id="projectbrief">Final Year Project -- Alexander Meuer</div>
   </td>
@@ -113,46 +113,59 @@ $(document).ready(function(){initNavTree('_minion_8hpp_source.html','');});
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;include/Pawn.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;include/Pathing/Path.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_minion.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_minion.html">Minion</a> : <span class="keyword">public</span> <a class="code" href="class_pawn.html">Pawn</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="comment">//Variable pointer to const object.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">const</span> <a class="code" href="class_node.html">Node</a>* mPathNode;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_minion.html#a49563882afaac7fb9f15b8a995e09e62">   16</a></span>&#160;    std::shared_ptr&lt;std::list&lt;Minion*&gt;&gt; <a class="code" href="class_minion.html#a49563882afaac7fb9f15b8a995e09e62">mFlock</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    sf::Vector2f <a class="code" href="class_minion.html#aff19b058f719f8c1c7b9f7cc2f7d1f66">separation</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    sf::Vector2f <a class="code" href="class_minion.html#a3cedaebb20587a228347026c0ab267c8">cohesion</a>() <span class="keyword">const</span>;  </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">   23</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">mMonetaryValue</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#afd5d199a8bfc371defbe12f66a2cd5ea">doMarch</a>(sf::Vector2f <span class="keyword">const</span>&amp; goalDisplacement, <span class="keywordtype">float</span> secondsElapsed) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_minion.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_minion.html">Minion</a> : <span class="keyword">public</span> <a class="code" href="class_pawn.html">Pawn</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::weak_ptr&lt;const Node&gt; mPathNode;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    sf::Vector2f mPathWaypoint;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_minion.html#afd0c53bed2726a798624e004aaaa2856">   17</a></span>&#160;    std::shared_ptr&lt;std::list&lt;std::weak_ptr&lt;Pawn&gt;&gt;&gt; <a class="code" href="class_minion.html#afd0c53bed2726a798624e004aaaa2856">mFlock</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    sf::Vector2f <a class="code" href="class_minion.html#aff19b058f719f8c1c7b9f7cc2f7d1f66">separation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    sf::Vector2f <a class="code" href="class_minion.html#a3cedaebb20587a228347026c0ab267c8">cohesion</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">   25</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">mMonetaryValue</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">bool</span> mReachedEndOfPath;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="class_minion.html">Minion</a>(tinyxml2::XMLElement* xml);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_minion.html#a801fb38f11b26e0a4154d638ef4b8b4e">~Minion</a>();  </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#abaff3329f7b1eaae1afdcb4cdcfa831d">setPath</a>(<span class="keyword">const</span> <a class="code" href="class_node.html">Node</a>* pathNode);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> M_DESTINATION_WEIGHT;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> M_SEPARATION_WEIGHT;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> M_COHESION_WEIGHT;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> M_SEEK_WEIGHT;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#afd5d199a8bfc371defbe12f66a2cd5ea">doMarch</a>(sf::Vector2f <span class="keyword">const</span>&amp; goalDisplacement, <span class="keywordtype">float</span> secondsElapsed) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#a7d29c6281859c113009488b92f2ad106">addToFlock</a>(std::shared_ptr&lt;std::list&lt;Minion*&gt;&gt; flock);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_minion.html#acd71f2e961a6ec7905026560d09b0ae8">update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sf::Vector2f seekEnemy();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_minion.html">Minion</a>(tinyxml2::XMLElement* xml);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_minion.html#a801fb38f11b26e0a4154d638ef4b8b4e">~Minion</a>();  </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_minion.html#ac76ac86d6ae9707b6856c5298edff005">getMonetaryValue</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:17</div></div>
-<div class="ttc" id="class_node_html"><div class="ttname"><a href="class_node.html">Node</a></div><div class="ttdef"><b>Definition:</b> Node.hpp:6</div></div>
-<div class="ttc" id="class_minion_html_abaff3329f7b1eaae1afdcb4cdcfa831d"><div class="ttname"><a href="class_minion.html#abaff3329f7b1eaae1afdcb4cdcfa831d">Minion::setPath</a></div><div class="ttdeci">void setPath(const Node *pathNode)</div><div class="ttdoc">Sets the path that the Minion will follow. </div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#a5e1a5c94ee82e56d5aef9634e01c27a4">setPath</a>(std::shared_ptr&lt;const Node&gt; <span class="keyword">const</span>&amp; pathNode);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> clearPath();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_minion.html#a1580f30c820e879874825a82dbf7be9b">addToFlock</a>(std::shared_ptr&lt;std::list&lt;std::weak_ptr&lt;Pawn&gt;&gt;&gt; <span class="keyword">const</span>&amp; flock);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_minion.html#acd71f2e961a6ec7905026560d09b0ae8">update</a>(sf::Time <span class="keyword">const</span> &amp;elapsedTime) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_minion.html#ac76ac86d6ae9707b6856c5298edff005">getMonetaryValue</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">bool</span> reachedEndOfPath() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_pawn_html"><div class="ttname"><a href="class_pawn.html">Pawn</a></div><div class="ttdoc">Base class for all units in the game. If it walks and attacks, it&#39;s a Pawn. Walks toward a destinatio...</div><div class="ttdef"><b>Definition:</b> Pawn.hpp:15</div></div>
+<div class="ttc" id="class_minion_html_a1580f30c820e879874825a82dbf7be9b"><div class="ttname"><a href="class_minion.html#a1580f30c820e879874825a82dbf7be9b">Minion::addToFlock</a></div><div class="ttdeci">void addToFlock(std::shared_ptr&lt; std::list&lt; std::weak_ptr&lt; Pawn &gt;&gt;&gt; const &amp;flock)</div><div class="ttdoc">Adds ourself to the flock and stores a shared pointer to the flock. </div></div>
+<div class="ttc" id="class_minion_html_a5e1a5c94ee82e56d5aef9634e01c27a4"><div class="ttname"><a href="class_minion.html#a5e1a5c94ee82e56d5aef9634e01c27a4">Minion::setPath</a></div><div class="ttdeci">void setPath(std::shared_ptr&lt; const Node &gt; const &amp;pathNode)</div><div class="ttdoc">Sets the path that the Minion will follow. </div></div>
 <div class="ttc" id="class_minion_html_acd71f2e961a6ec7905026560d09b0ae8"><div class="ttname"><a href="class_minion.html#acd71f2e961a6ec7905026560d09b0ae8">Minion::update</a></div><div class="ttdeci">virtual void update(sf::Time const &amp;elapsedTime) override</div><div class="ttdoc">Extends Pawn::update() to make Minion follow path. </div></div>
-<div class="ttc" id="class_minion_html_a3cedaebb20587a228347026c0ab267c8"><div class="ttname"><a href="class_minion.html#a3cedaebb20587a228347026c0ab267c8">Minion::cohesion</a></div><div class="ttdeci">sf::Vector2f cohesion() const </div><div class="ttdoc">CURRENTLY UNUSED. Not fully implemented. Possible unneeded. </div></div>
+<div class="ttc" id="class_minion_html_a3cedaebb20587a228347026c0ab267c8"><div class="ttname"><a href="class_minion.html#a3cedaebb20587a228347026c0ab267c8">Minion::cohesion</a></div><div class="ttdeci">sf::Vector2f cohesion() const </div><div class="ttdoc">Steers Minion toward local flockmates. </div></div>
 <div class="ttc" id="class_minion_html_ac76ac86d6ae9707b6856c5298edff005"><div class="ttname"><a href="class_minion.html#ac76ac86d6ae9707b6856c5298edff005">Minion::getMonetaryValue</a></div><div class="ttdeci">unsigned int getMonetaryValue() const </div><div class="ttdoc">Gets the amount of money that this Minion is worth. </div></div>
-<div class="ttc" id="class_minion_html_a49563882afaac7fb9f15b8a995e09e62"><div class="ttname"><a href="class_minion.html#a49563882afaac7fb9f15b8a995e09e62">Minion::mFlock</a></div><div class="ttdeci">std::shared_ptr&lt; std::list&lt; Minion * &gt; &gt; mFlock</div><div class="ttdoc">Pointer to flock of Minions. </div><div class="ttdef"><b>Definition:</b> Minion.hpp:16</div></div>
-<div class="ttc" id="class_minion_html_acb25f303c5b76d9a8dc2b4c8d4eea083"><div class="ttname"><a href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">Minion::mMonetaryValue</a></div><div class="ttdeci">const unsigned int mMonetaryValue</div><div class="ttdoc">Amout of money to award player when this Minion dies. </div><div class="ttdef"><b>Definition:</b> Minion.hpp:23</div></div>
-<div class="ttc" id="class_minion_html"><div class="ttname"><a href="class_minion.html">Minion</a></div><div class="ttdoc">Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing ...</div><div class="ttdef"><b>Definition:</b> Minion.hpp:10</div></div>
+<div class="ttc" id="class_minion_html_acb25f303c5b76d9a8dc2b4c8d4eea083"><div class="ttname"><a href="class_minion.html#acb25f303c5b76d9a8dc2b4c8d4eea083">Minion::mMonetaryValue</a></div><div class="ttdeci">const unsigned int mMonetaryValue</div><div class="ttdoc">Amout of money to award player when this Minion dies. </div><div class="ttdef"><b>Definition:</b> Minion.hpp:25</div></div>
+<div class="ttc" id="class_minion_html"><div class="ttname"><a href="class_minion.html">Minion</a></div><div class="ttdoc">Pawn that follows a path, keeps its distance from flockmembers and has a monetary reward for killing ...</div><div class="ttdef"><b>Definition:</b> Minion.hpp:11</div></div>
+<div class="ttc" id="class_minion_html_afd0c53bed2726a798624e004aaaa2856"><div class="ttname"><a href="class_minion.html#afd0c53bed2726a798624e004aaaa2856">Minion::mFlock</a></div><div class="ttdeci">std::shared_ptr&lt; std::list&lt; std::weak_ptr&lt; Pawn &gt; &gt; &gt; mFlock</div><div class="ttdoc">Shared pointer to flock. </div><div class="ttdef"><b>Definition:</b> Minion.hpp:17</div></div>
 <div class="ttc" id="class_minion_html_afd5d199a8bfc371defbe12f66a2cd5ea"><div class="ttname"><a href="class_minion.html#afd5d199a8bfc371defbe12f66a2cd5ea">Minion::doMarch</a></div><div class="ttdeci">void doMarch(sf::Vector2f const &amp;goalDisplacement, float secondsElapsed) override</div><div class="ttdoc">Calls separation() to steer away from local flockmates and then invokes Pawn::doMarch() ...</div></div>
-<div class="ttc" id="class_minion_html_a7d29c6281859c113009488b92f2ad106"><div class="ttname"><a href="class_minion.html#a7d29c6281859c113009488b92f2ad106">Minion::addToFlock</a></div><div class="ttdeci">void addToFlock(std::shared_ptr&lt; std::list&lt; Minion * &gt;&gt; flock)</div><div class="ttdoc">Adds ourself to the flock and stores a shared pointer to the flock. </div></div>
 <div class="ttc" id="class_minion_html_a801fb38f11b26e0a4154d638ef4b8b4e"><div class="ttname"><a href="class_minion.html#a801fb38f11b26e0a4154d638ef4b8b4e">Minion::~Minion</a></div><div class="ttdeci">virtual ~Minion()</div><div class="ttdoc">Removes self from mFlock. </div></div>
 <div class="ttc" id="class_minion_html_aff19b058f719f8c1c7b9f7cc2f7d1f66"><div class="ttname"><a href="class_minion.html#aff19b058f719f8c1c7b9f7cc2f7d1f66">Minion::separation</a></div><div class="ttdeci">sf::Vector2f separation() const </div><div class="ttdoc">Steers Minion away from local flockmates. </div></div>
 </div><!-- fragment --></div><!-- contents -->
