@@ -1,0 +1,2399 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>172</x>
+      <y>148</y>
+      <w>148</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>collision::Collidable
+--
+mMask : sf::Shape
+
+--
+onCollide( other : Collidable*, mtv : sf::Vector2f&amp; ) : void
+getAxies( axiesVector : std::vector&lt;sf::Vector2f&gt;&amp; ) : void
+getPointCount() : unsigned int
+projectOntoAxis( axis : sf::Vector2f&amp; ) : sf::Vector2f
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>332</x>
+      <y>148</y>
+      <w>136</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>Actor
+--
+mAnimator : thor::animator&lt;sf::Sprite, string&gt;
+
+--
+animate( elapsedTime : sf::Time ) : void
+draw( target : sf::RenderTarget&amp; ) : void
+
+isPlayingAnimation() : bool
+playAnimation( name : string ) : void
+getPlayingAnimation() : string
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>124</y>
+      <w>40</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>sf::Sprite
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>200</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>132</y>
+      <w>12</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>484</x>
+      <y>108</y>
+      <w>184</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>Pawn
+--
+
+mDestination : sf::Vector2f
+mMovementSpeed : int
+mTravelDirection : sf::Vector2f
+
+mHealth : int
+M_MAX_HEALTH : int
+mArmour : Damage::Reduction
+mMagicResist : Damage::Reduction
+mAttackRange : float
+mAttackDamage : int
+mAttacksPerSecond : float
+mTimeSinceAttack : float
+mDamageType : Damage::Type
+mCombatTarget : weak_ptr&lt;Pawn&gt;
+
+mStunDuration : sf::Time
+mTimeStunned : sf::Time
+mAttackSound : sf::Sound
+mBloodColor : sf::Color
+mTurnCooldown : float
+mSecondsSinceTurn : float
+mOnDeathFunction : std::function&lt;void(Pawn*)&gt;
+
+weak_ptr&lt;Pawn&gt; self
+--
+makeSelfAware( smartThis : shared_ptr&lt;Pawn&gt;&amp; ) : void
+setDestination( destination : sf::Vector2f ) : void
+update( elapsedTime : sf::Time&amp; ) : void
+kill() : void
+takeDamage( amount : int, type : Damage::Type ) : bool
+takeDamage( amount, type, sender shared_ptr&lt;Pawn&gt;&amp; ) : bool
+heal( amount : int ) : void
+stun( duration : sf::Time&amp; ) : void
+beTaunted( taunter : shared_ptr&lt;Pawn&gt;&amp; ) : void
+offerTarget( target : shared_ptr&lt;Pawn&gt;&amp; ) : bool
+targetIsDead() : bool
+getHealth() : int
+getState() : State
+isDead() : bool
+getFaction() : Faction
+setOnDeath ( callback : function&lt;void(Pawn*)&gt;&amp; ) : void
+getCombatTarget() : weak_ptr&lt;Pawn&gt;
+getArmour() : Damage::Reduction
+getMagicResist() : Damage::Reduction
+getBloodColor() : sf::Color
+onCollide( other, mtv ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>464</x>
+      <y>200</y>
+      <w>28</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>604</x>
+      <y>132</y>
+      <w>52</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>State
+--
+IDLE
+MARCHING
+ATTACKING
+STUNNED
+DEAD
+bg=orange
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>264</y>
+      <w>40</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;50.0;10.0;50.0;30.0;80.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>256</y>
+      <w>120</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Hero
+--
+mSecondsSinceRegen : float
+M_REGEN_INTERVAL : float
+M_HEALTH_REGEN : unsigned int
+
+--
+update( elapsedTime ) : void
+setDestination( destination ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>340</y>
+      <w>120</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>Minion
+--
+mPathNode : weak_ptr&lt;Node&gt;
+mPathWaypoint : sf::Vector2f
+mFlock : shared_ptr&lt;list&lt;weak_ptr&lt;Pawn&gt;&gt;&gt;
+mMonetaryValue : unsigned int
+mReachedEndOfPath : bool
+M_DESTINATION_WEIGHT : float
+M_SEPARATION_WEIGHT : float
+M_COHESION_WEIGHT : float
+M_SEEK_WEIGHT : float
+--
+setPath( pathNode : shared_ptr&lt;Node&gt; )
+clearPath()
+addToFlock( flock )
+update( elapsedTime ) : void
+getMonetaryValue() : unsigned int
+reachedEndOfPath() : bool
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>604</x>
+      <y>192</y>
+      <w>52</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Faction
+--
+PLAYER
+ENEMY
+NEUTRAL
+bg=orange
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>156</x>
+      <y>88</y>
+      <w>680</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>Units
+--
+bg=gray
+fg=blue
+
+layer=-2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>572</y>
+      <w>212</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+SceneManager
+--
+mScenes : map&lt;string, unique_ptr&lt;SceneProxy&gt; &gt;
+mTranslateMouseEvents : bool
+mActiveDialogueBox : gui::DialogueBox*
+mCurrentSceneName : string
+mCurrentScene : SceneProxy*
+
+mStopRequestThread : atomic_bool
+mRequestThread : thread
+mSceneMutex : mutex
+mRequestMutex : mutex
+mRequestPending : condition_variable
+mRequests : queue&lt;detail::SceneRequest&gt;
+--
+getCurrentScene() : string
+updateCurrentScene( elapsedTime : sf::Time&amp; ) : void
+drawCurrentScene( w : sf::RenderWindow&amp; ) : void
+passEventToCurrentScene( event : sf::Event&amp; ) : bool
+navigateToScene( path : string ) : void
+createScene&lt;SceneType&gt;( name : string, xmlPath : string, goToScene : bool) : void
+
+stoptranslatingMouse() : void
+showDialogueBox( dialogueBox : gui::DialogueBox* ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>408</x>
+      <y>812</y>
+      <w>140</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/I_Scene/
+--
+update(elapsedTime : sf::Time) = 0 : void
+draw(target : sf::RenderTarget) = 0 : void
+handleEvent( evnt : sf::Event ) = 0 : bool
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>552</y>
+      <w>172</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>Level
+--
+mPauseDialogue : gui::DialogueBox
+mCompleteDialogue : gui::DialogueBox
+mFailDialogue : gui::DialogueBox
+mAbilityList : list&lt;pair&lt;gui::AbilityButton, share_ptr&lt;Ability&gt; &gt; &gt;
+mTowerButtons : map&lt;TowerPlacer::TowerType,
+                                      unique_ptr&lt;gui::CostButton&gt; &gt;
+mHero : shared_ptr&lt;Pawn&gt;
+mPawns : shared_ptr&lt;list&lt;share_ptr&lt;Pawn&gt; &gt; &gt;
+mCollisiongroup : shared_ptr&lt;collision::CollisionGroup&gt;
+mTowers : list&lt;shared_ptr&lt;tower::Tower&gt;
+
+mBackground : sf::Sprite
+mCamera : Camera
+mHud : Hud
+mTerrainTree : shared_ptr&lt;Quadtree&lt;unsigned char&gt; &gt;
+mProjectileManager : shared_ptr&lt;ProjectileManager&gt;
+mTowerPlacer : shared_ptr&lt;TowerPlacer&gt;
+mPath : shared_ptr&lt;Path&gt;
+mMoney : shared_ptr&lt;int&gt;
+mLivesRemaining : shared_ptr&lt;int&gt;
+mBounds : sf::FloatRect
+mUnderlayTex : sf::RenderTexture
+mUnderlaySpr : sf::Sprite
+mBgMusic : sf::Music
+mNextLevel : string
+mFlock : shared_ptr&lt;list&lt;weak_ptr&lt;Pawn&gt; &gt; &gt;
+mWaveController : WaveController
+mBloodSystem : BloodSystem
+
+--
+update( elapsedTime) : void
+draw( window ) : void
+handleEvent( event ) : void
+cleanup() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>468</x>
+      <y>796</y>
+      <w>12</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>528</y>
+      <w>140</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Game
+--
+mPaused : static bool
+mRun : static bool
+mRenderer : Renderer
+
+--
+run() : int
+layer=-1
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>80</x>
+      <y>576</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Call from main:
+*return Game.run();*
+bg=orange
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>468</y>
+      <w>140</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+ResourceManager&lt;T&gt;
+--
+mResources : map&lt;string,T&gt;
+
+--
+get( path : string&amp; ) : T&amp;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>812</y>
+      <w>128</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>SceneProxy
+--
+mScene : I_Scene*
+mCreateSceneFunc : std::function&lt;I_Scene*()&gt;
+
+--
+handleEvent( event ) : bool
+update( elapsedTime ) : void
+draw( window ) : void
+cleanup() : void
+loadNow() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>156</x>
+      <y>540</y>
+      <w>600</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>Scenes
+--
+bg=gray
+
+
+layer=-2
+fg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>548</x>
+      <y>440</y>
+      <w>20</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;330.0;30.0;330.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>364</x>
+      <y>836</y>
+      <w>52</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;40.0;30.0;40.0;10.0;80.0;10.0;80.0;30.0;110.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>760</y>
+      <w>12</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>740</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>MainMenu
+--
+mQuitConfirmDialogue : gui::DialogueBox
+mBackground : sf::Sprite
+mMusic : sf::Music
+mStartButton : gui::Button
+mCreditsButton : gui::Button
+mOptionsButton : gui::Button
+mQuitButton : gui::Button
+
+--
+handleEvent( event ) : bool
+update( elapsedTime ) : void
+draw( window ) : void
+cleanup() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>564</x>
+      <y>768</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>552</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Credits
+--
+mBackButton : gui::Button
+mBgMusic : sf::Music
+mRenderTex sf::RenderTexture
+mCredits : sf::Sprite
+mBackdrop : sf::Sprite
+mView : sf::View
+mBaseScrollSpeed : float
+mSpeedMultiplier : float
+mSpeedUp : bool
+mAutoscroll : bool
+
+--
+handleEvent( event ) : bool
+update( elapsedTime ) : void
+draw( window ) : void
+cleanup() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>840</y>
+      <w>156</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>LevelSelect
+--
+mBackground : sf::Sprite
+mMusic : sf::Music
+mLevelButtons : list&lt;pair&lt;gui::Button, string&gt; &gt;
+mBackButton : gui::Button
+
+--
+handleEvent( event ) : bool
+update( elapsedTime ) : void
+draw( window ) : void
+cleanup() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>652</y>
+      <w>156</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>LevelSelect
+--
+mSaveChangesDialogueBox : gui::DialogueBox
+mSettingsChanged : bool
+mBackdrop : sf::Sprite
+mBackButton : gui::Button
+mSliders : map&lt;string, gui::Slider&gt;
+mLabels : list&lt;sf::Text&gt;
+
+--
+handleEvent( event ) : bool
+update( elapsedTime ) : void
+draw( window ) : void
+cleanup() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>596</y>
+      <w>44</w>
+      <h>272</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;660.0;60.0;660.0;60.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>616</y>
+      <w>140</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>TerrainInterpreter
+--
+mImage : sf::Image
+GRASS_COLOR : static sf::Color
+PATH_COLOR : static sf::Color
+GRASS : static unsigned char
+PATH : static unsigned char
+NONE : static unsigned char
+
+--
+getImageSize() : sf::Vector2u
+
+interpretPixel( x : unsigned int, y :
+    unsigned int) : unsigned char
+    
+interpretArea( left : unsigned int, top :
+    unsigned int, width : unsigned int, height
+    : unsigned int ) : unsigned char
+
+countFlags( flags : unsigned int )
+    : unsigned int
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>780</y>
+      <w>140</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Quadtree &lt;T&gt;
+--
+mData : T
+mBounds : sf::IntRect
+mLevel : unsigned int
+mIsLeaf : bool
+mParent : Quadtree&lt;T&gt;*
+mNW, mNE, mSW, mSE : Quadtree&lt;T&gt;*
+
+--
+getBounds() : sf::IntRect
+getData() : T
+getLevel() : unsigned int
+isLeaf() : bool
+setData( newData : T ) : void
+
+subdivide( predicate : function&lt;bool(Quadtree&lt;T&gt;*)&gt;
+    ) : void
+
+query( x : int, y : int, dataOut : T ) : bool
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>192</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Renderer
+--
+mWindow : sf::RenderWindow
+mLoopOngoing : atomic_bool
+mFrameDelay : std::chrono::milliseconds
+mThread : thread
+mMutex : mutex
+
+--
+startRenderLoop( framesPerSecond : unsigned int) : void
+stopRenderLoop() : void
+pollEvent ( event : sf::Event ) : bool
+bg=white
+group=7</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>376</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>collision::CollisionGroup
+--
+mMembers : list&lt;weak_ptr&lt;collision::Collidable&gt; &gt;
+
+
+
+
+--
+check() : void
+add( entry : shared_ptr&lt;collision::Collidable&gt; ) : void
+checkAgainst( other : shared_ptr&lt;collision::Collidable ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1224</x>
+      <y>340</y>
+      <w>168</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Path
+--
+mRoot : shared_ptr&lt;Node&gt;
+
+
+
+
+
+
+--
+begin() : shared_ptr&lt;Node&gt;
+getNext( current : shared_ptr&lt;Node&gt; ) : shared_ptr&lt;Node&gt; static
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1288</x>
+      <y>212</y>
+      <w>152</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Node
+--
+mPosition : sf::Vector2f
+mRadius float
+mNext : shared_ptr&lt;Node&gt;
+
+
+
+
+--
+getCentre() : sf::Vector2f
+getPoint() : sf::Vector2f
+getNext() : shared_ptr&lt;Node&gt;
+append( newNode : shared_ptr&lt;Node&gt; ) : shared_ptr&lt;Node&gt;
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>592</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>tower::Tower
+--
+mSecondsPerAttack : float
+mSecondSinceLastAttack : float
+mCost : int
+
+
+
+--
+update( elapsedTime : sf::Time ) : void
+shoot( targetList : list&lt;shared_ptr&lt;Pawn&gt; &gt; ) = 0 : bool
+getCost() : int
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>704</y>
+      <w>160</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>tower::ProjectileTower
+--
+mRange : float
+mDamageType : Damage::Type
+mDamage : int
+mProjectileSpawnOffset : sf::Vector2f
+mProjectileManager : shared_ptr&lt;ProjectileManager&gt;
+--
+shoot( targetList ) : bool
+setProjectileManager( projectileMgr )
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1124</x>
+      <y>816</y>
+      <w>156</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>tower::MageTower
+--
+
+
+
+
+
+
+--
+shoot( targetList ) : bool
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>592</y>
+      <w>160</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>tower::UnitTower
+--
+mUnitDefPath : string
+mSpawnedUnits : vector&lt;shared_ptr&lt;Minion&gt; &gt;
+mSpawnCallback : function&lt;void(shared_ptr&lt;Minion&gt;)&gt;
+mNearestPathNode : weak_ptr&lt;Node&gt;
+
+
+--
+update( elapsedTime ) : void
+shoot( targetList ) : bool
+setPath( path : shared_ptr&lt;Path&gt; ) : void
+setSpawnCallback( callback ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>628</x>
+      <y>1144</y>
+      <w>104</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>gui::CostButton
+--
+M_COST : int
+mCostText : sf::Text
+mResource : shared_ptr&lt;const int&gt;
+
+--
+update( mousePos ) : void
+draw( target, states ) : void
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>1144</y>
+      <w>176</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>gui::AbilityButton
+--
+mCooldownVisual : sf::RectangleShape
+mCooldownAnimator : thor::animator&lt;sf::RectangleShape, string&gt;
+mAbility : weak_ptr&lt;const Ability&gt;
+mHotkeyText : sf::Text
+
+--
+updateCooldownVisuals( elapsedTime : sf::Time ) : void
+draw( target, states ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>1120</y>
+      <w>136</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>gui::DialogueBox
+--
+mResult : Result
+mTitle : sf::Text
+mMessage : sf::Text
+mButtonMap : map&lt;Result, gui::Button&gt;
+mIsOpen : bool
+mBoxGraphic : sf::RectangleShape
+mResultProcessed : bool
+
+--
+open() : void
+isOpen() : bool
+resultProcessed() : bool
+handleEvent( event : sf::Event ) : bool
+getResult() : Result
+bg=white
+group=8</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>1144</y>
+      <w>76</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>gui::TextButton
+--
+mText : sf::Text
+
+--
+setText( text : string ) : void
+getText() : string
+draw( target, states ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>1012</y>
+      <w>136</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>gui::Slider
+--
+M_MIN_VALUE : int
+M_MAC_VALUE : int
+mValue : float
+mBlip : gui::Button
+mBar : sf::RectangleShape
+
+--
+update( mouseX : int, mouseY : int ) : bool
+setValue( value : int ) : void
+getAbsoluteValue() : int
+getNormalisedValue() : float
+setPosition( position : sf::Vector2f ) : void
+getPosition() : sf::Vector2f
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>884</x>
+      <y>92</y>
+      <w>208</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Ability
+--
+mIsActive : bool
+M_DESCRIPTION : string
+M_NAME : string
+M_CAST_TIME : sf::Time
+M_COOLDOWN : float
+mSecondsSinceCast : float
+mExecutionSound : sf::Sound
+mHotkey : char
+mPawnList : shared_ptr&lt;list&lt;shared_ptr&lt;Pawn&gt; &gt; &gt;
+mProjectileManager : shared_ptr&lt;ProjectileManager&gt;
+mSpawnUnitCallback : function&lt;void(shared_ptr&lt;Minion&gt;)&gt;
+
+--
+execute( user : Pawn* ) : void
+update( elapsedTime : sf::Time ) : void
+getDescription() : string
+getName() : string
+canCast() : bool
+getRemainingCooldown() : float
+getTotalCooldown() : float
+getCastDuration() : sf::Time
+isActive() : bool
+
+setPawnList( list : shared_ptr&lt;list&lt;shared_ptr&lt;Pawn&gt; &gt; &gt; ) : void
+setProjectileManager( manager : shared_ptr&lt;ProjectileManager&gt; ) : void
+setSpawnCallback( function&lt;void(shared_ptr&lt;Minion&gt;)&gt; ) : void
+c
+heckHotkey( key : char ) : bool
+getHotkey() : char
+setHotkey( hotkey : char ) : void
+
+doExecuteLogic( user : Pawn* ) = 0 : void protected
+doUpdateLogic( deltaTime : sf::Time ) = 0 : void protected
+doDraw( target : sf::RenderTarget, states : sf::RenderStates ) = 0 : void protected
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1116</x>
+      <y>92</y>
+      <w>156</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>abilities::Heal
+--
+mCastGraphics : Actor
+M_HEAL_AMOUNT : int
+mParticleSystem : thor::ParticleSystem
+mEmitter : thor::UniversalEmitter
+
+--
+doExecuteLogic( user ) : void
+doUpdateLogic( deltaTime ) : void
+doDraw( target, states ) : void
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1116</x>
+      <y>236</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>abilities::MagicMissile
+--
+M_NUM_MISSILES : unsigned int
+M_MISSILE_DAMAGE : float
+mDamageType : Damage::Type
+mMissilesSpawned : unsigned int
+mMissileSpawnInterval : floa
+mTimeSinceMissileSpawn : float
+mCastGraphics : Actor
+mLaunchSound : sf::Sound
+
+--
+doExecuteLogic( user ) : void
+doUpdateLogic( deltaTime ) : void
+doDraw( target, states ) : void
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1116</x>
+      <y>164</y>
+      <w>156</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>abilities::RaiseDead
+--
+mUnitPrototype : Minion
+mSpawnPoints : vector&lt;sf::Vector2f&gt;
+mCastGraphics : Actor
+
+--
+doExecuteLogic( user ) : void
+doUpdateLogic( deltaTime ) : void
+doDraw( target, states ) : void
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>956</y>
+      <w>168</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>gui::HudItem
+--
+mRemovalFlag : bool
+
+--
+draw( target : sf::RenderTarget, states : sf::RenderStates ) : void
+update( deltaSeconds : float ) : void
+isFlaggedForRemoval() : bool
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>156</x>
+      <y>1124</y>
+      <w>116</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>gui::HealthBarStatic
+--
+mBar : sf::RectangleShape
+mTracked : weak_ptr&lt;Pawn&gt;
+M_MAX_HEALTH : float
+
+--
+draw( target, states ) : void
+update( deltaSeconds ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>156</x>
+      <y>952</y>
+      <w>116</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>gui::LifeTracker
+--
+mSprite : sf::Sprite
+M_SPACING : sf::Vector2f
+mLives : shared_ptr&lt;int&gt;
+
+--
+draw( target, states ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>156</x>
+      <y>1016</y>
+      <w>116</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>gui::Image
+--
+mSprite : sf::Sprite
+
+--
+draw( target, states ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>156</x>
+      <y>1064</y>
+      <w>116</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>gui::NumberTracker
+--
+mNumber : shared_ptr&lt;int&gt;
+mText : sf::Text
+
+--
+draw( target, states ) : void
+update( deltaSeconds ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>816</y>
+      <w>156</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Projectile
+--
+mActive : bool
+mVelocity : sf::Vector2f
+mTimeToLive : float
+mImpactOccurred : bool
+mDamageType : Damage::Type
+mDamage : int
+--
+fire( from : sf::Vector2f, to : sf::Vector2f, ttl : float ) = 0 : void
+update( elapsedTime : sf::Time ) : void
+isActive() : bool
+impactOccurred() : bool
+getDamage() : int
+getDamageType() : Damage::Type
+onCollide( other, mtv ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>704</y>
+      <w>156</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>ArcProjectile
+--
+mGravity : static sf::Vector2f
+
+
+
+
+--
+fire( from, to, flightTimeSeconds ) : void
+update( elapsedTime ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>952</x>
+      <y>816</y>
+      <w>156</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>FancyProjectile
+--
+mConnection : thor::ScopedConnection
+mEmitter : thor::UniversalEmitter
+mSpeed : float
+mTurnSpeed : float
+mTarget : weak_ptr&lt;Pawn&gt;
+
+--
+fire( from, to, ttl ) : void
+update( elapsedTime ) : void
+setTarget( newTarget : shared_ptr&lt;Pawn&gt; ) : void
+attachToParticleSystem( system : thor::ParticleSystem ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1052</x>
+      <y>480</y>
+      <w>168</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>BloodSystem
+--
+mSpurtSystem : thor::ParticleSystem
+mPersistDraw : function&lt;void(sf::Drawable)&gt;
+sf::Sprite mPersistantParticle
+M_RANDOM_DIRECTION : thor::Distribution&lt;sf::Vector2f&gt; static
+
+--
+addSpurt( position : sf::Vector2f, color : sf::Color ) : void
+update( elapsedTime : sf::Time ) : void
+draw( target, states )
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>884</x>
+      <y>340</y>
+      <w>156</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Camera
+--
+mTarget : weak_ptr&lt;Actor&gt;
+mBoundingArea : sf::Vector2f
+mLocked : bool
+M_EDGE_MOVE_THRESHOLD : float
+M_MOVE_SPEED : float
+mMoveDirection : sf::Vector2f
+
+--
+getDefaultCamera() : Camera static
+setTarget( target : shared_ptr&lt;Actor&gt; ) : void
+clearTarget() : void
+getDisplacement() : sf::Vector2f
+update( deltaSEconds : float ) : void
+toggleLock() : void
+doMouseMove( mousePos : sf::Vector2f ) : void
+setBoundingArea( bounds : sf::Vector2f ) : void
+screenPositionToGamePosition( x : int, y : int ) : sf::Vector2f
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>104</y>
+      <w>144</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Cursor
+--
+mSpite : sf::Sprite static
+
+
+
+--
+setTexture( texturePath : string ) : void static
+setPosition( x : int, y : int ) : void static
+draw( window : sf::RenderWindow : void statc
+
+bg=white
+group=7</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1044</x>
+      <y>340</y>
+      <w>176</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>ProjectileManager
+--
+mProjectiles : list&lt;shared_ptr&lt;Projectile&gt; &gt;
+mCollisionGroup : shared_ptr&lt;CollisionGroup&gt;
+mParticleSystem : thor::ParticleSystem
+mUnfiredProjectileHandler : function&lt;void(shared_ptr&lt;Projectile&gt;)&gt;
+
+
+
+--
+give( projectilePtr : shared_ptr&lt;Projectile&gt; ) : void
+update( elapsedTime : sf::Time ) : void
+draw( window : sf::RenderWindow ) : void
+setUnfiredProjectileHandler( handler )
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>296</y>
+      <w>144</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+Settings
+--
+mMap : map&lt;string, boost::variant&lt;string, bool, int,
+    unsigned, float, sf::Vector2i&gt;
+
+
+
+
+
+
+
+--
+get&lt;T&gt;( name : string ) : T
+set&lt;T&gt;( name : string, value : T ) : void
+
+save() : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1228</x>
+      <y>480</y>
+      <w>156</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>WaveController
+--
+mTimeSinceWave : float
+mWaveQueue : queue&lt;detail::Wave&gt;
+mFactory : UnitFactory
+mSpawnUnitCallback : function&lt;void(shared_ptr&lt;Minion&gt;)&gt;
+
+--
+update( elapsedTime : sf::Time ) : void
+isEmpty() : bool
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>772</x>
+      <y>576</y>
+      <w>516</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>Towers
+--
+bg=gray
+fg=blue
+
+layer=-2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>932</x>
+      <y>616</y>
+      <w>28</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>880</x>
+      <y>80</y>
+      <w>400</w>
+      <h>256</h>
+    </coordinates>
+    <panel_attributes>Abilities
+--
+bg=gray
+fg=blue
+
+layer=-2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1088</x>
+      <y>204</y>
+      <w>36</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1104</x>
+      <y>124</y>
+      <w>20</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30.0;370.0;10.0;370.0;10.0;10.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>148</x>
+      <y>936</y>
+      <w>680</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>Gui
+--
+bg=gray
+fg=blue
+
+layer=-2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>668</x>
+      <y>948</y>
+      <w>156</w>
+      <h>148</h>
+    </coordinates>
+    <panel_attributes>gui::Button
+--
+mGraphic : sf::RectangleShape
+mOnHoverSound : sf::Sound
+mNormalSrcRect : sf::IntRect
+mHoverSrcRect : sf::IntRect
+mDisabledSrcRect : sf::IntRect
+mName : string
+mMouseOver : bool
+mState : State
+
+--
+update( mousePos : sf::Vector2i ) : void
+checkClick() : bool
+enable() : void
+disable() : void
+containsMouse() : bool
+getName() : string
+setPosition( position : sf::Vector2f ) : void
+getPosition() : sf::Vector2f
+getSize() : sf::Vector2f
+getScale() : sf::Vector2f
+draw( target, states ) : void
+bg=white
+group=9</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>1092</y>
+      <w>80</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180.0;10.0;180.0;90.0;10.0;90.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>516</x>
+      <y>1116</y>
+      <w>272</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;30.0;300.0;30.0;300.0;10.0;320.0;10.0;320.0;30.0;660.0;30.0;660.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>972</y>
+      <w>28</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>136</x>
+      <y>784</y>
+      <w>252</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>610.0;30.0;430.0;30.0;430.0;10.0;410.0;10.0;410.0;30.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1304</x>
+      <y>312</y>
+      <w>12</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>176</y>
+      <w>12</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-
+group=7</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>568</x>
+      <y>440</y>
+      <w>744</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;260.0;470.0;260.0;470.0;250.0;490.0;250.0;490.0;260.0;750.0;260.0;750.0;240.0;770.0;240.0;770.0;260.0;1100.0;260.0;1100.0;60.0;1840.0;60.0;1840.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>460</y>
+      <w>12</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1124</x>
+      <y>452</y>
+      <w>12</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1124</x>
+      <y>460</y>
+      <w>12</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1004</x>
+      <y>456</y>
+      <w>12</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>308</x>
+      <y>456</y>
+      <w>696</w>
+      <h>124</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;290.0;10.0;180.0;590.0;180.0;590.0;160.0;680.0;160.0;680.0;180.0;1400.0;180.0;1400.0;160.0;1420.0;160.0;1420.0;180.0;1720.0;180.0;1720.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>416</x>
+      <y>212</y>
+      <w>492</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>1210.0;620.0;1210.0;720.0;410.0;720.0;410.0;700.0;350.0;700.0;350.0;720.0;10.0;720.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>244</x>
+      <y>212</y>
+      <w>12</w>
+      <h>172</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;410.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>328</x>
+      <y>388</y>
+      <w>880</w>
+      <h>212</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>2180.0;510.0;2180.0;430.0;1360.0;430.0;1360.0;310.0;630.0;310.0;630.0;290.0;570.0;290.0;570.0;310.0;210.0;310.0;210.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1124</x>
+      <y>592</y>
+      <w>156</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>TowerPlacer
+--
+mArrowTowerDefPath : string
+mMagicTowerDefPath : string
+mUnitTowerDefPath : string
+mTowerCollisionGroup : collision::CollisionGroup
+mProjectileManager : shared_ptr&lt;ProjectileManager&gt;
+mPath : shared_ptr&lt;Path&gt;
+mUnitSpawnCallback : function&lt;void(shared_ptr&lt;Minion&gt;)&gt;
+mValidColor : sf::Color
+mInvalidColor : sf::Color
+mTowerType : TowerType
+mIsActive : bool
+mIsValid : bool
+mTerrainTree : shared_ptr&lt;Quadtree&lt;unsigned char&gt; &gt;
+mOverlay : sf::Sprite
+mMask : sf::Shape
+mIsSticky : bool
+--
+place() : shared_ptr&lt;tower::Tower&gt;
+update( mousePosition : sf::Vector2f ) : void
+activate( type : TowerType ) : void
+setSticky( sticky : bool ) : void
+draw( target : sf::RenderTarget ) : void
+isActive() : bool
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1312</x>
+      <y>568</y>
+      <w>60</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>detail::Wave
+--
+unitDefinition : string
+spawnDelay : float
+numberUnits : int
+
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>508</y>
+      <w>12</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>796</y>
+      <w>88</w>
+      <h>356</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;330.0;200.0;330.0;200.0;870.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>452</x>
+      <y>56</y>
+      <w>1032</w>
+      <h>884</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0;2560.0;10.0;2560.0;2190.0;1020.0;2190.0;1020.0;2150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1236</x>
+      <y>652</y>
+      <w>40</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>TowerType
+--
+ARROW
+MAGIC
+UNIT
+bg=orange
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>556</x>
+      <y>964</y>
+      <w>40</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>sf::Drawable
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>452</x>
+      <y>960</y>
+      <w>112</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>260.0;30.0;50.0;30.0;50.0;10.0;20.0;10.0;20.0;30.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>392</x>
+      <y>1152</y>
+      <w>28</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Result
+--
+YES
+NO
+CANCEL
+bg=orange
+layer=1
+group=8</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>784</x>
+      <y>984</y>
+      <w>36</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>State
+--
+NORMAL
+HOVER
+DISABLED
+bg=orange
+layer=1
+group=9</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>592</x>
+      <y>968</y>
+      <w>84</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>972</y>
+      <w>20</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30.0;10.0;30.0;440.0;10.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>1080</y>
+      <w>20</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>268</x>
+      <y>1032</y>
+      <w>20</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>1108</y>
+      <w>188</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;450.0;10.0;450.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>1196</y>
+      <w>416</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;130.0;820.0;130.0;820.0;110.0;840.0;110.0;840.0;130.0;1020.0;130.0;1020.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>484</x>
+      <y>980</y>
+      <w>180</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>Hud
+--
+mItems : list&lt;unique_ptr&lt;gui::HudItem&gt; &gt;
+
+--
+draw( target : sf::RenderTarget, states : sf::RenderStates ) : void
+update( deltaSeconds : float ) : void
+
+addHealthBar( pawnToTrack : shared_ptr&lt;Pawn&gt;, position :
+    sf::Vector2f, size : sf::Vector2f, texture : sf::Texture* ) : void
+
+addLifeTracker( livesToTrack : shared_ptr&lt;int&gt;, texture : sf::Texture,
+    position : sf::Vector2f, scale : sf::Vector2f, spacing : sf::Vector2f )
+    : void
+    
+addImage( texture : sf::Texture, position : sf::Vector2f, scale :
+    sf::Vector2f ) : void
+    
+addNumberTracker( number : shared_ptr&lt;int&gt;, position: sf::Vector2f,
+    font : sf::Font, charSize : unsigned int, scale : sf::Vector2f ) : void
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>452</x>
+      <y>976</y>
+      <w>40</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;30.0;50.0;30.0;50.0;10.0;20.0;10.0;20.0;30.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>388</x>
+      <y>796</y>
+      <w>104</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;</panel_attributes>
+    <additional_attributes>240.0;550.0;200.0;550.0;200.0;320.0;10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>548</x>
+      <y>224</y>
+      <w>344</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;890.0;60.0;890.0;60.0;660.0;800.0;660.0;800.0;10.0;840.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>592</y>
+      <w>24</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0;40.0;890.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>564</x>
+      <y>848</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>564</x>
+      <y>684</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>684</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>788</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>724</x>
+      <y>912</y>
+      <w>12</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>932</y>
+      <w>508</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;720.0;10.0;840.0;850.0;840.0;850.0;820.0;870.0;820.0;870.0;840.0;1250.0;840.0;1250.0;10.0;1030.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1016</x>
+      <y>480</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>sf::Drawable</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1028</x>
+      <y>488</y>
+      <w>32</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;60.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1336</x>
+      <y>544</y>
+      <w>12</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>448</y>
+      <w>140</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>ResourceManager is used for ALL non-streamed
+SFML resources and thor::FrameAnimations.
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>676</x>
+      <y>108</y>
+      <w>152</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>UnitFactory
+--
+mDefinitionMap : map&lt;string, tinyXml2::XmlDocument&gt;
+mDefinitionFolderPath : string
+mFileExt : string
+
+
+
+
+--
+produce( name : string ) : shared_ptr&lt;Pawn&gt;
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>748</x>
+      <y>60</y>
+      <w>732</w>
+      <h>464</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>1590.0;1140.0;1810.0;1140.0;1810.0;10.0;10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>352</y>
+      <w>40</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;50.0;10.0;50.0;30.0;80.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>548</x>
+      <y>184</y>
+      <w>140</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;980.0;50.0;980.0;50.0;690.0;330.0;690.0;330.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>540</y>
+      <w>12</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>684</y>
+      <w>48</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;100.0;30.0;100.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1100</x>
+      <y>796</y>
+      <w>48</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;100.0;30.0;100.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1108</x>
+      <y>724</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1108</x>
+      <y>664</y>
+      <w>24</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>796</y>
+      <w>12</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>932</x>
+      <y>732</y>
+      <w>28</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>932</x>
+      <y>832</y>
+      <w>28</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>852</x>
+      <y>796</y>
+      <w>12</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>136</x>
+      <y>768</y>
+      <w>252</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0;40.0;40.0;410.0;40.0;410.0;20.0;430.0;20.0;430.0;40.0;610.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>528</y>
+      <w>432</w>
+      <h>356</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;20.0;520.0;20.0;520.0;10.0;600.0;10.0;600.0;20.0;1060.0;20.0;1060.0;870.0;1040.0;870.0;1040.0;850.0;1020.0;850.0;1020.0;870.0;1000.0;870.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>800</y>
+      <w>36</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;50.0;10.0;50.0;30.0;70.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>704</y>
+      <w>36</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;30.0;30.0;10.0;50.0;10.0;50.0;30.0;70.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>732</x>
+      <y>576</y>
+      <w>36</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>624</y>
+      <w>20</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>132</x>
+      <y>920</y>
+      <w>556</w>
+      <h>368</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>640.0;10.0;10.0;10.0;10.0;900.0;1370.0;900.0;1370.0;700.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>612</x>
+      <y>1208</y>
+      <w>76</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>100</x>
+      <y>320</y>
+      <w>40</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>ValueTypes
+--
+STRING
+BOOL
+INTEGER
+UNSIGNED
+FLOAT
+VECTOR2
+bg=orange
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>52</x>
+      <y>128</y>
+      <w>88</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>Cursor cannot be instanciated
+bg=orange
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
