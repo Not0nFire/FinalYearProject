@@ -1,5 +1,5 @@
-#ifndef _QUADTREE_H
-#define _QUADTREE_H
+#ifndef QUADTREE_HPP
+#define QUADTREE_HPP
 
 #include <functional>
 #include <SFML/Graphics.hpp>
@@ -9,9 +9,8 @@ template<class T>
 class Quadtree {
 private:
 	sf::IntRect mBounds;
-	T mData;
-	unsigned int mLevel;
-	int aStarHeuristic;
+	T mData; //data at this node
+	unsigned int mLevel; //how far down the tree this node is
 
 	Quadtree<T> *mParent;
 	Quadtree<T> *NW, *NE, *SW, *SE;	//child nodes
@@ -29,8 +28,19 @@ public:
 
 	void setData(T newData);
 
+	/*!
+	* \brief Subdivides the quadtree on a given predicate.
+	* param predicate Function to decide if the passed ndoe should be subdivided
+	*/
 	void subdivide(std::function<bool(Quadtree<T>* node)> const &predicate);
 
+	/*!
+	* \brief Gets the data at the given position.
+	* \param x Location to query on the horizontal axis
+	* \param y Location to query on the vertical axis.
+	* \param dataOut[out] Data at the queried position.
+	* \returns True if the point(x,y) is inside the bound of this node.
+	*/
 	bool query(int x, int y, T& dataOut);
 };
 
@@ -38,8 +48,7 @@ template<class T>
 Quadtree<T>::Quadtree(int x, int y, unsigned int width, unsigned int height, Quadtree* parent) :
 mBounds(x, y, width, height),
 mData(),
-aStarHeuristic(sqrtf(width * height)),
-mParent( parent ),
+mParent(parent),
 mIsLeaf(true)
 {
 	NW = NE = SW = SE = nullptr;
@@ -94,9 +103,10 @@ template<class T>
 void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> const &predicate) {
 	_ASSERT(mIsLeaf);
 
+	//if this node should subdivide...
 	if (predicate(this)) {
-		float halfWidth = mBounds.width / 2.f;
-		float halfHeight = mBounds.height / 2.f;
+		const float halfWidth = mBounds.width / 2.f;
+		const float halfHeight = mBounds.height / 2.f;
 
 		mIsLeaf = false;
 
@@ -111,6 +121,7 @@ void Quadtree<T>::subdivide(std::function<bool(Quadtree* node)> const &predicate
 		SW->setData(mData);
 		SE->setData(mData);
 
+		//Subdivide child nodes
 		NW->subdivide(predicate);
 		NE->subdivide(predicate);
 		SW->subdivide(predicate);
